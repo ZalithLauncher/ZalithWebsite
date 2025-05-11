@@ -23,7 +23,7 @@
 
 .download-button {
   display: inline-block;
-  background-color: #4CAF50;
+  background-color:rgba(56, 190, 150, 0.38);
   color: white;
   padding: 12px 24px;
   text-align: center;
@@ -34,7 +34,7 @@
 }
 
 .download-button:hover {
-  background-color: #45a049;
+  background-color:rgba(46, 187, 206, 0.3);
 }
 
 .download-icon {
