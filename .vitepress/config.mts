@@ -11,9 +11,9 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '首页', link: '/' },
-      { text: '关于', link: '/about' },
+      { text: '关于', link: '/docs/about' },
       { text: '通知', link: '/notices' },
-      { text: '下载', link: 'https://github.com/ZalithLauncher/ZalithLauncher/releases' }
+      { text: '下载', link: '/download' }
     ],
 
     sidebar: [
