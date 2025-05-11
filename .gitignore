@@ -1,5 +1,6 @@
 # vitepress忽略文件
 /.vitepress/dist
+/.vitepress/cache
 # 其他文件
 .idea
 node_modules
