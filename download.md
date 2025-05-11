@@ -26,7 +26,7 @@
   color: white;
   padding: 12px 24px;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none !important;
   font-size: 18px;
   border-radius: 4px;
   transition: background-color 0.3s;
@@ -34,6 +34,7 @@
 
 .download-button:hover {
   background-color:rgba(46, 187, 206, 0.3);
+  text-decoration: none;
 }
 
 .download-icon {
@@ -43,6 +44,5 @@
 
 .download-text {
   vertical-align: middle;
-  text-decoration: none;
 }
 </style>
