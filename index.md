@@ -9,11 +9,10 @@ hero:
   actions:
     - theme: brand
       text: 了解更多
-      link: /about
+      link: /docs/about
     - theme: alt
       text: 立即下载
-      link: https://github.com/ZalithLauncher/ZalithLauncher/releases
-
+      link: /download
 features:
   - icon: 🎮
     title: 更好的用户体验
