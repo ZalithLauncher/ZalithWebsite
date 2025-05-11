@@ -3,7 +3,6 @@
 ## 官方下载渠道
 
 您可以从我们的 GitHub Releases 页面下载最新版本的 Zalith Launcher。
-
 <div class="download-container">
   <a href="https://github.com/ZalithLauncher/ZalithLauncher/releases" class="download-button">
     <span class="download-icon">⬇️</span>
@@ -44,5 +43,6 @@
 
 .download-text {
   vertical-align: middle;
+  text-decoration: none;
 }
 </style>
