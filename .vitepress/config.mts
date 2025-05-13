@@ -6,11 +6,15 @@ export default defineConfig({
   description: "Zalith Launcher是一款基于PojavLauncher开发的Minecraft启动器，可在Android设备上运行Minecraft: Java Edition",
   locales: {
     root: {
-      label: '简体中文',
-      lang: 'zh-CN',
+      label: '语言/language',
       link: '/'
     },
-    fr: {
+    'zh-CN': {
+      label: '简体中文',
+      lang: 'zh-CN', // 可选，将作为 `lang` 属性添加到 `html` 标签中
+      link: '/' 
+    },
+    'en-US': {
       label: 'English',
       lang: 'en', // 可选，将作为 `lang` 属性添加到 `html` 标签中
       link: '/en/' // 默认 /fr/ -- 显示在导航栏翻译菜单上，可以是外部的
