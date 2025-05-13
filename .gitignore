@@ -4,3 +4,8 @@
 # 其他文件
 .idea
 node_modules
+
+# lock文件
+package-lock.json
+yarn.lock
+pnpm-lock.json
