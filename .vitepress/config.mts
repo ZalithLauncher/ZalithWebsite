@@ -12,7 +12,7 @@ export default defineConfig({
     'zh-CN': {
       label: '简体中文',
       lang: 'zh-CN', // 可选，将作为 `lang` 属性添加到 `html` 标签中
-      link: '/' 
+      link: '../' 
     },
     'en-US': {
       label: 'English',
