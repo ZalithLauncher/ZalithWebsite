@@ -1,3 +1,6 @@
+---
+sidebar: false
+---
 # 下载 Zalith Launcher
 
 ## 官方下载渠道
