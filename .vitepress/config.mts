@@ -38,7 +38,6 @@ export default defineConfig({
     nav: [
       { text: '首页', link: '/' },
       { text: '关于', link: '/docs/about' },
-      { text: '通知', link: '/notices' },
       { text: '下载', link: '/download' }
     ],
 
@@ -46,14 +45,15 @@ export default defineConfig({
       {
         text: '关于Zalith Launcher',
         items: [
-          { text: '项目介绍', link: '/about' },
-          { text: '特性', link: '/features' }
+          { text: '项目介绍', link: '/docs/about' },
+          { text: '特性', link: '/docs/features' },
+          { text: '关于zalith launcher 2', link: '/docs/zl2' }
         ]
       },
       {
-        text: '通知',
+        text: '插件',
         items: [
-          { text: '渲染器插件', link: '/notices/renderer-plugin' }
+          { text: '关于插件', link: '/docs/plugins/index' }
         ]
       }
     ],
