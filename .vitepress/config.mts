@@ -73,6 +73,10 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/ZalithLauncher/ZalithLauncher' }
-    ]
+    ],
+    footer: {
+      message: '项目遵循GPL-3.0协议',
+      copyright: '版权所有 © 2025-zalith launcher'
+    }
   }
 })
