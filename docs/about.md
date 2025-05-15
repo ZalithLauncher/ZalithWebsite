@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # 关于 Zalith Launcher
 
 ## 什么是 Zalith Launcher？

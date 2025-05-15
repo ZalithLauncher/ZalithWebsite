@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # About Zalith Launcher
 
 ## What is Zalith Launcher?
