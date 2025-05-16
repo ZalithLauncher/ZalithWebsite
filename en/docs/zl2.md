@@ -3,8 +3,10 @@
 **Zalith Launcher 2** is a newly designed launcher for **Android devices** running [Minecraft: Java Edition](https://www.minecraft.net/).  
 The project is based on the native launch logic of [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher/tree/v3_openjdk/app_pojavlauncher/src/main/jni) and built with **Jetpack Compose** and **Material Design 3** to create a modern UI experience.
 
-> ⚠️ This project is completely separate from [ZalithLauncher](https://zalithlauncher.cn/docs/about).  
-> ⚠️ The project is currently in early development, with features continuously being added. Feel free to follow updates on [Github](https://github.com/ZalithLauncher/ZalithLauncher2)!
+::: warning
+This project is completely separate from [ZalithLauncher](https://zalithlauncher.cn/docs/about).  
+The project is currently in early development, with features continuously being added. Feel free to follow updates on [Github](https://github.com/ZalithLauncher/ZalithLauncher2)!  
+:::
 
 ## 📅 Development Progress
 
@@ -12,25 +14,25 @@ Below is the current plan and status of feature modules.
 
 ### ✅ Completed Features
 
-* [x] Launcher core framework (themes, animations, settings, etc.)  
-* [x] Launch and render Minecraft game  
-* [x] Control modes: virtual mouse pointer / physical mouse & keyboard / gesture control  
-* [x] Version management: version list, overview, configuration  
-* [x] Custom game installation directory  
-* [x] Account system: Microsoft OAuth login, offline accounts, authentication server support  
-* [x] Java environment management  
+* 🟢 Launcher core framework (themes, animations, settings, etc.)  
+* 🟢 Launch and render Minecraft game  
+* 🟢 Control modes: virtual mouse pointer / physical mouse & keyboard / gesture control  
+* 🟢 Version management: version list, overview, configuration  
+* 🟢 Custom game installation directory  
+* 🟢 Account system: Microsoft OAuth login, offline accounts, authentication server support  
+* 🟢 Java environment management  
 
 ### 🛠️ In Development / Planned Features
 
-* [ ] Full control system (custom control layouts, control layout management, etc.)  
-* [ ] Game version download and installation  
-* [ ] Modpack download and automatic installation  
-* [ ] Mod download and automatic installation  
-* [ ] Resource pack download and automatic installation  
-* [ ] Save file download and installation  
-* [ ] Shader pack download and automatic installation  
-* [ ] Content manager: mods / resource packs / saves / shaders management UI  
-* [ ] Gamepad support  
+* 🟡 Full control system (custom control layouts, control layout management, etc.)  
+* 🟡 Game version download and installation  
+* 🟡 Modpack download and automatic installation  
+* 🟡 Mod download and automatic installation  
+* 🟡 Resource pack download and automatic installation  
+* 🟡 Save file download and installation  
+* 🟡 Shader pack download and automatic installation  
+* 🟡 Content manager: mods / resource packs / saves / shaders management UI  
+* 🟡 Gamepad support  
 
 ## 🌐 Language and Translation Support
 
