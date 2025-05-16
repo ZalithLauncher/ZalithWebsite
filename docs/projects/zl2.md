@@ -29,9 +29,9 @@
 
 * 🟡 完整的控制系统（自定义控制布局，管理控制布局等）
 * 🟡 游戏版本下载扩展内容：
-    * 🟡 OptiFine 搭配 OptiFabric 与 Fabric 进行安装
-    * 🟡 Fabric 搭配 Fabric API 模组进行安装
-    * 🟡 Quilt 搭配 Quilted Fabric API 模组进行安装
+  - 🟡 OptiFine 搭配 OptiFabric 与 Fabric 进行安装
+  - 🟡 Fabric 搭配 Fabric API 模组进行安装
+  - 🟡 Quilt 搭配 Quilted Fabric API 模组进行安装
 * 🟡 整合包下载与自动安装
 * 🟡 模组下载与自动安装
 * 🟡 资源包下载与自动安装
