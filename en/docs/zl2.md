@@ -62,4 +62,4 @@ Suggestions and issue reports are welcome. Due to limited personal resources, so
 
 ## 📜 License
 
-Zalith Launcher 2 follows the **[GPL-3.0 license](LICENSE)** open source license.
+Zalith Launcher 2 follows the **[GPL-3.0 license](https://github.com/ZalithLauncher/ZalithLauncher2/blob/main/LICENSE)** open source license.

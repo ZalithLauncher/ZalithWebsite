@@ -71,4 +71,4 @@ Zalith Launcher 2 目前由 [@MovTery](https://github.com/MovTery) 独立开发�
 
 ## 📜 License
 
-Zalith Launcher 2 遵循 **[GPL-3.0 license](LICENSE)** 开源协议。
+Zalith Launcher 2 遵循 **[GPL-3.0 license](https://github.com/ZalithLauncher/ZalithLauncher2/blob/main/LICENSE)** 开源协议。
