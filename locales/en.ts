@@ -17,16 +17,15 @@ export default <DefaultTheme.Config> {
     },
     nav: [
         { text: 'Home', link: '/' },
-        { text: 'About', link: '/en/docs/about' },
+        { text: 'About', link: '/en/docs/projects/zl1' },
         { text: 'Download', link: '/en/download' }
     ],
     sidebar: [
         {
-            text: 'About Zalith Launcher',
+            text: 'Projects',
             items: [
-                { text: 'Introduction', link: '/en/docs/about' },
-                { text: 'Features', link: '/en/docs/features' },
-                { text: 'About Zalith Launcher 2', link: '/en/docs/zl2' }
+                { text: 'Zalith Launcher', link: '/en/docs/projects/zl1' },
+                { text: 'Zalith Launcher 2', link: '/en/docs/projects/zl2' }
             ]
         },
         {

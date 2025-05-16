@@ -25,17 +25,16 @@ export default <DefaultTheme.Config> {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
         { text: '首页', link: '/' },
-        { text: '关于', link: '/docs/about' },
+        { text: '关于', link: '/docs/projects/zl1' },
         { text: '下载', link: '/download' }
     ],
 
     sidebar: [
         {
-            text: '关于Zalith Launcher',
+            text: '项目',
             items: [
-                { text: '项目介绍', link: '/docs/about' },
-                { text: '特性', link: '/docs/features' },
-                { text: '关于zalith launcher 2', link: '/docs/zl2' }
+                { text: 'Zalith Launcher', link: '/docs/projects/zl1' },
+                { text: 'Zalith Launcher 2', link: '/docs/projects/zl2' }
             ]
         },
         {

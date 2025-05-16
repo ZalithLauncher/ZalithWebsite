@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: 了解更多
-      link: /docs/about
+      link: /docs/projects/zl1
     - theme: alt
       text: 立即下载
       link: /download
