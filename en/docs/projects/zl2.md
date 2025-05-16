@@ -25,6 +25,10 @@ Below is the current plan and status of feature modules.
 ### 🛠️ In Development / Planned Features
 
 * 🟡 Full control system (custom control layouts, control layout management, etc.)  
+* 🟡 Game version download extensions:
+    * 🟡 Install OptiFine with OptiFabric and Fabric
+    * 🟡 Install Fabric with the Fabric API mod
+    * 🟡 Install Quilt with the Quilted Fabric API mod
 * 🟡 Modpack download and automatic installation  
 * 🟡 Mod download and automatic installation  
 * 🟡 Resource pack download and automatic installation  
