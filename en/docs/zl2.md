@@ -1,9 +1,8 @@
 # Zalith Launcher 2
 
-**Zalith Launcher 2** is a newly designed launcher for **Android devices** running [Minecraft: Java Edition](https://www.minecraft.net/).  
-The project is based on the native launch logic of [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher/tree/v3_openjdk/app_pojavlauncher/src/main/jni) and built with **Jetpack Compose** and **Material Design 3** to create a modern UI experience.
+**Zalith Launcher 2** is a newly designed launcher for **Android devices** tailored for [Minecraft: Java Edition](https://www.minecraft.net/). The project uses [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher/tree/v3_openjdk/app_pojavlauncher/src/main/jni) as its core launching engine and features a modern UI built with **Jetpack Compose** and **Material Design 3**.
 
-::: warning
+::: warning Tip
 This project is completely separate from [ZalithLauncher](https://zalithlauncher.cn/docs/about).  
 The project is currently in early development, with features continuously being added. Feel free to follow updates on [Github](https://github.com/ZalithLauncher/ZalithLauncher2)!  
 :::
@@ -15,6 +14,7 @@ Below is the current plan and status of feature modules.
 ### ✅ Completed Features
 
 * 🟢 Launcher core framework (themes, animations, settings, etc.)  
+* 🟢 Game version download and installation  
 * 🟢 Launch and render Minecraft game  
 * 🟢 Control modes: virtual mouse pointer / physical mouse & keyboard / gesture control  
 * 🟢 Version management: version list, overview, configuration  
@@ -25,7 +25,6 @@ Below is the current plan and status of feature modules.
 ### 🛠️ In Development / Planned Features
 
 * 🟡 Full control system (custom control layouts, control layout management, etc.)  
-* 🟡 Game version download and installation  
 * 🟡 Modpack download and automatic installation  
 * 🟡 Mod download and automatic installation  
 * 🟡 Resource pack download and automatic installation  

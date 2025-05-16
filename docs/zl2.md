@@ -1,8 +1,8 @@
 # Zalith Launcher 2
 
-**Zalith Launcher 2** 是一个全新设计、面向 **Android 设备** 的 [Minecraft: Java Edition](https://www.minecraft.net/) 启动器。项目基于 [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher/tree/v3_openjdk/app_pojavlauncher/src/main/jni) 的原生启动逻辑，采用 **Jetpack Compose** 与 **Material Design 3** 构建现代化 UI 体验。  
+**Zalith Launcher 2** 是一个全新设计、面向 **Android 设备** 的 [Minecraft: Java Edition](https://www.minecraft.net/) 启动器。项目使用 [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher/tree/v3_openjdk/app_pojavlauncher/src/main/jni) 作为启动核心，采用 **Jetpack Compose** 与 **Material Design 3** 构建现代化 UI 体验。  
 
-::: warning
+::: warning 提醒
 该项目与 [ZalithLauncher](https://zalithlauncher.cn/docs/about) 属于两个完全不同的项目  
 项目目前仍处于早期开发阶段，功能持续添加中，欢迎前往 [Github](https://github.com/ZalithLauncher/ZalithLauncher2) 关注更新！  
 :::
@@ -17,6 +17,7 @@
 ### ✅ 已完成功能
 
 * 🟢 启动器基础框架（主题、动画、设置等）
+* 🟢 游戏版本下载与安装  
 * 🟢 启动并渲染 Minecraft 游戏
 * 🟢 控制方式：虚拟鼠标指针 / 实体鼠标 & 键盘控制 / 手势控制
 * 🟢 版本管理：版本列表、概览、配置功能
@@ -27,7 +28,6 @@
 ### 🛠️ 开发中 / 计划中功能
 
 * 🟡 完整的控制系统（自定义控制布局，管理控制布局等）
-* 🟡 游戏版本下载与安装
 * 🟡 整合包下载与自动安装
 * 🟡 模组下载与自动安装
 * 🟡 资源包下载与自动安装
