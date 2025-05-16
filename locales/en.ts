@@ -16,7 +16,7 @@ export default <DefaultTheme.Config> {
         text: 'Last Updated at: ',
     },
     nav: [
-        { text: 'Home', link: '/' },
+        { text: 'Home', link: '/en/' },
         { text: 'About', link: '/en/docs/projects/zl1' },
         { text: 'Download', link: '/en/download' }
     ],
