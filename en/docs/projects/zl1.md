@@ -1,5 +1,10 @@
 # About Zalith Launcher
 
+<div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 20px; margin-bottom: 20px;">
+  <img src="/zl_title.png" alt="Zalith Launcher Title" style="width: 300px;">
+</div>
+
+
 Zalith Launcher is a Minecraft Java Edition launcher designed specifically for Android devices. It is developed based on PojavLauncher and serves as a community-modified version of it. Zalith Launcher aims to provide a smooth and convenient Minecraft Java Edition experience for mobile users.
 
 ::: warning Reminder
