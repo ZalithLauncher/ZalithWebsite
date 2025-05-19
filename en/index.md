@@ -28,20 +28,6 @@ features:
     details: Better version management, allows customization of game directory location, and permits setting in external storage directories
 ---
 
-# Zalith Launcher
-
-Zalith Launcher is a Minecraft launcher based on PojavLauncher, which allows you to run Minecraft: Java Edition on Android devices.
-
-## Features
-
-- Redesigned application interface, adding more practical features, reducing the threshold for use
-- Built-in simple file manager, eliminating concerns about Android permission restrictions
-- Better version management, allows customization of game directory location, and permits setting in external storage directories
-- Add more renderers, supporting renderer plugins
-- Directly download Mods, ModPacks, resource packs, saves, and shader packs within the launcher
-- Customizable virtual mouse icon and launcher background image
-- Provides light and dark themes
-
 ## Open Source License
 
 Zalith Launcher is open source under the GPL v3 license.
