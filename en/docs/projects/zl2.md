@@ -21,7 +21,7 @@ Below is the current plan and status of feature modules.
 * 🟢 Custom game installation directory  
 * 🟢 Account system: Microsoft OAuth login, offline accounts, authentication server support  
 * 🟢 Java environment management  
-* 🟢 Content manager: saves management UI  
+* 🟢 Content manager: saves / resource packs management UI  
 
 ### 🛠️ In Development / Planned Features
 
@@ -35,7 +35,7 @@ Below is the current plan and status of feature modules.
 * 🟡 Resource pack download and automatic installation  
 * 🟡 Save file download and installation  
 * 🟡 Shader pack download and automatic installation  
-* 🟡 Content manager: mods / resource packs / shaders management UI  
+* 🟡 Content manager: mods / shaders management UI  
 * 🟡 Gamepad support  
 
 ## 🌐 Language and Translation Support
