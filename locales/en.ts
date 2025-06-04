@@ -28,6 +28,12 @@ export default <DefaultTheme.Config> {
                 { text: 'Zalith Launcher 2', link: '/en/docs/projects/zl2' }
             ]
         },
+                {
+            text: 'account',
+            items: [
+                { text: 'authentic', link: '/docs/account/authentic' }
+            ]
+        },
         {
             text: 'Plugins',
             items: [

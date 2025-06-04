@@ -38,6 +38,12 @@ export default <DefaultTheme.Config> {
             ]
         },
         {
+            text: '账号',
+            items: [
+                { text: '正版账号', link: '/docs/account/authentic' }
+            ]
+        },
+        {
             text: '插件',
             items: [
                 { text: '关于插件', link: '/docs/plugins/index' }
