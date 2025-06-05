@@ -9,7 +9,7 @@ export default <DefaultTheme.Config> {
     returnToTopLabel: 'Back to top',
     sidebarMenuLabel: 'Menu',
     editLink: {
-        pattern: 'https://github.com/zalithlauncher/zalithwebside/edit/main/docs/:path',
+        pattern: 'https://github.com/zalithlauncher/zalithwebside/edit/main/:path',
         text: 'Edit this page on GitHub'
     },
     lastUpdated: {
@@ -31,7 +31,8 @@ export default <DefaultTheme.Config> {
                 {
             text: 'account',
             items: [
-                { text: 'authentic', link: '/docs/account/authentic' }
+                { text: 'authentic', link: '/docs/account/authentic' },
+                { text: 'offline', link: '/docs/account/offline' }
             ]
         },
         {

@@ -12,7 +12,7 @@ export default <DefaultTheme.Config> {
     returnToTopLabel: '返回顶部',
     sidebarMenuLabel: '菜单',
     editLink: {
-        pattern: 'https://github.com/zalithlauncher/zalithwebside/edit/main/docs/:path',
+        pattern: 'https://github.com/zalithlauncher/zalithwebside/edit/main/:path',
         text: '在 GitHub 上编辑此页'
     },
     lastUpdated: {
@@ -40,7 +40,8 @@ export default <DefaultTheme.Config> {
         {
             text: '账号',
             items: [
-                { text: '正版账号', link: '/docs/account/authentic' }
+                { text: '正版账号', link: '/docs/account/authentic' },
+                { text: '离线账号', link: '/docs/account/offline' }
             ]
         },
         {
