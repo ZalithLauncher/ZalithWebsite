@@ -7,7 +7,7 @@ A Minecraft official account (also known as a Mojang or Microsoft account) refer
 The concept of "official" in Minecraft revolves around the "account" rather than the game itself. Players need to purchase the game (the Java & Bedrock bundle package costs 89 yuan) on the official website (minecraft.net) and activate it to obtain a uniquely bound official account. The game client can be downloaded for free, but without an official account, full functionality cannot be accessed.
 
 ::: warning Note
-Purchase must be done through the official website or authorized platforms (such as Xbox or Microsoft Store) to avoid the risk of "black card" accounts (illegally generated accounts using stolen credit cards).
+Purchase must be done through the official website or authorized platforms (such as Xbox or Microsoft Store) to avoid the risk of "black card" accounts.
 :::
 
 ### Uses
