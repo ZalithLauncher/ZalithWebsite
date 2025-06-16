@@ -41,7 +41,8 @@ export default <DefaultTheme.Config> {
             text: '账号',
             items: [
                 { text: '正版账号', link: '/docs/account/authentic' },
-                { text: '离线账号', link: '/docs/account/offline' }
+                { text: '离线账号', link: '/docs/account/offline' },
+                { text: '添加/登录账号', link: '/docs/account/add' }
             ]
         },
         {

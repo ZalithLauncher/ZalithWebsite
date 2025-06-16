@@ -32,7 +32,8 @@ export default <DefaultTheme.Config> {
             text: 'account',
             items: [
                 { text: 'authentic', link: '/docs/account/authentic' },
-                { text: 'offline', link: '/docs/account/offline' }
+                { text: 'offline', link: '/docs/account/offline' },
+                { text: 'add account', link: '/docs/account/add' }
             ]
         },
         {
