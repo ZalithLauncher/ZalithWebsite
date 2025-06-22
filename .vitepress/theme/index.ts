@@ -2,6 +2,7 @@
 import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+import Download from './components/Download.vue'
 import './style.css'
 import './style/blur.css'
 
@@ -13,6 +14,6 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
-    // ...
+    app.component('Download', Download)
   }
 } satisfies Theme

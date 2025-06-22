@@ -12,7 +12,7 @@ export default defineConfig({
   },
   head: [
     ['link', { rel: 'icon', href: '/zl_icon.png' }]
-  ], 
+  ],
   themeConfig: {
     socialLinks: [
         { icon: 'github', link: 'https://github.com/ZalithLauncher/ZalithLauncher' }
