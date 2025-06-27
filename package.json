@@ -13,9 +13,8 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/marked": "^5.0.2",
+    "marked": "^16.0.0",
     "vitepress": "^2.0.0-alpha.5"
-  },
-  "dependencies": {
-    "marked": "^15.0.12"
   }
 }

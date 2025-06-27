@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { marked } from 'marked'
+import { marked, type MarkedOptions } from 'marked' // 从marked v4+开始支持具名导出
+
 /*
   由于VitePress并不会解析该组件的latestRelease.body内容，故单独引入marked库解析为HTML后返回至页面
 */
@@ -19,7 +20,8 @@ async function fetchLatestRelease() {
     }
     const data = await response.json()
     latestRelease.value = data
-    parsedBody.value = data.body ? marked(data.body) : ''
+    // 显式等待marked解析完成
+    parsedBody.value = data.body ? await marked.parse(data.body) : ''
   } catch (error) {
     console.error('Error fetching latest release:', error)
   } finally {
