@@ -13,53 +13,31 @@ Below is the current plan and status of feature modules.
 
 ### ✅ Completed Features
 
-* 🟢 Launcher core framework (themes, animations, settings, etc.)  
-* 🟢 Game version download and installation  
-* 🟢 Launch and render Minecraft game  
-* 🟢 Control modes: virtual mouse pointer / physical mouse & keyboard / gesture control  
-* 🟢 Version management: version list, overview, configuration  
-* 🟢 Custom game installation directory  
-* 🟢 Account system: Microsoft OAuth login, offline accounts, authentication server support  
-* 🟢 Java environment management  
-* 🟢 Content manager: saves / resource packs management UI  
+* 🟢 Core launcher framework (themes, animations, settings, etc.)
+* 🟢 Game launching and rendering
+* 🟢 Game version download and installation
+* 🟢 Mod download and automatic installation
+* 🟢 Resource pack download and automatic installation
+* 🟢 World save download and installation
+* 🟢 Shader pack download and automatic installation
+* 🟢 Control support: virtual mouse pointer / physical mouse & keyboard / gesture control
+* 🟢 Version management: list, overview, and configuration
+* 🟢 Customizable game installation directory
+* 🟢 Account system: Microsoft OAuth login, offline accounts, and authentication server support
+* 🟢 Java runtime management
+* 🟢 Content managers: UI for managing saves / resource packs
 
 ### 🛠️ In Development / Planned Features
 
-* 🟡 Full control system (custom control layouts, control layout management, etc.)  
-* 🟡 Game version download extensions:
-  - 🟡 Install OptiFine with OptiFabric and Fabric
-  - 🟡 Install Fabric with the Fabric API mod
-  - 🟡 Install Quilt with the Quilted Fabric API mod
-* 🟡 Modpack download and automatic installation  
-* 🟡 Mod download and automatic installation  
-* 🟡 Resource pack download and automatic installation  
-* 🟡 Save file download and installation  
-* 🟡 Shader pack download and automatic installation  
-* 🟡 Content manager: mods / shaders management UI  
-* 🟡 Gamepad support  
+* 🟡 Full control system (custom layout editor, control profile manager, etc.)
+* 🟡 Modpack download and automatic installation
+* 🟡 Content managers: UI for managing mods / shaders
+* 🟡 Gamepad control support
 
 ## 🌐 Language and Translation Support
 
-Zalith Launcher 2 currently provides support for the following two languages:
-
-* **English** (default)  
-* **Simplified Chinese**  
-
-These two languages are **officially maintained and guaranteed complete** by Zalith Launcher 2.  
-Community contributions for other languages are welcome, but please note the following:
-
-### 📌 Why only English and Simplified Chinese?
-
-* Zalith Launcher 2 targets a **global user base**, so English is the default interface language. However, since the developer is not a native English speaker, English translations rely heavily on AI assistance and may contain minor inaccuracies.  
-* The developer [@MovTery](https://github.com/MovTery) is Chinese and ensures the quality and completeness of the **Simplified Chinese** translation.  
-* Due to limited manpower, the completeness of other language translations cannot be guaranteed and depends on community contributions.
-
-### ✍️ How to participate in translations?
-
-If you want to add support for your native language in Zalith Launcher 2, please submit translation files via Pull Requests. See details here:  
-[Github#Language and Translation Support](https://github.com/ZalithLauncher/ZalithLauncher2/blob/main/README_ZH_CN.md#-%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%BF%BB%E8%AF%91%E6%94%AF%E6%8C%81)
-
-We plan to open a Weblate project in the future to make it easier for translators to contribute!
+We are using the Weblate platform to translate Zalith Launcher 2. You're welcome to join our [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2) and contribute to the translations!  
+Thank you to every language contributor for helping make Zalith Launcher 2 more multilingual and global!
 
 ## 👨‍💻 Developer
 
