@@ -17,8 +17,14 @@ export default <DefaultTheme.Config> {
     },
     nav: [
         { text: 'Home', link: '/en/' },
-        { text: 'About', link: '/en/docs/projects/zl1' },
-        { text: 'Download', link: '/en/download' }
+        { text: 'Download', link: '/en/download' },
+        { 
+            text: 'More',
+            items: [
+                { text: 'About', link: '/en/docs/projects/zl1' },
+                { text: 'Install Game', link: '/en/docs/game/install'}
+            ]
+        }
     ],
     sidebar: [
         {
