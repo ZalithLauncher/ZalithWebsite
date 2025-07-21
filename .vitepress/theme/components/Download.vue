@@ -14,7 +14,7 @@ const parsedBody = ref('')
 async function fetchLatestRelease() {
   isLoading.value = true
   try {
-    const response = await fetch('https://api.github.com/repos/ZalithLauncher/ZalithLauncher/releases/latest')
+    const response = await fetch('https://gayhub.lemwood.cn/repos/ZalithLauncher/ZalithLauncher/releases/latest')
     if (!response.ok) {
       throw new Error('Network response was not ok')
     }
