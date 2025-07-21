@@ -28,8 +28,8 @@ export default <DefaultTheme.Config> {
         { text: '下载', link: '/download' },
         { text: '更多', 
             items: [
-                { text: '关于', link: '/docs/project/zl1' },
-                { text: '关于zl2', link: '/docs/project/zl2' },
+                { text: '关于', link: '/docs/projects/zl1' },
+                { text: '关于zl2', link: '/docs/projects/zl2' },
                 { text: '账号', link: '/docs/account/authentici'},
                 { text: '插件', link: '/docs/plugins/index'}
             ]
