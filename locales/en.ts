@@ -22,6 +22,9 @@ export default <DefaultTheme.Config> {
             text: 'More',
             items: [
                 { text: 'About', link: '/en/docs/projects/zl1' },
+                { text: 'About zl2', link: '/en/docs/projects/zl2' },
+                { text: 'Account', link: '/en/docs/account/authentic' },
+                { text: 'Plugins', link: '/en/docs/plugins/index' },
                 { text: 'Install Game', link: '/en/docs/game/install'}
             ]
         }
