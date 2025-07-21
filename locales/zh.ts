@@ -53,6 +53,12 @@ export default <DefaultTheme.Config> {
             ]
         },
         {
+            text: '游戏',
+            items: [
+                { text: '安装游戏', link: '/docs/game/install' }
+            ]
+        },
+        {
             text: '插件',
             items: [
                 { text: '关于插件', link: '/docs/plugins/index' }

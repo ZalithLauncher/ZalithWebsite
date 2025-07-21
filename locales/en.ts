@@ -37,6 +37,12 @@ export default <DefaultTheme.Config> {
             ]
         },
         {
+            text: 'Game',
+            items: [
+                { text: 'Install Game', link: '/en/docs/game/install' }
+            ]
+        },
+        {
             text: 'Plugins',
             items: [
                 { text: 'About Plugins', link: '/en/docs/plugins/index' }
