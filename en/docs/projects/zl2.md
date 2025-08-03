@@ -25,13 +25,13 @@ Below is the current plan and status of feature modules.
 * 🟢 Customizable game installation directory
 * 🟢 Account system: Microsoft OAuth login, offline accounts, and authentication server support
 * 🟢 Java runtime management
-* 🟢 Content managers: UI for managing saves / resource packs
+* 🟢 Content managers: UI for managing saves / resource packs / shaders
 
 ### 🛠️ In Development / Planned Features
 
 * 🟡 Full control system (custom layout editor, control profile manager, etc.)
 * 🟡 Modpack download and automatic installation
-* 🟡 Content managers: UI for managing mods / shaders
+* 🟡 Content managers: UI for managing mods
 * 🟡 Gamepad control support
 
 ## 🌐 Language and Translation Support
