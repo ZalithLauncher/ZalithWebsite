@@ -16,6 +16,7 @@ Below is the current plan and status of feature modules.
 * 🟢 Core launcher framework (themes, animations, settings, etc.)
 * 🟢 Game launching and rendering
 * 🟢 Game version download and installation
+* 🟢 Modpack download and automatic installation
 * 🟢 Mod download and automatic installation
 * 🟢 Resource pack download and automatic installation
 * 🟢 World save download and installation
@@ -25,13 +26,11 @@ Below is the current plan and status of feature modules.
 * 🟢 Customizable game installation directory
 * 🟢 Account system: Microsoft OAuth login, offline accounts, and authentication server support
 * 🟢 Java runtime management
-* 🟢 Content managers: UI for managing saves / resource packs / shaders
+* 🟢 Content managers: UI for managing saves / resource packs / shaders / mods
 
 ### 🛠️ In Development / Planned Features
 
 * 🟡 Full control system (custom layout editor, control profile manager, etc.)
-* 🟡 Modpack download and automatic installation
-* 🟡 Content managers: UI for managing mods
 * 🟡 Gamepad control support
 
 ## 🌐 Language and Translation Support
