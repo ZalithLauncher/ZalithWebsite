@@ -333,18 +333,7 @@ async function fetchLatestRelease() {
   }
 }
 
-onMounted(() => {
-  fetchLatestRelease()
-  
-  // 添加模拟数据监听器（用于测试）
-  window.addEventListener('setMockData', (event: any) => {
-    console.log('收到模拟数据:', event.detail)
-    latestRelease.value = event.detail
-    parsedBody.value = event.detail.body ? marked.parse(event.detail.body) : ''
-    isLoading.value = false
-    autoSelectDeviceType()
-  })
-})
+
 
 // 在数据加载完成后自动检测设备类型
 function autoSelectDeviceType() {
