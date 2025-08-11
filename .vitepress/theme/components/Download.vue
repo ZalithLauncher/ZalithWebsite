@@ -19,10 +19,16 @@ interface DownloadSource {
   name: string
   description: string
   speed: string
+  contributor?: {
+    name: string
+    url: string
+  }
 }
 
 const latestRelease = ref<any>(null)
 const isLoading = ref(false)
+const hasError = ref(false)
+const errorMessage = ref('')
 const parsedBody = ref('')
 const selectedDeviceType = ref('all')
 const selectedDownloadSource = ref('github')
@@ -71,7 +77,7 @@ const baseDeviceTypes: DeviceType[] = [
 // 下载源定义
 const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
-  { id: 'mirror', name: '国内镜像', description: '第三方加速', speed: '国内较快' }
+  { id: 'mirror', name: '国内镜像', description: '第三方加速', speed: '国内较快', contributor: { name: '咬一口的鱼py(fishcpy)', url: 'https://github.com/fishcpy' } }
 ]
 
 // 动态设备类型（基于API返回的文件）
@@ -216,23 +222,112 @@ function detectUserDeviceType(): string {
   return 'all' // 默认显示全部
 }
 
-// 获取最新版本
+// API配置
+const API_CONFIGS = [
+  {
+    name: '代理API',
+    url: 'https://gayhub.lemwood.cn/repos/ZalithLauncher/ZalithLauncher/releases/latest',
+    timeout: 5000 // 5秒超时
+  },
+  {
+    name: '官方API',
+    url: 'https://api.github.com/repos/ZalithLauncher/ZalithLauncher/releases/latest',
+    timeout: 10000 // 10秒超时
+  }
+]
+
+// 测试API可用性
+async function testApiAvailability(apiConfig: any): Promise<boolean> {
+  try {
+    const controller = new AbortController()
+    const timeoutId = window.setTimeout(() => controller.abort(), apiConfig.timeout)
+    
+    const response = await fetch(apiConfig.url, {
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'ZalithLauncher-Website/1.0'
+      },
+      signal: controller.signal
+    })
+    
+    window.clearTimeout(timeoutId)
+    return response.ok
+  } catch (error) {
+    console.warn(`${apiConfig.name} 不可用:`, error)
+    return false
+  }
+}
+
+// 从指定API获取数据
+async function fetchFromApi(apiConfig: any): Promise<any> {
+  const controller = new AbortController()
+  const timeoutId = window.setTimeout(() => controller.abort(), apiConfig.timeout)
+  
+  try {
+    const response = await fetch(apiConfig.url, {
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'ZalithLauncher-Website/1.0'
+      },
+      signal: controller.signal
+    })
+    
+    window.clearTimeout(timeoutId)
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+    }
+    
+    return await response.json()
+  } catch (error) {
+    window.clearTimeout(timeoutId)
+    throw error
+  }
+}
+
+// 获取最新版本（带API检测和自动切换）
 async function fetchLatestRelease() {
   isLoading.value = true
+  hasError.value = false
+  errorMessage.value = ''
+  
   try {
-    const response = await fetch('https://gayhub.lemwood.cn/repos/ZalithLauncher/ZalithLauncher/releases/latest')
-    if (!response.ok) {
-      throw new Error('Network response was not ok')
-    }
-    const data = await response.json()
-    latestRelease.value = data
-    // 显式等待marked解析完成
-    parsedBody.value = data.body ? await marked.parse(data.body) : ''
+    console.log('开始获取最新版本信息...')
     
-    // 数据加载完成后自动检测设备类型
-    autoSelectDeviceType()
+    // 依次尝试每个API
+    for (const apiConfig of API_CONFIGS) {
+      try {
+        console.log(`尝试使用 ${apiConfig.name}...`)
+        
+        const data = await fetchFromApi(apiConfig)
+        
+        console.log(`✅ ${apiConfig.name} 请求成功`)
+        latestRelease.value = data
+        // 显式等待marked解析完成
+        parsedBody.value = data.body ? await marked.parse(data.body) : ''
+        
+        // 数据加载完成后自动检测设备类型
+        autoSelectDeviceType()
+        return // 成功获取数据，退出函数
+        
+      } catch (error) {
+        console.warn(`❌ ${apiConfig.name} 请求失败:`, error)
+        
+        // 如果不是最后一个API，继续尝试下一个
+        if (apiConfig !== API_CONFIGS[API_CONFIGS.length - 1]) {
+          console.log('尝试下一个API...')
+          continue
+        }
+        
+        // 如果是最后一个API也失败了，抛出错误
+        throw new Error('所有API都无法访问')
+      }
+    }
+    
   } catch (error) {
-    console.error('Error fetching latest release:', error)
+    console.error('获取最新版本失败:', error)
+    hasError.value = true
+    errorMessage.value = '无法获取版本信息，请检查网络连接或稍后重试'
   } finally {
     isLoading.value = false
   }
@@ -240,6 +335,15 @@ async function fetchLatestRelease() {
 
 onMounted(() => {
   fetchLatestRelease()
+  
+  // 添加模拟数据监听器（用于测试）
+  window.addEventListener('setMockData', (event: any) => {
+    console.log('收到模拟数据:', event.detail)
+    latestRelease.value = event.detail
+    parsedBody.value = event.detail.body ? marked.parse(event.detail.body) : ''
+    isLoading.value = false
+    autoSelectDeviceType()
+  })
 })
 
 // 在数据加载完成后自动检测设备类型
@@ -316,6 +420,24 @@ function formatFileSize(bytes: number): string {
   const i = Math.floor(Math.log(bytes) / Math.log(k))
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
 }
+
+// 处理设备类型下拉菜单的blur事件
+function handleDeviceDropdownBlur() {
+  if (typeof window !== 'undefined' && window.setTimeout) {
+    window.setTimeout(() => {
+      isDeviceDropdownOpen.value = false
+    }, 200)
+  }
+}
+
+// 处理下载源下拉菜单的blur事件
+function handleSourceDropdownBlur() {
+  if (typeof window !== 'undefined' && window.setTimeout) {
+    window.setTimeout(() => {
+      isSourceDropdownOpen.value = false
+    }, 200)
+  }
+}
 </script>
 
 <template>
@@ -323,6 +445,15 @@ function formatFileSize(bytes: number): string {
     <div v-if="isLoading" class="loading">
       <div class="loading-spinner"></div>
       <p>正在获取最新版本信息...</p>
+    </div>
+    
+    <div v-else-if="hasError" class="error">
+      <div class="error-content">
+        <span class="error-icon">⚠️</span>
+        <h3>无法获取版本信息</h3>
+        <p>{{ errorMessage }}</p>
+        <button class="retry-btn" @click="fetchLatestRelease()">重新加载</button>
+      </div>
     </div>
     
     <div v-else-if="latestRelease" class="release-info">
@@ -350,7 +481,7 @@ function formatFileSize(bytes: number): string {
               <button 
                 class="dropdown-trigger" 
                 @click="isDeviceDropdownOpen = !isDeviceDropdownOpen"
-                @blur="() => setTimeout(() => isDeviceDropdownOpen = false, 200)"
+                @blur="handleDeviceDropdownBlur"
               >
                 <span class="dropdown-content">
                   <span class="device-icon">{{ currentDeviceType.icon }}</span>
@@ -388,7 +519,7 @@ function formatFileSize(bytes: number): string {
               <button 
                 class="dropdown-trigger" 
                 @click="isSourceDropdownOpen = !isSourceDropdownOpen"
-                @blur="() => setTimeout(() => isSourceDropdownOpen = false, 200)"
+                @blur="handleSourceDropdownBlur"
               >
                 <span class="dropdown-content">
                   <span class="source-info">
@@ -410,6 +541,9 @@ function formatFileSize(bytes: number): string {
                   <span class="source-info">
                     <span class="source-name">{{ source.name }}</span>
                     <span class="source-desc">{{ source.description }} · {{ source.speed }}</span>
+                    <span v-if="source.contributor" class="contributor-info">
+                      镜像加速由 <a :href="source.contributor.url" target="_blank" rel="noopener noreferrer" class="contributor-link">{{ source.contributor.name }}</a> 友情提供
+                    </span>
                   </span>
                   <span v-if="selectedDownloadSource === source.id" class="check-icon">✓</span>
                 </button>
@@ -462,15 +596,6 @@ function formatFileSize(bytes: number): string {
         <div class="release-notes" v-html="parsedBody"></div>
       </div>
     </div>
-    
-    <div v-else class="error">
-      <div class="error-content">
-        <span class="error-icon">⚠️</span>
-        <h3>无法获取版本信息</h3>
-        <p>请检查网络连接后重试</p>
-        <button class="retry-btn" @click="fetchLatestRelease()">重新加载</button>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -479,7 +604,8 @@ function formatFileSize(bytes: number): string {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--vp-font-family-base);
+  color: var(--vp-c-text-1);
 }
 
 /* 加载和错误状态 */
@@ -495,8 +621,8 @@ function formatFileSize(bytes: number): string {
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid #f3f4f6;
-  border-top: 3px solid #3b82f6;
+  border: 3px solid var(--vp-c-divider);
+  border-top: 3px solid var(--vp-c-brand-1);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 16px;
@@ -508,7 +634,7 @@ function formatFileSize(bytes: number): string {
 }
 
 .loading p, .error-content p {
-  color: #6b7280;
+  color: var(--vp-c-text-2);
   margin: 0;
 }
 
@@ -524,16 +650,17 @@ function formatFileSize(bytes: number): string {
 }
 
 .error-icon {
-  color: #ef4444;
+  color: var(--vp-c-danger-1);
 }
 
 .no-assets-icon {
   opacity: 0.5;
+  color: var(--vp-c-text-3);
 }
 
 .error-content h3, .no-assets-content h4 {
   margin: 0;
-  color: #374151;
+  color: var(--vp-c-text-1);
 }
 
 .error-content h3 {
@@ -545,8 +672,8 @@ function formatFileSize(bytes: number): string {
 }
 
 .retry-btn {
-  background: #3b82f6;
-  color: white;
+  background: var(--vp-c-brand-1);
+  color: var(--vp-c-white);
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
@@ -556,7 +683,7 @@ function formatFileSize(bytes: number): string {
 }
 
 .retry-btn:hover {
-  background: #1d4ed8;
+  background: var(--vp-c-brand-2);
 }
 
 /* 版本信息头部 */
@@ -564,15 +691,17 @@ function formatFileSize(bytes: number): string {
   text-align: center;
   margin-bottom: 32px;
   padding: 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--vp-c-brand-1) 0%, var(--vp-c-brand-2) 100%);
   border-radius: 16px;
-  color: white;
+  color: var(--vp-c-white);
+  border: 1px solid var(--vp-c-brand-soft);
 }
 
 .release-header h2 {
   margin: 0 0 12px 0;
   font-size: 2rem;
   font-weight: 700;
+  color: var(--vp-c-white);
 }
 
 .version-info {
@@ -591,19 +720,21 @@ function formatFileSize(bytes: number): string {
 .version-tag {
   background: rgba(255, 255, 255, 0.2);
   font-weight: 600;
+  color: var(--vp-c-white);
 }
 
 .release-date {
   background: rgba(255, 255, 255, 0.1);
+  color: var(--vp-c-white);
 }
 
 /* 智能下载选择器 */
 .download-selector {
-  background: #f8fafc;
+  background: var(--vp-c-bg-soft);
   border-radius: 16px;
   padding: 24px;
   margin-bottom: 32px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--vp-c-divider);
 }
 
 .selector-header {
@@ -614,7 +745,7 @@ function formatFileSize(bytes: number): string {
 .selector-header h3, .download-section h3, .release-notes-section h3 {
   margin: 0 0 20px 0;
   font-size: 1.5rem;
-  color: #1e293b;
+  color: var(--vp-c-text-1);
 }
 
 .selector-header h3 {
@@ -623,7 +754,7 @@ function formatFileSize(bytes: number): string {
 
 .selector-header p, .no-assets-content p {
   margin: 0;
-  color: #64748b;
+  color: var(--vp-c-text-2);
   font-size: 0.875rem;
 }
 
@@ -642,7 +773,7 @@ function formatFileSize(bytes: number): string {
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #374151;
+  color: var(--vp-c-text-1);
   font-size: 0.875rem;
 }
 
@@ -652,8 +783,8 @@ function formatFileSize(bytes: number): string {
 
 .dropdown-trigger {
   width: 100%;
-  background: white;
-  border: 2px solid #e5e7eb;
+  background: var(--vp-c-bg);
+  border: 2px solid var(--vp-c-border);
   border-radius: 12px;
   padding: 12px 16px;
   display: flex;
@@ -662,14 +793,15 @@ function formatFileSize(bytes: number): string {
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 0.875rem;
+  color: var(--vp-c-text-1);
 }
 
 .dropdown-trigger:hover, .dropdown.is-open .dropdown-trigger {
-  border-color: #3b82f6;
+  border-color: var(--vp-c-brand-1);
 }
 
 .dropdown.is-open .dropdown-trigger {
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px var(--vp-c-brand-soft);
 }
 
 .dropdown-content {
@@ -692,18 +824,37 @@ function formatFileSize(bytes: number): string {
 
 .device-name, .source-name {
   font-weight: 600;
-  color: #1f2937;
+  color: var(--vp-c-text-1);
   line-height: 1.2;
 }
 
 .device-desc, .source-desc {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--vp-c-text-2);
   line-height: 1.2;
 }
 
+.contributor-info {
+  font-size: 0.7rem;
+  color: var(--vp-c-text-3);
+  margin-top: 4px;
+  display: block;
+}
+
+.contributor-link {
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.contributor-link:hover {
+  color: var(--vp-c-brand-2);
+  text-decoration: underline;
+}
+
 .dropdown-arrow {
-  color: #9ca3af;
+  color: var(--vp-c-text-3);
   transition: transform 0.2s ease;
   font-size: 0.75rem;
 }
@@ -717,10 +868,10 @@ function formatFileSize(bytes: number): string {
   top: 100%;
   left: 0;
   right: 0;
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border);
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--vp-shadow-3);
   z-index: 50;
   max-height: 300px;
   overflow-y: auto;
@@ -747,20 +898,21 @@ function formatFileSize(bytes: number): string {
   cursor: pointer;
   transition: background-color 0.2s ease;
   font-size: 0.875rem;
+  color: var(--vp-c-text-1);
 }
 
 .dropdown-item:hover {
-  background-color: #f3f4f6;
+  background-color: var(--vp-c-default-soft);
 }
 
 .dropdown-item.is-selected {
-  background-color: #eff6ff;
-  color: #1d4ed8;
+  background-color: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
 }
 
 .check-icon {
   margin-left: auto;
-  color: #10b981;
+  color: var(--vp-c-brand-1);
   font-weight: bold;
 }
 
@@ -776,8 +928,8 @@ function formatFileSize(bytes: number): string {
 }
 
 .asset-item {
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border);
   border-radius: 12px;
   padding: 20px;
   display: flex;
@@ -787,8 +939,8 @@ function formatFileSize(bytes: number): string {
 }
 
 .asset-item:hover {
-  border-color: #3b82f6;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: var(--vp-c-brand-1);
+  box-shadow: var(--vp-shadow-2);
 }
 
 .asset-info {
@@ -806,21 +958,21 @@ function formatFileSize(bytes: number): string {
   margin: 0;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--vp-c-text-1);
 }
 
 .asset-size {
-  background: #f3f4f6;
+  background: var(--vp-c-default-soft);
   padding: 4px 8px;
   border-radius: 6px;
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--vp-c-text-2);
   font-weight: 500;
 }
 
 .download-count {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--vp-c-text-2);
 }
 
 .download-action {
@@ -832,18 +984,19 @@ function formatFileSize(bytes: number): string {
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  color: white;
+  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
+  color: var(--vp-c-white);
   text-decoration: none;
   border-radius: 10px;
   font-weight: 600;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  box-shadow: var(--vp-shadow-2);
 }
 
 .download-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  box-shadow: var(--vp-shadow-3);
+  background: linear-gradient(135deg, var(--vp-c-brand-2), var(--vp-c-brand-3));
 }
 
 .btn-icon {
@@ -854,9 +1007,9 @@ function formatFileSize(bytes: number): string {
 .no-assets {
   text-align: center;
   padding: 40px 20px;
-  background: #f8fafc;
+  background: var(--vp-c-bg-soft);
   border-radius: 12px;
-  border: 2px dashed #cbd5e1;
+  border: 2px dashed var(--vp-c-border);
 }
 
 .no-assets-content {
@@ -868,11 +1021,12 @@ function formatFileSize(bytes: number): string {
 
 /* 发布说明 */
 .release-notes {
-  background: #f8fafc;
+  background: var(--vp-c-bg-soft);
   border-radius: 12px;
   padding: 24px;
-  border-left: 4px solid #3b82f6;
+  border-left: 4px solid var(--vp-c-brand-1);
   line-height: 1.6;
+  color: var(--vp-c-text-1);
 }
 
 /* 响应式设计 */
