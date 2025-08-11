@@ -40,35 +40,35 @@ const baseDeviceTypes: DeviceType[] = [
   { 
     id: 'all', 
     name: '全部文件', 
-    icon: '📦', 
+    icon: '', 
     description: '显示所有下载文件',
     patterns: ['*']
   },
   { 
     id: 'windows', 
     name: 'Windows', 
-    icon: '🪟', 
+    icon: '', 
     description: 'Windows 电脑',
     patterns: ['windows', 'win', '.exe', '.msi']
   },
   { 
     id: 'macos', 
     name: 'macOS', 
-    icon: '🍎', 
+    icon: '', 
     description: 'Mac 电脑',
     patterns: ['macos', 'mac', 'darwin', '.dmg']
   },
   { 
     id: 'linux', 
     name: 'Linux', 
-    icon: '🐧', 
+    icon: '', 
     description: 'Linux 系统',
     patterns: ['linux', '.appimage', '.deb', '.rpm', '.tar.gz']
   },
   { 
     id: 'ios', 
     name: 'iOS', 
-    icon: '📱', 
+    icon: '', 
     description: 'iPhone/iPad',
     patterns: ['ios', '.ipa']
   }
@@ -170,12 +170,12 @@ function getArchDisplayName(arch: string): string {
 // 获取架构图标
 function getArchIcon(arch: string): string {
   switch (arch) {
-    case 'arm64': return '💪'
-    case 'armeabi': return '🔧'
-    case 'x86_64': return '⚡'
-    case 'x86': return '🔩'
-    case 'universal': return '🌐'
-    default: return '📱'
+    case 'arm64': return ''
+    case 'armeabi': return ''
+    case 'x86_64': return ''
+    case 'x86': return ''
+    case 'universal': return ''
+    default: return ''
   }
 }
 
@@ -469,7 +469,7 @@ function handleSourceDropdownBlur() {
       <!-- 智能下载选择器 -->
       <div class="download-selector">
         <div class="selector-header">
-          <h3>🎯 智能下载</h3>
+          <h3>智能下载</h3>
           <p>已自动检测您的设备类型，您也可以手动选择</p>
         </div>
         
@@ -484,7 +484,7 @@ function handleSourceDropdownBlur() {
                 @blur="handleDeviceDropdownBlur"
               >
                 <span class="dropdown-content">
-                  <span class="device-icon">{{ currentDeviceType.icon }}</span>
+                  <span v-if="currentDeviceType.icon" class="device-icon">{{ currentDeviceType.icon }}</span>
                   <span class="device-info">
                     <span class="device-name">{{ currentDeviceType.name }}</span>
                     <span class="device-desc">{{ currentDeviceType.description }}</span>
@@ -501,7 +501,7 @@ function handleSourceDropdownBlur() {
                   :class="{ 'is-selected': selectedDeviceType === device.id }"
                   @click="selectedDeviceType = device.id; isDeviceDropdownOpen = false"
                 >
-                  <span class="device-icon">{{ device.icon }}</span>
+                  <span v-if="device.icon" class="device-icon">{{ device.icon }}</span>
                   <span class="device-info">
                     <span class="device-name">{{ device.name }}</span>
                     <span class="device-desc">{{ device.description }}</span>
@@ -555,7 +555,7 @@ function handleSourceDropdownBlur() {
       
       <!-- 下载文件列表 -->
       <div class="download-section">
-        <h3>📦 下载文件</h3>
+        <h3>下载文件</h3>
         
         <div v-if="filteredAssets && filteredAssets.length > 0" class="assets-list">
           <div v-for="asset in filteredAssets" :key="asset.id" class="asset-item">
@@ -565,7 +565,7 @@ function handleSourceDropdownBlur() {
                 <span class="asset-size">{{ formatFileSize(asset.size) }}</span>
               </div>
               <div class="asset-meta">
-                <span class="download-count">📊 {{ asset.download_count.toLocaleString() }} 次下载</span>
+                <span class="download-count">{{ asset.download_count.toLocaleString() }} 次下载</span>
               </div>
             </div>
             
@@ -574,7 +574,6 @@ function handleSourceDropdownBlur() {
                  class="download-btn primary-btn" 
                  target="_blank" 
                  rel="noopener noreferrer">
-                <span class="btn-icon">⬇️</span>
                 <span class="btn-text">立即下载</span>
               </a>
             </div>
@@ -583,7 +582,6 @@ function handleSourceDropdownBlur() {
         
         <div v-else class="no-assets">
           <div class="no-assets-content">
-            <span class="no-assets-icon">📱</span>
             <h4>暂无适用于 {{ currentDeviceType.name }} 的下载文件</h4>
             <p>请尝试选择其他设备类型，或查看完整的发布说明</p>
           </div>
@@ -592,7 +590,7 @@ function handleSourceDropdownBlur() {
       
       <!-- 发布说明 -->
       <div class="release-notes-section">
-        <h3>📝 发布说明</h3>
+        <h3>发布说明</h3>
         <div class="release-notes" v-html="parsedBody"></div>
       </div>
     </div>
@@ -603,7 +601,7 @@ function handleSourceDropdownBlur() {
 .download-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 12px;
   font-family: var(--vp-font-family-base);
   color: var(--vp-c-text-1);
 }
@@ -689,8 +687,8 @@ function handleSourceDropdownBlur() {
 /* 版本信息头部 */
 .release-header {
   text-align: center;
-  margin-bottom: 32px;
-  padding: 24px;
+  margin-bottom: 24px;
+  padding: 16px;
   background: linear-gradient(135deg, var(--vp-c-brand-1) 0%, var(--vp-c-brand-2) 100%);
   border-radius: 16px;
   color: var(--vp-c-white);
@@ -732,14 +730,14 @@ function handleSourceDropdownBlur() {
 .download-selector {
   background: var(--vp-c-bg-soft);
   border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 32px;
+  padding: 16px;
+  margin-bottom: 24px;
   border: 1px solid var(--vp-c-divider);
 }
 
 .selector-header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .selector-header h3, .download-section h3, .release-notes-section h3 {
@@ -786,7 +784,7 @@ function handleSourceDropdownBlur() {
   background: var(--vp-c-bg);
   border: 2px solid var(--vp-c-border);
   border-radius: 12px;
-  padding: 12px 16px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -807,7 +805,7 @@ function handleSourceDropdownBlur() {
 .dropdown-content {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   flex: 1;
 }
 
@@ -889,10 +887,10 @@ function handleSourceDropdownBlur() {
 
 .dropdown-item {
   width: 100%;
-  padding: 12px 16px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   background: none;
   border: none;
   cursor: pointer;
@@ -918,7 +916,7 @@ function handleSourceDropdownBlur() {
 
 /* 下载文件列表 */
 .download-section, .release-notes-section {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .assets-list {
@@ -931,7 +929,7 @@ function handleSourceDropdownBlur() {
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-border);
   border-radius: 12px;
-  padding: 20px;
+  padding: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -983,7 +981,7 @@ function handleSourceDropdownBlur() {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 8px 16px;
   background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
   color: var(--vp-c-white);
   text-decoration: none;
