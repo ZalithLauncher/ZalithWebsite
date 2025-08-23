@@ -25,7 +25,12 @@ export default <DefaultTheme.Config> {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
         { text: '首页', link: '/' },
-        { text: '下载', link: '/download' },
+        { text: '下载',
+            items: [
+                { text: 'Zalith Launcher', link: '/download' },
+                { text: 'Zalith Launcher 2', link: '/zl2-download' }
+            ]
+         },
         { text: '更多', 
             items: [
                 { text: '关于', link: '/docs/projects/zl1' },

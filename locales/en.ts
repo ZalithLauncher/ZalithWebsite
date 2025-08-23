@@ -17,7 +17,12 @@ export default <DefaultTheme.Config> {
     },
     nav: [
         { text: 'Home', link: '/en/' },
-        { text: 'Download', link: '/en/download' },
+        { text: 'Download',
+            items: [
+                { text: 'Zalith Launcher', link: '/en/download' },
+                { text: 'Zalith Launcher 2', link: '/en/zl2-download' }
+            ]
+         },
         { 
             text: 'More',
             items: [
