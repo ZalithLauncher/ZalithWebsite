@@ -44,12 +44,27 @@ const downloadSources: DownloadSource[] = [
 
 // 动态设备类型（基于API返回的文件）
 const dynamicDeviceTypes = computed(() => {
-  // 如果没有资源数据,返回空数组
-  if (!latestRelease.value?.assets) return []
+  // 如果没有资源数据,返回基础类型
+  if (!latestRelease.value?.assets) return [{
+    id: 'all',
+    name: '全部文件',
+    icon: '',
+    description: '显示所有下载文件',
+    patterns: ['*']
+  }]
 
   const assets = latestRelease.value.assets
-  const detectedTypes = new Set<string>()
+  const detectedTypes = new Set<DeviceType>()
   const architectures = new Set<string>()
+  
+  // 添加基础的"全部文件"选项
+  detectedTypes.add({
+    id: 'all',
+    name: '全部文件',
+    icon: '',
+    description: '显示所有下载文件',
+    patterns: ['*']
+  })
   
   // 分析文件名，提取设备类型和架构信息
   assets.forEach((asset: any) => {
