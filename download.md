@@ -7,4 +7,4 @@ sidebar: false
 <Download />
 
 
-💡 **不妨试试新的ZalithLauncher2**
+💡 **不妨试试新的ZalithLauncher2**[跳转页面](./zl2-download)

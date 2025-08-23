@@ -8,12 +8,7 @@ sidebar: false
 
 您可以从我们的 GitHub Releases 页面下载最新版本的 ZalithLauncher2。
 
-<div class="download-container">
-  <a href="https://github.com/ZalithLauncher/ZalithLauncher2/releases" class="download-button">
-    <span class="download-icon">⬇️</span>
-    <span class="download-text">从 GitHub Releases 下载</span>
-  </a>
-</div>
+<DownloadZL2 />
 
 ## 关于 ZalithLauncher2
 
