@@ -13,6 +13,9 @@ hero:
     - theme: alt
       text: Download Now
       link: /download
+    - theme: alt
+      text: Download ZalithLauncher2
+      link: /zl2-download
 features:
   - icon: 🎮
     title: Better User Experience

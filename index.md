@@ -13,6 +13,9 @@ hero:
     - theme: alt
       text: 立即下载
       link: /download
+    - theme: alt
+      text: 下载ZalithLauncher2
+      link: /zl2-download
 features:
   - icon: 🎮
     title: 更好的用户体验
