@@ -45,3 +45,7 @@ You can download the latest version of Zalith Launcher from our GitHub Releases 
   vertical-align: middle;
 }
 </style>
+
+---
+
+💡 **Why not try the new ZalithLauncher2**
