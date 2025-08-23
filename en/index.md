@@ -9,13 +9,13 @@ hero:
   actions:
     - theme: brand
       text: Learn More
-      link: /docs/projects/zl1
+      link: /en/docs/projects/zl1
     - theme: alt
       text: Download Now
-      link: /download
+      link: /en/download
     - theme: alt
       text: Download ZalithLauncher2
-      link: /zl2-download
+      link: /en/zl2-download
 features:
   - icon: 🎮
     title: Better User Experience
