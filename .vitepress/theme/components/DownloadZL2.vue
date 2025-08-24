@@ -41,6 +41,7 @@ const isSourceDropdownOpen = ref(false)
 // 下载源定义
 const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
+  { id: 'foxington', name: 'github.com/XiaoluoFoxington源', description: '第三方镜像源', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
   { id: 'haha', name: '哈哈源', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://frostlynx.work' } },
 ]
 
@@ -248,7 +249,7 @@ async function fetchFromApi(apiConfig: any): Promise<any> {
 
 // 获取Foxington源数据
 async function fetchFoxingtonData() {
-  const foxingtonUrl = 'https://foldcraftlauncher.cn/file/data/zlDownWay1.json'
+  const foxingtonUrl = 'https://foldcraftlauncher.cn/file/data/zl2DownWay1.json'
   
   try {
     // 首先尝试直接请求
