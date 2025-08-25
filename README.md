@@ -1,6 +1,6 @@
-# Zalith Launcher 下载站源码
+# Zalith Launcher 官网源码
 
-这是 Zalith Launcher 下载站的源码仓库。
+这是 Zalith Launcher 官网的源码仓库。
 
 如果您有意愿参与开发，欢迎提出建议、反馈问题或贡献代码！
 
