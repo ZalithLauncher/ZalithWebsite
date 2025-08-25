@@ -15,7 +15,8 @@ export default defineConfig({
   ],
   themeConfig: {
     socialLinks: [
-        { icon: 'github', link: 'https://github.com/ZalithLauncher/ZalithLauncher' }
+        { icon: 'github', link: 'https://github.com/ZalithLauncher' },
+        { icon: 'discord', link: 'https://discord.gg/sm6jJ7dy' }
     ],
   }
 })
