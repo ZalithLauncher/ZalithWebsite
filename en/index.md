@@ -37,4 +37,4 @@ Zalith Launcher is open source under the GPL v3 license.
 
 ## Community
 
-Our official community is only on GitHub and QQ. Any other content is created by unofficial individuals, we do not participate, accept, or trust such content. Please verify carefully and protect your personal privacy!
+Our official community is only on GitHub and Discord. Any other content is created by unofficial individuals, we do not participate, accept, or trust such content. Please verify carefully and protect your personal privacy!
