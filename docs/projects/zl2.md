@@ -38,7 +38,7 @@
 * 🟡 完整的控制系统（自定义控制布局，管理控制布局等）
 * 🟡 手柄控制支持
 
-## 🌐语言与翻译支持
+## 🌐 语言与翻译支持
 
 我们正在使用 Weblate 平台翻译 Zalith Launcher 2，欢迎您前往我们的 [Weblate 项目](https://hosted.weblate.org/projects/zalithlauncher2) 参与翻译！  
 感谢每一位语言贡献者的支持，让 Zalith Launcher 2 更加多语、更加全球化！
