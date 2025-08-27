@@ -18,5 +18,6 @@ export default defineConfig({
         { icon: 'github', link: 'https://github.com/ZalithLauncher' },
         { icon: 'discord', link: 'https://discord.gg/sm6jJ7dy' }
     ],
+    logo: '/logo.png',
   }
 })
