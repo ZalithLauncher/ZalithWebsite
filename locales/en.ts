@@ -65,7 +65,8 @@ export default <DefaultTheme.Config> {
         {
             text: 'About this site',
             items: [
-                { text: 'apng animation', link: '/en/docs/about/apng'}
+                { text: 'apng animation', link: '/en/docs/about/apng'},
+                { text: 'about', link: '/docs/about/about' }
             ]
         }
     ],

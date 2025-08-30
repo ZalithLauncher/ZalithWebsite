@@ -73,7 +73,8 @@ export default <DefaultTheme.Config> {
         {
             text: '关于本站',
             items: [
-                { text: 'apng动画', link: '/docs/about/apng' }
+                { text: 'apng动画', link: '/docs/about/apng' },
+                { text: '关于本站', link: '/docs/about/about' }
             ]
         }
     ],
