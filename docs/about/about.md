@@ -5,7 +5,7 @@
 - [咬一口的鱼py(fishcpy)](https://github.com/fishcpy)
 - [XiaoluoFoxington](https://github.com/XiaoluoFoxington)
 
-## zalith launcher 2下载路线提供人员
+## zalith launcher 2 下载路线提供人员
 - [XiaoluoFoxington](https://github.com/XiaoluoFoxington)
 - [FrostLynx](https://frostlynx.work)
 - [梦泽](https://mengze.vip)
