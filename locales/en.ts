@@ -61,6 +61,12 @@ export default <DefaultTheme.Config> {
             items: [
                 { text: 'About Plugins', link: '/en/docs/plugins/index' }
             ]
+        },
+        {
+            text: 'About this site',
+            items: [
+                { text: 'apng animation', link: '/en/docs/about/apng'}
+            ]
         }
     ],
     footer: {
