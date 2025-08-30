@@ -22,12 +22,7 @@ export default defineConfig({
     ],
     logo: '/zl_icon.png',
      search: {
-      provider: 'algolia',
-      options: {
-        appId: 'JGWTS4CMEU',
-        apiKey: '8d5dcc6bb552c7d129702bf14ae406be',
-        indexName: 'zalithlauncher_cn_jgwts4cmeu_pages'
-      }
+      provider: 'local',
     }
   }
 })
