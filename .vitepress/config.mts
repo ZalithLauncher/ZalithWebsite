@@ -21,8 +21,13 @@ export default defineConfig({
         { icon: 'discord', link: 'https://discord.gg/sm6jJ7dy' }
     ],
     logo: '/zl_icon.png',
-    search: {
-      provider: 'local'
+     search: {
+      provider: 'algolia',
+      options: {
+        appId: 'JGWTS4CMEU',
+        apiKey: '8d5dcc6bb552c7d129702bf14ae406be',
+        indexName: 'zalithlauncher_cn_jgwts4cmeu_pages'
+      }
     }
   }
 })
