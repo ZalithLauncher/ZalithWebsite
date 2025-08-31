@@ -1,20 +1,22 @@
 # Official Account
 
 ### What is an Official Account?
-A Minecraft official account (also known as a Mojang or Microsoft account) refers to a game-authorized account that is purchased and activated through official channels.
+An **official Minecraft account** (also known as a Mojang or Microsoft account) is a fully authorized account purchased and activated through official channels.  
 
 ### Authorization Mechanism
-The concept of "official" in Minecraft revolves around the "account" rather than the game itself. Players need to purchase the game (the Java & Bedrock bundle package costs 89 yuan) on the official website (minecraft.net) and activate it to obtain a uniquely bound official account. The game client can be downloaded for free, but without an official account, full functionality cannot be accessed.
+The "official" status applies to the **account** rather than the game itself. Players must purchase Minecraft (Java & Bedrock bundle costs 89 yuan) on the **official website** ([minecraft.net](https://www.minecraft.net)) or through authorized platforms like **Xbox** or **Microsoft Store**. Once activated, the account is uniquely bound to the player.  
+
+While the game client can be downloaded for free, **full access to all game features requires an official account**.  
 
 ::: warning Note
-Purchase must be done through the official website or authorized platforms (such as Xbox or Microsoft Store) to avoid the risk of "black card" accounts.
+Purchases must be made through the official website or authorized platforms to avoid the risk of "black card" accounts.
 :::
 
 ### Uses
-- **Access to complete official services**: This includes features like customizing skins, wearing capes, and changing usernames, all supported by official servers.
-- **Cross-platform synchronization**: Official accounts can be used across PC (Java/Bedrock editions), consoles, mobile devices, etc., with data such as saves and skin information synchronized across devices.
-- **Online Servers (online-mode)**: Large international servers (e.g., Hypixel, 2b2t) enforce "official account verification", allowing only officially licensed accounts to enter. These servers typically offer rich gameplay experiences and timely updates.
+- **Full access to official features**: Customize skins, wear capes, and change usernames, all supported on official servers.  
+- **Cross-platform synchronization**: Use the same account across PC (Java/Bedrock), consoles, and mobile devices, with data such as saves and skins synced across devices.  
+- **Access to online servers (online-mode)**: Large international servers (e.g., Hypixel, 2b2t) enforce official account verification, allowing only licensed accounts to join. These servers offer rich gameplay and frequent updates.  
 
 ::: tip 💡 Tip
-Although the NetEase version is also considered official, due to its closed ecosystem, it significantly lags behind the international official version in terms of mod flexibility and international community connectivity.
+Although the **NetEase version** is also official, its closed ecosystem limits mod flexibility and connection to the international Minecraft community.
 :::
