@@ -27,6 +27,7 @@ interface DownloadSource {
 
 const latestRelease = ref<any>(null)
 const foxingtonData = ref<any>(null)
+const mengzeData = ref<any>(null)
 const isLoading = ref(false)
 const hasError = ref(false)
 const errorMessage = ref('')
@@ -79,7 +80,8 @@ const baseDeviceTypes: DeviceType[] = [
 const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: '国内镜像', description: '第三方加速', speed: '国内较快', contributor: { name: '咬一口的鱼py(fishcpy)', url: 'https://github.com/fishcpy' } },
-  { id: 'foxington', name: 'github.com/XiaoluoFoxington源', description: '第三方镜像源', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } }
+  { id: 'foxington', name: 'github.com/XiaoluoFoxington源', description: '第三方镜像源', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
+  { id: 'mengze', name: '梦泽源', description: '第三方镜像源', speed: '国内较快', contributor: { name: '梦泽', url: 'https://launcher-mirror.zeart.ink' } }
 ]
 
 // 动态设备类型（基于API返回的文件）
@@ -341,6 +343,64 @@ async function fetchFoxingtonData() {
   }
 }
 
+// 获取梦泽源数据
+async function fetchMengzeData() {
+  const mengzeUrl = 'https://launcher-mirror.zeart.ink/api/repos.json'
+  
+  try {
+    // 首先尝试直接请求
+    console.log('尝试直接获取梦泽源数据...')
+    const response = await fetch(mengzeUrl, {
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'ZalithLauncher-Website/1.0'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+    }
+    
+    const data = await response.json()
+    // 过滤出ZalithLauncher相关的数据
+    const zlData = data.filter((item: any) => item.name && item.name.includes('ZalithLauncher'))
+    mengzeData.value = zlData
+    console.log('✅ 梦泽源数据获取成功（直接请求）')
+    return
+  } catch (error) {
+    console.warn('❌ 直接请求梦泽源失败:', error)
+    
+    // 如果直接请求失败，尝试使用代理API
+    try {
+      console.log('尝试使用代理API获取梦泽源数据...')
+      const proxyResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(mengzeUrl)}`, {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      
+      if (!proxyResponse.ok) {
+        throw new Error(`代理API HTTP ${proxyResponse.status}: ${proxyResponse.statusText}`)
+      }
+      
+      const proxyData = await proxyResponse.json()
+      
+      if (!proxyData.contents) {
+        throw new Error('代理API返回数据格式错误')
+      }
+      
+      const data = JSON.parse(proxyData.contents)
+      // 过滤出ZalithLauncher相关的数据
+      const zlData = data.filter((item: any) => item.name && item.name.includes('ZalithLauncher'))
+      mengzeData.value = zlData
+      console.log('✅ 梦泽源数据获取成功（代理API）')
+    } catch (proxyError) {
+      console.warn('❌ 代理API也失败了:', proxyError)
+      mengzeData.value = null
+    }
+  }
+}
+
 // 获取最新版本（带API检测和自动切换）
 async function fetchLatestRelease() {
   isLoading.value = true
@@ -362,8 +422,9 @@ async function fetchLatestRelease() {
         // 显式等待marked解析完成
         parsedBody.value = data.body ? await marked.parse(data.body) : ''
         
-        // 同时获取Foxington源数据
+        // 同时获取Foxington源和梦泽源数据
         await fetchFoxingtonData()
+        await fetchMengzeData()
         
         // 数据加载完成后自动检测设备类型
         autoSelectDeviceType()
@@ -465,6 +526,52 @@ function getFoxingtonUrl(asset: any) {
   return asset.browser_download_url
 }
 
+// 从梦泽源数据中获取对应的下载链接
+function getMengzeUrl(asset: any) {
+
+  
+  if (!mengzeData.value || mengzeData.value.length === 0) {
+    console.warn('梦泽源数据未加载，使用GitHub链接')
+    return asset.browser_download_url // 降级到GitHub链接
+  }
+  
+  const fileName = asset.name.toLowerCase()
+  
+  // 只处理APK文件
+  if (!fileName.includes('.apk')) {
+    console.log('非APK文件，使用GitHub链接:', asset.name)
+    return asset.browser_download_url
+  }
+  
+
+  
+  // 查找与当前asset名称匹配的梦泽源数据
+  const matchingFile = mengzeData.value.find((item: any) => 
+    item.name && item.name.toLowerCase() === fileName
+  )
+  
+  if (matchingFile && matchingFile.url) {
+
+    return matchingFile.url
+  }
+  
+  // 如果找不到精确匹配，尝试查找通用APK文件
+  const universalFile = mengzeData.value.find((item: any) => 
+    item.name && item.name.toLowerCase().includes('zalithlauncher') && 
+    item.name.toLowerCase().endsWith('.apk') &&
+    !item.name.toLowerCase().includes('-arm') &&
+    !item.name.toLowerCase().includes('-x86')
+  )
+  
+  if (universalFile && universalFile.url) {
+
+    return universalFile.url
+  }
+  
+  console.warn(`梦泽源未找到匹配的文件: ${asset.name}，使用GitHub链接`)
+  return asset.browser_download_url
+}
+
 // 根据设备类型过滤资源
 const filteredAssets = computed(() => {
   if (!latestRelease.value?.assets) return []
@@ -502,10 +609,14 @@ const currentDownloadSource = computed(() => {
 
 // 获取下载链接
 function getDownloadUrl(asset: any) {
+
+  
   if (selectedDownloadSource.value === 'mirror') {
     return generateMirrorUrl(asset.name, latestRelease.value.tag_name)
   } else if (selectedDownloadSource.value === 'foxington') {
     return getFoxingtonUrl(asset)
+  } else if (selectedDownloadSource.value === 'mengze') {
+    return getMengzeUrl(asset)
   } else {
     return getOriginalGitHubUrl(asset)
   }
