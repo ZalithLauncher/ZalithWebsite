@@ -14,7 +14,7 @@ hero:
       text: Download Now
       link: /en/download
     - theme: alt
-      text: Download ZalithLauncher2
+      text: Download ZalithLauncher 2
       link: /en/zl2-download
 features:
   - icon: 🎮
