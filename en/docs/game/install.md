@@ -28,3 +28,7 @@ You might have to close the app and relaunch it for some specific versions.
 ::: tip 💡 Tip
 For better performance, use **low render distance** + **mods like Sodium**.
 :::
+
+::: danger Warning
+When the game crashes, don't engage in **low-level behaviors like taking screenshots or photos of the screen**! You should share the crash logs with your friends or community to seek help!
+:::
