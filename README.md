@@ -1,4 +1,4 @@
-简体中文|[English](README_EN.md)
+简体中文 | [English](README_EN.md)
 
 <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 20px; margin-bottom: 20px;">
   <img src="/public/zl_title.png" alt="Zalith Launcher Title" style="width: 300px;">

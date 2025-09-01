@@ -32,7 +32,7 @@ The following operations need to be performed in a browser.
 This method requires purchasing through the Microsoft Store on a Windows 10/11 system.
 :::
 1. Open the Microsoft Store, search for `Minecraft`, and select `Minecraft: Java & Bedrock Edition for PC`.
-2. Click `Buy`, link your Alipay, and complete the purchase.
+2. Click `Buy`, fill out your billing information, and complete the purchase.
 3. Log in to the [official website](https://www.minecraft.net) and create a profile.
 
 -------

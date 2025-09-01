@@ -48,4 +48,6 @@ You can download the latest version of Zalith Launcher from our GitHub Releases 
 
 ---
 
-💡 **Why not try the new ZalithLauncher2**
+💡 **Why not try the new ZalithLauncher2?**
+
+[ZalithLauncher 2](https://zalithlauncher.cn/en/zl2-download.html)
