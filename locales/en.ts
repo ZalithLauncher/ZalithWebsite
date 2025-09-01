@@ -13,7 +13,7 @@ export default <DefaultTheme.Config> {
         text: 'Edit this page on GitHub'
     },
     lastUpdated: {
-        text: 'Last Updated at: ',
+        text: 'Last Updated at: September 1st, 2025,
     },
     nav: [
         { text: 'Home', link: '/en/' },
@@ -28,9 +28,9 @@ export default <DefaultTheme.Config> {
             items: [
                 { text: 'About', link: '/en/docs/projects/zl1' },
                 { text: 'About ZL2', link: '/en/docs/projects/zl2' },
-                { text: 'Account', link: '/en/docs/account/authentic' },
-                { text: 'Plugins', link: '/en/docs/plugins/index' },
-                { text: 'Install Game', link: '/en/docs/game/install'}
+                { text: 'Online Account', link: '/en/docs/account/authentic' },
+                { text: 'Install Mods', link: '/en/docs/plugins/index' },
+                { text: 'Install Version', link: '/en/docs/game/install'}
             ]
         }
     ],
@@ -45,28 +45,28 @@ export default <DefaultTheme.Config> {
                 {
             text: 'Account',
             items: [
-                { text: 'Online', link: '/en/docs/account/authentic' },
-                { text: 'Offline', link: '/en/docs/account/offline' },
                 { text: 'Add Account', link: '/en/docs/account/add' }
+                { text: 'Online Account', link: '/en/docs/account/authentic' },
+                { text: 'Offline Account', link: '/en/docs/account/offline' },
             ]
         },
         {
-            text: 'Game',
+            text: 'Versions',
             items: [
-                { text: 'Install Game', link: '/en/docs/game/install' }
+                { text: 'Install Version', link: '/en/docs/game/install' }
             ]
         },
         {
-            text: 'Plugins',
+            text: 'Mods',
             items: [
-                { text: 'About Plugins', link: '/en/docs/plugins/index' }
+                { text: 'Install Mods', link: '/en/docs/plugins/index' }
             ]
         },
         {
             text: 'About this site',
             items: [
+                { text: 'Info', link: '/en/docs/about/about' }
                 { text: 'APNG Animation', link: '/en/docs/about/apng'},
-                { text: 'About', link: '/en/docs/about/about' }
             ]
         }
     ],
@@ -76,3 +76,4 @@ export default <DefaultTheme.Config> {
     }
 
 };
+
