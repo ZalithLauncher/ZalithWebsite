@@ -27,7 +27,7 @@ export default <DefaultTheme.Config> {
             text: 'More',
             items: [
                 { text: 'About', link: '/en/docs/projects/zl1' },
-                { text: 'About zl2', link: '/en/docs/projects/zl2' },
+                { text: 'About ZL2', link: '/en/docs/projects/zl2' },
                 { text: 'Account', link: '/en/docs/account/authentic' },
                 { text: 'Plugins', link: '/en/docs/plugins/index' },
                 { text: 'Install Game', link: '/en/docs/game/install'}
@@ -43,11 +43,11 @@ export default <DefaultTheme.Config> {
             ]
         },
                 {
-            text: 'account',
+            text: 'Account',
             items: [
-                { text: 'authentic', link: '/en/docs/account/authentic' },
-                { text: 'offline', link: '/en/docs/account/offline' },
-                { text: 'add account', link: '/en/docs/account/add' }
+                { text: 'Online', link: '/en/docs/account/authentic' },
+                { text: 'Offline', link: '/en/docs/account/offline' },
+                { text: 'Add Account', link: '/en/docs/account/add' }
             ]
         },
         {
@@ -65,8 +65,8 @@ export default <DefaultTheme.Config> {
         {
             text: 'About this site',
             items: [
-                { text: 'apng animation', link: '/en/docs/about/apng'},
-                { text: 'about', link: '/docs/about/about' }
+                { text: 'APNG Animation', link: '/en/docs/about/apng'},
+                { text: 'About', link: '/en/docs/about/about' }
             ]
         }
     ],
@@ -74,4 +74,5 @@ export default <DefaultTheme.Config> {
         message: 'Licensed under GPL-3.0',
         copyright: 'Copyright © 2025 Zalith Launcher, All rights reserved.'
     }
+
 };
