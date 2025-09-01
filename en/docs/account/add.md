@@ -1,11 +1,9 @@
-# Add/Login Account
-## Microsoft Account
-------
+# Add an Account
+
 ### **Purchase a Microsoft Account**
 **Prerequisites:**
-- A web browser that can access websites normally
-- Alipay
-- A brain
+- A web browser that can access websites normally.
+- A credit card, Alipay, PayPal, etc.
 ::: warning WARNING
 The following operations need to be performed in a browser.
 :::
@@ -42,7 +40,7 @@ This method requires purchasing through the Microsoft Store on a Windows 10/11 s
 
 -------
 
-### Login in the Launcher
+### Login into the Launcher
 On the launcher's main page, click the `Add Account` button on the right:
 ![](/docs/account/add/account_add_1.jpeg)
 Select `Microsoft Account`:
