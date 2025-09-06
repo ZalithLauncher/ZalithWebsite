@@ -37,7 +37,9 @@ export default <DefaultTheme.Config> {
                 { text: '关于zl2', link: '/docs/projects/zl2' },
                 { text: '账号', link: '/docs/account/authentici'},
                 { text: '插件', link: '/docs/plugins/index'},
-                { text: '安装游戏', link: '/docs/game/install'}
+                { text: '安装游戏', link: '/docs/game/install'},
+                { text: '问题解答', link: '/docs/issues/index' },
+                { text: '关于本站', link: '/docs/about/about' }
             ]
          }
     ],

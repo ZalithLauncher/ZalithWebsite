@@ -30,7 +30,9 @@ export default <DefaultTheme.Config> {
                 { text: 'About ZL2', link: '/en/docs/projects/zl2' },
                 { text: 'Account', link: '/en/docs/account/authentic' },
                 { text: 'Plugins', link: '/en/docs/plugins/index' },
-                { text: 'Install Game', link: '/en/docs/game/install'}
+                { text: 'Install Game', link: '/en/docs/game/install'},
+                { text: 'FAQ', link: '/en/docs/issues/index' },
+                { text: 'About this site', link: '/en/docs/about/about' }
             ]
         }
     ],
