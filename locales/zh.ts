@@ -71,6 +71,12 @@ export default <DefaultTheme.Config> {
             ]
         },
         {
+            text: '问题解答',
+            items: [
+                { text: '常见问题', link: '/docs/issues/index' }
+            ]
+        },
+        {
             text: '关于本站',
             items: [
                 { text: 'apng动画', link: '/docs/about/apng' },

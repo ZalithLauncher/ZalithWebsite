@@ -63,6 +63,12 @@ export default <DefaultTheme.Config> {
             ]
         },
         {
+            text: 'FAQ',
+            items: [
+                { text: 'Frequently Asked Questions', link: '/en/docs/issues/index' }
+            ]
+        },
+        {
             text: 'About this site',
             items: [
                 { text: 'APNG Animation', link: '/en/docs/about/apng'},
