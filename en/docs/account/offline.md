@@ -43,6 +43,3 @@ Using offline accounts for multiplayer gaming carries several risks:
 | **Multiplayer Compatibility** | ⚠️ Limited to offline servers | ✅ Compatible with all online servers |
 | **Long-Term Stability** | ⚠️ Relies on third-party tools; updates may break functionality | ✅ Maintained by Mojang; continuous updates |
 
-::: tip 💡 Tip
-The **NetEase version** of Minecraft, although official, operates independently of the international version. While it uses official authentication via NetEase accounts, its gameplay restrictions are **functionally different from offline accounts**.  
-:::

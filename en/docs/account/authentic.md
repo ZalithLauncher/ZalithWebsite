@@ -16,7 +16,3 @@ Purchases must be made through the official website or authorized platforms to a
 - **Full access to official features**: Customize skins, wear capes, and change usernames, all supported on official servers.  
 - **Cross-platform synchronization**: Use the same account across PC (Java/Bedrock), consoles, and mobile devices, with data such as saves and skins synced across devices.  
 - **Access to online servers (online-mode)**: Large international servers (e.g., Hypixel, 2b2t) enforce official account verification, allowing only licensed accounts to join. These servers offer rich gameplay and frequent updates.  
-
-::: tip 💡 Tip
-Although the **NetEase version** is also official, its closed ecosystem limits mod flexibility and connection to the international Minecraft community.
-:::
