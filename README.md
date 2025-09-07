@@ -1,31 +1,10 @@
-简体中文 | [English](README_EN.md)
+### Zalith Launcher 官网源码 / Zalith Launcher Official Website Source Code
 
-<div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 20px; margin-bottom: 20px;">
-  <img src="/public/zl_title.png" alt="Zalith Launcher Title" style="width: 300px;">
-</div>
+这是 Zalith Launcher 官网的源码仓库。  
+_This is the source code warehouse of Zalith Launcher's official website._
 
+如果您有意愿参与开发，欢迎提出建议、反馈问题或贡献代码！  
+_If you are willing to participate in the development, you are welcome to make suggestions, feedback questions or contribute code!_
 
-**Zalith Launcher** 是一款专为 Android 设备设计的 Minecraft Java 版启动器，它基于 PojavLauncher 开发，是 PojavLauncher 的社区二改版。  Zalith Launcher 致力于为移动设备用户提供流畅、便捷的 Minecraft Java 版游戏体验。
-
-
-## 主要特点
-
-- **简洁界面**：精心设计的用户界面，操作简单直观
-- **快速上手**：优化的安装流程，让新手也能轻松开始游戏
-- **实用功能**：加入更多有趣的功能，如模组、资源包下载等
-
-## 支持与反馈
-
-如果您在使用 Zalith Launcher 过程中遇到任何问题，或有任何建议，欢迎通过 [GitHub Issues](https://github.com/ZalithLauncher/ZalithLauncher/issues) 提交问题报告！
-
-## 开源信息
-
-Zalith Launcher 是一个开源项目，您可以在 [GitHub](https://github.com/ZalithLauncher/ZalithLauncher) 上查看我们的源代码  
-
-我们欢迎社区贡献者参与到项目开发中来，让 Zalith Launcher 变得更好！
-
-## 下载
-
-您可以在我们的[下载页面](https://zalithlauncher.cn/download.html)获取最新版本的 Zalith Launcher。
-
----
+项目基于 Vitepress 构建，欢迎加入我们的 GitHub 仓库一起完善。  
+_The project is built on Vitepress. Welcome to join our GitHub repo to improve it together._
