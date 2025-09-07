@@ -22,7 +22,6 @@ export default <DefaultTheme.Config> {
             timeStyle: 'medium'
         }
     },
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
         { text: '首页', link: '/' },
         { text: '下载',
@@ -94,3 +93,4 @@ export default <DefaultTheme.Config> {
     }
 
 }
+
