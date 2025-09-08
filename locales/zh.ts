@@ -48,6 +48,12 @@ export default <DefaultTheme.Config> {
             ]
         },
         {
+            text: '帮助',
+            items: [
+                { text: '下载安装游戏', link: '/docs/help/download_game' }
+            ]
+        },
+        {
             text: '关于本站',
             items: [
                 { text: '关于本站', link: '/docs/about/about' },

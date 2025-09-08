@@ -7,34 +7,8 @@
 
 ::: warning Reminder
 This project is completely separate from [ZalithLauncher](/en/docs/projects/zl1).  
-The project is currently in early development, with features continuously being added. Feel free to follow updates on [Github](https://github.com/ZalithLauncher/ZalithLauncher2)!  
+The project is currently in development, with features continuously being added. Feel free to follow updates on [Github](https://github.com/ZalithLauncher/ZalithLauncher2)!  
 :::
-
-## 📅 Development Progress
-
-Below is the current plan and status of feature modules.
-
-### ✅ Completed Features
-
-* 🟢 Core launcher framework (themes, animations, settings, etc.)
-* 🟢 Game launching and rendering
-* 🟢 Game version download and installation
-* 🟢 Modpack download and automatic installation
-* 🟢 Mod download and automatic installation
-* 🟢 Resource pack download and automatic installation
-* 🟢 World save download and installation
-* 🟢 Shader pack download and automatic installation
-* 🟢 Control support: virtual mouse pointer / physical mouse & keyboard / gesture control
-* 🟢 Version management: list, overview, and configuration
-* 🟢 Customizable game installation directory
-* 🟢 Account system: Microsoft OAuth login, offline accounts, and authentication server support
-* 🟢 Java runtime management
-* 🟢 Content managers: UI for managing saves / resource packs / shaders / mods
-
-### 🛠️ In Development / Planned Features
-
-* 🟡 Full control system (custom layout editor, control profile manager, etc.)
-* 🟡 Gamepad control support
 
 ## 🌐 Language and Translation Support
 
