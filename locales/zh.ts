@@ -50,7 +50,8 @@ export default <DefaultTheme.Config> {
         {
             text: '帮助',
             items: [
-                { text: '下载安装游戏', link: '/docs/help/download_game' }
+                { text: '下载安装游戏', link: '/docs/help/download_game' },
+                { text: '模组加载器', link: '/docs/help/modloader' }
             ]
         },
         {
