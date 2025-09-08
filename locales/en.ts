@@ -19,19 +19,15 @@ export default <DefaultTheme.Config> {
         { text: 'Home', link: '/en/' },
         { text: 'Download',
             items: [
-                { text: 'Zalith Launcher', link: '/en/download' },
+                { text: 'Zalith Launcher 1', link: '/en/download' },
                 { text: 'Zalith Launcher 2', link: '/en/zl2-download' }
             ]
          },
         { 
             text: 'More',
             items: [
-                { text: 'About', link: '/en/docs/projects/zl1' },
+                { text: 'About ZL1', link: '/en/docs/projects/zl1' },
                 { text: 'About ZL2', link: '/en/docs/projects/zl2' },
-                { text: 'Account', link: '/en/docs/account/authentic' },
-                { text: 'Plugins', link: '/en/docs/plugins/index' },
-                { text: 'Install Game', link: '/en/docs/game/install'},
-                { text: 'FAQ', link: '/en/docs/issues/index' },
                 { text: 'About this site', link: '/en/docs/about/about' }
             ]
         }
@@ -40,7 +36,7 @@ export default <DefaultTheme.Config> {
         {
             text: 'Projects',
             items: [
-                { text: 'Zalith Launcher', link: '/en/docs/projects/zl1' },
+                { text: 'Zalith Launcher 1', link: '/en/docs/projects/zl1' },
                 { text: 'Zalith Launcher 2', link: '/en/docs/projects/zl2' }
             ]
         },
@@ -53,27 +49,8 @@ export default <DefaultTheme.Config> {
             ]
         },
         {
-            text: 'Game',
-            items: [
-                { text: 'Install Game', link: '/en/docs/game/install' }
-            ]
-        },
-        {
-            text: 'Plugins',
-            items: [
-                { text: 'About Plugins', link: '/en/docs/plugins/index' }
-            ]
-        },
-        {
-            text: 'FAQ',
-            items: [
-                { text: 'Frequently Asked Questions', link: '/en/docs/issues/index' }
-            ]
-        },
-        {
             text: 'About this site',
             items: [
-                { text: 'APNG Animation', link: '/en/docs/about/apng'},
                 { text: 'About', link: '/en/docs/about/about' },
                 { text: 'github readme', link: '/README'}
             ]

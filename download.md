@@ -2,9 +2,11 @@
 sidebar: false
 ---
 
-# 下载 Zalith Launcher
+# 下载 Zalith Launcher 1
 
 <Download />
 
 
-💡 **不妨试试新的ZalithLauncher2**[跳转页面](./zl2-download)
+💡 **试试新的 Zalith Launcher 2？**  
+
+[跳转页面](./zl2-download)

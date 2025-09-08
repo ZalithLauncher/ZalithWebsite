@@ -2,7 +2,7 @@
 sidebar: false
 ---
 
-# 下载 ZalithLauncher2
+# 下载 Zalith Launcher 2
 
 ## 官方下载渠道
 

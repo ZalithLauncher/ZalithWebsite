@@ -1,7 +1,7 @@
 ---
 sidebar: false
 ---
-# Download Zalith Launcher
+# Download Zalith Launcher 1
 
 ## Official Download Channels
 
@@ -48,6 +48,6 @@ You can download the latest version of Zalith Launcher from our GitHub Releases 
 
 ---
 
-💡 **Why not try the new ZalithLauncher2?**
+💡 **Come try the new Zalith Launcher 2?**
 
-[ZalithLauncher 2](https://zalithlauncher.cn/en/zl2-download.html)
+[ZalithLauncher 2](./zl2-download)
