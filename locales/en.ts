@@ -40,14 +40,6 @@ export default <DefaultTheme.Config> {
                 { text: 'Zalith Launcher 2', link: '/en/docs/projects/zl2' }
             ]
         },
-                {
-            text: 'Account',
-            items: [
-                { text: 'Online', link: '/en/docs/account/authentic' },
-                { text: 'Offline', link: '/en/docs/account/offline' },
-                { text: 'Add Account', link: '/en/docs/account/add' }
-            ]
-        },
         {
             text: 'About this site',
             items: [
