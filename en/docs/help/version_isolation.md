@@ -33,7 +33,7 @@ Before enabling version isolation, all game data is stored in the main `.minecra
 - resourcepacks\
   - FreshAnimations_v1.9.4.zip
 - saves\
-  - 新的世界
+  - New World
 - versions\
   - 1.21.8-Fabric 0.17.2\
     - 1.21.8-Fabric 0.17.2.jar
