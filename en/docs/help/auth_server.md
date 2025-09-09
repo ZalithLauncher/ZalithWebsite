@@ -5,7 +5,7 @@ This guide is only applicable to [Zalith Launcher 2](/docs/projects/zl2)
 :::
 
 ::: info Author
-MoBei MovTery - 2025/9/9
+MovTery - 2025/9/9
 :::
 
 ## Introduction
@@ -66,4 +66,4 @@ If your account has multiple roles, the launcher will display them in a list for
 
 After successful login, your authentication server account will be added to the account list:  
 
-![Ely.by Account Added](/zh/docs/account/auth_server/ely_by_account.jpg)
+![Ely.by Account Added](/en/docs/account/auth_server/ely_by_account.jpg)
