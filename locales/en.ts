@@ -71,9 +71,9 @@ export default <DefaultTheme.Config> {
             items: [
                 { text: 'Download and Install Game', link: '/en/docs/help/download_game' },
                 { text: 'ModLoader', link: '/en/docs/help/modloader' },
-                { text: 'Account', link: '/endocs/help/account' },
-                { text: 'Authentication Server', link: '/endocs/help/auth_server' },
-                { text: 'Version Isolation', link: '/endocs/help/version_isolation' }
+                { text: 'Account', link: '/en/docs/help/account' },
+                { text: 'Authentication Server', link: '/en/docs/help/auth_server' },
+                { text: 'Version Isolation', link: '/en/docs/help/version_isolation' }
             ]
         },
         {
