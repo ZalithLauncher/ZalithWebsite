@@ -4,6 +4,10 @@
 本文档仅适用于 [Zalith Launcher 2](/docs/projects/zl2)
 :::
 
+::: info 该文档编写者
+墨北MovTery - 2025/9/9
+:::
+
 ## 前言
 模组加载器是 Minecraft Java 版想要游玩模组的必要手段，您可以在 [中文 Minecraft Wiki](https://zh.minecraft.wiki/w/%E5%8A%A0%E8%BD%BD%E5%99%A8Mod?variant=zh-cn) 中详细了解它。
 启动器已提供目前主流模组加载器的安装方式：
