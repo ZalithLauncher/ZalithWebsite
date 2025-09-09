@@ -22,7 +22,7 @@ This guide is slightly advanced and may not be suitable for beginners. Prerequis
 ## Installing a Mod Loader
 The launcher installs mod loaders in client mode. When downloading a game version, select the mod loader you want to install from the Add-ons list:  
 
-![Add-ons List](/zh/docs/addons.jpg) 
+![Add-ons List](/en/docs/addons.jpg) 
 
 Note that major mod loaders are **not compatible** with each other. You cannot install multiple mod loaders simultaneously. The launcher will automatically detect this and prevent multi-loader installation.
 
@@ -51,4 +51,4 @@ Thus, the launcher requests notification permission.
 After selecting the add-ons you want, click the Install button to begin.  
 The launcher will automatically perform all installation steps without further action from you. Please wait patiently.  
 
-![Installing a Mod Loader](/zh/docs/install_modloader.jpg)
+![Installing a Mod Loader](/en/docs/install_modloader.jpg)
