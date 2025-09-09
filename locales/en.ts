@@ -1,6 +1,32 @@
 import type { DefaultTheme } from 'vitepress';
 
 export default <DefaultTheme.Config> {
+    search: {
+        provider: 'local',
+        options: {
+            translations: {
+                button: {
+                    buttonText: 'Search',
+                    buttonAriaLabel: 'Search',
+                },
+                modal: {
+                    displayDetails: 'Show detailed list',
+                    resetButtonTitle: 'Reset search',
+                    backButtonTitle: 'Close search',
+                    noResultsText: 'No results found',
+                    footer: {
+                        selectText: 'Select',
+                        selectKeyAriaLabel: 'enter',
+                        navigateText: 'Navigate',
+                        navigateUpKeyAriaLabel: 'Arrow Up',
+                        navigateDownKeyAriaLabel: 'Arrow Down',
+                        closeText: 'Close',
+                        closeKeyAriaLabel: 'esc',
+                    },
+                },
+            },
+        },
+    },
     docFooter: {
         prev: 'Previous',
         next: 'Next'
@@ -47,6 +73,7 @@ export default <DefaultTheme.Config> {
             ]
         }
     ],
+    outlineTitle: 'On this page',
     footer: {
         message: 'Licensed under GPL-3.0',
         copyright: 'Copyright © 2025 Zalith Launcher, All rights reserved.'
