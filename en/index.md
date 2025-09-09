@@ -19,16 +19,16 @@ hero:
 features:
   - icon: 🎮
     title: Better User Experience
-    details: Redesigned application interface, adding more practical features, reducing the threshold for use, allowing more people to easily enjoy Minecraft
-  - icon: 📁
-    title: Built-in File Manager
-    details: Built-in simple file manager, eliminating concerns about Android permission restrictions
-  - icon: 🛠️
-    title: More Renderer Support
-    details: Add more renderers, supporting renderer plugins
+    details: Redesigned application interface with more practical features, lowering the usage barrier so more people can easily enjoy Minecraft
   - icon: 🔄
     title: Better Version Management
-    details: Better version management, allows customization of game directory location, and permits setting in external storage directories
+    details: Improved version management with support for version isolation and the ability to set external storage directories
+  - icon: 🛠️
+    title: More Renderer Support
+    details: Added support for more renderers and renderer plugins
+  - icon: 📁
+    title: Content Manager
+    details: Manage game resources for different game versions
 ---
 
 ### Legal Disclaimer
