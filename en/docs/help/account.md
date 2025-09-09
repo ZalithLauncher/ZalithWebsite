@@ -34,7 +34,7 @@ Before starting, ensure you have a Microsoft account that owns Minecraft and has
 - [My Game Profile](https://www.minecraft.net/msaprofile/mygames/editprofile)  
   - After purchasing the game, you need to create a game profile.  
   - Pick a username to use in-game, similar to a nickname.  
-  ![Edit Game Profile](/en/docs/account/edit_profile.jpg)  
+  ![Edit Game Profile](/en/docs/account/edit_profile.png)  
 
 Once verified, you can log in to your Microsoft account within the launcher.
 
