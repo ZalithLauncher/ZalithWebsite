@@ -20,11 +20,11 @@
 首先我们需要进入下载页面，有两种方式
 
 - 通过版本管理进入  
-  - ![主界面前往版本管理](/zh/docs/download_game/to_versions.jpg)
-  - ![版本管理前往下载页](/zh/docs/download_game/to_downloads.jpg)
+![主界面前往版本管理](/zh/docs/download_game/to_versions.jpg)  
+![版本管理前往下载页](/zh/docs/download_game/to_downloads.jpg)
 
-- 通过下载页面直接进入
-  - ![主界面前往下载页](/zh/docs/to_downloads.jpg)
+- 通过下载页面直接进入  
+![主界面前往下载页](/zh/docs/to_downloads.jpg)
 
 进入下载页后，默认会选择到游戏版本下载页面，您可以在此选择您想要游玩的游戏版本：  
 
