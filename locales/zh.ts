@@ -2,7 +2,30 @@ import { DefaultTheme } from 'vitepress';
 
 export default <DefaultTheme.Config> {
     search: {
-        provider: 'local'
+        provider: 'local',
+        options: {
+            translations: {
+                button: {
+                buttonText: '搜索',
+                buttonAriaLabel: '搜索',
+                },
+                modal: {
+                    displayDetails: '显示详细列表',
+                    resetButtonTitle: '重制搜索',
+                    backButtonTitle: '关闭搜索',
+                    noResultsText: '没有找到相关结果',
+                    footer: {
+                        selectText: '选择',
+                        selectKeyAriaLabel: 'enter',
+                        navigateText: '切换',
+                        navigateUpKeyAriaLabel: '上方向键',
+                        navigateDownKeyAriaLabel: '下方向键',
+                        closeText: '关闭',
+                        closeKeyAriaLabel: 'esc',
+                    },
+                },
+            },
+        },
     },
     docFooter: {
         prev: '上一篇',
@@ -63,6 +86,8 @@ export default <DefaultTheme.Config> {
             ]
         }
     ],
+
+    outlineTitle: '当前页大纲',
 
     footer: {
         message: '在 GPL-3.0 许可证下发布',
