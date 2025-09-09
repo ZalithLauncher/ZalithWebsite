@@ -1,25 +1,25 @@
-# 版本隔离
+# Version Isolation
 
-::: warning 提醒
-本文档仅适用于 [Zalith Launcher 2](/docs/projects/zl2)
+::: warning Notice
+This guide is only applicable to [Zalith Launcher 2](/docs/projects/zl2)
 :::
 
-::: info 该文档编写者
-墨北MovTery - 2025/9/9
+::: info Author
+MovTery - 2025/9/9
 :::
 
-## 前言
+## Introduction
 
-版本隔离是启动器管理不同版本数据的一大重要手段，允许您在各版本之前持有完全不同的游戏数据。  
-Zalith Launcher 的版本隔离方式与目前主流的启动器，如 [PCL2](https://afdian.com/a/LTCat?tab=home)、[HMCL](https://hmcl.huangyuhui.net/) 、[FCL](https://github.com/FCL-Team/FoldCraftLauncher) 等启动器的版本隔离机制一致。  
+Version isolation is an important feature of the launcher for managing different game versions. It allows each version to have completely separate game data.  
+Zalith Launcher's version isolation mechanism is consistent with other mainstream launchers, such as [PCL2](https://afdian.com/a/LTCat?tab=home), [HMCL](https://hmcl.huangyuhui.net/), and [FCL](https://github.com/FCL-Team/FoldCraftLauncher).
 
-本文档内容稍显高级，可能并不适用于新手！
+This guide is slightly advanced and may not be suitable for beginners.
 
-## 运作机制
+## How It Works
 
-启动器会将版本文件夹视为 `.minecraft` 文件夹，传递给 Minecraft，让 Minecraft 将您的游戏数据，如存档、资源包、版本配置等数据，存储在版本文件夹内。  
+The launcher treats each version folder as a `.minecraft` directory and passes it to Minecraft. Minecraft then stores all game data—such as saves, resource packs, and version configs—inside that folder.  
 
-开启版本隔离前，游戏数据将全部堆放在 `.minecraft` 文件夹内，Minecraft 的文件结构将会是：  
+Before enabling version isolation, all game data is stored in the main `.minecraft` folder. Its structure looks like this:
 
 ```text
 .minecraft\
@@ -41,9 +41,9 @@ Zalith Launcher 的版本隔离方式与目前主流的启动器，如 [PCL2](ht
 - options.txt
 ```
 
-这非常不利于版本管理，所有未开启版本隔离的版本，都会将数据堆放在这里，非常杂乱。在您使用模组加载器时，还会面临模组兼容性问题。  
+This makes version management difficult. All versions without isolation share the same `.minecraft` folder, which becomes cluttered. Using mod loaders also increases the risk of mod compatibility issues.  
 
-开启版本隔离后，游戏数据将以版本文件夹为根目录，Minecraft 的文件结构将变更为：  
+After enabling version isolation, each version folder becomes the root directory for its own game data. The file structure changes to:  
 
 ```text
 .minecraft\
@@ -59,13 +59,12 @@ Zalith Launcher 的版本隔离方式与目前主流的启动器，如 [PCL2](ht
     - resourcepacks\
       - FreshAnimations_v1.9.4.zip
     - saves\
-      - 新的世界
+      - New World
     - 1.21.8-Fabric 0.17.2.jar
     - 1.21.8-Fabric 0.17.2.json
     - options.txt
 ```
 
-这样启动器要做的事情就非常简单了，仅仅只需要管理版本文件夹，即可管理您的整个版本数据，例如单独管理您的模组、资源包、存档、光影包等资源：  
+This makes the launcher's job very simple: by managing each version folder, it can handle all data for that version independently, including mods, resource packs, saves, shaders, and other resources.  
 
-![存档管理](/zh/docs/version_manager/saves.jpg)
-
+![Saves](/en/docs/version_manager/saves.jpg)
