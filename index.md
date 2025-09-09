@@ -31,11 +31,5 @@ features:
     details: 更好的版本管理，可自定义游戏目录位置，允许在外部存储目录中设置
 ---
 
-## 开源协议
-
-Zalith Launcher 在 GPL v3 许可下开源。
-
-## 社区
-
-我们的官方社区仅在 GitHub、Discord 和 QQ 上。任何其他内容均由非官方个人创建，我们不参与、不接受也不信任此类内容。请仔细验证并保护您的个人隐私！
-
+### 法律声明
+“Minecraft”及“我的世界”是 _Microsoft Corporation_ 和 _Mojang Synergies AB_ 的注册商标。ZalithLauncher 与 Microsoft、Mojang 或网易公司无任何从属或合作关系。

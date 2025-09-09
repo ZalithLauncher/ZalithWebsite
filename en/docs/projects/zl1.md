@@ -10,6 +10,10 @@ Zalith Launcher is a Minecraft Java Edition launcher designed specifically for A
 ::: warning Reminder
 This project is completely separate from [Zalith Launcher 2](/en/docs/projects/zl2)  
 :::
+::: info Disclaimer
+Minecraft® is a registered trademark of _Microsoft Corporation_ and _Mojang Synergies AB_.
+ZalithLauncher is not affiliated with or endorsed by Microsoft, Mojang, or NetEase.
+:::
 
 ## Key Features
 

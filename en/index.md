@@ -31,10 +31,6 @@ features:
     details: Better version management, allows customization of game directory location, and permits setting in external storage directories
 ---
 
-## Open Source License
-
-Zalith Launcher is open source under the GPL v3 license.
-
-## Community
-
-Our official community is only on GitHub,Discord and QQ. Any other content is created by unofficial individuals, we do not participate, accept, or trust such content. Please verify carefully and protect your personal privacy!
+### Legal Disclaimer
+Minecraft® is a registered trademark of _Microsoft Corporation_ and _Mojang Synergies AB_.
+ZalithLauncher is not affiliated with or endorsed by Microsoft, Mojang, or NetEase.

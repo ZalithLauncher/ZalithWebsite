@@ -9,6 +9,10 @@
 This project is completely separate from [ZalithLauncher](/en/docs/projects/zl1).  
 The project is currently in development, with features continuously being added. Feel free to follow updates on [Github](https://github.com/ZalithLauncher/ZalithLauncher2)!  
 :::
+::: info Disclaimer
+Minecraft® is a registered trademark of _Microsoft Corporation_ and _Mojang Synergies AB_.
+ZalithLauncher is not affiliated with or endorsed by Microsoft, Mojang, or NetEase.
+:::
 
 ## 🌐 Language and Translation Support
 
