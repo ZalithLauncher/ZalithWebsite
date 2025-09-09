@@ -74,3 +74,13 @@
 
 ![创建离线账号](/zh/docs/account/offline/offline_username.jpg)  
 ![创建离线账号成功](/zh/docs/account/offline/offline_completed.jpg)
+
+特别注意的是，账号命名应该严格遵守如下规则：
+- 长度限制：3-16 字符
+- 命名规范：仅包括英文字符（字母大小写）、下划线、数字，不可含有空格符号
+
+启动器会在您输入用户名时，严格检查，若名称不规范，启动器会实时提醒您。  
+若您未遵守这样的命名规范，大部分 Minecraft 游戏将无法正常运行，例如您在进入单人游戏存档，或者离线多人游戏服务器时，您将被踢出游戏：  
+
+![离线账号命名不规范1](/zh/docs/account/offline/invalid_username1.jpg)  
+![离线账号命名不规范2](/zh/docs/account/offline/invalid_username2.jpg)
