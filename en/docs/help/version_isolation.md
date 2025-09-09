@@ -17,9 +17,9 @@ This guide is slightly advanced and may not be suitable for beginners.
 
 ## How It Works
 
-The launcher treats each version folder as a `.minecraft` directory and passes it to Minecraft. Minecraft then stores all game data—such as saves, resource packs, and version configs—inside that folder.  
+The launcher treats each version folder as a `.minecraft` directory and passes it to Minecraft, so that Minecraft stores all your game data such as saves, resource packs and version configurations inside the version folder.  
 
-Before enabling version isolation, all game data is stored in the main `.minecraft` folder. Its structure looks like this:
+Before enabling version isolation, all game data is stored in the main `.minecraft` folder. Its structure looks like this:  
 
 ```text
 .minecraft\
