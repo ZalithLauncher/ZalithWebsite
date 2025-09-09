@@ -14,7 +14,7 @@ The launcher itself does not provide the Minecraft client, but you can use it to
 This document is beginner-friendly and avoids advanced operations, so new players can follow along safely.  
 For advanced usage, see the following link:  
 
-- [ModLoaders](/docs/help/modloader.md)
+- [ModLoaders](/en/docs/help/modloader.md)
 
 ## Downloading the Game
 First, we need to enter the download page. There are two ways:

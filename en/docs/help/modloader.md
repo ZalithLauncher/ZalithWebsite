@@ -1,61 +1,54 @@
-# 模组加载器
+# Mod Loaders
 
-::: warning 提醒
-本文档仅适用于 [Zalith Launcher 2](/docs/projects/zl2)
+::: warning Notice
+This guide is only applicable to [Zalith Launcher 2](/docs/projects/zl2)
 :::
 
-::: info 该文档编写者
-墨北MovTery - 2025/9/9
+::: info Author
+MovTery - 2025/9/9
 :::
 
-## 前言
-模组加载器是 Minecraft Java 版想要游玩模组的必要手段，您可以在 [中文 Minecraft Wiki](https://zh.minecraft.wiki/w/%E5%8A%A0%E8%BD%BD%E5%99%A8Mod?variant=zh-cn) 中详细了解它。
-启动器已提供目前主流模组加载器的安装方式：
+## Introduction
+A mod loader is essential for playing mods on Minecraft Java Edition. You can learn more about it on the [Minecraft Wiki](https://minecraft.wiki/w/Mod).  
+The launcher provides installation methods for the most popular mod loaders:
 - [Forge](https://files.minecraftforge.net/)
 - [NeoForge](https://neoforged.net/)
 - [Fabric](https://fabricmc.net/use/installer/)
 - [Quilt](https://quiltmc.org/)  
 
-本文档内容稍显高级，可能并不适用于新手。前置文档：  
-- [下载安装游戏](/docs/help/download_game)
+This guide is slightly advanced and may not be suitable for beginners. Prerequisite guide:  
+- [Downloading and Installing the Game](/en/docs/help/download_game)
 
-## 安装模组加载器
-启动器将使用客户端的形式安装模组加载器，您需要在下载游戏版本时，在附加内容列表内，选择您想要安装的模组加载器：  
+## Installing a Mod Loader
+The launcher installs mod loaders in client mode. When downloading a game version, select the mod loader you want to install from the Add-ons list:  
 
-![附加内容列表](/zh/docs/addons.jpg) 
+![Add-ons List](/zh/docs/addons.jpg) 
 
-您需要注意，目前主流的模组加载器均不互相兼容，您不能同时安装多个模组加载器。启动器将会自动识别，并禁止您同时安装多个模组加载器。
+Note that major mod loaders are **not compatible** with each other. You cannot install multiple mod loaders simultaneously. The launcher will automatically detect this and prevent multi-loader installation.
 
-### 附加内容
+### Add-ons
 
-您也许注意到了，在附加内容列表内，列出了如下内容：  
+In the add-ons list, you may notice the following:  
 - [OptiFine](https://optifine.net/home)
-  - 中文译名：高清修复，在 [MC百科](https://www.mcmod.cn/class/36.html) 了解更多。  
-  它可以作为版本单独安装，也可以作为模组，与 Forge 一起安装。  
-  其作为模组安装时，版本号会标注其与 Forge 的适配情况。
+  - OptiFine can be installed as a standalone version or as a mod alongside Forge.  
+  When installed as a mod, the version number indicates its Forge compatibility.
 - [Fabric API](https://modrinth.com/mod/fabric-api)
-  - 库模组，在 [MC百科](https://www.mcmod.cn/class/3124.html) 了解更多。  
-  适用于 Fabric，绝大多数 Fabric 模组都依赖它，由于它出现的频率实在是太高了，启动器支持您在安装 Fabric 版本的同时，一并安装 Fabric API 模组。
+  - Library mod, Required for most Fabric mods. Because it is so commonly used, the launcher allows installing Fabric API automatically when installing a Fabric version.
 - [Quilted Fabric API](https://modrinth.com/mod/qsl)
-  - 库模组，在 [MC百科](https://www.mcmod.cn/class/6788.html) 了解更多。  
-  适用于 Quilt，同 Fabric API。
+  - Library mod, Required for Quilt, similar to Fabric API.
 
-其中 OptiFine 较为特殊，它既可以作为版本单独进行安装，又能作为模组，与 Forge 一起安装。   
-OptiFine 作为版本安装时，其会以库的形式载入原版 Minecraft 客户端，使您能够在不修改客户端的情况下，拥有 OptiFine 的所有功能，但正如上文所说，其载入的是原版 Minecraft 客户端，您无法获得模组加载支持。
+OptiFine is special because it can be installed as a standalone version or as a mod with Forge.  
+When installed as a version, OptiFine loads the vanilla Minecraft client as a library, allowing you to use all OptiFine features without modifying the client. However, in this mode, mod loader support is not available.
 
-### 通知权限
+### Notification Permission
 
-在安装模组加载器时，您可能需要授予启动器通知权限，启动器会在安装过程中，使用前台服务保证一些安装的正常运行。若不使用前台服务，启动器的安装进程极其容易被一些安卓系统终止。  
-安卓系统要求，使用前台服务前，需要发送一条通知，以告知用户应用正在使用前台服务，[了解详情](https://developer.android.com/develop/background-work/services/fgs)。  
-所以启动器会向您申请通知权限。
+When installing a mod loader, you may need to grant notification permission. The launcher uses a foreground service during installation to ensure smooth operation. Without a foreground service, Android may terminate the installation process.  
+Android requires a notification to inform the user when a foreground service is used. [Learn more](https://developer.android.com/develop/background-work/services/fgs).  
+Thus, the launcher requests notification permission.
 
-### 安装
+### Installation
 
-选择好您想要安装的附加内容后，直接点击安装按钮，即可开始安装。  
-启动器将会自动执行所需的安装步骤，不需要您的任何操作，请您耐心等待。  
+After selecting the add-ons you want, click the Install button to begin.  
+The launcher will automatically perform all installation steps without further action from you. Please wait patiently.  
 
-![安装模组加载器](/zh/docs/install_modloader.jpg)
-
-### 注意事项
-
-由于模组下载源都在国外，您可能会遇到网络不稳定的情况，这个时候，您可能需要使用镜像源。
+![Installing a Mod Loader](/zh/docs/install_modloader.jpg)
