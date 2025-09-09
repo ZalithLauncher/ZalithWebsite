@@ -43,8 +43,7 @@ export default <DefaultTheme.Config> {
         {
             text: 'About this site',
             items: [
-                { text: 'About', link: '/en/docs/about/about' },
-                { text: 'github readme', link: '/README'}
+                { text: 'About', link: '/en/docs/about/about' }
             ]
         }
     ],

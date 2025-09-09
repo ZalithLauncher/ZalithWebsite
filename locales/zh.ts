@@ -58,8 +58,7 @@ export default <DefaultTheme.Config> {
         {
             text: '关于本站',
             items: [
-                { text: '关于本站', link: '/docs/about/about' },
-                { text: 'github readme', link: '/README'}
+                { text: '关于本站', link: '/docs/about/about' }
             ]
         }
     ],
