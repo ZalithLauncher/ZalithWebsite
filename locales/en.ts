@@ -39,7 +39,7 @@ export default <DefaultTheme.Config> {
         text: 'Edit this page on GitHub'
     },
     lastUpdated: {
-        text: 'Last Updated at(chinese)',
+        text: 'Last Updated at(BJT)',
         formatOptions: {
             dateStyle: 'medium',
             timeStyle: 'short'
