@@ -39,7 +39,11 @@ export default <DefaultTheme.Config> {
         text: 'Edit this page on GitHub'
     },
     lastUpdated: {
-        text: 'Last Updated at: ',
+        text: 'Last Updated at(chinese)',
+        formatOptions: {
+            dateStyle: 'medium',
+            timeStyle: 'short'
+        }
     },
     nav: [
         { text: 'Home', link: '/en/' },
@@ -68,6 +72,7 @@ export default <DefaultTheme.Config> {
         },
         {
             text: 'Help',
+            collapsed: true,
             items: [
                 { text: 'Download and Install Game', link: '/en/docs/help/download_game' },
                 { text: 'ModLoader', link: '/en/docs/help/modloader' },

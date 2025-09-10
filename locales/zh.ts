@@ -40,10 +40,7 @@ export default <DefaultTheme.Config> {
     },
     lastUpdated: {
         text: '上次更新',
-        formatOptions: {
-            dateStyle: 'full',
-            timeStyle: 'medium'
-        }
+        formatOptions: { dateStyle: 'long', timeStyle: 'short' }
     },
     nav: [
         { text: '首页', link: '/' },
@@ -72,6 +69,7 @@ export default <DefaultTheme.Config> {
         },
         {
             text: '帮助',
+            collapsed: true,
             items: [
                 { text: '下载安装游戏', link: '/docs/help/download_game' },
                 { text: '模组加载器', link: '/docs/help/modloader' },
