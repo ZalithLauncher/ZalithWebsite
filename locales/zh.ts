@@ -73,9 +73,9 @@ export default <DefaultTheme.Config> {
             items: [
                 { text: '下载安装游戏', link: '/docs/help/download_game' },
                 { text: '模组加载器', link: '/docs/help/modloader' },
-                { text: '账号', link: 'docs/help/account' },
-                { text: '认证服务器', link: 'docs/help/auth_server' },
-                { text: '版本隔离', link: 'docs/help/version_isolation' }
+                { text: '账号', link: '/docs/help/account' },
+                { text: '认证服务器', link: '/docs/help/auth_server' },
+                { text: '版本隔离', link: '/docs/help/version_isolation' }
             ]
         },
         {
