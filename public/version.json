@@ -1,0 +1,37 @@
+{
+  "latest_version": "1.4.0.8",
+  "release_date": "2024-08-25",
+  "assets": [
+    {
+      "name": "ZalithLauncher-1.4.0.8-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/1.4.0.8/ZalithLauncher-1.4.0.8-arm64-v8a.apk",
+      "size": 140800,
+      "download_count": 0
+    },
+    {
+      "name": "ZalithLauncher-1.4.0.8-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/1.4.0.8/ZalithLauncher-1.4.0.8-armeabi-v7a.apk",
+      "size": 140800,
+      "download_count": 0
+    },
+    {
+      "name": "ZalithLauncher-1.4.0.8-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/1.4.0.8/ZalithLauncher-1.4.0.8-x86.apk",
+      "size": 140800,
+      "download_count": 0
+    },
+    {
+      "name": "ZalithLauncher-1.4.0.8-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/1.4.0.8/ZalithLauncher-1.4.0.8-x86_64.apk",
+      "size": 140800,
+      "download_count": 0
+    },
+    {
+      "name": "ZalithLauncher-1.4.0.8.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/1.4.0.8/ZalithLauncher-1.4.0.8.apk",
+      "size": 140800,
+      "download_count": 0
+    }
+  ],
+  "body": "## 新特性\n- **关于页面**: 添加了官方 Discord 服务器链接\n- **MioLibPatcher**: 更新至版本 1.19.1\n- **ANGLE**: 改进了 VK 驱动加载\n\n## 修复\n- 修复了 #699 问题\n\n## 下载说明\n请根据您的设备架构选择合适的版本进行下载：\n- **ARM64 v8a**: 现代 Android 设备（推荐）\n- **Armeabi v7a**: 较旧的 ARM 设备\n- **x86_64**: 64位 x86 设备\n- **x86**: 32位 x86 设备\n- **通用版本**: 兼容所有架构"
+}

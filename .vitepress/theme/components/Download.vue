@@ -35,6 +35,8 @@ const selectedDeviceType = ref('all')
 const selectedDownloadSource = ref('github')
 const isDeviceDropdownOpen = ref(false)
 const isSourceDropdownOpen = ref(false)
+const apiFailed = ref(false) // API是否失败标志
+const fallbackToLocal = ref(false) // 是否已降级到本地版本
 
 // 基础设备类型定义（会根据API返回的文件动态扩展）
 const baseDeviceTypes: DeviceType[] = [
@@ -343,11 +345,49 @@ async function fetchFoxingtonData() {
 
 
 
-// 获取最新版本（带API检测和自动切换）
+// 加载本地版本信息
+async function loadLocalVersionInfo() {
+  try {
+    console.log('开始加载本地版本信息...')
+    
+    // 从public目录加载version.json文件
+    const response = await fetch('/version.json')
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+    }
+    
+    const localData = await response.json()
+    
+    // 构建与GitHub API兼容的数据结构
+    const localRelease = {
+      name: `ZalithLauncher ${localData.latest_version}`,
+      tag_name: `v${localData.latest_version}`,
+      published_at: localData.release_date,
+      body: localData.body,
+      assets: localData.assets.map((asset: any) => ({
+        id: Math.random().toString(36).substr(2, 9), // 生成随机ID
+        name: asset.name,
+        browser_download_url: asset.browser_download_url,
+        size: asset.size,
+        download_count: asset.download_count
+      }))
+    }
+    
+    console.log('✅ 本地版本信息加载成功')
+    return localRelease
+  } catch (error) {
+    console.error('❌ 加载本地版本信息失败:', error)
+    throw error
+  }
+}
+
+// 获取最新版本（带API检测、自动切换和异常处理）
 async function fetchLatestRelease() {
   isLoading.value = true
   hasError.value = false
   errorMessage.value = ''
+  apiFailed.value = false
+  fallbackToLocal.value = false
   
   try {
     console.log('开始获取最新版本信息...')
@@ -380,8 +420,32 @@ async function fetchLatestRelease() {
           continue
         }
         
-        // 如果是最后一个API也失败了，抛出错误
-        throw new Error('所有API都无法访问')
+        // 如果是最后一个API也失败了，标记API失败并尝试获取本地版本信息但不限制下载源
+        apiFailed.value = true
+        console.log('所有API都无法访问，尝试获取本地版本信息但不限制下载源...')
+        
+        try {
+          const localRelease = await loadLocalVersionInfo()
+          latestRelease.value = localRelease
+          parsedBody.value = localRelease.body ? await marked.parse(localRelease.body) : ''
+          // 注意：这里不设置 fallbackToLocal.value = true，保持下载源不受限制
+          
+          // 同时获取Foxington源数据，确保第三方下载源也能正常工作
+          await fetchFoxingtonData()
+          
+          // 显示API失败通知
+          errorMessage.value = 'API版本信息获取失败，但您仍然可以使用所有下载源。部分功能可能受限。'
+          
+          console.log('✅ 已获取本地版本信息，但保持下载源不受限制')
+          
+          // 数据加载完成后自动检测设备类型
+          autoSelectDeviceType()
+          return
+          
+        } catch (localError) {
+          console.error('❌ 本地版本信息也加载失败:', localError)
+          throw new Error('所有API和本地版本信息都无法访问')
+        }
       }
     }
     
@@ -506,7 +570,11 @@ const currentDownloadSource = computed(() => {
 
 // 获取下载链接
 function getDownloadUrl(asset: any) {
-
+  // 如果使用本地版本且fallbackToLocal为true，只提供GitHub官方链接
+  // 但API失败时（fallbackToLocal为false），仍然允许使用第三方下载源
+  if (fallbackToLocal.value) {
+    return asset.browser_download_url
+  }
   
   if (selectedDownloadSource.value === 'mirror') {
     return generateMirrorUrl(asset.name, latestRelease.value.tag_name)
@@ -546,8 +614,17 @@ function handleSourceDropdownBlur() {
 
 // 组件挂载时获取数据
 onMounted(() => {
-  fetchLatestRelease()
-})
+    // 重置状态
+    apiFailed.value = false
+    fallbackToLocal.value = false
+    
+    fetchLatestRelease()
+    
+    // 如果使用本地版本，确保下载源为GitHub官方源
+    if (fallbackToLocal.value) {
+      selectedDownloadSource.value = 'github'
+    }
+  })
 </script>
 
 <template>
@@ -567,12 +644,26 @@ onMounted(() => {
     </div>
     
     <div v-else-if="latestRelease" class="release-info">
+      <!-- API失败通知 -->
+      <div v-if="apiFailed" class="api-fallback-notice">
+        <div class="notice-content">
+          <span class="notice-icon">⚠️</span>
+          <div class="notice-text">
+            <strong>API版本信息获取失败</strong>
+            <p v-if="fallbackToLocal">已自动切换到本地版本信息，部分功能可能受限。</p>
+            <p v-else>已使用本地版本信息，但您仍然可以使用所有下载源。部分功能可能受限。</p>
+          </div>
+          <button class="notice-retry-btn" @click="fetchLatestRelease()">重新尝试</button>
+        </div>
+      </div>
+      
       <!-- 版本信息头部 -->
       <div class="release-header">
         <h2>{{ latestRelease.name }}</h2>
         <div class="version-info">
           <span class="version-tag">{{ latestRelease.tag_name }}</span>
           <span class="release-date">{{ new Date(latestRelease.published_at).toLocaleDateString('zh-CN') }}</span>
+          <span v-if="fallbackToLocal" class="local-version-badge">本地版本</span>
         </div>
       </div>
       
@@ -623,43 +714,50 @@ onMounted(() => {
           </div>
           
           <!-- 下载源选择器 -->
-          <div class="dropdown-container">
-            <label class="dropdown-label">下载源</label>
-            <div class="dropdown" :class="{ 'is-open': isSourceDropdownOpen }">
-              <button 
-                class="dropdown-trigger" 
-                @click="isSourceDropdownOpen = !isSourceDropdownOpen"
-                @blur="handleSourceDropdownBlur"
-              >
-                <span class="dropdown-content">
-                  <span class="source-info">
-                    <span class="source-name">{{ currentDownloadSource.name }}</span>
-                    <span class="source-desc">{{ currentDownloadSource.description }} · {{ currentDownloadSource.speed }}</span>
-                  </span>
+      <div class="dropdown-container">
+        <label class="dropdown-label">下载源</label>
+        <div class="dropdown" :class="{ 'is-open': isSourceDropdownOpen, 'is-disabled': fallbackToLocal }">
+          <button 
+            class="dropdown-trigger" 
+            @click="isSourceDropdownOpen = !isSourceDropdownOpen"
+            @blur="handleSourceDropdownBlur"
+            :disabled="fallbackToLocal"
+          >
+            <span class="dropdown-content">
+              <span class="source-info">
+                <span class="source-name">{{ currentDownloadSource.name }}</span>
+                <span class="source-desc">{{ currentDownloadSource.description }} · {{ currentDownloadSource.speed }}</span>
+                <span v-if="fallbackToLocal" class="local-version-hint">（本地版本）</span>
+              </span>
+            </span>
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          
+          <div class="dropdown-menu">
+            <button 
+              v-for="source in downloadSources" 
+              :key="source.id"
+              class="dropdown-item"
+              :class="{ 
+                'is-selected': selectedDownloadSource === source.id,
+                'is-disabled': fallbackToLocal && source.id !== 'github'
+              }"
+              @click="if (!fallbackToLocal || source.id === 'github') { selectedDownloadSource = source.id; isSourceDropdownOpen = false }"
+              :disabled="fallbackToLocal && source.id !== 'github'"
+            >
+              <span class="source-info">
+                <span class="source-name">{{ source.name }}</span>
+                <span class="source-desc">{{ source.description }} · {{ source.speed }}</span>
+                <span v-if="source.contributor" class="contributor-info">
+                  镜像加速由 <a :href="source.contributor.url" target="_blank" rel="noopener noreferrer" class="contributor-link">{{ source.contributor.name }}</a> 友情提供
                 </span>
-                <span class="dropdown-arrow">▼</span>
-              </button>
-              
-              <div class="dropdown-menu">
-                <button 
-                  v-for="source in downloadSources" 
-                  :key="source.id"
-                  class="dropdown-item"
-                  :class="{ 'is-selected': selectedDownloadSource === source.id }"
-                  @click="selectedDownloadSource = source.id; isSourceDropdownOpen = false"
-                >
-                  <span class="source-info">
-                    <span class="source-name">{{ source.name }}</span>
-                    <span class="source-desc">{{ source.description }} · {{ source.speed }}</span>
-                    <span v-if="source.contributor" class="contributor-info">
-                      镜像加速由 <a :href="source.contributor.url" target="_blank" rel="noopener noreferrer" class="contributor-link">{{ source.contributor.name }}</a> 友情提供
-                    </span>
-                  </span>
-                  <span v-if="selectedDownloadSource === source.id" class="check-icon">✓</span>
-                </button>
-              </div>
-            </div>
+                <span v-if="fallbackToLocal && source.id !== 'github'" class="disabled-hint">本地版本不可用</span>
+              </span>
+              <span v-if="selectedDownloadSource === source.id" class="check-icon">✓</span>
+            </button>
           </div>
+        </div>
+      </div>
         </div>
       </div>
       
@@ -714,6 +812,96 @@ onMounted(() => {
   padding: 12px;
   font-family: var(--vp-font-family-base);
   color: var(--vp-c-text-1);
+}
+
+/* API失败通知 */
+.api-fallback-notice {
+  background: var(--vp-c-warning-soft);
+  border: 1px solid var(--vp-c-warning-2);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  animation: slideDown 0.3s ease;
+}
+
+.notice-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.notice-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.notice-text {
+  flex: 1;
+}
+
+.notice-text strong {
+  color: var(--vp-c-warning-1);
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.notice-text p {
+  color: var(--vp-c-warning-2);
+  font-size: 0.875rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.notice-retry-btn {
+  background: var(--vp-c-warning-1);
+  color: var(--vp-c-white);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.notice-retry-btn:hover {
+  background: var(--vp-c-warning-2);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 本地版本徽章 */
+.local-version-badge {
+  background: var(--vp-c-warning-1);
+  color: var(--vp-c-white);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
 }
 
 /* 加载和错误状态 */
