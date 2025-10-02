@@ -1,0 +1,36 @@
+{
+  "latest_version": "2.0.0_beta-20250921a",
+  "release_date": "2025-09-21T11:14:00Z",
+  "assets": [
+    {
+      "name": "ZalithLauncher-2.0.0_beta-20250921a-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20250921a/ZalithLauncher-2.0.0_beta-20250921a-arm64-v8a.apk",
+      "size": "111 MB",
+      "download_count": 0
+    },
+    {
+      "name": "ZalithLauncher-2.0.0_beta-20250921a-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20250921a/ZalithLauncher-2.0.0_beta-20250921a-armeabi-v7a.apk",
+      "size": "106 MB",
+      "download_count": 0
+    },
+    {
+      "name": "ZalithLauncher-2.0.0_beta-20250921a-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20250921a/ZalithLauncher-2.0.0_beta-20250921a-x86.apk",
+      "size": "95.3 MB",
+      "download_count": 0
+    },
+    {
+      "name": "ZalithLauncher-2.0.0_beta-20250921a-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20250921a/ZalithLauncher-2.0.0_beta-20250921a-x86_64.apk",
+      "size": "114 MB",
+      "download_count": 0
+    },
+    {
+      "name": "ZalithLauncher-2.0.0_beta-20250921a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20250921a/ZalithLauncher-2.0.0_beta-20250921a.apk",
+      "size": "210 MB",
+      "download_count": 0
+    }
+  ]
+}

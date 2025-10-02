@@ -36,6 +36,8 @@ const selectedDeviceType = ref('all')
 const selectedDownloadSource = ref('github')
 const isDeviceDropdownOpen = ref(false)
 const isSourceDropdownOpen = ref(false)
+const apiFailed = ref(false)
+const fallbackToLocal = ref(false)
 
 
 // 下载源定义
@@ -357,11 +359,49 @@ async function fetchHahaData() {
 
 
 
+// 加载本地版本信息
+async function loadLocalVersionInfo() {
+  try {
+    console.log('开始加载本地版本信息...')
+    
+    // 从本地version2.json文件加载版本信息
+    const response = await fetch('/version2.json')
+    if (!response.ok) {
+      throw new Error(`本地版本信息加载失败: HTTP ${response.status}`)
+    }
+    
+    const localData = await response.json()
+    
+    // 构建与GitHub API兼容的数据结构
+    const githubCompatibleData = {
+      name: `Zalith Launcher 2 ${localData.latest_version}`,
+      tag_name: `v${localData.latest_version}`,
+      published_at: localData.release_date,
+      body: `本地版本信息 - ${localData.latest_version}`,
+      assets: localData.assets.map((asset: any) => ({
+        id: Math.random().toString(36).substr(2, 9),
+        name: asset.name,
+        browser_download_url: asset.browser_download_url,
+        size: asset.size,
+        download_count: asset.download_count || 0
+      }))
+    }
+    
+    console.log('✅ 本地版本信息加载成功')
+    return githubCompatibleData
+  } catch (error) {
+    console.error('❌ 本地版本信息加载失败:', error)
+    throw error
+  }
+}
+
 // 获取最新版本（带API检测和自动切换）
 async function fetchLatestRelease() {
   isLoading.value = true
   hasError.value = false
   errorMessage.value = ''
+  apiFailed.value = false
+  fallbackToLocal.value = false
   
   try {
     console.log('开始获取最新版本信息...')
@@ -395,15 +435,35 @@ async function fetchLatestRelease() {
           continue
         }
         
-        // 如果是最后一个API也失败了，抛出错误
-        throw new Error('所有API都无法访问')
+        // 如果是最后一个API也失败了，标记API失败并尝试加载本地版本信息
+        console.log('所有API都无法访问，尝试获取本地版本信息但不限制下载源...')
+        apiFailed.value = true
+        
+        try {
+          const localData = await loadLocalVersionInfo()
+          latestRelease.value = localData
+          parsedBody.value = localData.body ? await marked.parse(localData.body) : ''
+          
+          // 同时获取Foxington源和哈哈源数据，确保第三方下载源也能正常工作
+          await fetchFoxingtonData()
+          await fetchHahaData()
+          
+          console.log('✅ 已获取本地版本信息，但保持下载源不受限制')
+          autoSelectDeviceType()
+          return
+        } catch (localError) {
+          console.error('❌ 本地版本信息也加载失败:', localError)
+          // 如果本地版本信息也加载失败，则设置fallbackToLocal为true并限制下载源
+          fallbackToLocal.value = true
+          throw new Error('所有API都无法访问，且本地版本信息加载失败')
+        }
       }
     }
     
   } catch (error) {
     console.error('获取最新版本失败:', error)
     hasError.value = true
-    errorMessage.value = '无法获取版本信息，请检查网络连接或稍后重试'
+    errorMessage.value = error.message || '无法获取版本信息，请检查网络连接或稍后重试'
   } finally {
     isLoading.value = false
   }
@@ -494,8 +554,17 @@ function getHahaUrl(asset: any) {
     return asset.browser_download_url
   }
   
-  // 获取最新版本的数据（假设第一个是最新的）
-  const latestVersion = zl2Dir.children[0]
+  // 获取最新版本的数据（优先使用latest字段，否则使用第一个版本）
+  let latestVersion: any = null
+  if (hahaData.value.latest) {
+    latestVersion = zl2Dir.children.find((child: any) => child.name === hahaData.value.latest)
+  }
+  
+  // 如果没有找到latest指定的版本，使用第一个版本
+  if (!latestVersion && zl2Dir.children.length > 0) {
+    latestVersion = zl2Dir.children[0]
+  }
+  
   if (!latestVersion || !latestVersion.children) {
     return asset.browser_download_url
   }
@@ -516,19 +585,42 @@ function getHahaUrl(asset: any) {
     targetArch = 'all'
   }
   
-  // 查找匹配的文件
-  const matchedFile = latestVersion.children.find((file: any) => 
+  // 查找匹配的文件 - 首先尝试通过arch字段匹配
+  let matchedFile = latestVersion.children.find((file: any) => 
     file.arch === targetArch || 
     (targetArch === 'all' && file.arch === 'all') ||
     (targetArch === 'x86' && file.arch === 'x86') // 特殊处理x86
   )
+  
+  // 如果没有通过arch字段找到匹配，尝试通过文件名匹配
+  if (!matchedFile) {
+    matchedFile = latestVersion.children.find((file: any) => {
+      const hahaFileName = file.name.toLowerCase()
+      // 通过文件名包含的关键词进行匹配
+      if (targetArch === 'arm64-v8a' && (hahaFileName.includes('arm64-v8a') || hahaFileName.includes('arm64'))) {
+        return true
+      } else if (targetArch === 'armeabi-v7a' && (hahaFileName.includes('armeabi-v7a') || hahaFileName.includes('armeabi'))) {
+        return true
+      } else if (targetArch === 'x86_64' && (hahaFileName.includes('x86_64') || hahaFileName.includes('x86-64'))) {
+        return true
+      } else if (targetArch === 'x86' && hahaFileName.includes('x86') && !hahaFileName.includes('x86_64')) {
+        return true
+      } else if (targetArch === 'all' && (!hahaFileName.includes('-') || hahaFileName.includes('universal'))) {
+        return true
+      }
+      return false
+    })
+  }
   
   if (matchedFile && matchedFile.download_link) {
     return matchedFile.download_link
   }
   
   // 如果没有找到精确匹配，尝试使用通用版本
-  const universalFile = latestVersion.children.find((file: any) => file.arch === 'all')
+  const universalFile = latestVersion.children.find((file: any) => 
+    file.arch === 'all' || 
+    (!file.name.includes('-') || file.name.includes('universal'))
+  )
   if (universalFile && universalFile.download_link) {
     return universalFile.download_link
   }
@@ -623,6 +715,15 @@ onMounted(() => {
 
 <template>
   <div class="download-container">
+    <!-- API失败警告 -->
+    <div v-if="apiFailed && !hasError" class="api-failed-warning">
+      <div class="warning-icon">⚠️</div>
+      <div class="warning-content">
+        <h3>API访问受限</h3>
+        <p>GitHub API无法访问，已使用本地版本信息。第三方下载源可能无法获取最新版本。</p>
+      </div>
+    </div>
+    
     <div v-if="isLoading" class="loading">
       <div class="loading-spinner"></div>
       <p>正在获取最新版本信息...</p>
@@ -785,6 +886,33 @@ onMounted(() => {
   padding: 12px;
   font-family: var(--vp-font-family-base);
   color: var(--vp-c-text-1);
+}
+
+/* API失败警告 */
+.api-failed-warning {
+  display: flex;
+  align-items: center;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: #856404;
+}
+
+.warning-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.warning-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.warning-content p {
+  margin: 0;
+  font-size: 0.9rem;
 }
 
 /* 加载和错误状态 */
