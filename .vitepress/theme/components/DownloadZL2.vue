@@ -43,6 +43,7 @@ const fallbackToLocal = ref(false)
 // 下载源定义
 const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
+  { id: 'mirror', name: 'fishcpy源', description: '咬一口的鱼py提供', speed: '国内较快', contributor: { name: '咬一口的鱼py(fishcpy)', url: 'https://github.com/fishcpy' } },
   { id: 'foxington', name: 'github.com/XiaoluoFoxington源', description: '第三方镜像源', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
   { id: 'haha', name: '哈哈源', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://frostlynx.work' } },
 ]
@@ -484,8 +485,8 @@ function autoSelectDeviceType() {
 
 // 按规则拼接镜像加速链接
 function generateMirrorUrl(assetName: string, tagName: string) {
-  const version = tagName.replace('v', '').replace(/\./g, '')
-  return `https://download.fishcpy.top/dl/zl/${version}/${assetName}`
+  const version = tagName.replace('v', '')
+  return `https://download.fishcpy.top/dl/zl2/${version}/${assetName}`
 }
 
 // GitHub下载链接
