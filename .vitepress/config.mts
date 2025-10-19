@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress';
-import { blog } from './blog-data.ts'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
