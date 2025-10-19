@@ -50,6 +50,7 @@ export default <DefaultTheme.Config> {
                 { text: 'Zalith Launcher 2', link: '/zl2-download' }
             ]
          },
+        { text: '博客', link: '/blog/' },
         { text: '更多', 
             items: [
                 { text: '关于ZL1', link: '/docs/projects/zl1' },
