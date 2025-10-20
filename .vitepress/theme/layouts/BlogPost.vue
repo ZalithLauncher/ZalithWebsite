@@ -73,7 +73,7 @@ const { frontmatter, page, theme, localePath } = useData()
 // 获取当前语言
 const getCurrentLanguage = () => {
   // 从页面路径判断语言
-  const path = page.value?.path || window?.location?.pathname || ''
+  const path = page.value?.path || ''
   if (path.startsWith('/en/')) {
     return 'en'
   }
