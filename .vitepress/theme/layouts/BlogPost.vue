@@ -70,13 +70,28 @@ import { computed } from 'vue'
 
 const { frontmatter, page, theme, localePath } = useData()
 
-// 获取当前语言
+// 获取当前语言（SSR安全）
 const getCurrentLanguage = () => {
-  // 从页面路径判断语言
+  // 使用多种SSR安全的方法检测当前语言
+  // 1. 首先尝试使用page.value.path（最可靠）
   const path = page.value?.path || ''
-  if (path.startsWith('/en/')) {
+  
+  // 2. 如果page.path可用，优先使用它
+  if (path && path.startsWith('/en/')) {
     return 'en'
   }
+  
+  // 3. 回退到localePath（需要检查是否存在）
+  if (localePath && localePath.value && localePath.value === '/en/') {
+    return 'en'
+  }
+  
+  // 4. 最后检查window.location（仅在客户端可用）
+  if (typeof window !== 'undefined' && window.location?.pathname?.startsWith('/en/')) {
+    return 'en'
+  }
+  
+  // 默认返回中文
   return 'zh-CN'
 }
 
