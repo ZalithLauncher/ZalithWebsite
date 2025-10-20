@@ -1,5 +1,13 @@
 <template>
   <div class="blog-post">
+    <!-- 返回文章列表按钮 -->
+    <div class="back-to-list">
+      <a :href="getBlogListUrl()" class="back-link">
+        <span class="back-icon">←</span>
+        {{ t('backToList') }}
+      </a>
+    </div>
+    
     <!-- 文章头部信息 -->
     <div class="blog-post-header">
       <h1 class="blog-post-title">{{ frontmatter.title }}</h1>
@@ -103,14 +111,16 @@ const t = (key) => {
       publishDate: '发布日期',
       tags: '标签',
       prevPost: '上一篇',
-      nextPost: '下一篇'
+      nextPost: '下一篇',
+      backToList: '返回文章列表'
     },
     'en': {
       author: 'Author',
       publishDate: 'Publish Date',
       tags: 'Tags',
       prevPost: 'Previous',
-      nextPost: 'Next'
+      nextPost: 'Next',
+      backToList: 'Back to Blog List'
     }
   }
   
@@ -185,9 +195,49 @@ const nextPost = computed(() => {
   // 这里可以扩展为动态获取前后文章
   return null
 })
+
+// 获取博客列表页面URL
+const getBlogListUrl = () => {
+  const currentLang = getCurrentLanguage()
+  if (currentLang === 'en') {
+    return '/en/blog/'
+  }
+  return '/blog/'
+}
 </script>
 
 <style scoped>
+.back-to-list {
+  margin-bottom: 1.5rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--vp-c-brand);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 0.5rem;
+  background: var(--vp-c-bg-soft);
+  transition: all 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--vp-c-brand-dark);
+  background: var(--vp-c-bg-soft-up);
+  border-color: var(--vp-c-brand);
+  text-decoration: none;
+}
+
+.back-icon {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
 .blog-post {
   max-width: 800px;
   margin: 0 auto;
