@@ -61,7 +61,13 @@ export default <DefaultTheme.Config> {
                 { text: 'About ZL2', link: '/en/docs/projects/zl2' },
                 { text: 'About this site', link: '/en/docs/about/about' }
             ]
-        }
+        },
+        { text: 'Switch Network Node', 
+            items: [
+                { text: '[CF]Cloudflyer Node', link: 'https://zalithlauncher.com' },
+                { text: '[EO]edgeone Node', link: 'https://www.zalithlauncher.cn' }
+            ]
+          }
     ],
     sidebar: [
         {
