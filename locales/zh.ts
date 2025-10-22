@@ -60,7 +60,7 @@ export default <DefaultTheme.Config> {
          },
          { text: '切换网络节点', 
             items: [
-                { text: '[CF]Cloudflyer节点', link: 'https://zalithlauncher.cn' },
+                { text: '[CF]Cloudflare节点', link: 'https://zalithlauncher.cn' },
                 { text: '[EO]edgeone节点', link: 'https://www.zalithlauncher.cn' }
             ]
           }
