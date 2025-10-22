@@ -72,7 +72,7 @@ export default <DefaultTheme.Config> {
             ]
         },
         {
-            text: 'Help',
+            text: 'Help V2',
             collapsed: true,
             items: [
                 { text: 'Download and Install Game', link: '/en/docs/help/download_game' },

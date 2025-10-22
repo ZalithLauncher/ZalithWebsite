@@ -69,7 +69,7 @@ export default <DefaultTheme.Config> {
             ]
         },
         {
-            text: '帮助',
+            text: '帮助 V2',
             collapsed: true,
             items: [
                 { text: '下载安装游戏', link: '/docs/help/download_game' },
