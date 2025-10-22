@@ -64,7 +64,7 @@ export default <DefaultTheme.Config> {
         },
         { text: 'Switch Network Node', 
             items: [
-                { text: '[CF]Cloudflyer Node', link: 'https://zalithlauncher.com' },
+                { text: '[CF]Cloudflyer Node', link: 'https://zalithlauncher.cn' },
                 { text: '[EO]edgeone Node', link: 'https://www.zalithlauncher.cn' }
             ]
           }
