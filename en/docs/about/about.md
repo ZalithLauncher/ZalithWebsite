@@ -1,5 +1,4 @@
 # **About**
 
-This site is based on the **VitePress 2.0.0** documentation framework. The domain is maintained by **[lemwood](https://lemwood.cn)** and deployed through **Cloudflare**.  
-The source code repository of this website: [ZalithLauncher/ZalithWebsite](https://github.com/ZalithLauncher/ZalithWebsite)
-. You are welcome to submit a PR on GitHub to provide valuable feedback for this website/documentation!
+This site is based on the **VitePress 2.0.0** documentation framework. The domain is maintained by **[lemwood](https://lemwood.cn)**, [www.zalithlauncher.com](https://www.zalithlauncher.com) is deployed on [Cloudflare](https://cloudflare.com/), and [zalithlauncher.com](https://zalithlauncher.com) is deployed on [edgeone pages](https://cloud.tencent.com/act/pro/edgeone_techoday_promotion).  
+The source code repository of this website: [ZalithLauncher/ZalithWebsite](https://github.com/ZalithLauncher/ZalithWebsite). You are welcome to submit a PR on GitHub to provide valuable feedback for this website/documentation!
