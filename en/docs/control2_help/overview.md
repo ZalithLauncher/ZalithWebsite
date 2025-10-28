@@ -1,6 +1,6 @@
 # Overview
 
-::: info Author of this document
+::: info Author
 MovTery - 2025/10/29
 :::
 
@@ -9,7 +9,7 @@ MovTery - 2025/10/29
 The control layout functions as a layer of virtual buttons, allowing you to interact with the game.  
 If you don’t have external peripherals such as a physical keyboard, mouse, or controller and can only play via a touchscreen, you must learn how to use the control layout.
 
-This document is intended for beginners and avoids advanced operations as much as possible — perfect for newcomers!
+This guide is beginner-friendly and avoids advanced operations, so new players can follow along safely.  
 
 ## Managing Control Layouts
 
