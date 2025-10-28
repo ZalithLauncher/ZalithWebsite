@@ -78,14 +78,20 @@ export default <DefaultTheme.Config> {
             ]
         },
         {
-            text: 'Help V2',
-            collapsed: true,
+            text: 'ZL2 Launcher Help',
             items: [
                 { text: 'Download and Install Game', link: '/en/docs/help/download_game' },
                 { text: 'ModLoader', link: '/en/docs/help/modloader' },
                 { text: 'Account', link: '/en/docs/help/account' },
                 { text: 'Authentication Server', link: '/en/docs/help/auth_server' },
                 { text: 'Version Isolation', link: '/en/docs/help/version_isolation' }
+            ]
+        },
+        {
+            text: 'ZL2 Control Layout Help',
+            collapsed: true,
+            items: [
+                { text: 'Overview', link: '/en/docs/control2_help/overview' }
             ]
         },
         {

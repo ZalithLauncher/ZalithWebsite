@@ -1,9 +1,5 @@
 # 模组加载器
 
-::: warning 提醒
-本文档仅适用于 [Zalith Launcher 2](/docs/projects/zl2)
-:::
-
 ::: info 该文档编写者
 墨北MovTery - 2025/9/9
 :::
