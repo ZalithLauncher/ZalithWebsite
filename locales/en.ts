@@ -91,7 +91,9 @@ export default <DefaultTheme.Config> {
             text: 'ZL2 Control Layout Help',
             collapsed: true,
             items: [
-                { text: 'Overview', link: '/en/docs/control2_help/overview' }
+                { text: 'Overview', link: '/en/docs/control2_help/overview' },
+                { text: 'Basic Editor Operations', link: '/en/docs/control2_help/basic_operation' },
+                { text: 'Control Layer', link: '/en/docs/control2_help/control_layer' }
             ]
         },
         {
