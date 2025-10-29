@@ -88,7 +88,8 @@ export default <DefaultTheme.Config> {
             text: 'ZL2 控制布局帮助手册',
             collapsed: true,
             items: [
-                { text: '概览', link: '/docs/control2_help/overview' }
+                { text: '概览', link: '/docs/control2_help/overview' },
+                { text: '编辑器基本操作', link: '/docs/control2_help/basic_operation' }
             ]
         },
         {
