@@ -104,8 +104,8 @@ export default <DefaultTheme.Config> {
     outlineTitle: '当前页大纲',
 
     footer: {
-        message: '在 GPL-3.0 许可证下发布',
-        copyright: '版权所有 © 2025 Zalith Launcher | <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">新ICP备2024015133号-4</a>'
+        message: '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">新ICP备2024015133号-4</a>',
+        copyright: '版权所有 © 2025 Zalith Launcher | GPL-3.0 许可证'
     }
 
 }

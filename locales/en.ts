@@ -105,8 +105,8 @@ export default <DefaultTheme.Config> {
     ],
     outlineTitle: 'On this page',
     footer: {
-        message: 'Licensed under GPL-3.0',
-        copyright: 'Copyright © 2025 Zalith Launcher, All rights reserved. | <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">新ICP备2024015133号-4</a>'
+        message: '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">新ICP备2024015133号-4</a>',
+        copyright: 'Copyright © 2025 Zalith Launcher, All rights reserved. | GPL-3.0 License'
     }
 
 };
