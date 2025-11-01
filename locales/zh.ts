@@ -82,7 +82,7 @@ export default <DefaultTheme.Config> {
                 { text: '账号', link: '/docs/help/account' },
                 { text: '认证服务器', link: '/docs/help/auth_server' },
                 { text: '版本隔离', link: '/docs/help/version_isolation' },
-                { text: '更换微软账户皮肤与披风的窍门', link: '/docs/help/choose_online_skin_or_capes'}
+                { text: '更换皮肤或披风', link: '/docs/help/replace_skin_capes'}
             ]
         },
         {
