@@ -1,5 +1,3 @@
-# About Zalith Launcher
-
 <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin-top: 20px; margin-bottom: 20px;">
   <img src="/zl_title.png" alt="Zalith Launcher Title" style="width: 300px;">
 </div>

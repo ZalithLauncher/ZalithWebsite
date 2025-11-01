@@ -85,6 +85,7 @@ export default <DefaultTheme.Config> {
                 { text: 'Account', link: '/en/docs/help/account' },
                 { text: 'Authentication Server', link: '/en/docs/help/auth_server' },
                 { text: 'Version Isolation', link: '/en/docs/help/version_isolation' }
+                { text: 'Tips for Replace Microsoft Account Skins and Capes', link: '/en/docs/help/choose_online_skin_or_capes'}
             ]
         },
         {
