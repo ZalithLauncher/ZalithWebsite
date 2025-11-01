@@ -18,7 +18,7 @@
 
 ## 添加 Yggdrasil API
 
-要想使用认证服务器，您需要找到认证服务器提供的 Yggdrasil API 链接，启动器才能够使用该认证服务器进行登陆账号等操作。  
+要想使用认证服务器，您需要找到认证服务器提供的 Yggdrasil API 链接，启动器才能够使用该认证服务器进行登录账号等操作。  
 
 以 LittleSkin 为例，您可以在 LittleSkin `用户中心` - `仪表盘` 中，找到 `外置登录 / Yggdrasil` 卡片：  
 
@@ -48,11 +48,11 @@
 
 若您使用的认证服务器并不支持该功能，启动器将无法获取到 Yggdrasil API 地址，您只能输入其标准的 Yggdrasil API 地址。
 
-## 登陆账号
+## 登录账号
 
-添加认证服务器的 Yggdrasil API 地址，相当于是添加了新的登陆方式，您可以在启动器上，登陆您在认证服务器上注册的账号：  
+添加认证服务器的 Yggdrasil API 地址，相当于是添加了新的登录方式，您可以在启动器上，登录您在认证服务器上注册的账号：  
 
-![LittleSkin登陆账号](/zh/docs/account/auth_server/little_skin_login_dialog.png)  
+![LittleSkin登录账号](/zh/docs/account/auth_server/little_skin_login_dialog.png)  
 
 当然，启动器会在添加 Yggdrasil API 地址时，顺便检查其是否一并提供了注册地址。  
 若您在该认证服务器上没有注册账号，您可以通过启动器快速访问该服务器的注册网址。
@@ -61,6 +61,6 @@
 
 ![LittleSkin选择角色](/zh/docs/account/auth_server/little_skin_select_role.jpg)  
 
-登陆成功后，您的认证服务器账号将被添加到账号列表中：  
+登录成功后，您的认证服务器账号将被添加到账号列表中：  
 
 ![添加了LittleSkin账号](/zh/docs/account/auth_server/little_skin_account.jpg)
