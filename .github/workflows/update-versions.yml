@@ -1,0 +1,66 @@
+name: Auto Update Version Info
+
+on:
+  schedule:
+    # 每天北京时间凌晨1点执行 (UTC时间17点)
+    - cron: '0 17 * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  update-versions:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Update version information
+      run: node scripts/update-versions.js
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Check for changes
+      id: verify-changed-files
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "changed=true" >> $GITHUB_OUTPUT
+        else
+          echo "changed=false" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Commit and push changes
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add public/version.json public/version2.json
+        git commit -m "🤖 Auto update version info - $(date '+%Y-%m-%d %H:%M:%S')"
+        git push
+        
+    - name: Create summary
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      run: |
+        echo "## 📦 Version Update Summary" >> $GITHUB_STEP_SUMMARY
+        echo "Updated version information files:" >> $GITHUB_STEP_SUMMARY
+        echo "- \`public/version.json\` (ZL1)" >> $GITHUB_STEP_SUMMARY
+        echo "- \`public/version2.json\` (ZL2)" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Timestamp:** $(date '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+        
+    - name: No changes summary
+      if: steps.verify-changed-files.outputs.changed == 'false'
+      run: |
+        echo "## ✅ No Updates Required" >> $GITHUB_STEP_SUMMARY
+        echo "Version information is already up to date." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Checked at:** $(date '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
