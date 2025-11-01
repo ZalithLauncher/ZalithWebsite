@@ -9,12 +9,16 @@ on:
 jobs:
   update-versions:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
         
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -41,11 +45,11 @@ jobs:
     - name: Commit and push changes
       if: steps.verify-changed-files.outputs.changed == 'true'
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
         git add public/version.json public/version2.json
         git commit -m "🤖 Auto update version info - $(date '+%Y-%m-%d %H:%M:%S')"
-        git push
+        git push origin HEAD:${{ github.ref_name }}
         
     - name: Create summary
       if: steps.verify-changed-files.outputs.changed == 'true'
