@@ -11,6 +11,5 @@
 - [咬一口的鱼py(fishcpy)](https://github.com/fishcpy)
 - [XiaoluoFoxington](https://github.com/XiaoluoFoxington)
 ## Zalith Launcher 2 下载路线提供人员
-- [XiaoluoFoxington](https://github.com/XiaoluoFoxington)
 - [FrostLynx](https://frostlynx.work)
 - [咬一口的鱼py(fishcpy)](https://github.com/fishcpy)

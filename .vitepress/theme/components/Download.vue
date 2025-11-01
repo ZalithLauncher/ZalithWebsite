@@ -291,7 +291,7 @@ async function fetchFromApi(apiConfig: any): Promise<any> {
 
 // 获取Foxington源数据
 async function fetchFoxingtonData() {
-  const foxingtonUrl = 'https://foldcraftlauncher.cn/file/data/zlDownWay1.json'
+  const foxingtonUrl = 'https://next.foldcraftlauncher.cn/data/down/zl/1/1.4.1.0/index.json'
   
   try {
     // 首先尝试直接请求
@@ -484,47 +484,39 @@ function getOriginalGitHubUrl(asset: any) {
 
 // 从Foxington源数据中获取对应的下载链接
 function getFoxingtonUrl(asset: any) {
-  if (!foxingtonData.value || !foxingtonData.value.children) {
+  if (!foxingtonData.value || !Array.isArray(foxingtonData.value)) {
     return asset.browser_download_url // 降级到GitHub链接
-  }
-  
-  // 获取最新版本的数据
-  const latestVersion = foxingtonData.value.children[0]
-  if (!latestVersion || !latestVersion.children) {
-    return asset.browser_download_url
   }
   
   // 根据文件名匹配架构类型
   const fileName = asset.name.toLowerCase()
-  let targetArch = 'all'
+  let targetArchName = 'all 架构'
   
   if (fileName.includes('arm64-v8a') || fileName.includes('arm64')) {
-    targetArch = 'arm64-v8a'
+    targetArchName = 'arm64-v8a 架构'
   } else if (fileName.includes('armeabi-v7a') || fileName.includes('armeabi')) {
-    targetArch = 'armeabi-v7a'
+    targetArchName = 'armeabi-v7a 架构'
   } else if (fileName.includes('x86_64') || fileName.includes('x86-64')) {
-    targetArch = 'x86_64'
+    targetArchName = 'x86_64 架构'
   } else if (fileName.includes('x86')) {
-    targetArch = 'x86'
+    targetArchName = 'x86 架构'
   } else if (fileName.includes('universal')) {
-    targetArch = 'all'
+    targetArchName = 'all 架构'
   }
   
   // 查找匹配的文件
-  const matchedFile = latestVersion.children.find((file: any) => 
-    file.arch === targetArch || 
-    (targetArch === 'all' && file.arch === 'all') ||
-    (targetArch === 'x86' && file.arch === 'x86') // 特殊处理x86
+  const matchedFile = foxingtonData.value.find((file: any) => 
+    file.name === targetArchName
   )
   
-  if (matchedFile && matchedFile.download_link) {
-    return matchedFile.download_link
+  if (matchedFile && matchedFile.url) {
+    return matchedFile.url
   }
   
   // 如果没有找到精确匹配，尝试使用通用版本
-  const universalFile = latestVersion.children.find((file: any) => file.arch === 'all')
-  if (universalFile && universalFile.download_link) {
-    return universalFile.download_link
+  const universalFile = foxingtonData.value.find((file: any) => file.name === 'all 架构')
+  if (universalFile && universalFile.url) {
+    return universalFile.url
   }
   
   // 最后降级到GitHub链接

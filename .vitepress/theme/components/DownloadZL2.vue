@@ -26,7 +26,6 @@ interface DownloadSource {
 }
 
 const latestRelease = ref<any>(null)
-const foxingtonData = ref<any>(null)
 const hahaData = ref<any>(null)
 const isLoading = ref(false)
 const hasError = ref(false)
@@ -44,7 +43,6 @@ const fallbackToLocal = ref(false)
 const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: 'fishcpy源', description: '咬一口的鱼py提供', speed: '国内较快', contributor: { name: '咬一口的鱼py(fishcpy)', url: 'https://github.com/fishcpy' } },
-  { id: 'foxington', name: 'github.com/XiaoluoFoxington源', description: '第三方镜像源', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
   { id: 'haha', name: '哈哈源', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://frostlynx.work' } },
 ]
 
@@ -250,59 +248,7 @@ async function fetchFromApi(apiConfig: any): Promise<any> {
   }
 }
 
-// 获取Foxington源数据
-async function fetchFoxingtonData() {
-  const foxingtonUrl = 'https://foldcraftlauncher.cn/file/data/zl2DownWay1.json'
-  
-  try {
-    // 首先尝试直接请求
-    console.log('尝试直接获取Foxington源数据...')
-    const response = await fetch(foxingtonUrl, {
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'ZalithLauncher-Website/1.0'
-      }
-    })
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-    }
-    
-    const data = await response.json()
-    foxingtonData.value = data
-    console.log('✅ Foxington源数据获取成功（直接请求）')
-    return
-  } catch (error) {
-    console.warn('❌ 直接请求Foxington源失败:', error)
-    
-    // 如果直接请求失败，尝试使用代理API
-    try {
-      console.log('尝试使用代理API获取Foxington源数据...')
-      const proxyResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(foxingtonUrl)}`, {
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      
-      if (!proxyResponse.ok) {
-        throw new Error(`代理API HTTP ${proxyResponse.status}: ${proxyResponse.statusText}`)
-      }
-      
-      const proxyData = await proxyResponse.json()
-      
-      if (!proxyData.contents) {
-        throw new Error('代理API返回数据格式错误')
-      }
-      
-      const data = JSON.parse(proxyData.contents)
-      foxingtonData.value = data
-      console.log('✅ Foxington源数据获取成功（代理API）')
-    } catch (proxyError) {
-      console.warn('❌ 代理API也失败了:', proxyError)
-      foxingtonData.value = null
-    }
-  }
-}
+
 
 // 获取哈哈源数据
 async function fetchHahaData() {
@@ -419,8 +365,7 @@ async function fetchLatestRelease() {
         // 显式等待marked解析完成
         parsedBody.value = data.body ? await marked.parse(data.body) : ''
         
-        // 同时获取Foxington源和哈哈源数据
-        await fetchFoxingtonData()
+        // 获取哈哈源数据
         await fetchHahaData()
         
         // 数据加载完成后自动检测设备类型
@@ -445,8 +390,7 @@ async function fetchLatestRelease() {
           latestRelease.value = localData
           parsedBody.value = localData.body ? await marked.parse(localData.body) : ''
           
-          // 同时获取Foxington源和哈哈源数据，确保第三方下载源也能正常工作
-          await fetchFoxingtonData()
+          // 获取哈哈源数据，确保第三方下载源也能正常工作
           await fetchHahaData()
           
           console.log('✅ 已获取本地版本信息，但保持下载源不受限制')
@@ -494,54 +438,7 @@ function getOriginalGitHubUrl(asset: any) {
   return asset.browser_download_url
 }
 
-// 从Foxington源数据中获取对应的下载链接
-function getFoxingtonUrl(asset: any) {
-  if (!foxingtonData.value || !foxingtonData.value.children) {
-    return asset.browser_download_url // 降级到GitHub链接
-  }
-  
-  // 获取最新版本的数据
-  const latestVersion = foxingtonData.value.children[0]
-  if (!latestVersion || !latestVersion.children) {
-    return asset.browser_download_url
-  }
-  
-  // 根据文件名匹配架构类型
-  const fileName = asset.name.toLowerCase()
-  let targetArch = 'all'
-  
-  if (fileName.includes('arm64-v8a') || fileName.includes('arm64')) {
-    targetArch = 'arm64-v8a'
-  } else if (fileName.includes('armeabi-v7a') || fileName.includes('armeabi')) {
-    targetArch = 'armeabi-v7a'
-  } else if (fileName.includes('x86_64') || fileName.includes('x86-64')) {
-    targetArch = 'x86_64'
-  } else if (fileName.includes('x86')) {
-    targetArch = 'x86'
-  } else if (fileName.includes('universal')) {
-    targetArch = 'all'
-  }
-  
-  // 查找匹配的文件
-  const matchedFile = latestVersion.children.find((file: any) => 
-    file.arch === targetArch || 
-    (targetArch === 'all' && file.arch === 'all') ||
-    (targetArch === 'x86' && file.arch === 'x86') // 特殊处理x86
-  )
-  
-  if (matchedFile && matchedFile.download_link) {
-    return matchedFile.download_link
-  }
-  
-  // 如果没有找到精确匹配，尝试使用通用版本
-  const universalFile = latestVersion.children.find((file: any) => file.arch === 'all')
-  if (universalFile && universalFile.download_link) {
-    return universalFile.download_link
-  }
-  
-  // 最后降级到GitHub链接
-  return asset.browser_download_url
-}
+
 
 // 从哈哈源数据中获取对应的下载链接
 function getHahaUrl(asset: any) {
@@ -672,8 +569,6 @@ const currentDownloadSource = computed(() => {
 function getDownloadUrl(asset: any) {
   if (selectedDownloadSource.value === 'mirror') {
     return generateMirrorUrl(asset.name, latestRelease.value.tag_name)
-  } else if (selectedDownloadSource.value === 'foxington') {
-    return getFoxingtonUrl(asset)
   } else if (selectedDownloadSource.value === 'haha') {
     return getHahaUrl(asset)
   } else {
