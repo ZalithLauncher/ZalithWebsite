@@ -75,13 +75,14 @@ export default <DefaultTheme.Config> {
             ]
         },
         {
-            text: 'ZL2 启动器帮助',
+            text: 'ZL2 使用指南',
             items: [
                 { text: '下载安装游戏', link: '/docs/help/download_game' },
                 { text: '模组加载器', link: '/docs/help/modloader' },
                 { text: '账号', link: '/docs/help/account' },
                 { text: '认证服务器', link: '/docs/help/auth_server' },
-                { text: '版本隔离', link: '/docs/help/version_isolation' }
+                { text: '版本隔离', link: '/docs/help/version_isolation' },
+                { text: '更换微软账户皮肤与披风的窍门', link: '/docs/help/choose_online_skin_or_capes'}
             ]
         },
         {
