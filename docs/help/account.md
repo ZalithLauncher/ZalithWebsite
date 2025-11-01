@@ -1,4 +1,4 @@
-# 登陆账号
+# 登录账号
 
 ::: info 该文档编写者
 墨北MovTery - 2025/9/9
@@ -13,7 +13,7 @@
 
 ## 账号管理
 
-启动器提供了账号管理页面，用于存储您所有登陆过的账号。您可以通过启动器主菜单进入账号管理：  
+启动器提供了账号管理页面，用于存储您所有登录过的账号。您可以通过启动器主菜单进入账号管理：  
 
 ![进入账号管理页面](/zh/docs/account/to_account.jpg)  
 
@@ -35,9 +35,9 @@
   - 就像网络昵称一样，为自己取一个希望在游戏内使用的用户名即可。  
   ![编辑游戏档案](/zh/docs/account/edit_profile.jpg)  
 
-若您已经确认自己完成了上述步骤，您就可以在启动器内登陆您的微软账号了！  
+若您已经确认自己完成了上述步骤，您就可以在启动器内登录您的微软账号了！  
 
-### 开始微软登陆
+### 开始微软登录
 
 在启动器的账号管理页面内，开始微软登录：  
 
@@ -49,16 +49,16 @@
 ![设备码任务面板](/zh/docs/account/microsoft/get_device_code.jpg)  
 ![设备代码输入框](/zh/docs/account/microsoft/write_device_code.jpg)  
 
-完成后，您就可以在该网页正常进行微软账号登陆了！  
+完成后，您就可以在该网页正常进行微软账号登录了！  
 
-![微软登陆](/zh/docs/account/microsoft/microsoft_login.jpg)  
+![微软登录](/zh/docs/account/microsoft/microsoft_login.jpg)  
 
-在网页端完成登陆后，您会看到这样的页面，点击接受按钮即可：  
+在网页端完成登录后，您会看到这样的页面，点击接受按钮即可：  
 
 ![允许访问信息](/zh/docs/account/microsoft/accept_license.jpg)  
 ![大功告成！](/zh/docs/account/microsoft/microsoft_login_completed.jpg)
 
-接下来，微软登录就告一段落了，在当前页面等待几秒钟，启动器将会自动开始 Minecraft 的登陆验证，您可以在任务菜单内看到验证过程。  
+接下来，微软登录就告一段落了，在当前页面等待几秒钟，启动器将会自动开始 Minecraft 的登录验证，您可以在任务菜单内看到验证过程。  
 验证成功后，您就可以在账号管理页面内，看到您的微软账号了！  
 
 ![微软账号](/zh/docs/account/microsoft/microsoft_account.jpg)

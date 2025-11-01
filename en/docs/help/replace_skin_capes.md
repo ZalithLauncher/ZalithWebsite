@@ -28,7 +28,7 @@ If you are not sure how to login, click the link below for guidance:
 
 Access the account management section from the main menu of the launcher:
 
-![Go to Account Management Page](/en/docs/account/to_account.jpg)
+![Go to Account Management Page](/en/docs/account/to_account.jpg)  
 
 In the account management page of the launcher, select the corresponding legitimate account profile and click this icon:
 
@@ -36,21 +36,20 @@ In the account management page of the launcher, select the corresponding legitim
 
 ### Replace Skins
 
-By default, when you change your skin, the launcher will prompt you to select a skin file (recommended resolution: **128×128 pixels**).
-
+By default, when you change a skin, the launcher will prompt you to select a skin file (resolution limit: 64×64 pixels or 64×32 pixels).  
 Next, the launcher will ask you to choose a skin model.
 
 Please select the model that corresponds to the skin you have chosen:
 
-![Choose Skin Model](/en/docs/account/microsoft/choose_skin_model.jpg)
+![Choose Skin Model](/en/docs/account/microsoft/choose_skin_model.jpg)  
 
 After making your selection, the launcher will send a **POST** request to the **Mojang API** to update your player skin data.
 
-![Send Skin POST Request](/en/docs/account/microsoft/post_new_skin.jpg)
+![Send Skin POST Request](/en/docs/account/microsoft/post_new_skin.jpg)  
 
 Once the **POST** request successfully connects to the server and completes authentication, the launcher will automatically refresh your player avatar to display the updated skin.
 
-![Refresh Local Player Avatar](/en/docs/account/microsoft/load_new_skin.jpg)
+![Refresh Local Player Avatar](/en/docs/account/microsoft/load_new_skin.jpg)  
 
 You can then see your newly changed skin in the game.
 
@@ -60,13 +59,13 @@ You can then see your newly changed skin in the game.
 
 When changing your cape, the launcher will retrieve your cape data from the **Mojang API**, and then prompt you to select a cape:
 
-![Retrieve Cape Data](/en/docs/account/microsoft/get_capes.jpg)
+![Retrieve Cape Data](/en/docs/account/microsoft/get_capes.jpg)  
 
-![Choose Cape Interface](/en/docs/account/microsoft/choose_capes.jpg)
+![Choose Cape Interface](/en/docs/account/microsoft/choose_capes.jpg)  
 
 After completing all selections, the launcher will send a **POST** request to update your cape data:
 
-![Send New Cape Data](/en/docs/account/microsoft/post_new_capes.jpg)
+![Send New Cape Data](/en/docs/account/microsoft/post_new_capes.jpg)  
 
 You can then see your newly changed cape in the game.
 
