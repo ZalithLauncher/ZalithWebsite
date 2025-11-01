@@ -27,6 +27,7 @@ interface DownloadSource {
 
 const latestRelease = ref<any>(null)
 const foxingtonData = ref<any>(null)
+const zeinkData = ref<any>(null)
 const isLoading = ref(false)
 const hasError = ref(false)
 const errorMessage = ref('')
@@ -81,7 +82,8 @@ const baseDeviceTypes: DeviceType[] = [
 const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: '国内镜像', description: '第三方加速', speed: '国内较快', contributor: { name: '咬一口的鱼py(fishcpy)', url: 'https://github.com/fishcpy' } },
-  { id: 'foxington', name: 'github.com/XiaoluoFoxington源', description: '第三方镜像源', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } }
+  { id: 'foxington', name: 'github.com/XiaoluoFoxington源', description: '第三方镜像源', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
+  { id: 'zeink', name: '泽客镜像 Zeink Lab', description: '泽客镜像源', speed: '国内较快', contributor: { name: 'Zeink Lab', url: 'https://zeinklab.com' } }
 ]
 
 // 动态设备类型（基于API返回的文件）
@@ -343,7 +345,32 @@ async function fetchFoxingtonData() {
   }
 }
 
-
+// 获取泽客镜像源数据
+async function fetchZeinkData() {
+  const zeinkUrl = 'https://mirror.zeinklab.com/api/stat'
+  
+  try {
+    console.log('尝试获取泽客镜像源数据...')
+    const response = await fetch(zeinkUrl, {
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'ZalithLauncher-Website/1.0'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+    }
+    
+    const data = await response.json()
+    // 提取ZalithLauncher的文件数据
+    zeinkData.value = data.ZalithLauncher?.files || null
+    console.log('✅ 泽客镜像源数据获取成功:', zeinkData.value)
+  } catch (error) {
+    console.warn('❌ 泽客镜像源数据获取失败:', error)
+    zeinkData.value = null
+  }
+}
 
 // 加载本地版本信息
 async function loadLocalVersionInfo() {
@@ -407,6 +434,9 @@ async function fetchLatestRelease() {
         // 同时获取Foxington源数据
         await fetchFoxingtonData()
         
+        // 同时获取泽客镜像源数据
+        await fetchZeinkData()
+        
         // 数据加载完成后自动检测设备类型
         autoSelectDeviceType()
         return // 成功获取数据，退出函数
@@ -432,6 +462,9 @@ async function fetchLatestRelease() {
           
           // 同时获取Foxington源数据，确保第三方下载源也能正常工作
           await fetchFoxingtonData()
+          
+          // 同时获取泽客镜像源数据
+          await fetchZeinkData()
           
           // 显示API失败通知
           errorMessage.value = 'API版本信息获取失败，但您仍然可以使用所有下载源。部分功能可能受限。'
@@ -523,6 +556,28 @@ function getFoxingtonUrl(asset: any) {
   return asset.browser_download_url
 }
 
+// 获取泽客镜像源URL
+function getZeinkUrl(asset: any) {
+  // 如果有API数据，优先使用API数据
+  if (zeinkData.value && Array.isArray(zeinkData.value)) {
+    // 根据文件名精确匹配
+    const matchedFile = zeinkData.value.find((file: any) => 
+      file.name === asset.name
+    )
+    
+    if (matchedFile && matchedFile.mirror_url) {
+      console.log(`🔗 使用API数据的泽客镜像链接: ${matchedFile.mirror_url}`)
+      return matchedFile.mirror_url
+    }
+  }
+  
+  // 如果没有API数据或API数据中没有匹配的文件，直接构造泽客镜像URL
+  // 泽客镜像的URL格式：http://mirror.zeinklab.com/repos/ZalithLauncher/文件名
+  const zeinkMirrorUrl = `http://mirror.zeinklab.com/repos/ZalithLauncher/${asset.name}`
+  console.log(`🔗 生成泽客镜像链接: ${zeinkMirrorUrl}`)
+  return zeinkMirrorUrl
+}
+
 
 
 // 根据设备类型过滤资源
@@ -572,6 +627,8 @@ function getDownloadUrl(asset: any) {
     return generateMirrorUrl(asset.name, latestRelease.value.tag_name)
   } else if (selectedDownloadSource.value === 'foxington') {
     return getFoxingtonUrl(asset)
+  } else if (selectedDownloadSource.value === 'zeink') {
+    return getZeinkUrl(asset)
   } else {
     return getOriginalGitHubUrl(asset)
   }

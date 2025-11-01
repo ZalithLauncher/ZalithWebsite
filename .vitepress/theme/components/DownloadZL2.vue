@@ -14,6 +14,60 @@ interface DeviceType {
   patterns: string[]
 }
 
+// 获取泽客镜像源数据
+async function fetchZeinkData() {
+  const zeinkUrl = 'https://mirror.zeinklab.com/api/stat'
+  
+  try {
+    // 首先尝试直接请求
+    console.log('尝试直接获取泽客镜像源数据...')
+    const response = await fetch(zeinkUrl, {
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'ZalithLauncher-Website/1.0'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+    }
+    
+    const data = await response.json()
+    zeinkData.value = data
+    console.log('✅ 泽客镜像源数据获取成功（直接请求）')
+    return
+  } catch (error) {
+    console.warn('❌ 直接请求泽客镜像源失败:', error)
+    
+    // 如果直接请求失败，尝试使用代理API
+    try {
+      console.log('尝试使用代理API获取泽客镜像源数据...')
+      const proxyResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(zeinkUrl)}`, {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      
+      if (!proxyResponse.ok) {
+        throw new Error(`代理API HTTP ${proxyResponse.status}: ${proxyResponse.statusText}`)
+      }
+      
+      const proxyData = await proxyResponse.json()
+      
+      if (!proxyData.contents) {
+        throw new Error('代理API返回数据格式错误')
+      }
+      
+      const data = JSON.parse(proxyData.contents)
+      zeinkData.value = data
+      console.log('✅ 泽客镜像源数据获取成功（代理API）')
+    } catch (proxyError) {
+      console.warn('❌ 代理API也失败了:', proxyError)
+      zeinkData.value = null
+    }
+  }
+}
+
 interface DownloadSource {
   id: string
   name: string
@@ -27,6 +81,7 @@ interface DownloadSource {
 
 const latestRelease = ref<any>(null)
 const hahaData = ref<any>(null)
+const zeinkData = ref<any>(null)
 const isLoading = ref(false)
 const hasError = ref(false)
 const errorMessage = ref('')
@@ -44,6 +99,7 @@ const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: 'fishcpy源', description: '咬一口的鱼py提供', speed: '国内较快', contributor: { name: '咬一口的鱼py(fishcpy)', url: 'https://github.com/fishcpy' } },
   { id: 'haha', name: '哈哈源', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://frostlynx.work' } },
+  { id: 'zeink', name: '泽客镜像', description: 'Zeink Lab 提供', speed: '国内较快', contributor: { name: 'Zeink Lab', url: 'https://zeinklab.com' } },
 ]
 
 // 动态设备类型（基于API返回的文件）
@@ -248,9 +304,77 @@ async function fetchFromApi(apiConfig: any): Promise<any> {
   }
 }
 
-
-
-// 获取哈哈源数据
+// 获取泽客镜像源下载链接
+function getZeinkUrl(asset: any) {
+  if (!zeinkData.value || !zeinkData.value.ZalithLauncher2 || !zeinkData.value.ZalithLauncher2.files) {
+    return asset.browser_download_url // 降级到GitHub链接
+  }
+  
+  const zl2Files = zeinkData.value.ZalithLauncher2.files
+  
+  // 根据文件名匹配架构类型
+  const fileName = asset.name.toLowerCase()
+  let targetArch = ''
+  
+  if (fileName.includes('arm64-v8a') || fileName.includes('arm64')) {
+    targetArch = 'arm64-v8a'
+  } else if (fileName.includes('armeabi-v7a') || fileName.includes('armeabi')) {
+    targetArch = 'armeabi-v7a'
+  } else if (fileName.includes('x86_64') || fileName.includes('x86-64')) {
+    targetArch = 'x86_64'
+  } else if (fileName.includes('x86')) {
+    targetArch = 'x86'
+  } else if (fileName.includes('universal') || !fileName.includes('-')) {
+    targetArch = 'universal'
+  }
+  
+  // 查找匹配的文件
+  for (const fileInfo of zl2Files) {
+    const zeinkFileName = fileInfo.name.toLowerCase()
+    
+    // 通过文件名包含的关键词进行匹配
+    let isMatch = false
+    if (targetArch === 'arm64-v8a' && (zeinkFileName.includes('arm64-v8a') || zeinkFileName.includes('arm64'))) {
+      isMatch = true
+    } else if (targetArch === 'armeabi-v7a' && (zeinkFileName.includes('armeabi-v7a') || zeinkFileName.includes('armeabi'))) {
+      isMatch = true
+    } else if (targetArch === 'x86_64' && (zeinkFileName.includes('x86_64') || zeinkFileName.includes('x86-64'))) {
+      isMatch = true
+    } else if (targetArch === 'x86' && zeinkFileName.includes('x86') && !zeinkFileName.includes('x86_64')) {
+      isMatch = true
+    } else if (targetArch === 'universal' && (!zeinkFileName.includes('-') || zeinkFileName.includes('universal'))) {
+      isMatch = true
+    }
+    
+    if (isMatch && fileInfo.mirror_url) {
+      // 清理重复的URL前缀
+      let cleanUrl = fileInfo.mirror_url
+      const baseUrl = 'http://mirror.zeinklab.com/'
+      while (cleanUrl.includes(baseUrl + baseUrl)) {
+        cleanUrl = cleanUrl.replace(baseUrl + baseUrl, baseUrl)
+      }
+      return cleanUrl
+    }
+  }
+  
+  // 如果没有找到精确匹配，尝试使用通用版本
+  for (const fileInfo of zl2Files) {
+    const zeinkFileName = fileInfo.name.toLowerCase()
+    
+    if (!zeinkFileName.includes('-') || zeinkFileName.includes('universal')) {
+      // 清理重复的URL前缀
+      let cleanUrl = fileInfo.mirror_url
+      const baseUrl = 'http://mirror.zeinklab.com/'
+      while (cleanUrl.includes(baseUrl + baseUrl)) {
+        cleanUrl = cleanUrl.replace(baseUrl + baseUrl, baseUrl)
+      }
+      return cleanUrl
+    }
+  }
+  
+  // 最后降级到GitHub链接
+  return asset.browser_download_url
+}// 获取哈哈源数据
 async function fetchHahaData() {
   const hahaUrl = 'https://frostlynx.work/external/zl2/file_tree.json'
   
@@ -368,6 +492,9 @@ async function fetchLatestRelease() {
         // 获取哈哈源数据
         await fetchHahaData()
         
+        // 获取泽客镜像源数据
+        await fetchZeinkData()
+        
         // 数据加载完成后自动检测设备类型
         autoSelectDeviceType()
         return // 成功获取数据，退出函数
@@ -392,6 +519,9 @@ async function fetchLatestRelease() {
           
           // 获取哈哈源数据，确保第三方下载源也能正常工作
           await fetchHahaData()
+          
+          // 获取泽客镜像源数据
+          await fetchZeinkData()
           
           console.log('✅ 已获取本地版本信息，但保持下载源不受限制')
           autoSelectDeviceType()
@@ -571,6 +701,8 @@ function getDownloadUrl(asset: any) {
     return generateMirrorUrl(asset.name, latestRelease.value.tag_name)
   } else if (selectedDownloadSource.value === 'haha') {
     return getHahaUrl(asset)
+  } else if (selectedDownloadSource.value === 'zeink') {
+    return getZeinkUrl(asset)
   } else {
     return getOriginalGitHubUrl(asset)
   }
