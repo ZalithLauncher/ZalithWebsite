@@ -1,72 +1,59 @@
-# Replace Skin or Capes
+# Changing Skins or Capes
 
-::: info Author
-TNTyep520 - 2025/11/1
+::: info Author of this document
+First Edition: TNTyep520 - 2025/11/01  
+Second Edition Revision: MovTery - 2025/11/04
 :::
 
-## Introduction
+## Preface
 
-The **Mojang API** is an **Application Programming Interface (API)** provided by **Mojang Studios**.
+You can change your account’s skin and cape directly in the launcher. Currently, this feature supports **Microsoft accounts** and **offline accounts**.  
+If you are using an **authentication server account**, please visit the corresponding website’s dashboard to modify your skin or cape.  
 
-This interface allows developers to securely access and retrieve **Minecraft player profile data** and related information through their own applications.
+For Microsoft accounts, the launcher uses Mojang Studios’ officially authorized API to handle skin and cape changes, ensuring the process is safe and compliant.  
 
-**Zalith Launcher 2** uses the officially approved API interface provided by **Mojang Studios** to securely and compliantly access the online services of **Minecraft: Java Edition**.
+In the account management page of the launcher, click the icon shown below to begin the change.  
+If your account is a Microsoft account, a submenu for changing skins and capes will open;  
+if your account is an offline account, a file selector will open directly to let you choose a skin.  
 
-This document provides instructions on how to change your skin and cape when using a Microsoft account.
+![Choose the skin and cape change interface](/en/docs/account/microsoft/choose_skin_capes.jpg)  
 
-This guide is written for beginners and avoids complex or advanced operations wherever possible.
+This document is written for beginners and aims to avoid complex or advanced steps. Even if this is your first time, you can easily complete the setup.
 
-Even if this is your first time performing these actions, you can follow it easily.
+## Changing the Skin
 
-Before you begin, make sure you are logged in to your Microsoft account.
+When the file selector opens, you need to choose a skin image file (only **PNG** format is supported, with a resolution of **64x64** pixels or **64x32** pixels).  
+Then, the launcher will ask you to choose a skin model. Please select the model that matches your chosen skin:
 
-If you are not sure how to login, click the link below for guidance:
+![Choose skin model](/en/docs/account/microsoft/choose_skin_model.jpg)  
 
-- [Login to your account](/en/docs/help/account.md)
+After you finish selecting, the launcher will immediately update the skin data.  
 
-## Skins and Capes
+For Microsoft accounts, the launcher will send a POST request to the Mojang API to update the player’s skin data.  
 
-Access the account management section from the main menu of the launcher:
+![Send POST request for new skin](/en/docs/account/microsoft/post_new_skin.jpg)  
 
-![Go to Account Management Page](/en/docs/account/to_account.jpg)  
+After success, the launcher will automatically refresh the player avatar to show the latest skin appearance.  
 
-In the account management page of the launcher, select the corresponding legitimate account profile and click this icon:
+![Refresh local player avatar](/en/docs/account/microsoft/load_new_skin.jpg)  
 
-![Select Skin and Cape Menu](/en/docs/account/microsoft/choose_skin_capes.jpg)
-
-### Replace Skins
-
-By default, when you change a skin, the launcher will prompt you to select a skin file (resolution limit: 64×64 pixels or 64×32 pixels).  
-Next, the launcher will ask you to choose a skin model.
-
-Please select the model that corresponds to the skin you have chosen:
-
-![Choose Skin Model](/en/docs/account/microsoft/choose_skin_model.jpg)  
-
-After making your selection, the launcher will send a **POST** request to the **Mojang API** to update your player skin data.
-
-![Send Skin POST Request](/en/docs/account/microsoft/post_new_skin.jpg)  
-
-Once the **POST** request successfully connects to the server and completes authentication, the launcher will automatically refresh your player avatar to display the updated skin.
-
-![Refresh Local Player Avatar](/en/docs/account/microsoft/load_new_skin.jpg)  
-
-You can then see your newly changed skin in the game.
+Then you can see your newly changed skin in the game.  
 
 ![Skin](/en/docs/account/microsoft/game_new_skin.jpg)
 
-### Replace Capes
+## Changing the Cape
 
-When changing your cape, the launcher will retrieve your cape data from the **Mojang API**, and then prompt you to select a cape:
+Currently, only Microsoft accounts are allowed to change capes.  
+When changing a cape, the launcher will retrieve the player’s owned cape data through the Mojang API:  
 
-![Retrieve Cape Data](/en/docs/account/microsoft/get_capes.jpg)  
+![Get cape data](/en/docs/account/microsoft/get_capes.jpg)  
 
-![Choose Cape Interface](/en/docs/account/microsoft/choose_capes.jpg)  
+After successful retrieval, the launcher will display all your capes in a dialog and automatically localize them.  
+You can select the cape you want to change here:  
 
-After completing all selections, the launcher will send a **POST** request to update your cape data:
+![Change cape interface](/en/docs/account/microsoft/choose_capes.jpg)  
+![Send new cape data](/en/docs/account/microsoft/post_new_capes.jpg)
 
-![Send New Cape Data](/en/docs/account/microsoft/post_new_capes.jpg)  
-
-You can then see your newly changed cape in the game.
+Then you can see your newly changed cape in the game.  
 
 ![Cape](/en/docs/account/microsoft/game_new_capes.jpg)
