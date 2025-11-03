@@ -49,21 +49,20 @@ export default <DefaultTheme.Config> {
                 { text: 'Zalith Launcher 1', link: '/download' },
                 { text: 'Zalith Launcher 2', link: '/zl2-download' }
             ]
-         },
+        },
         { text: '博客', link: '/blog/' },
         { text: '更多', 
             items: [
-                { text: '关于ZL1', link: '/docs/projects/zl1' },
-                { text: '关于ZL2', link: '/docs/projects/zl2' },
+                { text: '启动器文档', link: '/docs/projects/zl2' },
                 { text: '关于本站', link: '/docs/about/about' }
             ]
-         },
-         { text: '切换网络节点', 
+        },
+        { text: '切换网络节点', 
             items: [
                 { text: '[CF]Cloudflare节点', link: 'https://zalithlauncher.cn' },
                 { text: '[EO]edgeone节点', link: 'https://www.zalithlauncher.cn' }
             ]
-          }
+        }
     ],
 
     sidebar: [

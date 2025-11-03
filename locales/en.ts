@@ -52,13 +52,12 @@ export default <DefaultTheme.Config> {
                 { text: 'Zalith Launcher 1', link: '/en/download' },
                 { text: 'Zalith Launcher 2', link: '/en/zl2-download' }
             ]
-         },
+        },
         { text: 'Blog', link: '/en/blog/' },
         { 
             text: 'More',
             items: [
-                { text: 'About ZL1', link: '/en/docs/projects/zl1' },
-                { text: 'About ZL2', link: '/en/docs/projects/zl2' },
+                { text: 'Launcher Documentation', link: '/docs/projects/zl2' },
                 { text: 'About this site', link: '/en/docs/about/about' }
             ]
         },
@@ -67,7 +66,7 @@ export default <DefaultTheme.Config> {
                 { text: '[CF]Cloudflare Node', link: 'https://zalithlauncher.cn' },
                 { text: '[EO]edgeone Node', link: 'https://www.zalithlauncher.cn' }
             ]
-          }
+        }
     ],
     sidebar: [
         {
