@@ -4,17 +4,21 @@
 MovTery - 2025/10/29
 :::
 
-## Preface
+A control layer is the container for controls; all controls must be placed on a control layer.  
+Similar to "layers" in drawing software, control layers help you easily achieve the following:  
+- Manage and organize controls across different layers.  
+- Implement layered display, hiding, or independent operation of controls.
 
-A control layer is the fundamental container for holding controls; all controls are placed on control layers for management.  
-Similar to "layers" in drawing or design software, control layers allow you to group different controls into separate layers, making it easier to manage, adjust, and organize interface elements.  
-By using multiple control layers, you can easily achieve layered display, hiding, or independent operation of controls, enhancing the flexibility and maintainability of your layout.
+Control layers do not have a size concept—they always cover the entire screen.
 
 ## Creating a Control Layer
 
 In the menu on the right, click the "Create New" button to create a new control layer.
 
 ![Create a control layer](/en/docs/control2_help/control_layer/create_new_layer.png)
+
+You can click on a control layer to select it, the selected layer will be highlighted with a bold border.  
+To add controls to a layer, you must first select that control layer.  
 
 Control layers have a stacking order, they are loaded from bottom to top.  
 You can drag and reorder layers as needed.
