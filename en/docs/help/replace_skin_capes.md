@@ -57,3 +57,39 @@ You can select the cape you want to change here:
 Then you can see your newly changed cape in the game.  
 
 ![Cape](/en/docs/account/microsoft/game_new_capes.jpg)
+
+## Advanced Content
+
+This section provides detailed technical explanations and is not intended for beginners.
+
+### Microsoft Accounts
+
+Implementation details for changing skins:  
+- After obtaining the skin file you selected, the launcher validates the image (ensuring it is PNG format and resolution is 64x64 or 64x32, as allowed by Mojang).  
+- If the image is valid, you are prompted to select a model type.  
+- The skin image file is read as a byte array.  
+- The skin data is uploaded through the Mojang API. Relevant documentation: [Minecraft WIKI](https://minecraft.wiki/w/Mojang_API#Upload_skin)  
+- If the upload fails due to account authentication issues, the launcher will re-login and retry the upload.
+
+Implementation details for changing capes:  
+- First, the launcher retrieves your player data via the Mojang API. Relevant documentation: [Minecraft WIKI](https://minecraft.wiki/w/Mojang_API#Query_player_profile)  
+- The player configuration contains all cape data owned by your account.  
+- The launcher displays the cape data in a list and attempts localization based on the `alias` of each cape. Related source code:  
+  - _Capes.kt: [GitHub](https://github.com/ZalithLauncher/ZalithLauncher2/blob/main/ZalithLauncher/src/main/java/com/movtery/zalithlauncher/game/account/wardrobe/_Capes.kt)  
+- Based on your selection, the launcher uses the Mojang API to reset or change your cape. Relevant documentation: [Minecraft WIKI](https://minecraft.wiki/w/Mojang_API#Show_cape)  
+- If the change fails due to account authentication issues, the launcher will re-login and retry the cape change.
+
+### Offline Accounts
+
+Why can offline accounts use custom skins even in a local environment without internet access?
+
+In early versions of the launcher, the offline skin feature was implemented by generating a resource pack. However, this approach had many limitations — it didn’t work in some game versions and became completely invalid after version 1.19.3.
+
+In the current implementation, the launcher supports custom skins through an offline Yggdrasil API server.  
+The principle is the same as that used by [HMCL](https://docs.hmcl.net/launcher/offline-skin.html): it uses the Authlib-Injector feature to specify a custom authentication server URL (the API address) and connects to a locally hosted authentication server provided by the launcher to deliver skin data for the player.
+
+The launcher's offline Yggdrasil API server runs on the [CIO Engine](https://ktor.io/docs/server-engines.html).  
+You can refer to the implementation source code below:  
+- OfflineYggdrasilServer: [GitHub](https://github.com/ZalithLauncher/ZalithLauncher2/blob/main/ZalithLauncher/src/main/java/com/movtery/zalithlauncher/game/account/offline/OfflineYggdrasilServer.kt)
+
+With this method, you can still see your custom skin normally in a completely offline vanilla Minecraft environment.
