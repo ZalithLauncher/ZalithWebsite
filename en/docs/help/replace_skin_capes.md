@@ -1,6 +1,6 @@
 # Changing Skins or Capes
 
-::: info Author of this document
+::: info Author
 First Edition: TNTyep520 - 2025/11/01  
 Second Edition Revision: MovTery - 2025/11/04
 :::

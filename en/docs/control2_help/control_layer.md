@@ -29,10 +29,12 @@ Each control layer has its own set of properties, which can be used to create po
   - **Visible Out-Game:**  
     The control layer is visible when the game is in mouse mode (e.g., when opening a GUI).
 - **Hide Control Layer by Default**  
-  - The layer is hidden by default and can only be shown or hidden through button events.
+  The layer is hidden by default and can only be shown or hidden through button events.
 - **Keep visible when using mouse**  
-  - When enabled, this control layer remains visible even if you’re using a physical mouse.
+  When enabled, this control layer remains visible even if you’re using a physical mouse.  
+  For more details about control layout operations, see: [Control Layout Operations](/en/docs/control2_help/control_layout_operations)
 - **Keep visible when using gamepad**  
-  - When enabled, this control layer remains visible even if you’re using a gamepad.
+  When enabled, this control layer remains visible even if you’re using a gamepad.  
+  For more details about control layout operations, see: [Control Layout Operations](/en/docs/control2_help/control_layout_operations)
 - **Merge Control Downward**  
-  - Merges all controls from this layer into the next control layer below it.
+  Merges all controls from this layer into the next control layer below it.

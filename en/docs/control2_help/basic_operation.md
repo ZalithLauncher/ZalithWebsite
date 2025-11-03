@@ -34,8 +34,10 @@ the left side contains the editor menu, and the right side shows the list of con
     Used to test how your layout behaves both inside and outside of the game.  
   - **Using physical mouse**  
     Simulates the use of a real mouse to test the visibility of certain control layers.  
+    For more details about control layout operations, see: [Control Layout Operations](/en/docs/control2_help/control_layout_operations)
   - **Using gamepad**  
-    Simulates the use of a gamepad to test the visibility of control layers.
+    Simulates the use of a gamepad to test the visibility of control layers.  
+    For more details about control layout operations, see: [Control Layout Operations](/en/docs/control2_help/control_layout_operations)
 - **Snapping Functions**
   - **Control Snapping**  
     Determines whether dragged controls should snap to the edges of nearby controls.  
