@@ -6,7 +6,9 @@ MovTery - 2025/10/29
 
 ## Preface
 
-Just like the "layers" feature commonly used in drawing software, you can organize your controls across multiple control layers for better management.
+A control layer is the fundamental container for holding controls; all controls are placed on control layers for management.  
+Similar to "layers" in drawing or design software, control layers allow you to group different controls into separate layers, making it easier to manage, adjust, and organize interface elements.  
+By using multiple control layers, you can easily achieve layered display, hiding, or independent operation of controls, enhancing the flexibility and maintainability of your layout.
 
 ## Creating a Control Layer
 
