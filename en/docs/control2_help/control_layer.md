@@ -17,6 +17,8 @@ In the menu on the right, click the "Create New" button to create a new control 
 Control layers have a stacking order, they are loaded from bottom to top.  
 You can drag and reorder layers as needed.
 
+![Reorder](/en/docs/control2_help/control_layer/ordering.gif)
+
 Each control layer has its own set of properties, which can be used to create powerful and flexible behaviors:
 
 ![Control layer properties](/en/docs/control2_help/control_layer/control_layer_attributes.png)

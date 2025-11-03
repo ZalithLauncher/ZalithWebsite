@@ -16,6 +16,8 @@
 
 控制层拥有先后顺序，按照从底向顶的顺序依次加载，您可以拖动控制层对它们进行排序。  
 
+![排序](/zh/docs/control2_help/control_layer/ordering.gif)
+
 控制层拥有独立的属性，您可以利用这些属性制作强大的功能：  
 
 ![控制层属性](/zh/docs/control2_help/control_layer/control_layer_attributes.png)  
