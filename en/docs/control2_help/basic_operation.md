@@ -32,6 +32,7 @@ the left side contains the editor menu, and the right side shows the list of con
     When enabled, the editor launches a simulation environment where you can test the basic functionality of your control layout.  
   - **Preview Scenario**  
     Used to test how your layout behaves both inside and outside of the game.  
+    For more details about game visibility scenes, see: [Game States](/en/docs/control2_help/control_layout_operations#game-states)
   - **Using physical mouse**  
     Simulates the use of a real mouse to test the visibility of certain control layers.  
     For more details about control layout operations, see: [Control Layout Operations](/en/docs/control2_help/control_layout_operations#operation-states)

@@ -30,3 +30,14 @@ The launcher dynamically adjusts the control layout state according to your type
 
 - **Gamepad Operation**  
   When you perform any action with a gamepad, the launcher marks it as a gamepad operation. This mark triggers the control layout to switch to the `Gamepad operation` state.
+
+## Game States
+
+The launcher divides the game state into two types:
+
+- **In-Game**  
+  When Minecraft captures the mouse (for example, to control the camera), the launcher determines the state as `In-Game`.
+- **In-Menu** (also referred to as Out-of-Game)  
+  When Minecraft does not capture the mouse (for example, when a GUI screen is open), the launcher determines the state as `In-Menu`.
+
+By distinguishing between these two states, the control layout can automatically show or hide control layers or controls, allowing different key operation schemes for in-game and menu states.
