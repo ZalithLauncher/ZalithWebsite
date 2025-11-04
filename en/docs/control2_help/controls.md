@@ -5,7 +5,7 @@ MovTery - 2025/11/4
 :::
 
 Control layouts interact with the game through controls. Currently, the control layout editor includes two types of controls: buttons and text boxes.  
-All controls must be placed on a [control layer](/docs/control2_help/control_layer). You need to select a control layer before adding controls.
+All controls must be placed on a [control layer](/en/docs/control2_help/control_layer). You need to select a control layer before adding controls.
 
 ![Add controls](/en/docs/control2_help/controls/add_controls.png)
 
