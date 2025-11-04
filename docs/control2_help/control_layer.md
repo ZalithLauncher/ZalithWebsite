@@ -39,9 +39,9 @@
   默认情况下，不显示该控制层，将来只能通过按钮的点击事件来切换该控制层的可见性
 - **在实体鼠标操作时不隐藏**  
   当您使用实体鼠标时，如果此项启用，则不隐藏该控件层  
-  关于控制布局操作，详细了解：[控制布局操作](/docs/control2_help/control_layout_operations)
+  关于控制布局操作，详细了解：[控制布局操作](/docs/control2_help/control_layout_operations#操作状态)
 - **在手柄操作时不隐藏**  
   当您使用手柄时，如果此项启用，则不隐藏该控件层  
-  关于控制布局操作，详细了解：[控制布局操作](/docs/control2_help/control_layout_operations)
+  关于控制布局操作，详细了解：[控制布局操作](/docs/control2_help/control_layout_operations#操作状态)
 - **合并控件至下层**  
   将该控件层的所有控件，全部合并到下一层控件层

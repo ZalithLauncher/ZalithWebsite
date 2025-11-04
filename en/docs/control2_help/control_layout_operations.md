@@ -4,7 +4,7 @@
 MovTery - 2025/11/4
 :::
 
-## States
+## Operation States
 
 Control layouts have the following three states (for understanding only; the actual code is not implemented exactly this way):  
 - Physical mouse operation  
@@ -14,7 +14,7 @@ Control layouts have the following three states (for understanding only; the act
 Control layouts will show or hide control layers based on the current state.  
 You can use state changes to provide different key logic for mouse/keyboard and gamepad operations.
 
-## Specific Operations
+### Specific Operations
 
 The launcher dynamically adjusts the control layout state according to your type of input, switching the visibility of control layers in different states.
 

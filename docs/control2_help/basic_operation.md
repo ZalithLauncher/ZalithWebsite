@@ -31,10 +31,10 @@
     用于测试您的控制布局在游戏内与游戏外的状态
   - **正在使用实体鼠标**  
     模拟设备正在使用实体鼠标，以测试控制层的可见状态  
-    关于控制布局操作，详细了解：[控制布局操作](/docs/control2_help/control_layout_operations)
+    关于控制布局操作，详细了解：[控制布局操作](/docs/control2_help/control_layout_operations#操作状态)
   - **正在使用手柄**  
     模拟设备正在使用手柄，以测试控制层的可见状态  
-    关于控制布局操作，详细了解：[控制布局操作](/docs/control2_help/control_layout_operations)
+    关于控制布局操作，详细了解：[控制布局操作](/docs/control2_help/control_layout_operations#操作状态)
 - **吸附功能**：
   - **控件吸附**  
     在您拖动控件时，是否尝试将被拖动的控件，吸附到其他控件的边缘

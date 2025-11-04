@@ -40,9 +40,9 @@ Each control layer has its own set of properties, which can be used to create po
   The layer is hidden by default and can only be shown or hidden through button events.
 - **Keep visible when using mouse**  
   When enabled, this control layer remains visible even if you’re using a physical mouse.  
-  For more details about control layout operations, see: [Control Layout Operations](/en/docs/control2_help/control_layout_operations)
+  For more details about control layout operations, see: [Control Layout Operations](/en/docs/control2_help/control_layout_operations#operation-states)
 - **Keep visible when using gamepad**  
   When enabled, this control layer remains visible even if you’re using a gamepad.  
-  For more details about control layout operations, see: [Control Layout Operations](/en/docs/control2_help/control_layout_operations)
+  For more details about control layout operations, see: [Control Layout Operations](/en/docs/control2_help/control_layout_operations#operation-states)
 - **Merge Control Downward**  
   Merges all controls from this layer into the next control layer below it.
