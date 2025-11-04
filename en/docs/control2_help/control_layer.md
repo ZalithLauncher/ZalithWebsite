@@ -31,13 +31,12 @@ Each control layer has its own set of properties, which can be used to create po
 
 ## Control Layer Attributes
 
-- **Visible Scenario**
+- **Visible Scenario**  
+    For more details about game visibility scenes, see: [Game States](/en/docs/control2_help/control_layout_operations#game-states)  
   - **Visible In-Game:**  
     The control layer is visible when the game is in a non-mouse mode.  
-    For more details about game visibility scenes, see: [Game States](/en/docs/control2_help/control_layout_operations#game-states)
   - **Visible Out-Game:**  
     The control layer is visible when the game is in mouse mode (e.g., when opening a GUI).  
-    For more details about game visibility scenes, see: [Game States](/en/docs/control2_help/control_layout_operations#game-states)
 - **Hide Control Layer by Default**  
   The layer is hidden by default and can only be shown or hidden through button events.
 - **Keep visible when using mouse**  
