@@ -4,7 +4,7 @@
 MovTery - 2025/10/29
 :::
 
-A control layer is the container for controls; all controls must be placed on a control layer.  
+A control layer is the container for [controls](/en/docs/control2_help/controls); all controls must be placed on a control layer.  
 Similar to "layers" in drawing software, control layers help you easily achieve the following:  
 - Manage and organize controls across different layers.  
 - Implement layered display, hiding, or independent operation of controls.

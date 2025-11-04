@@ -94,7 +94,8 @@ export default <DefaultTheme.Config> {
                 { text: 'Overview', link: '/en/docs/control2_help/overview' },
                 { text: 'Basic Editor Operations', link: '/en/docs/control2_help/basic_operation' },
                 { text: "Control Layout Operations", link: "/en/docs/control2_help/control_layout_operations" },
-                { text: 'Control Layer', link: '/en/docs/control2_help/control_layer' }
+                { text: 'Control Layer', link: '/en/docs/control2_help/control_layer' },
+                { text: 'Controls', link: '/en/docs/control2_help/controls' }
             ]
         },
         {
