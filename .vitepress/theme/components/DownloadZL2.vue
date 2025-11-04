@@ -1384,6 +1384,7 @@ onMounted(() => {
 
 /* 发布说明 */
 .release-notes {
+  text-align: start;
   background: var(--vp-c-bg-soft);
   border-radius: 12px;
   padding: 24px;

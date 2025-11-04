@@ -49,21 +49,20 @@ export default <DefaultTheme.Config> {
                 { text: 'Zalith Launcher 1', link: '/download' },
                 { text: 'Zalith Launcher 2', link: '/zl2-download' }
             ]
-         },
+        },
         { text: '博客', link: '/blog/' },
         { text: '更多', 
             items: [
-                { text: '关于ZL1', link: '/docs/projects/zl1' },
-                { text: '关于ZL2', link: '/docs/projects/zl2' },
+                { text: '启动器文档', link: '/docs/projects/zl2' },
                 { text: '关于本站', link: '/docs/about/about' }
             ]
-         },
-         { text: '切换网络节点', 
+        },
+        { text: '切换网络节点', 
             items: [
                 { text: '[CF]Cloudflare节点', link: 'https://zalithlauncher.cn' },
                 { text: '[EO]edgeone节点', link: 'https://www.zalithlauncher.cn' }
             ]
-          }
+        }
     ],
 
     sidebar: [
@@ -81,8 +80,8 @@ export default <DefaultTheme.Config> {
                 { text: '模组加载器', link: '/docs/help/modloader' },
                 { text: '账号', link: '/docs/help/account' },
                 { text: '认证服务器', link: '/docs/help/auth_server' },
-                { text: '版本隔离', link: '/docs/help/version_isolation' },
-                { text: '更换皮肤或披风', link: '/docs/help/replace_skin_capes'}
+                { text: '更换皮肤或披风', link: '/docs/help/replace_skin_capes'},
+                { text: '版本隔离', link: '/docs/help/version_isolation' }
             ]
         },
         {
@@ -91,7 +90,9 @@ export default <DefaultTheme.Config> {
             items: [
                 { text: '概览', link: '/docs/control2_help/overview' },
                 { text: '编辑器基本操作', link: '/docs/control2_help/basic_operation' },
-                { text: '控制层', link: '/docs/control2_help/control_layer' }
+                { text: '控制布局操作', link: '/docs/control2_help/control_layout_operations' },
+                { text: '控制层', link: '/docs/control2_help/control_layer' },
+                { text: '控件', link: '/docs/control2_help/controls' }
             ]
         },
         {

@@ -52,13 +52,12 @@ export default <DefaultTheme.Config> {
                 { text: 'Zalith Launcher 1', link: '/en/download' },
                 { text: 'Zalith Launcher 2', link: '/en/zl2-download' }
             ]
-         },
+        },
         { text: 'Blog', link: '/en/blog/' },
         { 
             text: 'More',
             items: [
-                { text: 'About ZL1', link: '/en/docs/projects/zl1' },
-                { text: 'About ZL2', link: '/en/docs/projects/zl2' },
+                { text: 'Launcher Documentation', link: '/docs/projects/zl2' },
                 { text: 'About this site', link: '/en/docs/about/about' }
             ]
         },
@@ -67,7 +66,7 @@ export default <DefaultTheme.Config> {
                 { text: '[CF]Cloudflare Node', link: 'https://zalithlauncher.cn' },
                 { text: '[EO]edgeone Node', link: 'https://www.zalithlauncher.cn' }
             ]
-          }
+        }
     ],
     sidebar: [
         {
@@ -84,8 +83,8 @@ export default <DefaultTheme.Config> {
                 { text: 'ModLoader', link: '/en/docs/help/modloader' },
                 { text: 'Account', link: '/en/docs/help/account' },
                 { text: 'Authentication Server', link: '/en/docs/help/auth_server' },
-                { text: 'Version Isolation', link: '/en/docs/help/version_isolation' },
-                { text: 'Replace Skin or Capes', link: '/en/docs/help/replace_skin_capes'}
+                { text: 'Replace Skin or Capes', link: '/en/docs/help/replace_skin_capes'},
+                { text: 'Version Isolation', link: '/en/docs/help/version_isolation' }
             ]
         },
         {
@@ -94,7 +93,9 @@ export default <DefaultTheme.Config> {
             items: [
                 { text: 'Overview', link: '/en/docs/control2_help/overview' },
                 { text: 'Basic Editor Operations', link: '/en/docs/control2_help/basic_operation' },
-                { text: 'Control Layer', link: '/en/docs/control2_help/control_layer' }
+                { text: "Control Layout Operations", link: "/en/docs/control2_help/control_layout_operations" },
+                { text: 'Control Layer', link: '/en/docs/control2_help/control_layer' },
+                { text: 'Controls', link: '/en/docs/control2_help/controls' }
             ]
         },
         {
