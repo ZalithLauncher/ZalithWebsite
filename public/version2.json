@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.0.0_beta-20251028a-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251028a/ZalithLauncher-2.0.0_beta-20251028a-arm64-v8a.apk",
       "size": "115 MB",
-      "download_count": 10624
+      "download_count": 12120
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251028a-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251028a/ZalithLauncher-2.0.0_beta-20251028a-armeabi-v7a.apk",
       "size": "109.6 MB",
-      "download_count": 1189
+      "download_count": 1406
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251028a-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251028a/ZalithLauncher-2.0.0_beta-20251028a-x86.apk",
       "size": "99.2 MB",
-      "download_count": 951
+      "download_count": 1145
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251028a-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251028a/ZalithLauncher-2.0.0_beta-20251028a-x86_64.apk",
       "size": "118 MB",
-      "download_count": 910
+      "download_count": 1091
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251028a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251028a/ZalithLauncher-2.0.0_beta-20251028a.apk",
       "size": "215.1 MB",
-      "download_count": 3273
+      "download_count": 3710
     }
   ],
   "body": "## Updates:\r\n- Synchronized languages with [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- **Control Layout:**\r\n  - Added in-game control layout editor\r\n  - Control layout editor: added preview and test functionality for control layouts\r\n- **Control-Related:**\r\n  - Added support for gamepad controls\r\n  - Added support for gamepad remapping (partially based on [G-Mapper for Android](https://github.com/Mathias-Boulay/android_gamepad_remapper/))\r\n  - Control layouts now support setting hidden states for control layers (e.g., not hidden during physical mouse or gamepad operations)\r\n  - **Control Layout Editor:**\r\n    - Added ability to simulate active external devices in preview mode\r\n    - Added text styling options: alignment, bold, italic, underline\r\n- **Dependencies:**\r\n  - Updated JNA support library files\r\n- **Game-Related:**\r\n  - Game menu: refactored the control settings menu into a tabbed interface\r\n- Added support for custom launcher backgrounds (image or video files)\r\n\r\n---\r\n\r\n## Adjustments:\r\n- **Game-Related:**\r\n  - Fullscreen soft keyboard’s slideable blank area now only affects the mouse layer\r\n- **Content Manager:**\r\n  - Mod Manager: added reminder when the current version has no mod loader\r\n- **UI-Related:**\r\n  - Game menu: adjusted title bar UI\r\n  - Tweaked styles for some UI components\r\n\r\n---\r\n\r\n## Fixes:\r\n- **Version Management:**\r\n  - Custom icons: fixed incorrect logic handling and state updates\r\n- **Content Manager:**\r\n  - Fixed issue where some old Forge mods could not be recognized\r\n- **Download-Related:**\r\n  - Fixed condition filter not being properly cancelable; adjusted UI\r\n- **LWJGL:**\r\n  - Fixed issue preventing 25w43a from launching\r\n"
