@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.0.0_beta-20251028a",
-  "release_date": "2025-10-28T13:36:18Z",
+  "latest_version": "2.0.0_beta-20251109a",
+  "release_date": "2025-11-09T02:56:33Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.0.0_beta-20251028a-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251028a/ZalithLauncher-2.0.0_beta-20251028a-arm64-v8a.apk",
-      "size": "115 MB",
-      "download_count": 17764
+      "name": "ZalithLauncher-2.0.0_beta-20251109a-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251109a/ZalithLauncher-2.0.0_beta-20251109a-arm64-v8a.apk",
+      "size": "115.4 MB",
+      "download_count": 968
     },
     {
-      "name": "ZalithLauncher-2.0.0_beta-20251028a-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251028a/ZalithLauncher-2.0.0_beta-20251028a-armeabi-v7a.apk",
-      "size": "109.6 MB",
-      "download_count": 2111
+      "name": "ZalithLauncher-2.0.0_beta-20251109a-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251109a/ZalithLauncher-2.0.0_beta-20251109a-armeabi-v7a.apk",
+      "size": "110 MB",
+      "download_count": 168
     },
     {
-      "name": "ZalithLauncher-2.0.0_beta-20251028a-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251028a/ZalithLauncher-2.0.0_beta-20251028a-x86.apk",
-      "size": "99.2 MB",
-      "download_count": 1755
+      "name": "ZalithLauncher-2.0.0_beta-20251109a-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251109a/ZalithLauncher-2.0.0_beta-20251109a-x86.apk",
+      "size": "99.7 MB",
+      "download_count": 133
     },
     {
-      "name": "ZalithLauncher-2.0.0_beta-20251028a-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251028a/ZalithLauncher-2.0.0_beta-20251028a-x86_64.apk",
-      "size": "118 MB",
-      "download_count": 1673
+      "name": "ZalithLauncher-2.0.0_beta-20251109a-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251109a/ZalithLauncher-2.0.0_beta-20251109a-x86_64.apk",
+      "size": "118.5 MB",
+      "download_count": 138
     },
     {
-      "name": "ZalithLauncher-2.0.0_beta-20251028a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251028a/ZalithLauncher-2.0.0_beta-20251028a.apk",
-      "size": "215.1 MB",
-      "download_count": 5203
+      "name": "ZalithLauncher-2.0.0_beta-20251109a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251109a/ZalithLauncher-2.0.0_beta-20251109a.apk",
+      "size": "216.6 MB",
+      "download_count": 446
     }
   ],
-  "body": "## Updates:\r\n- Synchronized languages with [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- **Control Layout:**\r\n  - Added in-game control layout editor\r\n  - Control layout editor: added preview and test functionality for control layouts\r\n- **Control-Related:**\r\n  - Added support for gamepad controls\r\n  - Added support for gamepad remapping (partially based on [G-Mapper for Android](https://github.com/Mathias-Boulay/android_gamepad_remapper/))\r\n  - Control layouts now support setting hidden states for control layers (e.g., not hidden during physical mouse or gamepad operations)\r\n  - **Control Layout Editor:**\r\n    - Added ability to simulate active external devices in preview mode\r\n    - Added text styling options: alignment, bold, italic, underline\r\n- **Dependencies:**\r\n  - Updated JNA support library files\r\n- **Game-Related:**\r\n  - Game menu: refactored the control settings menu into a tabbed interface\r\n- Added support for custom launcher backgrounds (image or video files)\r\n\r\n---\r\n\r\n## Adjustments:\r\n- **Game-Related:**\r\n  - Fullscreen soft keyboard’s slideable blank area now only affects the mouse layer\r\n- **Content Manager:**\r\n  - Mod Manager: added reminder when the current version has no mod loader\r\n- **UI-Related:**\r\n  - Game menu: adjusted title bar UI\r\n  - Tweaked styles for some UI components\r\n\r\n---\r\n\r\n## Fixes:\r\n- **Version Management:**\r\n  - Custom icons: fixed incorrect logic handling and state updates\r\n- **Content Manager:**\r\n  - Fixed issue where some old Forge mods could not be recognized\r\n- **Download-Related:**\r\n  - Fixed condition filter not being properly cancelable; adjusted UI\r\n- **LWJGL:**\r\n  - Fixed issue preventing 25w43a from launching\r\n"
+  "body": "## Updates:\r\n- Synchronized languages with [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- **Control-Related:**\r\n  - **Gamepad Control:**\r\n    - Added a master switch to completely disable gamepad functionality\r\n    - Improved input latency by using a listener-based mechanism\r\n  - Restored mouse position only when in physical mouse control mode\r\n- Crash page now supports portrait display\r\n- Added support for parsing Cleanroom\r\n- **UI-Related:**\r\n  - Launcher background opacity now also affects content elements\r\n\r\n## Adjustments:\r\n- **Launcher Log:**\r\n  - When packaging logs, the original modification time is now preserved\r\n\r\n## Refactors:\r\n- **Control-Related:**\r\n  - Refactored control layout and gamepad input handling using a more optimized approach\r\n- **Crash Handling:**\r\n  - Rebuilt crash recovery using the Process Phoenix library for app restarts\r\n  - Integrated Fishnet library for crash log capturing\r\n\r\n## Fixes:\r\n- **Download-Related:**\r\n  - **Foreground Service:** Manually terminate existing services before installing Forge or OptiFine\r\n  - **Forge:** Corrected displayed library names during installation\r\n  - **CurseForge Modpacks:** Fixed missing downloads for some dependency files\r\n- **Control-Related:**\r\n  - Fixed issue where pressing a new key also triggered events from already pressed keys\r\n  - **Gamepad:** Removed redundant device detection\r\n  - Fixed IME text composition range overflow\r\n- **UI-Related:**\r\n  - **Virtual Keyboard Dialog:** Fixed UI flickering on some systems due to dialog height issues\r\n  - **Virtual Mouse Image Settings:** Fixed image not refreshing after multiple imports\r\n- **Crash Reports:**\r\n  - Fixed missing launcher version number in crash logs\r\n- **Java Environment:**\r\n  - Added missing `libawt_xawt.so` library to imported runtime environments\r\n  - Fixed logic for loading runtime environments\r\n- **Game Launch:**\r\n  - Filtered out unusable game support libraries\r\n  - Ensured client JAR presence for mod loaders\r\n- **UI-Related:**\r\n  - Fixed background opacity being applied even when no background content exists\r\n"
 }
