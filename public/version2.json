@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.0.0_beta-20251109a-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251109a/ZalithLauncher-2.0.0_beta-20251109a-arm64-v8a.apk",
       "size": "115.4 MB",
-      "download_count": 968
+      "download_count": 2070
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251109a-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251109a/ZalithLauncher-2.0.0_beta-20251109a-armeabi-v7a.apk",
       "size": "110 MB",
-      "download_count": 168
+      "download_count": 401
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251109a-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251109a/ZalithLauncher-2.0.0_beta-20251109a-x86.apk",
       "size": "99.7 MB",
-      "download_count": 133
+      "download_count": 320
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251109a-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251109a/ZalithLauncher-2.0.0_beta-20251109a-x86_64.apk",
       "size": "118.5 MB",
-      "download_count": 138
+      "download_count": 324
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251109a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251109a/ZalithLauncher-2.0.0_beta-20251109a.apk",
       "size": "216.6 MB",
-      "download_count": 446
+      "download_count": 952
     }
   ],
   "body": "## Updates:\r\n- Synchronized languages with [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- **Control-Related:**\r\n  - **Gamepad Control:**\r\n    - Added a master switch to completely disable gamepad functionality\r\n    - Improved input latency by using a listener-based mechanism\r\n  - Restored mouse position only when in physical mouse control mode\r\n- Crash page now supports portrait display\r\n- Added support for parsing Cleanroom\r\n- **UI-Related:**\r\n  - Launcher background opacity now also affects content elements\r\n\r\n## Adjustments:\r\n- **Launcher Log:**\r\n  - When packaging logs, the original modification time is now preserved\r\n\r\n## Refactors:\r\n- **Control-Related:**\r\n  - Refactored control layout and gamepad input handling using a more optimized approach\r\n- **Crash Handling:**\r\n  - Rebuilt crash recovery using the Process Phoenix library for app restarts\r\n  - Integrated Fishnet library for crash log capturing\r\n\r\n## Fixes:\r\n- **Download-Related:**\r\n  - **Foreground Service:** Manually terminate existing services before installing Forge or OptiFine\r\n  - **Forge:** Corrected displayed library names during installation\r\n  - **CurseForge Modpacks:** Fixed missing downloads for some dependency files\r\n- **Control-Related:**\r\n  - Fixed issue where pressing a new key also triggered events from already pressed keys\r\n  - **Gamepad:** Removed redundant device detection\r\n  - Fixed IME text composition range overflow\r\n- **UI-Related:**\r\n  - **Virtual Keyboard Dialog:** Fixed UI flickering on some systems due to dialog height issues\r\n  - **Virtual Mouse Image Settings:** Fixed image not refreshing after multiple imports\r\n- **Crash Reports:**\r\n  - Fixed missing launcher version number in crash logs\r\n- **Java Environment:**\r\n  - Added missing `libawt_xawt.so` library to imported runtime environments\r\n  - Fixed logic for loading runtime environments\r\n- **Game Launch:**\r\n  - Filtered out unusable game support libraries\r\n  - Ensured client JAR presence for mod loaders\r\n- **UI-Related:**\r\n  - Fixed background opacity being applied even when no background content exists\r\n"
