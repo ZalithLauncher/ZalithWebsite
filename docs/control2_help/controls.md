@@ -5,7 +5,7 @@
 :::
 
 控制布局通过控件与游戏直接进行交互，目前，控制布局编辑器包含两类控件：按钮、文本框。  
-所有控件都必须放置在 [控制层](/docs/control2_help/control_layer) 上，您需要先选择一个控制层，才可以添加控件。
+所有控件都必须放置在 [控件层](/docs/control2_help/control_layer) 上，您需要先选择一个控件层，才可以添加控件。
 
 ![添加控件](/zh/docs/control2_help/controls/add_controls.png)  
 

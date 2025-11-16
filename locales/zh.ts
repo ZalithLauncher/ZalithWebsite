@@ -91,7 +91,7 @@ export default <DefaultTheme.Config> {
                 { text: '概览', link: '/docs/control2_help/overview' },
                 { text: '编辑器基本操作', link: '/docs/control2_help/basic_operation' },
                 { text: '控制布局操作', link: '/docs/control2_help/control_layout_operations' },
-                { text: '控制层', link: '/docs/control2_help/control_layer' },
+                { text: '控件层', link: '/docs/control2_help/control_layer' },
                 { text: '控件', link: '/docs/control2_help/controls' }
             ]
         },
