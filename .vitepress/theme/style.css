@@ -177,6 +177,7 @@
     #ff9d7a 50%,
     #ffe6cc 50%
   );
+  --vp-home-hero-image-filter: blur(44px);
 }
 
 .dark {
@@ -185,4 +186,5 @@
     #ff7746 50%,
     #ffd890 50%
   );
+  --vp-home-hero-image-filter: blur(44px);
 }
