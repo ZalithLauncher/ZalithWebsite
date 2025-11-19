@@ -1302,19 +1302,21 @@ onMounted(() => {
 }
 
 .asset-item:hover {
-  border-color: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-2);
   box-shadow: var(--vp-shadow-2);
 }
 
 .asset-info {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .asset-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
+  gap: 12px;
 }
 
 .asset-name {
@@ -1325,6 +1327,7 @@ onMounted(() => {
 }
 
 .asset-size {
+  display: flex;
   align-items: center;
   background: var(--vp-c-default-soft);
   padding: 4px 8px;
@@ -1340,6 +1343,8 @@ onMounted(() => {
 }
 
 .download-action {
+  display: flex;
+  align-items: center;
   margin-left: 20px;
 }
 
@@ -1348,7 +1353,7 @@ onMounted(() => {
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-2);
   color: var(--vp-c-white);
   text-decoration: none;
   border-radius: 10px;
@@ -1360,7 +1365,7 @@ onMounted(() => {
 .download-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--vp-shadow-3);
-  background: var(--vp-c-brand-2);
+  background: var(--vp-c-brand-1);
 }
 
 .btn-icon {
