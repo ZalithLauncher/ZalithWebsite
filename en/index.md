@@ -6,16 +6,16 @@ hero:
   name: "Zalith Launcher"
   text: "Run Minecraft Java Edition on Android devices"
   tagline: Better interface, more practical functions, lower usage threshold
+  image:
+    src: /zl_token.png
+    alt: Logo
   actions:
     - theme: brand
-      text: Learn More
-      link: /en/docs/projects/zl1
-    - theme: alt
       text: Download Now
-      link: /en/download
-    - theme: alt
-      text: Download ZalithLauncher 2
       link: /en/zl2-download
+    - theme: alt
+      text: Documentation
+      link: /docs/projects/zl2
 features:
   - icon: 🎮
     title: Better User Experience
