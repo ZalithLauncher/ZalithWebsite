@@ -131,3 +131,16 @@
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
+
+/* Text selection highlight */
+::selection {
+  background: var(--vp-c-brand-3);
+  color: #2F0700;
+}
+
+@media (prefers-color-scheme: dark) {
+  ::selection {
+    background: #FFB59F;
+    color: #3B2D2A;
+  }
+}

@@ -21,18 +21,19 @@ You can download the latest version of Zalith Launcher from our GitHub Releases 
 
 .download-button {
   display: inline-block;
-  background-color:rgba(56, 190, 150, 0.38);
-  color: white;
+  background-color: var(--vp-c-brand-soft);
+  color: var(--vp-c-white);
   padding: 12px 24px;
   text-align: center;
   text-decoration: none !important;
   font-size: 18px;
   border-radius: 4px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .download-button:hover {
-  background-color:rgba(46, 187, 206, 0.3);
+  background-color: var(--vp-c-brand-2);
+  color: var(--vp-c-white);
   text-decoration: none;
 }
 
@@ -43,6 +44,17 @@ You can download the latest version of Zalith Launcher from our GitHub Releases 
 
 .download-text {
   vertical-align: middle;
+}
+
+/* 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .download-button {
+    background-color: rgba(255, 181, 159, 0.18);
+    color: var(--vp-c-white);
+  }
+  .download-button:hover {
+    background-color: var(--vp-c-brand-2);
+  }
 }
 </style>
 
