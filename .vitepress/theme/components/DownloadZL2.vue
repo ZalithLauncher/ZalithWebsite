@@ -1054,7 +1054,7 @@ onMounted(() => {
   text-align: center;
   margin-bottom: 24px;
   padding: 16px;
-  background: linear-gradient(135deg, var(--vp-c-brand-1) 0%, var(--vp-c-brand-2) 100%);
+  background: var(--vp-c-brand-2);
   border-radius: 16px;
   color: var(--vp-c-white);
   border: 1px solid var(--vp-c-brand-soft);
@@ -1325,6 +1325,7 @@ onMounted(() => {
 }
 
 .asset-size {
+  align-items: center;
   background: var(--vp-c-default-soft);
   padding: 4px 8px;
   border-radius: 6px;
@@ -1347,7 +1348,7 @@ onMounted(() => {
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
+  background: var(--vp-c-brand-1);
   color: var(--vp-c-white);
   text-decoration: none;
   border-radius: 10px;
@@ -1359,7 +1360,7 @@ onMounted(() => {
 .download-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--vp-shadow-3);
-  background: linear-gradient(135deg, var(--vp-c-brand-2), var(--vp-c-brand-3));
+  background: var(--vp-c-brand-2);
 }
 
 .btn-icon {
