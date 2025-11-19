@@ -43,153 +43,127 @@
  *   in custom container, badges, etc.
  * -------------------------------------------------------------------------- */
 
+/* ===========================
+   Colors: Solid
+   =========================== */
 :root {
-  --vp-c-default-1: #241916;
-  --vp-c-default-2: #58423B;
-  --vp-c-default-3: var(--vp-c-gray-3);
-  --vp-c-default-soft: var(--vp-c-gray-soft);
+  --vp-c-white: #ffffff;
+  --vp-c-black: #000000;
 
-  --vp-c-brand-1: #B34A2A;
-  --vp-c-brand-2: #FF8E6B;
-  --vp-c-brand-3: #FF9D7A;
-  --vp-c-brand-soft: var(--vp-c-indigo-soft);
-
-  --vp-c-tip-1: #8F523F;
-  --vp-c-tip-2: #FFC6B4;
-  --vp-c-tip-3: #FFD2C4;
-  --vp-c-tip-soft: var(--vp-c-brand-soft);
-
-  --vp-c-warning-1: #6E5E00;
-  --vp-c-warning-2: #C6AB19;
-  --vp-c-warning-3: #D1B823;
-  --vp-c-warning-soft: var(--vp-c-yellow-soft);
-
-  --vp-c-danger-1: #BA1A1A;
-  --vp-c-danger-2: #FFDAD6;
-  --vp-c-danger-3: #FFE3DF;
-  --vp-c-danger-soft: var(--vp-c-red-soft);
+  --vp-c-neutral: #241916;           /* onBackgroundLight */
+  --vp-c-neutral-inverse: #FFF8F6;   /* backgroundLight */
 }
 
-/**
- * Component: Button
- * -------------------------------------------------------------------------- */
+.dark {
+  --vp-c-neutral: #F4DED8;           /* onBackgroundDark */
+  --vp-c-neutral-inverse: #1C110E;   /* backgroundDark */
+}
 
+/* ===========================
+   Colors: Palette
+   =========================== */
+/* Gray (Neutral) */
 :root {
-  --vp-button-brand-border: transparent;
-  --vp-button-brand-text: var(--vp-c-white);
-  --vp-button-brand-bg: var(--vp-c-brand-3);
-  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
-  --vp-button-brand-active-bg: var(--vp-c-brand-1);
+  --vp-c-gray-1: #F4DED8;  /* surfaceBrightLight */
+  --vp-c-gray-2: #FFE9E4;  /* surfaceContainerLight */
+  --vp-c-gray-3: #FAE3DD;  /* surfaceContainerHighLight */
+  --vp-c-gray-soft: rgba(241, 217, 212, 0.14); /* approximate soft */
+  
+  /* Brand (Primary) */
+  --vp-c-indigo-1: #A63A17; /* primaryLight */
+  --vp-c-indigo-2: #FE7A52; /* primaryContainerLight */
+  --vp-c-indigo-3: #FFB59F; /* inversePrimaryLight */
+  --vp-c-indigo-soft: rgba(254, 122, 82, 0.14);
+
+  /* Secondary */
+  --vp-c-purple-1: #894F3D; /* secondaryLight */
+  --vp-c-purple-2: #FFBBA7; /* secondaryContainerLight */
+  --vp-c-purple-3: #5C2B1C; /* onSecondaryContainerLight */
+  --vp-c-purple-soft: rgba(255, 187, 167, 0.14);
+
+  /* Tertiary */
+  --vp-c-yellow-1: #6E5E00; /* tertiaryLight */
+  --vp-c-yellow-2: #BAA015; /* tertiaryContainerLight */
+  --vp-c-yellow-3: #1A1500; /* onTertiaryContainerLight */
+  --vp-c-yellow-soft: rgba(186, 160, 21, 0.14);
+
+  /* Error */
+  --vp-c-red-1: #BA1A1A; /* errorLight */
+  --vp-c-red-2: #FFDDD6; /* errorContainerLight */
+  --vp-c-red-3: #410002; /* onErrorContainerLight */
+  --vp-c-red-soft: rgba(255, 218, 214, 0.14);
 }
 
-/**
- * Component: Home
- * -------------------------------------------------------------------------- */
+.dark {
+  --vp-c-gray-1: #1C110E;  /* surfaceDimDark */
+  --vp-c-gray-2: #291D19;  /* surfaceContainerDark */
+  --vp-c-gray-3: #3F322E;  /* surfaceContainerHighestDark */
+  --vp-c-gray-soft: rgba(41, 29, 25, 0.16);
 
+  --vp-c-indigo-1: #FFB59F; /* primaryDark */
+  --vp-c-indigo-2: #C4502B; /* primaryContainerDark */
+  --vp-c-indigo-3: #5F1600; /* onPrimaryDark */
+  --vp-c-indigo-soft: rgba(196, 80, 43, 0.16);
+
+  --vp-c-purple-1: #FFB59F; /* secondaryDark */
+  --vp-c-purple-2: #643122; /* secondaryContainerDark */
+  --vp-c-purple-3: #FFC8B9; /* onSecondaryContainerDark */
+  --vp-c-purple-soft: rgba(255, 200, 185, 0.16);
+
+  --vp-c-yellow-1: #F0D44C; /* tertiaryDark */
+  --vp-c-yellow-2: #C4AA22; /* tertiaryContainerDark */
+  --vp-c-yellow-3: #272000; /* onTertiaryContainerDark */
+  --vp-c-yellow-soft: rgba(196, 170, 34, 0.16);
+
+  --vp-c-red-1: #FFB4AB; /* errorDark */
+  --vp-c-red-2: #93000A; /* errorContainerDark */
+  --vp-c-red-3: #690005; /* onErrorDark */
+  --vp-c-red-soft: rgba(255, 218, 214, 0.16);
+}
+
+/* ===========================
+   Backgrounds
+   =========================== */
 :root {
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(
-    120deg,
-    #d47453 30%,
-    #FFEDE6
-  );
-
-  --vp-home-hero-image-background-image: linear-gradient(
-    -45deg,
-    #ff9d7a 50%,
-    #ffe6cc 50%
-  );
-  --vp-home-hero-image-filter: blur(44px);
+  --vp-c-bg: #FFF8F6;            /* backgroundLight */
+  --vp-c-bg-alt: #FFF1ED;        /* surfaceContainerLowLight */
+  --vp-c-bg-elv: #FFE9E4;        /* surfaceContainerLight */
+  --vp-c-bg-soft: #FAE3DD;       /* surfaceContainerHighLight */
 }
 
-@media (min-width: 640px) {
-  :root {
-    --vp-home-hero-image-filter: blur(56px);
-  }
+.dark {
+  --vp-c-bg: #1C110E;            /* backgroundDark */
+  --vp-c-bg-alt: #291D19;        /* surfaceContainerDark */
+  --vp-c-bg-elv: #342723;        /* surfaceContainerHighDark */
+  --vp-c-bg-soft: #3F322E;       /* surfaceContainerHighestDark */
 }
 
-@media (min-width: 960px) {
-  :root {
-    --vp-home-hero-image-filter: blur(68px);
-  }
-}
-
-/**
- * Component: Custom Block
- * -------------------------------------------------------------------------- */
-
+/* ===========================
+   Borders
+   =========================== */
 :root {
-  --vp-custom-block-tip-border: transparent;
-  --vp-custom-block-tip-bg: var(--vp-c-brand-soft);
-  --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
+  --vp-c-border: #8B716A;  /* outlineLight */
+  --vp-c-divider: #DFC0B7; /* outlineVariantLight */
+  --vp-c-gutter: #DFC0B7;  /* outlineVariantLight */
 }
 
-/**
- * Component: Algolia
- * -------------------------------------------------------------------------- */
-
-.DocSearch {
-  --docsearch-primary-color: var(--vp-c-brand-1) !important;
+.dark {
+  --vp-c-border: #A68B83;  /* outlineDark */
+  --vp-c-divider: #58423B; /* outlineVariantDark */
+  --vp-c-gutter: #58423B;  /* outlineVariantDark */
 }
 
-/* Text selection highlight */
-::selection {
-  background: var(--vp-c-brand-3);
-  color: #2F0700;
+/* ===========================
+   Text
+   =========================== */
+:root {
+  --vp-c-text-1: #241916;  /* onBackgroundLight */
+  --vp-c-text-2: #58423B;  /* onSurfaceVariantLight */
+  --vp-c-text-3: #8B716A;  /* outlineLight */
 }
 
-/* --------------------------- */
-/* Dark Mode Overrides */
-/* --------------------------- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --vp-c-default-1: #F4DED8;
-    --vp-c-default-2: #DFC0B7;
-    --vp-c-default-3: var(--vp-c-gray-3);
-    --vp-c-default-soft: var(--vp-c-gray-soft);
-
-    --vp-c-brand-1: #FFB59F;
-    --vp-c-brand-2: #C4502B;
-    --vp-c-brand-3: #C4502B;
-    --vp-c-brand-soft: var(--vp-c-indigo-soft);
-
-    --vp-c-tip-1: #FFB59F;
-    --vp-c-tip-2: #643122;
-    --vp-c-tip-3: #643122;
-    --vp-c-tip-soft: var(--vp-c-brand-soft);
-
-    --vp-c-warning-1: #F0D44C;
-    --vp-c-warning-2: #C4AA22;
-    --vp-c-warning-3: #C4AA22;
-    --vp-c-warning-soft: var(--vp-c-yellow-soft);
-
-    --vp-c-danger-1: #FFB4AB;
-    --vp-c-danger-2: #93000A;
-    --vp-c-danger-3: #93000A;
-    --vp-c-danger-soft: var(--vp-c-red-soft);
-
-    --vp-home-hero-name-background: -webkit-linear-gradient(
-      120deg,
-      #FFB59F 30%,
-      #C4502B
-    );
-    --vp-home-hero-image-background-image: linear-gradient(
-      -45deg,
-      #ff7746 50%,
-      #ffd890 50%
-    );
-    --vp-home-hero-image-filter: blur(44px);
-
-    --vp-button-brand-border: transparent;
-    --vp-button-brand-text: var(--vp-c-default-1);
-    --vp-button-brand-bg: var(--vp-c-brand-3);
-    --vp-button-brand-hover-bg: var(--vp-c-brand-2);
-    --vp-button-brand-active-bg: var(--vp-c-brand-1);
-  }
-
-  /* Text Selection for Dark Mode */
-  ::selection {
-    background: var(--vp-c-brand-3);
-    color: #3B2D2A;
-  }
+.dark {
+  --vp-c-text-1: #F4DED8;  /* onBackgroundDark */
+  --vp-c-text-2: #DFC0B7;  /* onSurfaceVariantDark */
+  --vp-c-text-3: #A68B83;  /* outlineDark */
 }
