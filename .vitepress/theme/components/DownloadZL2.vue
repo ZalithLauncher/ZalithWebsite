@@ -799,7 +799,6 @@ onMounted(() => {
       <div class="release-header">
         <div class="selector-header">
           <h3>{{ latestRelease.name }}</h3>
-          <p>当前最新版本</p>
         </div>
         <div class="version-info">
           <span class="version-tag">{{ latestRelease.tag_name }}</span>
@@ -1313,6 +1312,12 @@ onMounted(() => {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 8px;
+}
+
+.asset-meta {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
