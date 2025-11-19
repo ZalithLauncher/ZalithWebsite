@@ -136,3 +136,14 @@
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
+
+
+.VPHomeHero .image .image-bg {
+  background: radial-gradient(
+    circle at center,
+    #ffebb3 0%,
+    #ffffff 35%,
+    #ffc56f 60%,
+    transparent 75%
+  );
+}
