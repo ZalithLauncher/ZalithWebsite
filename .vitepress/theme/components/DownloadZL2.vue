@@ -797,7 +797,10 @@ onMounted(() => {
     <div v-else-if="latestRelease" class="release-info">
       <!-- 版本信息头部 -->
       <div class="release-header">
-        <h2>{{ latestRelease.name }}</h2>
+        <div class="selector-header">
+          <h3>{{ latestRelease.name }}</h3>
+          <p>当前最新版本</p>
+        </div>
         <div class="version-info">
           <span class="version-tag">{{ latestRelease.tag_name }}</span>
           <span class="release-date">{{ new Date(latestRelease.published_at).toLocaleDateString('zh-CN') }}</span>
@@ -900,10 +903,10 @@ onMounted(() => {
             <div class="asset-info">
               <div class="asset-header">
                 <h4 class="asset-name">{{ asset.name }}</h4>
-                <span class="asset-size">{{ formatFileSize(asset.size) }}</span>
               </div>
               <div class="asset-meta">
                 <span class="download-count">{{ asset.download_count.toLocaleString() }} 次下载</span>
+                <span class="asset-size">{{ formatFileSize(asset.size) }}</span>
               </div>
             </div>
             
@@ -1326,17 +1329,7 @@ onMounted(() => {
   color: var(--vp-c-text-1);
 }
 
-.asset-size {
-  display: flex;
-  align-items: center;
-  background: var(--vp-c-default-soft);
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  color: var(--vp-c-text-2);
-  font-weight: 500;
-}
-
+.asset-size,
 .download-count {
   font-size: 0.875rem;
   color: var(--vp-c-text-2);
