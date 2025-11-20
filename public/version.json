@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-1.4.1.0-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/141000/ZalithLauncher-1.4.1.0-arm64-v8a.apk",
       "size": "95.3 MB",
-      "download_count": 147878
+      "download_count": 152767
     },
     {
       "name": "ZalithLauncher-1.4.1.0-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/141000/ZalithLauncher-1.4.1.0-armeabi-v7a.apk",
       "size": "91 MB",
-      "download_count": 10533
+      "download_count": 10971
     },
     {
       "name": "ZalithLauncher-1.4.1.0-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/141000/ZalithLauncher-1.4.1.0-x86.apk",
       "size": "80.4 MB",
-      "download_count": 4652
+      "download_count": 4902
     },
     {
       "name": "ZalithLauncher-1.4.1.0-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/141000/ZalithLauncher-1.4.1.0-x86_64.apk",
       "size": "98.8 MB",
-      "download_count": 4591
+      "download_count": 4846
     },
     {
       "name": "ZalithLauncher-1.4.1.0.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/141000/ZalithLauncher-1.4.1.0.apk",
       "size": "192.8 MB",
-      "download_count": 23009
+      "download_count": 23986
     }
   ],
   "body": "### New Features:\r\n- **LWJGL**: Fixed issue preventing launch of version 25w43a.  \r\n- **Vulkan**: Always load Vulkan (#725).  \r\n"
