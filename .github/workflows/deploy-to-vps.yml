@@ -1,0 +1,57 @@
+name: 部署至 VPS服务器
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  VPS_IP: ${{ secrets.VPS_IP }}
+  VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
+  VPS_BASE_URL: ${{ secrets.VPS_BASE_URL }}
+  VPS_USERNAME: ${{ secrets.VPS_USERNAME || 'root' }}
+  VPS_PORT: ${{ secrets.VPS_PORT || '22' }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '24.x'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build project
+      run: npm run docs:build
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ env.VPS_IP }} >> ~/.ssh/known_hosts
+
+    - name: Deploy to VPS
+      run: |
+        # 只同步.vitepress/dist/目录内容到VPS
+        rsync -avz -e "ssh -p ${{ env.VPS_PORT }}" \
+          --delete \
+          ./.vitepress/dist/ \
+          ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }}:${{ env.VPS_BASE_URL }}/
+
+        # 设置正确的文件权限
+        ssh -p ${{ env.VPS_PORT }} ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }} "chmod -R 755 ${{ env.VPS_BASE_URL }}"
+
+    - name: Cleanup SSH keys
+      run: rm -f ~/.ssh/id_rsa
+
+    - name: Deployment completed
+      run: echo "已将文档站部署到VPS服务器！"
