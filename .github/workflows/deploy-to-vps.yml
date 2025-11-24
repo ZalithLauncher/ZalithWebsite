@@ -35,26 +35,26 @@ jobs:
     - name: Build project
       run: npm run docs:build
 
-    - name: Setup SSH
+    - name: Install sshpass
+      run: sudo apt-get update && sudo apt-get install -y sshpass
+
+    - name: Compress build artifacts
+      run: tar -czvf build.tar.gz -C ./.vitepress/dist .
+
+    - name: Upload to VPS
       run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ env.VPS_IP }} >> ~/.ssh/known_hosts
+        export SSHPASS="${{ secrets.VPS_PASSWORD }}"
+        sshpass -e scp -P ${{ env.VPS_PORT }} -o StrictHostKeyChecking=no build.tar.gz ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }}:/tmp/build.tar.gz
 
-    - name: Deploy to VPS
+    - name: Extract on VPS
       run: |
-        # 只同步.vitepress/dist/目录内容到VPS
-        rsync -avz -e "ssh -p ${{ env.VPS_PORT }}" \
-          --delete \
-          ./.vitepress/dist/ \
-          ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }}:${{ env.VPS_BASE_URL }}/
-
-        # 设置正确的文件权限
-        ssh -p ${{ env.VPS_PORT }} ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }} "chmod -R 755 ${{ env.VPS_BASE_URL }}"
-
-    - name: Cleanup SSH keys
-      run: rm -f ~/.ssh/id_rsa
+        export SSHPASS="${{ secrets.VPS_PASSWORD }}"
+        sshpass -e ssh -p ${{ env.VPS_PORT }} -o StrictHostKeyChecking=no ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }} 'rm -rf ${{ env.VPS_BASE_URL }}/* && tar -xzvf /tmp/build.tar.gz -C ${{ env.VPS_BASE_URL }} && rm /tmp/build.tar.gz'
+        
+    - name: Set Permissions on VPS
+      run: |
+        export SSHPASS="${{ secrets.VPS_PASSWORD }}"
+        sshpass -e ssh -p ${{ env.VPS_PORT }} -o StrictHostKeyChecking=no ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }} "chmod -R 755 ${{ env.VPS_BASE_URL }}"
 
     - name: Deployment completed
       run: echo "已将文档站部署到VPS服务器！"
