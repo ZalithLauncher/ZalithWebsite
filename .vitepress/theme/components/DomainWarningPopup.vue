@@ -20,15 +20,15 @@ onMounted(() => {
     const currentHostname = window.location.hostname;
     const hasDismissed = localStorage.getItem('dismissedDomainWarning');
 
-    console.log(`[Domain Check] Current Hostname: ${currentHostname}`);
+    console.log(`[Domain Check] Current Hostname | 检测访问域名: ${currentHostname}`);
 
     if (currentHostname === 'zalithlauncher.cn' && !hasDismissed) {
-      console.log('[Domain Check] Condition met. Showing popup.');
+      console.log('[Domain Check] Condition met. Showing popup. | 检测到访问域名为 zalithlauncher.cn，未被用户ismissedDomainWarning.');
       showPopup.value = true;
     } else if (hasDismissed) {
-      console.log('[Domain Check] Popup has been dismissed previously.');
+      console.log('[Domain Check] Popup has been dismissed previously. | 用户已ismissedDomainWarning.');
     } else {
-      console.log('[Domain Check] Condition not met. Popup will not be shown.');
+      console.log('[Domain Check] Condition not met. Popup will not be shown. | 访问域名不是 zalithlauncher.cn，不会弹出提示.');
     }
   }
 });
@@ -53,20 +53,19 @@ const redirectToWww = () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: var(--vp-c-bg-mask);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  backdrop-filter: blur(5px);
+  z-index: var(--vp-z-index-modal);
 }
 
 .popup-content {
   background-color: var(--vp-c-bg);
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  max-width: 450px;
+  padding: 24px;
+  border-radius: var(--vp-border-radius);
+  box-shadow: var(--vp-shadow-3);
+  max-width: 480px;
   text-align: center;
   border: 1px solid var(--vp-c-divider);
 }
@@ -74,39 +73,40 @@ const redirectToWww = () => {
 .popup-content h3 {
   margin-top: 0;
   color: var(--vp-c-text-1);
-  font-size: 1.5rem;
+  font-size: var(--vp-custom-block-heading-font-size);
+  font-weight: var(--vp-custom-block-heading-font-weight);
 }
 
 .popup-content p {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   color: var(--vp-c-text-2);
-  line-height: 1.6;
+  line-height: var(--vp-custom-block-line-height);
 }
 
 .popup-content a {
   display: inline-block;
   padding: 10px 20px;
-  background-color: var(--vp-c-brand);
-  color: white;
+  background-color: var(--vp-c-brand-1);
+  color: var(--vp-c-white);
   text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  border-radius: var(--vp-border-radius);
+  font-weight: var(--vp-font-weight-bold);
+  transition: background-color var(--vp-t-color);
 }
 
 .popup-content a:hover {
-  background-color: var(--vp-c-brand-dark);
+  background-color: var(--vp-c-brand-2);
 }
 
 .close-button {
-  margin-top: 20px;
+  margin-top: 16px;
   padding: 8px 16px;
   background-color: transparent;
   color: var(--vp-c-text-3);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 5px;
+  border-radius: var(--vp-border-radius);
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color var(--vp-t-color), color var(--vp-t-color);
 }
 
 .close-button:hover {
