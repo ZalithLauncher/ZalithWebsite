@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 env:
   VPS_IP: ${{ secrets.VPS_IP }}
   VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
