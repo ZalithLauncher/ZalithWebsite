@@ -57,7 +57,7 @@ const redirectToWww = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: var(--vp-z-index-modal);
+  z-index: 9999;
 }
 
 .popup-content {
