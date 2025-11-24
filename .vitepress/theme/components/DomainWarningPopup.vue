@@ -54,6 +54,7 @@ const redirectToWww = () => {
   width: 100%;
   height: 100%;
   background-color: var(--vp-c-bg-mask);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,8 +63,8 @@ const redirectToWww = () => {
 
 .popup-content {
   background-color: var(--vp-c-bg);
-  padding: 24px;
-  border-radius: var(--vp-border-radius);
+  padding: 32px;
+  border-radius: 12px;
   box-shadow: var(--vp-shadow-3);
   max-width: 480px;
   text-align: center;
@@ -78,20 +79,21 @@ const redirectToWww = () => {
 }
 
 .popup-content p {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   color: var(--vp-c-text-2);
   line-height: var(--vp-custom-block-line-height);
 }
 
 .popup-content a {
-  display: inline-block;
-  padding: 10px 20px;
+  display: block;
+  padding: 12px 24px;
   background-color: var(--vp-c-brand-1);
   color: var(--vp-c-white);
   text-decoration: none;
-  border-radius: var(--vp-border-radius);
+  border-radius: 8px;
   font-weight: var(--vp-font-weight-bold);
   transition: background-color var(--vp-t-color);
+  margin-bottom: 12px;
 }
 
 .popup-content a:hover {
@@ -99,12 +101,12 @@ const redirectToWww = () => {
 }
 
 .close-button {
-  margin-top: 16px;
-  padding: 8px 16px;
+  margin-top: 0;
+  padding: 10px 20px;
   background-color: transparent;
   color: var(--vp-c-text-3);
   border: 1px solid var(--vp-c-divider);
-  border-radius: var(--vp-border-radius);
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color var(--vp-t-color), color var(--vp-t-color);
 }
