@@ -21,11 +21,14 @@ const authors = {
   ]
 }
 
+import DomainWarningPopup from './components/DomainWarningPopup.vue'
+
 export default {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
+      // 在布局中插入弹窗组件
+      'layout-bottom': () => h(DomainWarningPopup),
     })
   },
   enhanceApp({ app, router, siteData }) {
