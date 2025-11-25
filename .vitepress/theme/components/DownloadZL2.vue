@@ -384,7 +384,7 @@ async function fetchHahaData() {
 
 // 获取柠枺镜像源数据
 async function fetchLemwoodData() {
-  const lemwoodUrl = 'http://118.195.149.248:8080/api/status/zl2'
+  const lemwoodUrl = 'https://mirror.lemwood.icu/api/status/zl2'
   
   try {
     // 首先尝试直接请求

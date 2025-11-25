@@ -403,7 +403,7 @@ async function fetchZeinkData() {
 
 // 获取柠枺镜像源数据
 async function fetchLemwoodData() {
-  const url = 'http://118.195.149.248:8080/api/status/zl';
+  const url = 'hhttps://mirror.lemwood.icu/api/status/zl';
   const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
   
   try {
