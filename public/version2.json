@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.0.0_beta-20251118a-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251118a/ZalithLauncher-2.0.0_beta-20251118a-arm64-v8a.apk",
       "size": "115.6 MB",
-      "download_count": 24324
+      "download_count": 26301
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251118a-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251118a/ZalithLauncher-2.0.0_beta-20251118a-armeabi-v7a.apk",
       "size": "110.2 MB",
-      "download_count": 2424
+      "download_count": 2532
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251118a-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251118a/ZalithLauncher-2.0.0_beta-20251118a-x86.apk",
       "size": "99.8 MB",
-      "download_count": 1710
+      "download_count": 1766
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251118a-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251118a/ZalithLauncher-2.0.0_beta-20251118a-x86_64.apk",
       "size": "118.7 MB",
-      "download_count": 1571
+      "download_count": 1618
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251118a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251118a/ZalithLauncher-2.0.0_beta-20251118a.apk",
       "size": "216.8 MB",
-      "download_count": 6623
+      "download_count": 7019
     }
   ],
   "body": "## Updates:\r\n- Synchronized languages with the [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Updated Chinese translation files for mods and modpacks\r\n- Added support for importing local modpacks (CurseForge, Modrinth, MultiMC, MCBBS)\r\n- **Control Layout Editor:**\r\n  - Click actions now support forcibly showing or hiding control layers\r\n  - Click actions now support sending text/commands into the game\r\n- **Download-Related:**\r\n  - Downloading additional content: when selecting a game version for installation, show all dependency projects of that resource\r\n- **Game Launch:**\r\n  - Mods are now allowed to access local paths through environment variables for storing their native libraries\r\n- Optimized archive decompression performance\r\n\r\n## Adjustments:\r\n- **UI-Related:**\r\n  - Page transition animations: fade-in/out duration now adapts to animation speed multiplier\r\n  - Fine-tuned components using dividers\r\n\r\n## Refactors:\r\n- **Task System:** switched to phase-based task flow management\r\n- **Control Layout:**\r\n  - Components now process touch events independently\r\n  - Slightly improved control loading performance\r\n\r\n\r\n## Fixes:\r\n- **IME:**\r\n  - Fixed issues with composing text and candidate selection in certain input methods\r\n- **Game-Related:**\r\n  - Logs were not disabled while editing control layouts\r\n- **Download-Related:**\r\n  - CurseForge category type could be null\r\n  - Completely avoided parsing Modrinth mod changelogs to prevent memory overflow caused by extremely large changelog entries\r\n  - After game installation, clicking the install button again would cause incorrect page state\r\n- **Renderer:** removed version restriction for the Freedreno renderer\r\n- **Network:** incorrectly handled most I/O interruption exceptions\r\n"
