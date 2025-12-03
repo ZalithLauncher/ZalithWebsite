@@ -39,6 +39,12 @@ const isSourceDropdownOpen = ref(false)
 const apiFailed = ref(false) // API是否失败标志
 const fallbackToLocal = ref(false) // 是否已降级到本地版本
 
+// 翻译相关状态
+const isTranslated = ref(false)
+const translating = ref(false)
+const originalBody = ref('')
+const translatedBody = ref('')
+
 // 基础设备类型定义（会根据API返回的文件动态扩展）
 const baseDeviceTypes: DeviceType[] = [
   { 
@@ -428,6 +434,7 @@ async function fetchLatestRelease() {
         
         console.log(`✅ ${apiConfig.name} 请求成功`)
         latestRelease.value = data
+        originalBody.value = data.body || '' // 保存原文
         // 显式等待marked解析完成
         parsedBody.value = data.body ? await marked.parse(data.body) : ''
         
@@ -457,6 +464,7 @@ async function fetchLatestRelease() {
         try {
           const localRelease = await loadLocalVersionInfo()
           latestRelease.value = localRelease
+          originalBody.value = localRelease.body || '' // 保存原文
           parsedBody.value = localRelease.body ? await marked.parse(localRelease.body) : ''
           // 注意：这里不设置 fallbackToLocal.value = true，保持下载源不受限制
           
@@ -672,6 +680,135 @@ function handleSourceDropdownBlur() {
   }
 }
 
+
+// 翻译文本函数
+async function translateText(text: string): Promise<string> {
+  // 1. 保护Markdown特殊语法
+  const protections: string[] = []
+  let protectedText = text
+  
+  // 保护代码块 ```...```
+  protectedText = protectedText.replace(/```[\s\S]*?```/g, (match) => {
+    protections.push(match)
+    return `__PROTECTED_${protections.length - 1}__`
+  })
+  
+  // 保护行内代码 `...`
+  protectedText = protectedText.replace(/`[^`]+`/g, (match) => {
+    protections.push(match)
+    return `__PROTECTED_${protections.length - 1}__`
+  })
+  
+  // 保护链接/图片 [...](...)
+  protectedText = protectedText.replace(/!{0,1}\[[^\]]*\]\([^)]+\)/g, (match) => {
+    protections.push(match)
+    return `__PROTECTED_${protections.length - 1}__`
+  })
+  
+  // 保护HTML标签 <...>
+  protectedText = protectedText.replace(/<[^>]+>/g, (match) => {
+    protections.push(match)
+    return `__PROTECTED_${protections.length - 1}__`
+  })
+
+  // 智能分段处理：按行分割，避免切断句子
+  const lines = protectedText.split('\n')
+  const chunks: string[] = []
+  let currentChunk = ''
+  
+  for (const line of lines) {
+    // 如果当前chunk加上新的一行超过了限制（例如1000字符），则先保存当前chunk
+    if ((currentChunk + '\n' + line).length > 1000) {
+      if (currentChunk) chunks.push(currentChunk)
+      currentChunk = line
+    } else {
+      currentChunk = currentChunk ? (currentChunk + '\n' + line) : line
+    }
+  }
+  if (currentChunk) chunks.push(currentChunk)
+
+  const translatedChunks: string[] = []
+  
+  for (const chunk of chunks) {
+    try {
+      // 尝试直接请求 Google Translate API (client=gtx)
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=zh-CN&dt=t&q=${encodeURIComponent(chunk)}`
+      
+      let response
+      try {
+        response = await fetch(url)
+      } catch (e) {
+        // 如果直接请求失败，尝试通过代理
+        console.warn('直接翻译失败，尝试使用代理...')
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`
+        const proxyRes = await fetch(proxyUrl)
+        const proxyData = await proxyRes.json()
+        if (!proxyData.contents) throw new Error('Proxy failed')
+        
+        response = {
+          ok: true,
+          json: async () => JSON.parse(proxyData.contents)
+        }
+      }
+
+      if (!response.ok) throw new Error('Translation request failed')
+      
+      const data = await response.json()
+      const translatedText = data[0].map((item: any) => item[0]).join('')
+      translatedChunks.push(translatedText)
+      
+    } catch (error) {
+      console.error('Translation chunk failed:', error)
+      translatedChunks.push(chunk)
+    }
+  }
+  
+  let finalTranslatedText = translatedChunks.join('')
+  
+  // 2. 恢复保护的内容
+  // 注意：翻译API可能会在占位符周围添加空格，例如 __ PROTECTED_0 __
+  protections.forEach((content, index) => {
+    // 创建一个灵活的正则来匹配可能被改变的占位符
+    const placeholderRegex = new RegExp(`__\\s*PROTECTED_${index}\\s*__`, 'g')
+    finalTranslatedText = finalTranslatedText.replace(placeholderRegex, content)
+  })
+  
+  return finalTranslatedText
+}
+
+// 切换翻译状态
+async function toggleTranslate() {
+  if (translating.value) return
+  
+  // 如果已经翻译过，直接切换显示
+  if (isTranslated.value) {
+    isTranslated.value = false
+    parsedBody.value = await marked.parse(originalBody.value)
+    return
+  }
+  
+  // 如果有缓存的译文，直接使用
+  if (translatedBody.value) {
+    isTranslated.value = true
+    parsedBody.value = await marked.parse(translatedBody.value)
+    return
+  }
+  
+  // 开始翻译
+  translating.value = true
+  try {
+    const translated = await translateText(originalBody.value)
+    translatedBody.value = translated
+    isTranslated.value = true
+    parsedBody.value = await marked.parse(translated)
+  } catch (error) {
+    console.error('Translation failed:', error)
+    alert('自动翻译失败，请尝试使用浏览器自带翻译功能。')
+  } finally {
+    translating.value = false
+  }
+}
+
 // 组件挂载时获取数据
 onMounted(() => {
     // 重置状态
@@ -860,7 +997,20 @@ onMounted(() => {
       
       <!-- 发布说明 -->
       <div class="release-notes-section">
-        <h3>发布说明</h3>
+        <div class="release-notes-header">
+          <h3>发布说明</h3>
+          <div class="translate-controls" v-if="originalBody">
+            <span class="translate-hint">翻译自 Google</span>
+            <button 
+              @click="toggleTranslate" 
+              class="translate-btn"
+              :disabled="translating"
+            >
+              <span v-if="translating" class="spinner-sm"></span>
+              {{ translating ? '翻译中...' : (isTranslated ? '显示原文' : '翻译成中文') }}
+            </button>
+          </div>
+        </div>
         <div class="release-notes" v-html="parsedBody"></div>
       </div>
     </div>
@@ -1001,6 +1151,62 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   gap: 16px;
+}
+
+/* 翻译按钮样式 */
+.release-notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.release-notes-header h3 {
+  margin: 0;
+}
+
+.translate-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.translate-hint {
+  font-size: 0.75rem;
+  color: var(--vp-c-text-3);
+  opacity: 0.8;
+}
+
+.translate-btn {
+  background: transparent;
+  color: var(--vp-c-brand-1);
+  border: 1px solid var(--vp-c-brand-1);
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.translate-btn:hover:not(:disabled) {
+  background: var(--vp-c-brand-soft);
+}
+
+.translate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinner-sm {
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
 .error-icon, .no-assets-icon {
