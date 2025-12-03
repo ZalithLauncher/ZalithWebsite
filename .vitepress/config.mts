@@ -24,12 +24,6 @@ export default defineConfig({
     logo: '/zl_icon.webp',
      search: {
       provider: 'local',
-    },
-    // 博客相关配置
-    blog: {
-      title: '博客',
-      description: 'Zalith Launcher 官方博客',
-      postsPerPage: 10
     }
   }
 })

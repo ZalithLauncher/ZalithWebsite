@@ -53,7 +53,6 @@ export default <DefaultTheme.Config> {
                 { text: 'Zalith Launcher 2', link: '/en/zl2-download' }
             ]
         },
-        { text: 'Blog', link: '/en/blog/' },
         { 
             text: 'More',
             items: [
