@@ -27,7 +27,6 @@ interface DownloadSource {
 
 const latestRelease = ref<any>(null)
 const foxingtonData = ref<any>(null)
-const zeinkData = ref<any>(null)
 const lemwoodData = ref<any>(null)
 const isLoading = ref(false)
 const hasError = ref(false)
@@ -84,7 +83,6 @@ const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: '国内镜像', description: '第三方加速', speed: '国内较快', contributor: { name: '咬一口的鱼py(fishcpy)', url: 'https://github.com/fishcpy' } },
   { id: 'foxington', name: 'github.com/XiaoluoFoxington源', description: '第三方镜像源', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
-  { id: 'zeink', name: '泽客镜像 Zeink Lab', description: '泽客镜像源', speed: '国内较快', contributor: { name: 'Zeink Lab', url: 'https://zeinklab.com' } },
   { id: 'lemwood', name: '柠枺镜像', description: '由 柠枺(lemwood.cn) 提供', speed: '国内较快', contributor: { name: '柠枺', url: 'https://lemwood.cn' } }
 ]
 
@@ -347,70 +345,18 @@ async function fetchFoxingtonData() {
   }
 }
 
-// 获取泽客镜像源数据
-async function fetchZeinkData() {
-  const zeinkUrl = 'https://mirror.zeinklab.com/api/stat'
-  
-  try {
-    // 首先尝试直接请求
-    console.log('尝试直接获取泽客镜像源数据...')
-    const response = await fetch(zeinkUrl, {
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'ZalithLauncher-Website/1.0'
-      }
-    })
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-    }
-    
-    const data = await response.json()
-    zeinkData.value = data
-    console.log('✅ 泽客镜像源数据获取成功（直接请求）')
-    return
-  } catch (error) {
-    console.warn('❌ 直接请求泽客镜像源失败:', error)
-    
-    // 如果直接请求失败，尝试使用代理API
-    try {
-      console.log('尝试使用代理API获取泽客镜像源数据...')
-      const proxyResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(zeinkUrl)}`, {
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      
-      if (!proxyResponse.ok) {
-        throw new Error(`代理API HTTP ${proxyResponse.status}: ${proxyResponse.statusText}`)
-      }
-      
-      const proxyData = await proxyResponse.json()
-      
-      if (!proxyData.contents) {
-        throw new Error('代理API返回数据格式错误')
-      }
-      
-      const data = JSON.parse(proxyData.contents)
-      zeinkData.value = data
-      console.log('✅ 泽客镜像源数据获取成功（代理API）')
-    } catch (proxyError) {
-      console.warn('❌ 代理API也失败了:', proxyError)
-      zeinkData.value = null
-    }
-  }
-}
+
 
 // 获取柠枺镜像源数据
 async function fetchLemwoodData() {
-  const url = 'hhttps://mirror.lemwood.icu/api/status/zl';
+  const url = 'https://mirror.lemwood.icu/api/status/zl';
   const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
   
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error('Direct fetch failed');
     const data = await response.json();
-    lemwoodData.value = data[0]?.assets || [];
+    lemwoodData.value = data;
   } catch (e) {
     console.warn('直接获取柠枺数据失败，尝试使用代理...', e);
     try {
@@ -418,10 +364,10 @@ async function fetchLemwoodData() {
       if (!response.ok) throw new Error('Proxy fetch failed');
           const data = await response.json();
           const contents = JSON.parse(data.contents);
-          lemwoodData.value = contents[0]?.assets || [];
+          lemwoodData.value = contents;
     } catch (proxyError) {
       console.error("通过代理获取柠枺数据失败:", proxyError);
-      apiFailed.value = true;
+      // 不标记主API失败，只是这个源不可用
     }
   }
 }
@@ -488,7 +434,6 @@ async function fetchLatestRelease() {
         // 同时获取其他镜像源数据
         await Promise.all([
           fetchFoxingtonData(),
-          fetchZeinkData(),
           fetchLemwoodData()
         ])
         
@@ -518,7 +463,6 @@ async function fetchLatestRelease() {
           // 同时获取其他镜像源数据，确保第三方下载源也能正常工作
           await Promise.all([
             fetchFoxingtonData(),
-            fetchZeinkData(),
             fetchLemwoodData()
           ])
           
@@ -612,26 +556,7 @@ function getFoxingtonUrl(asset: any) {
   return asset.browser_download_url
 }
 
-// 获取泽客镜像源URL
-function getZeinkUrl(asset: any) {
-  if (zeinkData.value && zeinkData.value.ZalithLauncher && zeinkData.value.ZalithLauncher.files) {
-    const zlFiles = zeinkData.value.ZalithLauncher.files
-    const matchedFile = zlFiles.find((file: any) => file.name === asset.name)
 
-    if (matchedFile && matchedFile.mirror_url) {
-      console.log(`🔗 使用API数据的泽客镜像链接: ${matchedFile.mirror_url}`)
-      // 确保返回的是完整URL
-      return matchedFile.mirror_url.startsWith('http')
-        ? matchedFile.mirror_url
-        : `https://mirror.zeinklab.com${matchedFile.mirror_url}`
-    }
-  }
-
-  // 如果没有API数据或API数据中没有匹配的文件，直接构造泽客镜像URL
-  const zeinkMirrorUrl = `https://mirror.zeinklab.com/repos/ZalithLauncher/${asset.name}`
-  console.log(`🔗 生成泽客镜像链接: ${zeinkMirrorUrl}`)
-  return zeinkMirrorUrl
-}
 
 
 
@@ -672,9 +597,33 @@ const currentDownloadSource = computed(() => {
 
 // 获取柠枺镜像源URL
 function getLemwoodUrl(asset: any) {
-  if (!lemwoodData.value) return getOriginalGitHubUrl(asset)
-  const lemwoodFile = lemwoodData.value.find((f: any) => f.name === asset.name)
-  return lemwoodFile ? lemwoodFile.url : getOriginalGitHubUrl(asset)
+  if (!lemwoodData.value || !lemwoodData.value.length) {
+    return getOriginalGitHubUrl(asset);
+  }
+
+  // 策略1：通过 tag_name 匹配
+  const currentTagName = latestRelease.value.tag_name;
+  const normalizedTagName = currentTagName.replace(/^v/, '');
+
+  let matchedRelease = lemwoodData.value.find((release: any) => 
+    release.tag_name === currentTagName || release.tag_name === normalizedTagName
+  );
+  
+  if (matchedRelease && matchedRelease.assets) {
+    const matchedAsset = matchedRelease.assets.find((lemwoodAsset: any) => lemwoodAsset.name === asset.name);
+    if (matchedAsset) return matchedAsset.url;
+  }
+
+  // 策略2：如果策略1失败，尝试在所有版本中倒序查找文件名匹配的资源
+  for (let i = lemwoodData.value.length - 1; i >= 0; i--) {
+    const release = lemwoodData.value[i];
+    if (release.assets) {
+      const matchedAsset = release.assets.find((lemwoodAsset: any) => lemwoodAsset.name === asset.name);
+      if (matchedAsset) return matchedAsset.url;
+    }
+  }
+
+  return getOriginalGitHubUrl(asset);
 }
 
 // 获取下载链接
@@ -689,8 +638,6 @@ function getDownloadUrl(asset: any) {
     return generateMirrorUrl(asset.name, latestRelease.value.tag_name)
   } else if (selectedDownloadSource.value === 'foxington') {
     return getFoxingtonUrl(asset)
-  } else if (selectedDownloadSource.value === 'zeink') {
-    return getZeinkUrl(asset)
   } else if (selectedDownloadSource.value === 'lemwood') {
     return getLemwoodUrl(asset)
   } else {

@@ -14,59 +14,7 @@ interface DeviceType {
   patterns: string[]
 }
 
-// 获取泽客镜像源数据
-async function fetchZeinkData() {
-  const zeinkUrl = 'https://mirror.zeinklab.com/api/stat'
-  
-  try {
-    // 首先尝试直接请求
-    console.log('尝试直接获取泽客镜像源数据...')
-    const response = await fetch(zeinkUrl, {
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'ZalithLauncher-Website/1.0'
-      }
-    })
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-    }
-    
-    const data = await response.json()
-    zeinkData.value = data
-    console.log('✅ 泽客镜像源数据获取成功（直接请求）')
-    return
-  } catch (error) {
-    console.warn('❌ 直接请求泽客镜像源失败:', error)
-    
-    // 如果直接请求失败，尝试使用代理API
-    try {
-      console.log('尝试使用代理API获取泽客镜像源数据...')
-      const proxyResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(zeinkUrl)}`, {
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      
-      if (!proxyResponse.ok) {
-        throw new Error(`代理API HTTP ${proxyResponse.status}: ${proxyResponse.statusText}`)
-      }
-      
-      const proxyData = await proxyResponse.json()
-      
-      if (!proxyData.contents) {
-        throw new Error('代理API返回数据格式错误')
-      }
-      
-      const data = JSON.parse(proxyData.contents)
-      zeinkData.value = data
-      console.log('✅ 泽客镜像源数据获取成功（代理API）')
-    } catch (proxyError) {
-      console.warn('❌ 代理API也失败了:', proxyError)
-      zeinkData.value = null
-    }
-  }
-}
+
 
 interface DownloadSource {
   id: string
@@ -81,7 +29,6 @@ interface DownloadSource {
 
 const latestRelease = ref<any>(null)
 const hahaData = ref<any>(null)
-const zeinkData = ref<any>(null)
 const lemwoodData = ref<any>(null)
 const isLoading = ref(false)
 const hasError = ref(false)
@@ -100,7 +47,6 @@ const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: 'fishcpy源', description: '咬一口的鱼py提供', speed: '国内较快', contributor: { name: '咬一口的鱼py(fishcpy)', url: 'https://github.com/fishcpy' } },
   { id: 'haha', name: '哈哈源', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://frostlynx.work' } },
-  { id: 'zeink', name: '泽客镜像', description: 'Zeink Lab 提供', speed: '国内较快', contributor: { name: 'Zeink Lab', url: 'https://zeinklab.com' } },
   { id: 'lemwood', name: '柠枺镜像', description: 'Lemwood 提供', speed: '国内较快', contributor: { name: 'Lemwood', url: 'https://lemwood.cn' } },
 ]
 
@@ -306,29 +252,7 @@ async function fetchFromApi(apiConfig: any): Promise<any> {
   }
 }
 
-// 获取泽客镜像源下载链接
-function getZeinkUrl(asset: any) {
-  if (!zeinkData.value || !zeinkData.value.ZalithLauncher2 || !zeinkData.value.ZalithLauncher2.files) {
-    return asset.browser_download_url // 降级到GitHub链接
-  }
-  
-  const zl2Files = zeinkData.value.ZalithLauncher2.files
-  
-  // 根据文件名精确匹配
-  const matchedFile = zl2Files.find((file: any) => 
-    file.name === asset.name
-  )
-  
-  if (matchedFile && matchedFile.mirror_url) {
-    // 确保返回的是完整URL
-    return matchedFile.mirror_url.startsWith('http') 
-      ? matchedFile.mirror_url 
-      : `https://mirror.zeinklab.com${matchedFile.mirror_url}`
-  }
-  
-  // 最后降级到GitHub链接
-  return asset.browser_download_url
-}// 获取哈哈源数据
+// 获取哈哈源数据
 async function fetchHahaData() {
   const hahaUrl = 'https://frostlynx.work/external/zl2/file_tree.json'
   
@@ -500,9 +424,6 @@ async function fetchLatestRelease() {
         // 获取哈哈源数据
         await fetchHahaData()
         
-        // 获取泽客镜像源数据
-        await fetchZeinkData()
-
         // 获取柠枺镜像源数据
         await fetchLemwoodData()
         
@@ -531,9 +452,6 @@ async function fetchLatestRelease() {
           // 获取哈哈源数据，确保第三方下载源也能正常工作
           await fetchHahaData()
           
-          // 获取泽客镜像源数据
-          await fetchZeinkData()
-
           // 获取柠枺镜像源数据
           await fetchLemwoodData()
           
@@ -552,7 +470,7 @@ async function fetchLatestRelease() {
   } catch (error) {
     console.error('获取最新版本失败:', error)
     hasError.value = true
-    errorMessage.value = error.message || '无法获取版本信息，请检查网络连接或稍后重试'
+    errorMessage.value = (error as any).message || '无法获取版本信息，请检查网络连接或稍后重试'
   } finally {
     isLoading.value = false
   }
@@ -584,14 +502,33 @@ function getOriginalGitHubUrl(asset: any) {
 
 // 从柠枺镜像源数据中获取对应的下载链接
 function getLemwoodUrl(asset: any) {
-    if (!lemwoodData.value || !lemwoodData.value[0] || !lemwoodData.value[0].assets) {
+    if (!lemwoodData.value || !lemwoodData.value.length) {
         return asset.browser_download_url; // 降级到GitHub链接
     }
 
-    const lemwoodAssets = lemwoodData.value[0].assets;
-    const matchedAsset = lemwoodAssets.find(lemwoodAsset => lemwoodAsset.name === asset.name);
+    // 策略1：通过 tag_name 匹配
+    const currentTagName = latestRelease.value.tag_name;
+    const normalizedTagName = currentTagName.replace(/^v/, '');
 
-    return matchedAsset ? matchedAsset.url : asset.browser_download_url;
+    let matchedRelease = lemwoodData.value.find((release: any) => 
+        release.tag_name === currentTagName || release.tag_name === normalizedTagName
+    );
+    
+    if (matchedRelease && matchedRelease.assets) {
+        const matchedAsset = matchedRelease.assets.find((lemwoodAsset: any) => lemwoodAsset.name === asset.name);
+        if (matchedAsset) return matchedAsset.url;
+    }
+
+    // 策略2：如果策略1失败，尝试在所有版本中倒序查找文件名匹配的资源
+    for (let i = lemwoodData.value.length - 1; i >= 0; i--) {
+        const release = lemwoodData.value[i];
+        if (release.assets) {
+            const matchedAsset = release.assets.find((lemwoodAsset: any) => lemwoodAsset.name === asset.name);
+            if (matchedAsset) return matchedAsset.url;
+        }
+    }
+
+    return asset.browser_download_url;
 }
 
 
@@ -727,8 +664,6 @@ function getDownloadUrl(asset: any) {
     return generateMirrorUrl(asset.name, latestRelease.value.tag_name)
   } else if (selectedDownloadSource.value === 'haha') {
     return getHahaUrl(asset)
-  } else if (selectedDownloadSource.value === 'zeink') {
-    return getZeinkUrl(asset)
   } else if (selectedDownloadSource.value === 'lemwood') {
     return getLemwoodUrl(asset)
   } else {
