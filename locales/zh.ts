@@ -39,7 +39,7 @@ export default <DefaultTheme.Config> {
         text: '在 GitHub 上编辑此页'
     },
     lastUpdated: {
-        text: '整站更新于',
+        text: '更新于',
         formatOptions: { dateStyle: 'long', timeStyle: 'short' }
     },
     nav: [
