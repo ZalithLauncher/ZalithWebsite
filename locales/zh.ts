@@ -60,7 +60,7 @@ export default <DefaultTheme.Config> {
             items: [
                 { text: '[AL]阿里云节点', link: 'https://zalithlauncher.cn' },
                 { text: '[CF]Cloudflare节点', link: 'https://cf.zalithlauncher.cn' },
-                { text: '[EO]edgeone节点', link: 'https://www.zalithlauncher.cn' }
+                { text: '[EO]edgeone节点-推荐', link: 'https://www.zalithlauncher.cn' }
             ]
         }
     ],
