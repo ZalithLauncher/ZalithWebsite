@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.0.0_beta-20251118a",
-  "release_date": "2025-11-18T04:31:00Z",
+  "latest_version": "2.0.0_beta-20251206a",
+  "release_date": "2025-12-06T07:13:13Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.0.0_beta-20251118a-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251118a/ZalithLauncher-2.0.0_beta-20251118a-arm64-v8a.apk",
-      "size": "115.6 MB",
-      "download_count": 34092
+      "name": "ZalithLauncher-2.0.0_beta-20251206a-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251206a/ZalithLauncher-2.0.0_beta-20251206a-arm64-v8a.apk",
+      "size": "119.5 MB",
+      "download_count": 911
     },
     {
-      "name": "ZalithLauncher-2.0.0_beta-20251118a-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251118a/ZalithLauncher-2.0.0_beta-20251118a-armeabi-v7a.apk",
-      "size": "110.2 MB",
-      "download_count": 2959
+      "name": "ZalithLauncher-2.0.0_beta-20251206a-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251206a/ZalithLauncher-2.0.0_beta-20251206a-armeabi-v7a.apk",
+      "size": "113.5 MB",
+      "download_count": 86
     },
     {
-      "name": "ZalithLauncher-2.0.0_beta-20251118a-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251118a/ZalithLauncher-2.0.0_beta-20251118a-x86.apk",
-      "size": "99.8 MB",
-      "download_count": 1997
+      "name": "ZalithLauncher-2.0.0_beta-20251206a-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251206a/ZalithLauncher-2.0.0_beta-20251206a-x86.apk",
+      "size": "104 MB",
+      "download_count": 49
     },
     {
-      "name": "ZalithLauncher-2.0.0_beta-20251118a-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251118a/ZalithLauncher-2.0.0_beta-20251118a-x86_64.apk",
-      "size": "118.7 MB",
-      "download_count": 1795
+      "name": "ZalithLauncher-2.0.0_beta-20251206a-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251206a/ZalithLauncher-2.0.0_beta-20251206a-x86_64.apk",
+      "size": "122.7 MB",
+      "download_count": 35
     },
     {
-      "name": "ZalithLauncher-2.0.0_beta-20251118a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251118a/ZalithLauncher-2.0.0_beta-20251118a.apk",
-      "size": "216.8 MB",
-      "download_count": 8644
+      "name": "ZalithLauncher-2.0.0_beta-20251206a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251206a/ZalithLauncher-2.0.0_beta-20251206a.apk",
+      "size": "231.6 MB",
+      "download_count": 334
     }
   ],
-  "body": "## Updates:\r\n- Synchronized languages with the [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Updated Chinese translation files for mods and modpacks\r\n- Added support for importing local modpacks (CurseForge, Modrinth, MultiMC, MCBBS)\r\n- **Control Layout Editor:**\r\n  - Click actions now support forcibly showing or hiding control layers\r\n  - Click actions now support sending text/commands into the game\r\n- **Download-Related:**\r\n  - Downloading additional content: when selecting a game version for installation, show all dependency projects of that resource\r\n- **Game Launch:**\r\n  - Mods are now allowed to access local paths through environment variables for storing their native libraries\r\n- Optimized archive decompression performance\r\n\r\n## Adjustments:\r\n- **UI-Related:**\r\n  - Page transition animations: fade-in/out duration now adapts to animation speed multiplier\r\n  - Fine-tuned components using dividers\r\n\r\n## Refactors:\r\n- **Task System:** switched to phase-based task flow management\r\n- **Control Layout:**\r\n  - Components now process touch events independently\r\n  - Slightly improved control loading performance\r\n\r\n\r\n## Fixes:\r\n- **IME:**\r\n  - Fixed issues with composing text and candidate selection in certain input methods\r\n- **Game-Related:**\r\n  - Logs were not disabled while editing control layouts\r\n- **Download-Related:**\r\n  - CurseForge category type could be null\r\n  - Completely avoided parsing Modrinth mod changelogs to prevent memory overflow caused by extremely large changelog entries\r\n  - After game installation, clicking the install button again would cause incorrect page state\r\n- **Renderer:** removed version restriction for the Freedreno renderer\r\n- **Network:** incorrectly handled most I/O interruption exceptions\r\n"
+  "body": "## Updates:\r\n- Synchronized languages with the [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- **Control Layout Editor:** only display the selected control layer\r\n- **Settings:**\r\n  - Launcher Settings: support manually changing the launcher's dark mode\r\n  - Control Settings: support toggle for touchpad-style operations\r\n- **Game-Related:** support adjusting the opacity of the game floating window\r\n- **Content Management:**\r\n  - Mod Manager: support filtering based on mod enable status (by @leemwood)\r\n  - All managers: display hint text when manual filtering results in no items\r\n- **Version Management:**\r\n  - Correctly parse MC version numbers from PCL2-exported modpacks\r\n  - Correctly parse Forge versions with \"-mcXXX\" suffix\r\n  - Support changing the mod loader for a game version\r\n- Built-in Terracotta multiplayer (China region only)\r\n\r\n## Adjustments:\r\n- **Settings:** store numeric configuration ranges and enforce constraints\r\n- **UI-Related:** improved edge blur effect for scrollable lists\r\n\r\n## Refactors:\r\n- **Control Layout Editor:** optimized editor performance\r\n- **UI-Related:** redesigned layout of the color picker dialog\r\n\r\n## Fixes:\r\n- **UI-Related:**\r\n  - Download Resources: fixed incorrect height of the \"Select Game Version\" dialog\r\n  - Version Management: corrected \"More\" menu position in game directory\r\n  - Main Page: fixed version loading UI unexpectedly occupying the entire screen\r\n- **Control-Related:**\r\n  - Forced refresh of the virtual mouse when changing its size\r\n  - Fixed composable text input issue with Microsoft SwiftKey\r\n- **Game-Related:**\r\n  - Floating window position no longer resets when resizing\r\n  - Fixed XaeroPlus mod failing to load SQLite\r\n- **Version Management:** fixed incorrect selection when handling large numbers of versions\r\n- **Account Management:** correctly display error messages from authentication servers\r\n"
 }
