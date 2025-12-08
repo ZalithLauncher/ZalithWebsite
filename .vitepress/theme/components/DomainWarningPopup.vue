@@ -2,7 +2,7 @@
   <div v-if="showPopup" class="domain-warning-popup">
     <div class="popup-content">
       <h3>访问提示</h3>
-      <p>我们检测到您正在使用 <strong>zalithlauncher.cn</strong> 访问。为了获得更快的网站访问速度和更好的稳定性，我们强烈建议您访问我们的 EdgeOne CDN 节点：</p>
+      <p>我们检测到您正在使用 <strong>{{ currentHostname }}</strong> 访问。为了获得更快的网站访问速度和更好的稳定性，我们强烈建议您访问我们的 EdgeOne CDN 节点：</p>
       <a href="https://www.zalithlauncher.cn" @click="redirectToWww">www.zalithlauncher.cn</a>
       <button @click="dismissPopup" class="close-button">我知道了</button>
     </div>
@@ -13,22 +13,24 @@
 import { ref, onMounted } from 'vue';
 
 const showPopup = ref(false);
+const currentHostname = ref('');
 
 onMounted(() => {
   // 仅在浏览器环境中执行
   if (typeof window !== 'undefined') {
-    const currentHostname = window.location.hostname;
+    const hostname = window.location.hostname;
+    currentHostname.value = hostname;
     const hasDismissed = localStorage.getItem('dismissedDomainWarning');
 
-    console.log(`[Domain Check] Current Hostname | 检测访问域名: ${currentHostname}`);
+    console.log(`[Domain Check] Current Hostname | 检测访问域名: ${hostname}`);
 
-    if (currentHostname === 'zalithlauncher.cn' && !hasDismissed) {
-      console.log('[Domain Check] Condition met. Showing popup. | 检测到访问域名为 zalithlauncher.cn，未被用户ismissedDomainWarning.');
+    if (hostname !== 'www.zalithlauncher.cn' && !hasDismissed) {
+      console.log('[Domain Check] Condition met. Showing popup. | 检测到访问域名不是 www.zalithlauncher.cn，未被用户关闭.');
       showPopup.value = true;
     } else if (hasDismissed) {
-      console.log('[Domain Check] Popup has been dismissed previously. | 用户已ismissedDomainWarning.');
+      console.log('[Domain Check] Popup has been dismissed previously. | 用户已关闭过弹窗.');
     } else {
-      console.log('[Domain Check] Condition not met. Popup will not be shown. | 访问域名不是 zalithlauncher.cn，不会弹出提示.');
+      console.log('[Domain Check] Condition not met. Popup will not be shown. | 访问域名是 www.zalithlauncher.cn，不会弹出提示.');
     }
   }
 });

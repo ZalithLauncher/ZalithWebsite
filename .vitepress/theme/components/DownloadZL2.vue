@@ -194,6 +194,30 @@ function detectUserDeviceType(): string {
   return 'all' // 默认显示全部
 }
 
+// 检测用户是否为国内IP
+async function detectIsChinaIP(): Promise<boolean> {
+  try {
+    // 使用ipapi.co的免费API检测IP
+    const response = await fetch('https://ipapi.co/json/', {
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'ZalithLauncher-Website/1.0'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`)
+    }
+    
+    const data = await response.json()
+    // 如果国家代码为CN，或地区为中国，返回true
+    return data.country === 'CN' || data.region === 'China'
+  } catch (error) {
+    console.warn('IP检测失败，默认使用GitHub源:', error)
+    return false
+  }
+}
+
 // API配置
 const API_CONFIGS = [
   {
@@ -435,6 +459,12 @@ async function fetchLatestRelease() {
         
         // 数据加载完成后自动检测设备类型
         autoSelectDeviceType()
+        
+        // 检测是否为国内IP，如果是则自动切换到柠枺源
+        const isChinaIP = await detectIsChinaIP()
+        if (isChinaIP) {
+          selectedDownloadSource.value = 'lemwood'
+        }
         return // 成功获取数据，退出函数
         
       } catch (error) {
@@ -462,8 +492,16 @@ async function fetchLatestRelease() {
           // 获取柠枺镜像源数据
           await fetchLemwoodData()
           
-          console.log('✅ 已获取本地版本信息，但保持下载源不受限制')
+          // 数据加载完成后自动检测设备类型
           autoSelectDeviceType()
+          
+          // 检测是否为国内IP，如果是则自动切换到柠枺源
+          const isChinaIP = await detectIsChinaIP()
+          if (isChinaIP) {
+            selectedDownloadSource.value = 'lemwood'
+          }
+          
+          console.log('✅ 已获取本地版本信息，但保持下载源不受限制')
           return
         } catch (localError) {
           console.error('❌ 本地版本信息也加载失败:', localError)
