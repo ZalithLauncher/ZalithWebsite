@@ -105,6 +105,13 @@ export default <DefaultTheme.Config> {
 
     outlineTitle: '当前页大纲',
 
+    domainWarning: {
+        title: '访问提示',
+        content: '我们检测到您正在使用 <strong>{{ currentHostname }}</strong> 访问。为了获得更快的网站访问速度和更好的稳定性，我们强烈建议您访问我们的 EdgeOne CDN 节点：',
+        button: '我知道了',
+        officialDomain: 'www.zalithlauncher.cn'
+    },
+
     footer: {
         message: '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">新ICP备2024015133号-4</a>',
         copyright: '版权所有 © 2025 Zalith Launcher | GPL-3.0 许可证'

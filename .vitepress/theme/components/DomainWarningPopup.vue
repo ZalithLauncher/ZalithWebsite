@@ -1,31 +1,114 @@
 <template>
   <div v-if="showPopup" class="domain-warning-popup">
     <div class="popup-content">
-      <h3>访问提示</h3>
-      <p>我们检测到您正在使用 <strong>{{ currentHostname }}</strong> 访问。为了获得更快的网站访问速度和更好的稳定性，我们强烈建议您访问我们的 EdgeOne CDN 节点：</p>
-      <a href="https://www.zalithlauncher.cn" @click="redirectToWww">www.zalithlauncher.cn</a>
-      <button @click="dismissPopup" class="close-button">我知道了</button>
+      <h3>{{ warningText.title }}</h3>
+      <p v-html="warningText.content"></p>
+      <a href="https://www.zalithlauncher.cn" @click="redirectToWww">{{ warningText.officialDomain }}</a>
+      <button @click="dismissPopup" class="close-button">{{ warningText.button }}</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
+import { useData } from 'vitepress';
 
+const { theme } = useData();
 const showPopup = ref(false);
 const currentHostname = ref('');
+const isChineseIP = ref(true);
+const ipCheckDone = ref(false);
 
-onMounted(() => {
+// IP检测函数
+const checkIPLocation = async () => {
+  try {
+    // 检查本地缓存
+    const cachedResult = localStorage.getItem('isChineseIP');
+    if (cachedResult !== null) {
+      isChineseIP.value = cachedResult === 'true';
+      ipCheckDone.value = true;
+      return;
+    }
+
+    // 使用ipapi.co进行IP检测
+    const response = await fetch('https://ipapi.co/json/', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      },
+      timeout: 3000
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      const countryCode = data.country_code;
+      isChineseIP.value = countryCode === 'CN';
+      console.log(`[IP Check] Country code: ${countryCode}, isChineseIP: ${isChineseIP.value}`);
+      
+      // 缓存检测结果，有效期24小时
+      localStorage.setItem('isChineseIP', isChineseIP.value.toString());
+      localStorage.setItem('isChineseIPExpire', (Date.now() + 24 * 60 * 60 * 1000).toString());
+    } else {
+      console.error('[IP Check] Failed to get IP data:', response.status);
+    }
+  } catch (error) {
+    console.error('[IP Check] Error during IP detection:', error);
+  } finally {
+    ipCheckDone.value = true;
+  }
+};
+
+// 计算当前使用的语言
+const currentLang = computed(() => {
+  // 非中国IP直接使用英文
+  if (!isChineseIP.value) {
+    return 'en';
+  }
+  // 中国IP使用当前站点语言
+  return typeof window !== 'undefined' ? window.location.pathname.startsWith('/en/') ? 'en' : 'zh' : 'zh';
+});
+
+// 计算警告文本
+const warningText = computed(() => {
+  const themeConfig = theme.value;
+  const domainWarning = themeConfig.domainWarning;
+  
+  // 根据当前语言获取相应的文本
+  let content = domainWarning.content;
+  if (typeof content === 'string') {
+    content = content.replace('{{ currentHostname }}', currentHostname.value);
+  }
+  
+  return {
+    title: domainWarning.title,
+    content: content,
+    button: domainWarning.button,
+    officialDomain: domainWarning.officialDomain
+  };
+});
+
+onMounted(async () => {
   // 仅在浏览器环境中执行
   if (typeof window !== 'undefined') {
     const hostname = window.location.hostname;
     currentHostname.value = hostname;
     const hasDismissed = localStorage.getItem('dismissedDomainWarning');
+    
+    // 检查IP检测结果是否过期
+    const expireTime = localStorage.getItem('isChineseIPExpire');
+    if (expireTime && Date.now() > parseInt(expireTime)) {
+      localStorage.removeItem('isChineseIP');
+      localStorage.removeItem('isChineseIPExpire');
+    }
 
     console.log(`[Domain Check] Current Hostname | 检测访问域名: ${hostname}`);
 
     if (hostname !== 'www.zalithlauncher.cn' && !hasDismissed) {
       console.log('[Domain Check] Condition met. Showing popup. | 检测到访问域名不是 www.zalithlauncher.cn，未被用户关闭.');
+      
+      // 执行IP检测
+      await checkIPLocation();
+      
       showPopup.value = true;
     } else if (hasDismissed) {
       console.log('[Domain Check] Popup has been dismissed previously. | 用户已关闭过弹窗.');

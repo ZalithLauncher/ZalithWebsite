@@ -106,6 +106,12 @@ export default <DefaultTheme.Config> {
         }
     ],
     outlineTitle: 'On this page',
+    domainWarning: {
+        title: 'Access Notice',
+        content: 'We detected that you are accessing from <strong>{{ currentHostname }}</strong>. For faster website access speed and better stability, we strongly recommend you visit our EdgeOne CDN node:',
+        button: 'I understand',
+        officialDomain: 'www.zalithlauncher.cn'
+    },
     footer: {
         message: '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">新ICP备2024015133号-4</a>',
         copyright: 'Copyright © 2025 Zalith Launcher, All rights reserved. | GPL-3.0 License'
