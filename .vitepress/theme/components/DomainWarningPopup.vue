@@ -103,8 +103,11 @@ onMounted(async () => {
 
     console.log(`[Domain Check] Current Hostname | 检测访问域名: ${hostname}`);
 
-    if (hostname !== 'www.zalithlauncher.cn' && !hasDismissed) {
-      console.log('[Domain Check] Condition met. Showing popup. | 检测到访问域名不是 www.zalithlauncher.cn，未被用户关闭.');
+    // 白名单域名列表
+    const whitelistDomains = ['www.zalithlauncher.cn', 'al.zalithlauncher.cn'];
+    
+    if (!whitelistDomains.includes(hostname) && !hasDismissed) {
+      console.log(`[Domain Check] Condition met. Showing popup. | 检测到访问域名不是白名单域名，未被用户关闭.`);
       
       // 执行IP检测
       await checkIPLocation();
@@ -113,7 +116,7 @@ onMounted(async () => {
     } else if (hasDismissed) {
       console.log('[Domain Check] Popup has been dismissed previously. | 用户已关闭过弹窗.');
     } else {
-      console.log('[Domain Check] Condition not met. Popup will not be shown. | 访问域名是 www.zalithlauncher.cn，不会弹出提示.');
+      console.log(`[Domain Check] Condition not met. Popup will not be shown. | 访问域名 ${hostname} 是白名单域名或已被用户关闭，不会弹出提示.`);
     }
   }
 });

@@ -64,7 +64,8 @@ export default <DefaultTheme.Config> {
             items: [
                 { text: '[AL]Aliyun Node', link: 'https://zalithlauncher.cn' },
                 { text: '[CF]Cloudflare Node', link: 'https://cf.zalithlauncher.cn' },  
-                { text: '[EO]edgeone Node-Recommended', link: 'https://www.zalithlauncher.cn' }
+                { text: '[EO]edgeone Node-Recommended', link: 'https://www.zalithlauncher.cn' },
+                { text: '[AE]Aliyun Edge Node-Recommended', link: 'https://al.zalithlauncher.cn' }
             ]
         }
     ],
