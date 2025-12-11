@@ -4,6 +4,7 @@ A documentation website based on **VitePress 2.0.0**, with its domain and mainte
 
 - [cf.zalithlauncher.cn](https://cf.zalithlauncher.cn) is deployed on [Cloudflare](https://www.cloudflare-cn.com/zh-hans-cn/).
 - [www.zalithlauncher.cn](https://www.zalithlauncher.cn) is deployed on [EdgeOne Pages](https://cloud.tencent.com/act/pro/edgeone_techoday_promotion).  
+- [zalithlauncher.cn](https://zalithlauncher.cn) is deployed on [Aliyun](https://www.aliyun.com/).  
 
 Source code repository: [ZalithLauncher/ZalithWebsite](https://github.com/ZalithLauncher/ZalithWebsite).  
 You’re welcome to submit a PR on GitHub to share your valuable feedback for this website or its documentation!

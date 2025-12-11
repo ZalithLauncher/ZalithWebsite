@@ -4,6 +4,7 @@
 
 - [cf.zalithlauncher.cn](https://cf.zalithlauncher.cn) 部署在 [Cloudflare](https://www.cloudflare-cn.com/zh-hans-cn/)。
 - [www.zalithlauncher.cn](https://www.zalithlauncher.cn) 部署在 [edgeone pages](https://cloud.tencent.com/act/pro/edgeone_techoday_promotion)。
+- [zalithlauncher.cn](https://zalithlauncher.cn) 部署在 [阿里云](https://www.aliyun.com/)。
 
 本网站源代码仓库：[ZalithLauncher/ZalithWebsite](https://github.com/ZalithLauncher/ZalithWebsite)，您可以在 Github 上发起 PR 为该网站/文档给出宝贵的意见！
 
