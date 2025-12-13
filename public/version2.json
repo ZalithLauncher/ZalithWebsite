@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.0.0_beta-20251206a-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251206a/ZalithLauncher-2.0.0_beta-20251206a-arm64-v8a.apk",
       "size": "119.5 MB",
-      "download_count": 11263
+      "download_count": 13755
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251206a-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251206a/ZalithLauncher-2.0.0_beta-20251206a-armeabi-v7a.apk",
       "size": "113.5 MB",
-      "download_count": 800
+      "download_count": 939
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251206a-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251206a/ZalithLauncher-2.0.0_beta-20251206a-x86.apk",
       "size": "104 MB",
-      "download_count": 421
+      "download_count": 505
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251206a-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251206a/ZalithLauncher-2.0.0_beta-20251206a-x86_64.apk",
       "size": "122.7 MB",
-      "download_count": 366
+      "download_count": 441
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251206a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251206a/ZalithLauncher-2.0.0_beta-20251206a.apk",
       "size": "231.6 MB",
-      "download_count": 2920
+      "download_count": 3386
     }
   ],
   "body": "## Updates:\r\n- Synchronized languages with the [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- **Control Layout Editor:** only display the selected control layer\r\n- **Settings:**\r\n  - Launcher Settings: support manually changing the launcher's dark mode\r\n  - Control Settings: support toggle for touchpad-style operations\r\n- **Game-Related:** support adjusting the opacity of the game floating window\r\n- **Content Management:**\r\n  - Mod Manager: support filtering based on mod enable status (by @leemwood)\r\n  - All managers: display hint text when manual filtering results in no items\r\n- **Version Management:**\r\n  - Correctly parse MC version numbers from PCL2-exported modpacks\r\n  - Correctly parse Forge versions with \"-mcXXX\" suffix\r\n  - Support changing the mod loader for a game version\r\n- Built-in Terracotta multiplayer (China region only)\r\n\r\n## Adjustments:\r\n- **Settings:** store numeric configuration ranges and enforce constraints\r\n- **UI-Related:** improved edge blur effect for scrollable lists\r\n\r\n## Refactors:\r\n- **Control Layout Editor:** optimized editor performance\r\n- **UI-Related:** redesigned layout of the color picker dialog\r\n\r\n## Fixes:\r\n- **UI-Related:**\r\n  - Download Resources: fixed incorrect height of the \"Select Game Version\" dialog\r\n  - Version Management: corrected \"More\" menu position in game directory\r\n  - Main Page: fixed version loading UI unexpectedly occupying the entire screen\r\n- **Control-Related:**\r\n  - Forced refresh of the virtual mouse when changing its size\r\n  - Fixed composable text input issue with Microsoft SwiftKey\r\n- **Game-Related:**\r\n  - Floating window position no longer resets when resizing\r\n  - Fixed XaeroPlus mod failing to load SQLite\r\n- **Version Management:** fixed incorrect selection when handling large numbers of versions\r\n- **Account Management:** correctly display error messages from authentication servers\r\n"
