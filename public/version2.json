@@ -6,25 +6,25 @@
       "name": "ZalithLauncher-2.0.0_beta-20251218a-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251218a/ZalithLauncher-2.0.0_beta-20251218a-arm64-v8a.apk",
       "size": "119.8 MB",
-      "download_count": 569
+      "download_count": 1907
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251218a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251218a/ZalithLauncher-2.0.0_beta-20251218a.apk",
       "size": "231.9 MB",
-      "download_count": 195
+      "download_count": 625
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251218a-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251218a/ZalithLauncher-2.0.0_beta-20251218a-armeabi-v7a.apk",
       "size": "113.8 MB",
-      "download_count": 41
+      "download_count": 125
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251218a-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251218a/ZalithLauncher-2.0.0_beta-20251218a-x86.apk",
       "size": "104.3 MB",
-      "download_count": 75
+      "download_count": 239
     }
   ],
   "body": "## Updates:\r\n- Synchronized languages with the [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- **Launcher Settings:** added support for adjusting video background volume\r\n- **Control Layout Editor:**\r\n  - Added toggle for control layer focus behavior\r\n  - Added support for custom text sizes\r\n  - Enforced strict value constraints for numeric settings within control layouts\r\n- **Version Management:**\r\n  - Optimized version list refresh logic\r\n  - Added support for pinning versions\r\n  - Newly installed versions are now set as the current version by default\r\n- **Content Manager:** added support for switching sorting rules\r\n- Added support for importing modpacks via external sharing\r\n- **Multiplayer:** display connection difficulty when guests join a room\r\n- Updated caciocavallo17\r\n- Updated authlib-injector to version 1.2.7\r\n\r\n## Adjustments:\r\n- **UI-Related:**\r\n  - Adjusted height and shape of custom input fields\r\n  - Multiplayer: unified text style for the “About EasyTier” button\r\n  - Version Management: adjusted colors of version category buttons\r\n- **Microsoft Login:** moved leave-page detection to occur after polling\r\n\r\n## Refactors:\r\n- **Control Layout Editor:** refactored the UI of the “Translatable Text Edit” dialog\r\n\r\n## Fixes:\r\n- **Control-Related:**\r\n  - Fixed conflicts between control layout interaction areas and the hotbar trigger region\r\n- **UI-Related:**\r\n  - Date localization: fixed literal text being treated as pattern letters\r\n- **Control Layout Editor:** fixed incorrect save logic\r\n- **Network-Related:** fixed DNS servers not being configured correctly\r\n- **Mod Manager:** enabling or disabling mods no longer forces a full list reload\r\n- **Multiplayer:**\r\n  - Fixed VPN service internally receiving incorrect state strings\r\n  - Fixed multiplayer not functioning properly on some devices\r\n- **Game-Related:** fixed inability to correctly select Java 21 runtime for Cleanroom\r\n- **Launcher Startup:** fixed failure to properly set appropriate Java runtime memory on first launch\r\n"
