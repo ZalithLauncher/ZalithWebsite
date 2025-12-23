@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.0.0_beta-20251222a-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251222a/ZalithLauncher-2.0.0_beta-20251222a-arm64-v8a.apk",
       "size": "119.9 MB",
-      "download_count": 367
+      "download_count": 2335
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251222a-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251222a/ZalithLauncher-2.0.0_beta-20251222a-armeabi-v7a.apk",
       "size": "113.9 MB",
-      "download_count": 36
+      "download_count": 150
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251222a-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251222a/ZalithLauncher-2.0.0_beta-20251222a-x86.apk",
       "size": "104.4 MB",
-      "download_count": 20
+      "download_count": 80
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251222a-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251222a/ZalithLauncher-2.0.0_beta-20251222a-x86_64.apk",
       "size": "123.1 MB",
-      "download_count": 14
+      "download_count": 45
     },
     {
       "name": "ZalithLauncher-2.0.0_beta-20251222a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_beta-20251222a/ZalithLauncher-2.0.0_beta-20251222a.apk",
       "size": "232 MB",
-      "download_count": 120
+      "download_count": 564
     }
   ],
   "body": "## Updates:\r\n- Synchronized languages with the [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- **Controls:** added support for joystick controls and introduced joystick appearance customization\r\n- **Control Layout Editor:** support independently configuring the launcher joystick style\r\n- **Version List:** added support for new version numbering rules\r\n\r\n## Adjustments:\r\n- **Control Layout Editor:**\r\n  - Button style preview now only displays “Normal” and “Pressed” states, and follows the selected appearance mode\r\n  - Added an interaction-blocking overlay when switching pages in the control edit dialog\r\n\r\n## Refactors:\r\n- **UI-Related:**\r\n  - Settings page redesigned to follow the Android 16 settings style\r\n\r\n## Fixes:\r\n- **Game Controls:**\r\n  - Fixed missing default values for game key events that follow changes in `options.txt`\r\n- **In-Game Control Layout Editor:**\r\n  - Editor is now forcibly reset when exiting\r\n  - Control layout files are now reloaded asynchronously after saving\r\n- **Multiplayer:** fixed occasional crashes caused by accounts not being fully initialized\r\n- **Download-Related:**\r\n  - CurseForge: fixed installation not being interrupted when exceptions occurred while parsing mod download URLs in modpacks\r\n- **IME:** added compatibility for Baidu Input Method\r\n"
