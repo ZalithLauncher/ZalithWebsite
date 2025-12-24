@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
+import { useData } from 'vitepress'
 import { marked, type MarkedOptions } from 'marked' // 从marked v4+开始支持具名导出
+
+const { lang } = useData()
 
 /*
   由于VitePress并不会解析该组件的latestRelease.body内容，故单独引入marked库解析为HTML后返回至页面
@@ -28,6 +31,7 @@ interface DownloadSource {
 const latestRelease = ref<any>(null)
 const foxingtonData = ref<any>(null)
 const lemwoodData = ref<any>(null)
+const versionJsonData = ref<any>(null) // 新的本地化版本数据源
 const isLoading = ref(false)
 const hasError = ref(false)
 const errorMessage = ref('')
@@ -38,12 +42,6 @@ const isDeviceDropdownOpen = ref(false)
 const isSourceDropdownOpen = ref(false)
 const apiFailed = ref(false) // API是否失败标志
 const fallbackToLocal = ref(false) // 是否已降级到本地版本
-
-// 翻译相关状态
-const isTranslated = ref(false)
-const translating = ref(false)
-const originalBody = ref('')
-const translatedBody = ref('')
 
 // 基础设备类型定义（会根据API返回的文件动态扩展）
 const baseDeviceTypes: DeviceType[] = [
@@ -438,6 +436,35 @@ async function loadLocalVersionInfo() {
   }
 }
 
+// 获取本地化版本描述数据
+async function fetchVersionJsonData() {
+  const url = 'https://fcl.lemwood.icu/zalith-info/launcher_version.json'
+  try {
+    const response = await fetch(url)
+    if (!response.ok) throw new Error('Fetch version json failed')
+    versionJsonData.value = await response.json()
+    console.log('✅ 本地化版本数据获取成功')
+  } catch (error) {
+    console.warn('❌ 获取本地化版本数据失败:', error)
+  }
+}
+
+// 根据当前语言获取对应的描述
+const localizedDescription = computed(() => {
+  if (!versionJsonData.value?.description) return null
+  
+  const currentLang = lang.value.toLowerCase()
+  const desc = versionJsonData.value.description
+  
+  if (currentLang.includes('zh-tw') || currentLang.includes('zh-hk')) {
+    return desc.zh_tw || desc.zh_cn || desc.en_us
+  } else if (currentLang.includes('zh')) {
+    return desc.zh_cn || desc.en_us
+  } else {
+    return desc.en_us || desc.zh_cn
+  }
+})
+
 // 获取最新版本（带API检测、自动切换和异常处理）
 async function fetchLatestRelease() {
   isLoading.value = true
@@ -449,6 +476,9 @@ async function fetchLatestRelease() {
   try {
     console.log('开始获取最新版本信息...')
     
+    // 获取本地化版本数据
+    await fetchVersionJsonData()
+    
     // 依次尝试每个API
     for (const apiConfig of API_CONFIGS) {
       try {
@@ -458,9 +488,10 @@ async function fetchLatestRelease() {
         
         console.log(`✅ ${apiConfig.name} 请求成功`)
         latestRelease.value = data
-        originalBody.value = data.body || '' // 保存原文
-        // 显式等待marked解析完成
-        parsedBody.value = data.body ? await marked.parse(data.body) : ''
+        
+        // 优先使用本地化数据中的描述
+        const body = localizedDescription.value || data.body || ''
+        parsedBody.value = body ? await marked.parse(body) : ''
         
         // 同时获取其他镜像源数据
         await Promise.all([
@@ -494,8 +525,10 @@ async function fetchLatestRelease() {
         try {
           const localRelease = await loadLocalVersionInfo()
           latestRelease.value = localRelease
-          originalBody.value = localRelease.body || '' // 保存原文
-          parsedBody.value = localRelease.body ? await marked.parse(localRelease.body) : ''
+          
+          // 优先使用本地化数据中的描述
+          const body = localizedDescription.value || localRelease.body || ''
+          parsedBody.value = body ? await marked.parse(body) : ''
           // 注意：这里不设置 fallbackToLocal.value = true，保持下载源不受限制
           
           // 同时获取其他镜像源数据，确保第三方下载源也能正常工作
@@ -717,134 +750,6 @@ function handleSourceDropdownBlur() {
 }
 
 
-// 翻译文本函数
-async function translateText(text: string): Promise<string> {
-  // 1. 保护Markdown特殊语法
-  const protections: string[] = []
-  let protectedText = text
-  
-  // 保护代码块 ```...```
-  protectedText = protectedText.replace(/```[\s\S]*?```/g, (match) => {
-    protections.push(match)
-    return `__PROTECTED_${protections.length - 1}__`
-  })
-  
-  // 保护行内代码 `...`
-  protectedText = protectedText.replace(/`[^`]+`/g, (match) => {
-    protections.push(match)
-    return `__PROTECTED_${protections.length - 1}__`
-  })
-  
-  // 保护链接/图片 [...](...)
-  protectedText = protectedText.replace(/!{0,1}\[[^\]]*\]\([^)]+\)/g, (match) => {
-    protections.push(match)
-    return `__PROTECTED_${protections.length - 1}__`
-  })
-  
-  // 保护HTML标签 <...>
-  protectedText = protectedText.replace(/<[^>]+>/g, (match) => {
-    protections.push(match)
-    return `__PROTECTED_${protections.length - 1}__`
-  })
-
-  // 智能分段处理：按行分割，避免切断句子
-  const lines = protectedText.split('\n')
-  const chunks: string[] = []
-  let currentChunk = ''
-  
-  for (const line of lines) {
-    // 如果当前chunk加上新的一行超过了限制（例如1000字符），则先保存当前chunk
-    if ((currentChunk + '\n' + line).length > 1000) {
-      if (currentChunk) chunks.push(currentChunk)
-      currentChunk = line
-    } else {
-      currentChunk = currentChunk ? (currentChunk + '\n' + line) : line
-    }
-  }
-  if (currentChunk) chunks.push(currentChunk)
-
-  const translatedChunks: string[] = []
-  
-  for (const chunk of chunks) {
-    try {
-      // 尝试直接请求 Google Translate API (client=gtx)
-      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=zh-CN&dt=t&q=${encodeURIComponent(chunk)}`
-      
-      let response
-      try {
-        response = await fetch(url)
-      } catch (e) {
-        // 如果直接请求失败，尝试通过代理
-        console.warn('直接翻译失败，尝试使用代理...')
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`
-        const proxyRes = await fetch(proxyUrl)
-        const proxyData = await proxyRes.json()
-        if (!proxyData.contents) throw new Error('Proxy failed')
-        
-        response = {
-          ok: true,
-          json: async () => JSON.parse(proxyData.contents)
-        }
-      }
-
-      if (!response.ok) throw new Error('Translation request failed')
-      
-      const data = await response.json()
-      const translatedText = data[0].map((item: any) => item[0]).join('')
-      translatedChunks.push(translatedText)
-      
-    } catch (error) {
-      console.error('Translation chunk failed:', error)
-      translatedChunks.push(chunk)
-    }
-  }
-  
-  let finalTranslatedText = translatedChunks.join('')
-  
-  // 2. 恢复保护的内容
-  // 注意：翻译API可能会在占位符周围添加空格，例如 __ PROTECTED_0 __
-  protections.forEach((content, index) => {
-    // 创建一个灵活的正则来匹配可能被改变的占位符
-    const placeholderRegex = new RegExp(`__\\s*PROTECTED_${index}\\s*__`, 'g')
-    finalTranslatedText = finalTranslatedText.replace(placeholderRegex, content)
-  })
-  
-  return finalTranslatedText
-}
-
-// 切换翻译状态
-async function toggleTranslate() {
-  if (translating.value) return
-  
-  // 如果已经翻译过，直接切换显示
-  if (isTranslated.value) {
-    isTranslated.value = false
-    parsedBody.value = await marked.parse(originalBody.value)
-    return
-  }
-  
-  // 如果有缓存的译文，直接使用
-  if (translatedBody.value) {
-    isTranslated.value = true
-    parsedBody.value = await marked.parse(translatedBody.value)
-    return
-  }
-  
-  // 开始翻译
-  translating.value = true
-  try {
-    const translated = await translateText(originalBody.value)
-    translatedBody.value = translated
-    isTranslated.value = true
-    parsedBody.value = await marked.parse(translated)
-  } catch (error) {
-    console.error('Translation failed:', error)
-    alert('自动翻译失败，请尝试使用浏览器自带翻译功能。')
-  } finally {
-    translating.value = false
-  }
-}
-
 // 组件挂载时获取数据
 onMounted(() => {
     // 重置状态
@@ -1035,17 +940,6 @@ onMounted(() => {
       <div class="release-notes-section">
         <div class="release-notes-header">
           <h3>发布说明</h3>
-          <div class="translate-controls" v-if="originalBody">
-            <span class="translate-hint">翻译自 Google</span>
-            <button 
-              @click="toggleTranslate" 
-              class="translate-btn"
-              :disabled="translating"
-            >
-              <span v-if="translating" class="spinner-sm"></span>
-              {{ translating ? '翻译中...' : (isTranslated ? '显示原文' : '翻译成中文') }}
-            </button>
-          </div>
         </div>
         <div class="release-notes" v-html="parsedBody"></div>
       </div>
