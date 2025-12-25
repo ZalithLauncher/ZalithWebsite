@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { marked, type MarkedOptions } from 'marked' // 从marked v4+开始支持具名导出
+import { useData } from 'vitepress'
 
 /*
   由于VitePress并不会解析该组件的latestRelease.body内容，故单独引入marked库解析为HTML后返回至页面
 */
+
+const { lang } = useData()
+const versionJsonData = ref<any>(null)
 
 interface DeviceType {
   id: string
@@ -13,8 +17,6 @@ interface DeviceType {
   description: string
   patterns: string[]
 }
-
-
 
 interface DownloadSource {
   id: string
@@ -40,12 +42,6 @@ const isDeviceDropdownOpen = ref(false)
 const isSourceDropdownOpen = ref(false)
 const apiFailed = ref(false)
 const fallbackToLocal = ref(false)
-
-// 翻译相关状态
-const isTranslated = ref(false)
-const translating = ref(false)
-const originalBody = ref('')
-const translatedBody = ref('')
 
 // 下载源定义
 const downloadSources: DownloadSource[] = [
@@ -389,6 +385,86 @@ async function fetchLemwoodData() {
   }
 }
 
+// 获取远程 JSON 版本数据
+async function fetchVersionJsonData() {
+  const url = 'https://fcl.lemwood.icu/zalith-info/v2/latest_version.json'
+  try {
+    const response = await fetch(url)
+    if (!response.ok) throw new Error('Fetch version json failed')
+    versionJsonData.value = await response.json()
+    console.log('✅ ZL2 本地化版本数据获取成功')
+  } catch (error) {
+    console.warn('❌ 获取 ZL2 本地化版本数据失败:', error)
+  }
+}
+
+// 将 chunks 转换为 Markdown
+function chunksToMarkdown(chunks: any[]) {
+  if (!chunks || !chunks.length) return ''
+  let markdown = ''
+  chunks.forEach(chunk => {
+    if (chunk.title) {
+      markdown += `### ${chunk.title}\n\n`
+    }
+    if (chunk.texts) {
+      chunk.texts.forEach((item: any) => {
+        let line = ''
+        if (item.indentation) {
+          line += '  '.repeat(item.indentation)
+        }
+        line += '- '
+        
+        let textContent = item.text || ''
+        if (item.links) {
+          item.links.forEach((link: any) => {
+            textContent += ` [${link.text}](${link.link})`
+          })
+        }
+        line += textContent + '\n'
+        markdown += line
+      })
+    }
+    markdown += '\n'
+  })
+  return markdown
+}
+
+// 本地化描述计算属性
+const localizedDescription = computed(() => {
+  if (!versionJsonData.value) return null
+  
+  const currentLang = lang.value.toLowerCase()
+  const bodies = versionJsonData.value.bodies || []
+  const defaultBody = versionJsonData.value.default_body
+  
+  // 查找匹配的语言
+  let targetBody = null
+  if (currentLang.includes('zh')) {
+    targetBody = bodies.find((b: any) => b.language === 'zh')
+  } else if (currentLang.includes('en')) {
+    targetBody = bodies.find((b: any) => b.language === 'en')
+  }
+  
+  // 如果没有找到匹配的语言，尝试使用默认 body
+  if (!targetBody) targetBody = defaultBody
+  
+  if (targetBody && targetBody.chunks) {
+    return chunksToMarkdown(targetBody.chunks)
+  }
+  
+  return null
+})
+
+// 使用 watch 监听 localizedDescription 和 latestRelease 的变化并更新 parsedBody
+watch([localizedDescription, latestRelease], async ([newDesc, newRelease]) => {
+  const displayBody = newDesc || newRelease?.body || ''
+  if (displayBody) {
+    parsedBody.value = await marked.parse(displayBody)
+  } else {
+    parsedBody.value = ''
+  }
+}, { immediate: true })
+
 
 
 // 加载本地版本信息
@@ -409,7 +485,7 @@ async function loadLocalVersionInfo() {
       name: `Zalith Launcher 2 ${localData.latest_version}`,
       tag_name: `v${localData.latest_version}`,
       published_at: localData.release_date,
-      body: `本地版本信息 - ${localData.latest_version}`,
+      body: localData.body || `本地版本信息 - ${localData.latest_version}`,
       assets: localData.assets.map((asset: any) => ({
         id: Math.random().toString(36).substr(2, 9),
         name: asset.name,
@@ -418,6 +494,9 @@ async function loadLocalVersionInfo() {
         download_count: asset.download_count || 0
       }))
     }
+    
+    // 尝试获取本地化版本数据
+    await fetchVersionJsonData()
     
     console.log('✅ 本地版本信息加载成功')
     return githubCompatibleData
@@ -447,9 +526,9 @@ async function fetchLatestRelease() {
         
         console.log(`✅ ${apiConfig.name} 请求成功`)
         latestRelease.value = data
-        originalBody.value = data.body || '' // 保存原文
-        // 显式等待marked解析完成
-        parsedBody.value = data.body ? await marked.parse(data.body) : ''
+        
+        // 尝试获取本地化版本数据
+        await fetchVersionJsonData()
         
         // 获取哈哈源数据
         await fetchHahaData()
@@ -483,8 +562,6 @@ async function fetchLatestRelease() {
         try {
           const localData = await loadLocalVersionInfo()
           latestRelease.value = localData
-          originalBody.value = localData.body || '' // 保存原文
-          parsedBody.value = localData.body ? await marked.parse(localData.body) : ''
           
           // 获取哈哈源数据，确保第三方下载源也能正常工作
           await fetchHahaData()
@@ -744,134 +821,6 @@ function handleSourceDropdownBlur() {
 }
 
 
-// 翻译文本函数
-async function translateText(text: string): Promise<string> {
-  // 1. 保护Markdown特殊语法
-  const protections: string[] = []
-  let protectedText = text
-  
-  // 保护代码块 ```...```
-  protectedText = protectedText.replace(/```[\s\S]*?```/g, (match) => {
-    protections.push(match)
-    return `__PROTECTED_${protections.length - 1}__`
-  })
-  
-  // 保护行内代码 `...`
-  protectedText = protectedText.replace(/`[^`]+`/g, (match) => {
-    protections.push(match)
-    return `__PROTECTED_${protections.length - 1}__`
-  })
-  
-  // 保护链接/图片 [...](...)
-  protectedText = protectedText.replace(/!{0,1}\[[^\]]*\]\([^)]+\)/g, (match) => {
-    protections.push(match)
-    return `__PROTECTED_${protections.length - 1}__`
-  })
-  
-  // 保护HTML标签 <...>
-  protectedText = protectedText.replace(/<[^>]+>/g, (match) => {
-    protections.push(match)
-    return `__PROTECTED_${protections.length - 1}__`
-  })
-
-  // 智能分段处理：按行分割，避免切断句子
-  const lines = protectedText.split('\n')
-  const chunks: string[] = []
-  let currentChunk = ''
-  
-  for (const line of lines) {
-    // 如果当前chunk加上新的一行超过了限制（例如1000字符），则先保存当前chunk
-    if ((currentChunk + '\n' + line).length > 1000) {
-      if (currentChunk) chunks.push(currentChunk)
-      currentChunk = line
-    } else {
-      currentChunk = currentChunk ? (currentChunk + '\n' + line) : line
-    }
-  }
-  if (currentChunk) chunks.push(currentChunk)
-
-  const translatedChunks: string[] = []
-  
-  for (const chunk of chunks) {
-    try {
-      // 尝试直接请求 Google Translate API (client=gtx)
-      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=zh-CN&dt=t&q=${encodeURIComponent(chunk)}`
-      
-      let response
-      try {
-        response = await fetch(url)
-      } catch (e) {
-        // 如果直接请求失败，尝试通过代理
-        console.warn('直接翻译失败，尝试使用代理...')
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`
-        const proxyRes = await fetch(proxyUrl)
-        const proxyData = await proxyRes.json()
-        if (!proxyData.contents) throw new Error('Proxy failed')
-        
-        response = {
-          ok: true,
-          json: async () => JSON.parse(proxyData.contents)
-        }
-      }
-
-      if (!response.ok) throw new Error('Translation request failed')
-      
-      const data = await response.json()
-      const translatedText = data[0].map((item: any) => item[0]).join('')
-      translatedChunks.push(translatedText)
-      
-    } catch (error) {
-      console.error('Translation chunk failed:', error)
-      translatedChunks.push(chunk)
-    }
-  }
-  
-  let finalTranslatedText = translatedChunks.join('')
-  
-  // 2. 恢复保护的内容
-  // 注意：翻译API可能会在占位符周围添加空格，例如 __ PROTECTED_0 __
-  protections.forEach((content, index) => {
-    // 创建一个灵活的正则来匹配可能被改变的占位符
-    const placeholderRegex = new RegExp(`__\\s*PROTECTED_${index}\\s*__`, 'g')
-    finalTranslatedText = finalTranslatedText.replace(placeholderRegex, content)
-  })
-  
-  return finalTranslatedText
-}
-
-// 切换翻译状态
-async function toggleTranslate() {
-  if (translating.value) return
-  
-  // 如果已经翻译过，直接切换显示
-  if (isTranslated.value) {
-    isTranslated.value = false
-    parsedBody.value = await marked.parse(originalBody.value)
-    return
-  }
-  
-  // 如果有缓存的译文，直接使用
-  if (translatedBody.value) {
-    isTranslated.value = true
-    parsedBody.value = await marked.parse(translatedBody.value)
-    return
-  }
-  
-  // 开始翻译
-  translating.value = true
-  try {
-    const translated = await translateText(originalBody.value)
-    translatedBody.value = translated
-    isTranslated.value = true
-    parsedBody.value = await marked.parse(translated)
-  } catch (error) {
-    console.error('Translation failed:', error)
-    alert('自动翻译失败，请尝试使用浏览器自带翻译功能。')
-  } finally {
-    translating.value = false
-  }
-}
-
 // 组件挂载时获取数据
 onMounted(() => {
   fetchLatestRelease()
@@ -1041,17 +990,6 @@ onMounted(() => {
       <div class="release-notes-section">
         <div class="release-notes-header">
           <h3>发布说明</h3>
-          <div class="translate-controls" v-if="originalBody">
-            <span class="translate-hint">翻译自 Google</span>
-            <button 
-              @click="toggleTranslate" 
-              class="translate-btn"
-              :disabled="translating"
-            >
-              <span v-if="translating" class="spinner-sm"></span>
-              {{ translating ? '翻译中...' : (isTranslated ? '显示原文' : '翻译成中文') }}
-            </button>
-          </div>
         </div>
         <div class="release-notes" v-html="parsedBody"></div>
       </div>
@@ -1156,62 +1094,6 @@ onMounted(() => {
 
 .no-assets-content h4 {
   font-size: 1.125rem;
-}
-
-/* 翻译按钮样式 */
-.release-notes-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.release-notes-header h3 {
-  margin: 0;
-}
-
-.translate-controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.translate-hint {
-  font-size: 0.75rem;
-  color: var(--vp-c-text-3);
-  opacity: 0.8;
-}
-
-.translate-btn {
-  background: transparent;
-  color: var(--vp-c-brand-1);
-  border: 1px solid var(--vp-c-brand-1);
-  padding: 4px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.translate-btn:hover:not(:disabled) {
-  background: var(--vp-c-brand-soft);
-}
-
-.translate-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.spinner-sm {
-  width: 12px;
-  height: 12px;
-  border: 2px solid currentColor;
-  border-right-color: transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
 }
 
 .retry-btn {
