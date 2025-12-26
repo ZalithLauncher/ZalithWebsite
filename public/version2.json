@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.0.0_pre-release_1",
-  "release_date": "2025-12-25T09:42:18Z",
+  "latest_version": "2.0.0_pre-release_2",
+  "release_date": "2025-12-26T03:08:23Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.0.0_pre-release_1-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_1/ZalithLauncher-2.0.0_pre-release_1-arm64-v8a.apk",
+      "name": "ZalithLauncher-2.0.0_pre-release_2-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_2/ZalithLauncher-2.0.0_pre-release_2-arm64-v8a.apk",
       "size": "120.7 MB",
-      "download_count": 778
+      "download_count": 1471
     },
     {
-      "name": "ZalithLauncher-2.0.0_pre-release_1-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_1/ZalithLauncher-2.0.0_pre-release_1-armeabi-v7a.apk",
+      "name": "ZalithLauncher-2.0.0_pre-release_2-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_2/ZalithLauncher-2.0.0_pre-release_2-armeabi-v7a.apk",
       "size": "114.6 MB",
-      "download_count": 59
+      "download_count": 109
     },
     {
-      "name": "ZalithLauncher-2.0.0_pre-release_1-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_1/ZalithLauncher-2.0.0_pre-release_1-x86.apk",
+      "name": "ZalithLauncher-2.0.0_pre-release_2-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_2/ZalithLauncher-2.0.0_pre-release_2-x86.apk",
       "size": "105.3 MB",
-      "download_count": 32
+      "download_count": 68
     },
     {
-      "name": "ZalithLauncher-2.0.0_pre-release_1-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_1/ZalithLauncher-2.0.0_pre-release_1-x86_64.apk",
+      "name": "ZalithLauncher-2.0.0_pre-release_2-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_2/ZalithLauncher-2.0.0_pre-release_2-x86_64.apk",
       "size": "124.1 MB",
-      "download_count": 33
+      "download_count": 43
     },
     {
-      "name": "ZalithLauncher-2.0.0_pre-release_1.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_1/ZalithLauncher-2.0.0_pre-release_1.apk",
-      "size": "235.2 MB",
-      "download_count": 225
+      "name": "ZalithLauncher-2.0.0_pre-release_2.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_2/ZalithLauncher-2.0.0_pre-release_2.apk",
+      "size": "235.3 MB",
+      "download_count": 400
     }
   ],
-  "body": "## Updates:\r\n- Synchronized languages with the [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- **Joystick Controls:** added option to enable or disable styles provided by control layouts\r\n- Built-in launcher update checking\r\n- Added SDL3 library to ensure compatibility with the Legacy4J mod\r\n\r\n## Adjustments:\r\n- **UI-Related:**\r\n  - Added state icons to toggle buttons\r\n  - Adjusted colors for some disabled components\r\n  - Tweaked margin values for certain settings components\r\n- **Control Layout Editor:** reduced the minimum button percentage size to 1%\r\n\r\n## Fixes:\r\n- **Joystick Controls:** fixed borders being drawn outside the background bounds\r\n- **UI-Related:**\r\n  - Fixed incorrect logic in list dialogs\r\n  - Fixed app name being incorrectly displayed at the top of the splash screen on some systems\r\n- **Game Launch:** added integrity checks for corrupted files at launch and re-download them when possible\r\n- Replaced legacy fullscreen handling logic and fixed fullscreen disabling issues on some devices\r\n"
+  "body": "## Updates:\r\n- Synchronized languages with the [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n\r\n## Fixes:\r\n- **Update Check:** fixed inability to manually check for updates when rate-limited\r\n- **Download:** fixed rare cases where files did not exist but SHA-1 verification passed, causing failures during subsequent size checks\r\n- **UI-Related:**\r\n  - Fixed fullscreen mode not fully hiding system UI elements\r\n  - Fixed incorrect icon colors for toggle components\r\n"
 }
