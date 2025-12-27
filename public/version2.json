@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.0.0_pre-release_2-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_2/ZalithLauncher-2.0.0_pre-release_2-arm64-v8a.apk",
       "size": "120.7 MB",
-      "download_count": 1471
+      "download_count": 3795
     },
     {
       "name": "ZalithLauncher-2.0.0_pre-release_2-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_2/ZalithLauncher-2.0.0_pre-release_2-armeabi-v7a.apk",
       "size": "114.6 MB",
-      "download_count": 109
+      "download_count": 268
     },
     {
       "name": "ZalithLauncher-2.0.0_pre-release_2-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_2/ZalithLauncher-2.0.0_pre-release_2-x86.apk",
       "size": "105.3 MB",
-      "download_count": 68
+      "download_count": 138
     },
     {
       "name": "ZalithLauncher-2.0.0_pre-release_2-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_2/ZalithLauncher-2.0.0_pre-release_2-x86_64.apk",
       "size": "124.1 MB",
-      "download_count": 43
+      "download_count": 104
     },
     {
       "name": "ZalithLauncher-2.0.0_pre-release_2.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_2/ZalithLauncher-2.0.0_pre-release_2.apk",
       "size": "235.3 MB",
-      "download_count": 400
+      "download_count": 1028
     }
   ],
   "body": "## Updates:\r\n- Synchronized languages with the [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n\r\n## Fixes:\r\n- **Update Check:** fixed inability to manually check for updates when rate-limited\r\n- **Download:** fixed rare cases where files did not exist but SHA-1 verification passed, causing failures during subsequent size checks\r\n- **UI-Related:**\r\n  - Fixed fullscreen mode not fully hiding system UI elements\r\n  - Fixed incorrect icon colors for toggle components\r\n"
