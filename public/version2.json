@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.0.0_pre-release_3",
-  "release_date": "2025-12-29T06:31:10Z",
+  "latest_version": "2.0.0_rc1",
+  "release_date": "2025-12-30T12:45:10Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.0.0_pre-release_3-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_3/ZalithLauncher-2.0.0_pre-release_3-arm64-v8a.apk",
+      "name": "ZalithLauncher-2.0.0_rc1-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_rc1/ZalithLauncher-2.0.0_rc1-arm64-v8a.apk",
       "size": "122.9 MB",
-      "download_count": 2069
+      "download_count": 1028
     },
     {
-      "name": "ZalithLauncher-2.0.0_pre-release_3-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_3/ZalithLauncher-2.0.0_pre-release_3-armeabi-v7a.apk",
+      "name": "ZalithLauncher-2.0.0_rc1-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_rc1/ZalithLauncher-2.0.0_rc1-armeabi-v7a.apk",
       "size": "116.6 MB",
-      "download_count": 125
+      "download_count": 52
     },
     {
-      "name": "ZalithLauncher-2.0.0_pre-release_3-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_3/ZalithLauncher-2.0.0_pre-release_3-x86.apk",
+      "name": "ZalithLauncher-2.0.0_rc1-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_rc1/ZalithLauncher-2.0.0_rc1-x86.apk",
       "size": "107.8 MB",
-      "download_count": 62
+      "download_count": 23
     },
     {
-      "name": "ZalithLauncher-2.0.0_pre-release_3-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_3/ZalithLauncher-2.0.0_pre-release_3-x86_64.apk",
+      "name": "ZalithLauncher-2.0.0_rc1-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_rc1/ZalithLauncher-2.0.0_rc1-x86_64.apk",
       "size": "126.4 MB",
-      "download_count": 49
+      "download_count": 22
     },
     {
-      "name": "ZalithLauncher-2.0.0_pre-release_3.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_pre-release_3/ZalithLauncher-2.0.0_pre-release_3.apk",
+      "name": "ZalithLauncher-2.0.0_rc1.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_rc1/ZalithLauncher-2.0.0_rc1.apk",
       "size": "244.1 MB",
-      "download_count": 498
+      "download_count": 238
     }
   ],
-  "body": "## Updates:\r\n- Synchronized languages with the [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- **Multiplayer:** updated to [v0.4.1-rc2](https://github.com/burningtnt/Terracotta/releases/tag/v0.4.1-rc.2)\r\n  - Highlights: integrated international EasyTier public servers\r\n- **Renderer:** built-in [Krypton Wrapper](https://github.com/BZLZHH/NG-GL4ES) renderer by [TNTyep520](https://github.com/TNTyep520) [aaaapai](https://github.com/aaaapai)\r\n- **Joystick Component:** added support for adjusting the dead zone range\r\n- **Control Layout Editor:** added joystick reminder dialog\r\n\r\n## Refactors:\r\n- **Update Check:** improved update checking logic\r\n- **Joystick Component:** improved drag handling logic\r\n\r\n## Fixes:\r\n- **Update Check:** fixed unhandled exceptions when checking China-region mirror sources\r\n- **Offline Accounts:** fixed SHA-256 calculation crash when using custom skins on some systems due to library conflicts\r\n- **UI-Related:**\r\n  - Fixed state read crashes caused by inconsistent Compose snapshot timing in rare cases\r\n  - Fixed fullscreen navigation components not being hidden on some systems\r\n- **Control Layout:**\r\n  - Cleared key states when no touch input is detected\r\n  - Dynamically adjusted line spacing based on font size\r\n"
+  "body": "## Updates:\r\n- Add an input field UI for input method proxy input.\r\n\r\n## Adjustments:\r\n- **Check for updates:** Prevent selecting installation packages that do not support the current device architecture\r\n"
 }
