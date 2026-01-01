@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.0.0_rc2",
-  "release_date": "2025-12-31T06:49:32Z",
+  "latest_version": "2.0.0",
+  "release_date": "2026-01-01T04:13:15Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.0.0_rc2-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_rc2/ZalithLauncher-2.0.0_rc2-arm64-v8a.apk",
+      "name": "ZalithLauncher-2.0.0-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-arm64-v8a.apk",
       "size": "123 MB",
-      "download_count": 2132
+      "download_count": 3067
     },
     {
-      "name": "ZalithLauncher-2.0.0_rc2-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_rc2/ZalithLauncher-2.0.0_rc2-armeabi-v7a.apk",
+      "name": "ZalithLauncher-2.0.0-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-armeabi-v7a.apk",
       "size": "116.7 MB",
-      "download_count": 99
+      "download_count": 128
     },
     {
-      "name": "ZalithLauncher-2.0.0_rc2-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_rc2/ZalithLauncher-2.0.0_rc2-x86.apk",
+      "name": "ZalithLauncher-2.0.0-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-x86.apk",
       "size": "107.8 MB",
-      "download_count": 41
+      "download_count": 57
     },
     {
-      "name": "ZalithLauncher-2.0.0_rc2-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_rc2/ZalithLauncher-2.0.0_rc2-x86_64.apk",
+      "name": "ZalithLauncher-2.0.0-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-x86_64.apk",
       "size": "126.5 MB",
-      "download_count": 20
+      "download_count": 46
     },
     {
-      "name": "ZalithLauncher-2.0.0_rc2.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0_rc2/ZalithLauncher-2.0.0_rc2.apk",
+      "name": "ZalithLauncher-2.0.0.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0.apk",
       "size": "244.2 MB",
-      "download_count": 467
+      "download_count": 753
     }
   ],
-  "body": "Update:\r\n- Synchronized languages from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n\r\nRefactor:\r\n- Input Proxy: Improved the input experience\r\n  - Removed the send button\r\n  - Input content is directly sent to the game\r\n  - Tried to synchronize the cursor position in the in-game input box with the input proxy\r\n  - Avoid handling Shift and Ctrl keys; Tab key no longer selects components\r\n  - Close input proxy when the game cursor capture state changes\r\n  - Allow toggling the operation bar\r\n\r\nFix:\r\n- Control Layout Editor: Should not continue processing key events while editing control layouts\r\n"
+  "body": "Update:\r\n- Synchronized languages from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n\r\nAdjustment:\r\n- Input Proxy: Also close the input method when tapping the close button\r\n\r\nFix:\r\n- VMActivity: Back key incorrectly exited VMActivity & improved back key handling\r\n"
 }
