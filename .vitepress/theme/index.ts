@@ -5,6 +5,7 @@ import DefaultTheme from 'vitepress/theme'
 import Download from './components/Download.vue'
 import DownloadZL2 from './components/DownloadZL2.vue'
 import ApngPlayer from './components/ApngPlayer.vue'
+import AISearch from './components/AISearch.vue'
 import './style.css'
 import './style/blur.css'
 
@@ -15,12 +16,13 @@ export default {
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
       // 在布局中插入弹窗组件
-      'layout-bottom': () => h(DomainWarningPopup),
+      'layout-bottom': () => [h(DomainWarningPopup), h(AISearch)],
     })
   },
   enhanceApp({ app, router, siteData }) {
     app.component('Download', Download)
     app.component('DownloadZL2', DownloadZL2)
     app.component('ApngPlayer', ApngPlayer)
+    app.component('AISearch', AISearch)
   }
 } satisfies Theme

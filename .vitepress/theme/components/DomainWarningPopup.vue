@@ -24,35 +24,49 @@ const checkIPLocation = async () => {
   try {
     // 检查本地缓存
     const cachedResult = localStorage.getItem('isChineseIP');
-    if (cachedResult !== null) {
+    const cachedExpire = localStorage.getItem('isChineseIPExpire');
+    
+    if (cachedResult !== null && cachedExpire && Date.now() < parseInt(cachedExpire)) {
       isChineseIP.value = cachedResult === 'true';
       ipCheckDone.value = true;
       return;
     }
 
-    // 使用ipapi.co进行IP检测
-    const response = await fetch('https://ipapi.co/json/', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      },
-      timeout: 3000
-    });
-    
-    if (response.ok) {
-      const data = await response.json();
-      const countryCode = data.country_code;
-      isChineseIP.value = countryCode === 'CN';
-      console.log(`[IP Check] Country code: ${countryCode}, isChineseIP: ${isChineseIP.value}`);
+    // 粗略的时区检测作为第一道防线或回退方案
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const isChinaTZ = timeZone === 'Asia/Shanghai' || timeZone === 'Asia/Chongqing' || timeZone === 'Asia/Harbin' || timeZone === 'Asia/Urumqi';
+
+    // 使用更稳定的 API (这里尝试 ipapi.co，但增加更严谨的超时和错误处理)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+    try {
+      const response = await fetch('https://ipapi.co/json/', {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+        signal: controller.signal
+      });
       
-      // 缓存检测结果，有效期24小时
-      localStorage.setItem('isChineseIP', isChineseIP.value.toString());
-      localStorage.setItem('isChineseIPExpire', (Date.now() + 24 * 60 * 60 * 1000).toString());
-    } else {
-      console.error('[IP Check] Failed to get IP data:', response.status);
+      clearTimeout(timeoutId);
+      
+      if (response.ok) {
+        const data = await response.json();
+        isChineseIP.value = data.country_code === 'CN';
+      } else {
+        // API 响应但不成功，使用时区作为回退
+        isChineseIP.value = isChinaTZ;
+      }
+    } catch (e) {
+      // API 请求彻底失败（网络问题或被拦截），使用时区作为回退
+      isChineseIP.value = isChinaTZ;
     }
+    
+    // 缓存结果
+    localStorage.setItem('isChineseIP', isChineseIP.value.toString());
+    localStorage.setItem('isChineseIPExpire', (Date.now() + 24 * 60 * 60 * 1000).toString());
+    
   } catch (error) {
-    console.error('[IP Check] Error during IP detection:', error);
+    console.warn('[IP Check] Fallback to timezone detection due to error:', error);
   } finally {
     ipCheckDone.value = true;
   }

@@ -34,6 +34,22 @@ export default <DefaultTheme.Config> {
     darkModeSwitchLabel: 'Appearance',
     returnToTopLabel: 'Back to top',
     sidebarMenuLabel: 'Menu',
+    aiAssistant: {
+        triggerText: 'Xiao Mo AI',
+        headerTitle: 'Xiao Mo AI Assistant',
+        placeholder: 'Ask Xiao Mo... (e.g. How to download ZL2?)',
+        welcomeMessage: 'Hi! I am Xiao Mo, Zalith official AI assistant. How can I help you today?',
+        suggestions: {
+            download: 'How to download ZL2?',
+            source: 'Website Source Code',
+            isolation: 'What is Version Isolation?'
+        },
+        loadingText: 'Xiao Mo is thinking...',
+        answerTitle: 'Xiao Mo\'s Answer:',
+        relatedDocs: 'Related Documents:',
+        footerText: 'Press ESC to exit · Powered by Gemini 2.0 Flash',
+        errorText: 'Sorry, AI search is temporarily unavailable. Please check if the proxy server is running.'
+    },
     editLink: {
         pattern: 'https://github.com/zalithlauncher/zalithwebsite/edit/main/:path',
         text: 'Edit this page on GitHub'

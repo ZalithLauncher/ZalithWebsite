@@ -193,24 +193,51 @@ function detectUserDeviceType(): string {
 // 检测用户是否为国内IP
 async function detectIsChinaIP(): Promise<boolean> {
   try {
-    // 使用ipapi.co的免费API检测IP
-    const response = await fetch('https://ipapi.co/json/', {
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'ZalithLauncher-Website/1.0'
-      }
-    })
+    // 1. 检查本地缓存（与 DomainWarningPopup 共享）
+    const cachedResult = localStorage.getItem('isChineseIP');
+    const cachedExpire = localStorage.getItem('isChineseIPExpire');
     
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`)
+    if (cachedResult !== null && cachedExpire && Date.now() < parseInt(cachedExpire)) {
+      return cachedResult === 'true';
+    }
+
+    // 2. 粗略的时区检测作为回退方案
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const isChinaTZ = timeZone === 'Asia/Shanghai' || timeZone === 'Asia/Chongqing' || timeZone === 'Asia/Harbin' || timeZone === 'Asia/Urumqi';
+
+    // 3. 使用 API 检测
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+    try {
+      const response = await fetch('https://ipapi.co/json/', {
+        headers: {
+          'Accept': 'application/json',
+          'User-Agent': 'ZalithLauncher-Website/1.0'
+        },
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+      
+      if (response.ok) {
+        const data = await response.json();
+        const isCN = data.country === 'CN' || data.country_code === 'CN' || data.region === 'China';
+        
+        // 缓存结果供全站使用
+        localStorage.setItem('isChineseIP', isCN.toString());
+        localStorage.setItem('isChineseIPExpire', (Date.now() + 24 * 60 * 60 * 1000).toString());
+        return isCN;
+      }
+    } catch (e) {
+      // API 失败，使用时区回退
+      return isChinaTZ;
     }
     
-    const data = await response.json()
-    // 如果国家代码为CN，或地区为中国，返回true
-    return data.country === 'CN' || data.region === 'China'
+    return isChinaTZ;
   } catch (error) {
-    console.warn('IP检测失败，默认使用GitHub源:', error)
-    return false
+    console.warn('IP检测过程中出现错误，使用时区兜底:', error);
+    return false;
   }
 }
 
