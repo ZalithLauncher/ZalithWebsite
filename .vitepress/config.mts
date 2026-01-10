@@ -25,5 +25,17 @@ export default defineConfig({
      search: {
       provider: 'local',
     }
+  },
+  vite: {
+    server: {
+      fs: {
+        allow: ['..']
+      }
+    },
+    build: {
+      rollupOptions: {
+        external: [/^server\/.*/]
+      }
+    }
   }
 })
