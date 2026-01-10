@@ -203,7 +203,7 @@ const handleSearch = async () => {
   aiState.results = []
   
   try {
-    const response = await fetch('http://localhost:3001/api/ai-search', {
+    const response = await fetch('https://ai.zalithlauncher.cn/api/ai-search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
