@@ -34,22 +34,6 @@ export default <DefaultTheme.Config> {
     darkModeSwitchLabel: '外观',
     returnToTopLabel: '返回顶部',
     sidebarMenuLabel: '菜单',
-    aiAssistant: {
-        triggerText: '小墨 AI 助手',
-        headerTitle: '小墨 AI 助手',
-        placeholder: '问问小墨... (例如: 如何下载 ZL2?)',
-        welcomeMessage: '你好！我是小墨，Zalith 官方 AI 助手。有什么我可以帮你的吗？',
-        suggestions: {
-            download: '如何下载 ZL2？',
-            source: '官网源码',
-            isolation: '版本隔离是什么？'
-        },
-        loadingText: '小墨正在思考中...',
-        answerTitle: '小墨的回答：',
-        relatedDocs: '相关文档：',
-        footerText: '按 ESC 退出 · 基于 Gemini 2.0 Flash',
-        errorText: '抱歉，AI 搜索暂时不可用。请检查代理服务器是否运行。'
-    },
     editLink: {
         pattern: 'https://github.com/zalithlauncher/zalithwebsite/edit/main/:path',
         text: '在 GitHub 上编辑此页'
