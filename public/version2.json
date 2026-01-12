@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.0.0-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-arm64-v8a.apk",
       "size": "123 MB",
-      "download_count": 33194
+      "download_count": 35724
     },
     {
       "name": "ZalithLauncher-2.0.0-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-armeabi-v7a.apk",
       "size": "116.7 MB",
-      "download_count": 1427
+      "download_count": 1556
     },
     {
       "name": "ZalithLauncher-2.0.0-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-x86.apk",
       "size": "107.8 MB",
-      "download_count": 706
+      "download_count": 755
     },
     {
       "name": "ZalithLauncher-2.0.0-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-x86_64.apk",
       "size": "126.5 MB",
-      "download_count": 639
+      "download_count": 686
     },
     {
       "name": "ZalithLauncher-2.0.0.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0.apk",
       "size": "244.2 MB",
-      "download_count": 7644
+      "download_count": 8172
     }
   ],
   "body": "Update:\r\n- Synchronized languages from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n\r\nAdjustment:\r\n- Input Proxy: Also close the input method when tapping the close button\r\n\r\nFix:\r\n- VMActivity: Back key incorrectly exited VMActivity & improved back key handling\r\n"
