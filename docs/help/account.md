@@ -1,7 +1,8 @@
 # 登录账号
 
 ::: info 该文档编写者
-墨北MovTery - 2025/9/9
+- 墨北MovTery - 2025/9/9
+- SerinaNya - 2026/1/24
 :::
 
 
@@ -81,3 +82,9 @@
 
 ![离线账号命名不规范1](/zh/docs/account/offline/invalid_username1.jpg)  
 ![离线账号命名不规范2](/zh/docs/account/offline/invalid_username2.jpg)
+
+## 外置登录账号
+
+启动器通过 Authlib-Injector 为玩家提供第三方认证服务器登录支持，该工具充当玩家与服务器之间的身份验证桥梁，使玩家能够安全登录、管理会话和权限，同时让服务器及服主能够验证玩家身份并控制访问权限。
+
+参见 [_认证服务器 / 外置登录_](./auth_server.md) 章节。

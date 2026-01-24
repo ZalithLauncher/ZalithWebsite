@@ -5,7 +5,8 @@ This guide is only applicable to [Zalith Launcher 2](/docs/projects/zl2)
 :::
 
 ::: info Author
-MovTery - 2025/9/9
+- MovTery - 2025/9/9
+- SerinaNya - 2026/1/24
 :::
 
 ## Introduction
@@ -80,3 +81,9 @@ The launcher will validate your input in real time. Non-compliant names may prev
 
 ![Invalid Offline Username 1](/en/docs/account/offline/invalid_username1.jpg)  
 ![Invalid Offline Username 2](/en/docs/account/offline/invalid_username2.jpg)
+
+## Third-Party Account
+
+The launcher supports third-party authentication servers for players via Authlib-Injector. This tool acts as an authentication bridge between players and servers, enabling secure logins, session management, and access control. It also allows servers and their administrators to verify player identities and manage permissions.  
+
+For more details, refer to the [_Third-Party Authentication Server_](./auth_server.md) section.
