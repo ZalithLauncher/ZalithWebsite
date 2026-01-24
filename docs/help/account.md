@@ -1,8 +1,8 @@
 # 登录账号
 
 ::: info 该文档编写者
-墨北MovTery - 2025/9/9
-SerinaNya - 2026/1/24
+- 墨北MovTery - 2025/9/9
+- SerinaNya - 2026/1/24
 :::
 
 
