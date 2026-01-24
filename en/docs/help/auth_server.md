@@ -1,4 +1,4 @@
-# Authentication Servers
+# Third-Party Authentication Servers
 
 ::: warning Notice
 This guide is only applicable to [Zalith Launcher 2](/docs/projects/zl2)
@@ -10,8 +10,8 @@ MovTery - 2025/9/9
 
 ## Introduction
 
-The launcher uses Authlib-Injector to provide support for authentication server logins. This tool acts as a bridge between players and servers, allowing secure login, session management, and permissions control, while enabling server admins to verify player identities and manage access.  
-Most third-party multiplayer servers use this authentication method, so understanding it helps players quickly log in and enjoy Minecraft third-party servers.
+The launcher supports third-party authentication servers for players via Authlib-Injector. This tool acts as an authentication bridge between players and servers, enabling secure logins, session management, and access control. It also allows servers and their administrators to verify player identities and manage permissions.  
+Many servers adopt this authentication method. Therefore, understanding how to use an authentication server helps players login quickly and enjoy Minecraft servers.
 
 Common authentication servers:  
 - [LittleSkin](https://littleskin.cn/)
