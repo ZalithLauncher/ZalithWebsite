@@ -6,6 +6,7 @@ This guide is only applicable to [Zalith Launcher 2](/docs/projects/zl2)
 
 ::: info Author
 MovTery - 2025/9/9
+SerinaNya - 2026/1/24
 :::
 
 ## Introduction
