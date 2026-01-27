@@ -82,8 +82,8 @@ export default <DefaultTheme.Config> {
                 { text: 'Download and Install Game', link: '/en/docs/help/download_game' },
                 { text: 'ModLoader', link: '/en/docs/help/modloader' },
                 { text: 'Account', link: '/en/docs/help/account' },
-                { text: 'Authentication Server', link: '/en/docs/help/auth_server' },
-                { text: 'Replace Skin or Capes', link: '/en/docs/help/replace_skin_capes'},
+                { text: 'Third-Party Authentication Servers', link: '/en/docs/help/auth_server' },
+                { text: 'Changing Skin or Capes', link: '/en/docs/help/changing_skin_capes'},
                 { text: 'Version Isolation', link: '/en/docs/help/version_isolation' }
             ]
         },
