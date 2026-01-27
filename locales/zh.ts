@@ -79,7 +79,7 @@ export default <DefaultTheme.Config> {
                 { text: '下载安装游戏', link: '/docs/help/download_game' },
                 { text: '模组加载器', link: '/docs/help/modloader' },
                 { text: '账号', link: '/docs/help/account' },
-                { text: '认证服务器', link: '/docs/help/auth_server' },
+                { text: '外置登录', link: '/docs/help/auth_server' },
                 { text: '更换皮肤或披风', link: '/docs/help/replace_skin_capes'},
                 { text: '版本隔离', link: '/docs/help/version_isolation' }
             ]
