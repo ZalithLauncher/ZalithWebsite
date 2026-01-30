@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.0.0",
-  "release_date": "2026-01-01T04:13:15Z",
+  "latest_version": "2.0.2",
+  "release_date": "2026-01-30T05:12:15Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.0.0-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-arm64-v8a.apk",
-      "size": "123 MB",
-      "download_count": 86297
+      "name": "ZalithLauncher-2.0.2-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.2/ZalithLauncher-2.0.2-arm64-v8a.apk",
+      "size": "123.2 MB",
+      "download_count": 5095
     },
     {
-      "name": "ZalithLauncher-2.0.0-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-armeabi-v7a.apk",
-      "size": "116.7 MB",
-      "download_count": 3802
+      "name": "ZalithLauncher-2.0.2-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.2/ZalithLauncher-2.0.2-armeabi-v7a.apk",
+      "size": "116.9 MB",
+      "download_count": 156
     },
     {
-      "name": "ZalithLauncher-2.0.0-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-x86.apk",
-      "size": "107.8 MB",
-      "download_count": 1672
+      "name": "ZalithLauncher-2.0.2-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.2/ZalithLauncher-2.0.2-x86.apk",
+      "size": "108 MB",
+      "download_count": 63
     },
     {
-      "name": "ZalithLauncher-2.0.0-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0-x86_64.apk",
-      "size": "126.5 MB",
-      "download_count": 1509
+      "name": "ZalithLauncher-2.0.2-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.2/ZalithLauncher-2.0.2-x86_64.apk",
+      "size": "126.7 MB",
+      "download_count": 49
     },
     {
-      "name": "ZalithLauncher-2.0.0.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.0/ZalithLauncher-2.0.0.apk",
-      "size": "244.2 MB",
-      "download_count": 18296
+      "name": "ZalithLauncher-2.0.2.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.2/ZalithLauncher-2.0.2.apk",
+      "size": "244.7 MB",
+      "download_count": 1203
     }
   ],
-  "body": "Update:\r\n- Synchronized languages from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n\r\nAdjustment:\r\n- Input Proxy: Also close the input method when tapping the close button\r\n\r\nFix:\r\n- VMActivity: Back key incorrectly exited VMActivity & improved back key handling\r\n"
+  "body": "Update:\r\n- Synchronized languages from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Input Proxy: Added a button to invoke the input method in Simple Mode\r\n\r\nFix:\r\n- Game Launch:\r\n  - Screen content not aligned when refreshing window resolution\r\n  - Redirected resource indexes for older versions\r\n- Terracotta: Launcher crashing due to unexpected corruption of the multiplayer core\r\n- Launcher paths: Manually construct paths when external storage path cannot be obtained\r\n"
 }
