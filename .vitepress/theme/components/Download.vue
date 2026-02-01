@@ -259,11 +259,6 @@ async function detectIsChinaIP(): Promise<boolean> {
 // API配置
 const API_CONFIGS = [
   {
-    name: '代理API',
-    url: 'https://gayhub.lemwood.cn/repos/ZalithLauncher/ZalithLauncher/releases/latest',
-    timeout: 5000 // 5秒超时
-  },
-  {
     name: '官方API',
     url: 'https://api.github.com/repos/ZalithLauncher/ZalithLauncher/releases/latest',
     timeout: 10000 // 10秒超时
