@@ -115,6 +115,12 @@ export default <DefaultTheme.Config> {
     footer: {
         message: '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">新ICP备2024015133号-4</a>',
         copyright: '版权所有 © 2025 Zalith Launcher | GPL-3.0 许可证'
+    },
+
+    notFound: {
+        title: '页面未找到',
+        quote: '如果你不改变方向，如果你继续寻找，你最终可能会到达你所前往的地方。',
+        linkText: '返回首页'
     }
 
 }

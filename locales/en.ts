@@ -115,6 +115,12 @@ export default <DefaultTheme.Config> {
     footer: {
         message: '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">新ICP备2024015133号-4</a>',
         copyright: 'Copyright © 2025 Zalith Launcher, All rights reserved. | GPL-3.0 License'
+    },
+
+    notFound: {
+        title: 'PAGE NOT FOUND',
+        quote: "But if you don't change your direction, and if you keep looking, you may end up where you are heading.",
+        linkText: 'Take me home'
     }
 
 };
