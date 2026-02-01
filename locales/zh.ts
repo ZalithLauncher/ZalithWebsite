@@ -80,7 +80,7 @@ export default <DefaultTheme.Config> {
                 { text: '模组加载器', link: '/docs/help/modloader' },
                 { text: '账号', link: '/docs/help/account' },
                 { text: '外置登录', link: '/docs/help/auth_server' },
-                { text: '更换皮肤或披风', link: '/docs/help/changing_skin_capes'},
+                { text: '更换皮肤或披风', link: '/docs/help/replace_skin_capes'},
                 { text: '版本隔离', link: '/docs/help/version_isolation' }
             ]
         },
@@ -118,3 +118,4 @@ export default <DefaultTheme.Config> {
     }
 
 }
+
