@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-1.4.1.2-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/141200/ZalithLauncher-1.4.1.2-arm64-v8a.apk",
       "size": "95.5 MB",
-      "download_count": 341241
+      "download_count": 347812
     },
     {
       "name": "ZalithLauncher-1.4.1.2-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/141200/ZalithLauncher-1.4.1.2-armeabi-v7a.apk",
       "size": "91.2 MB",
-      "download_count": 19629
+      "download_count": 20102
     },
     {
       "name": "ZalithLauncher-1.4.1.2-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/141200/ZalithLauncher-1.4.1.2-x86.apk",
       "size": "80.5 MB",
-      "download_count": 8216
+      "download_count": 8402
     },
     {
       "name": "ZalithLauncher-1.4.1.2-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/141200/ZalithLauncher-1.4.1.2-x86_64.apk",
       "size": "98.9 MB",
-      "download_count": 6040
+      "download_count": 6226
     },
     {
       "name": "ZalithLauncher-1.4.1.2.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher/releases/download/141200/ZalithLauncher-1.4.1.2.apk",
       "size": "192.9 MB",
-      "download_count": 49869
+      "download_count": 51068
     }
   ],
   "body": "### New Features:\r\n- **External Authentication**: Updated authlib-injector to version 1.2.7.\r\n---\r\n### Fixes:\r\n- **Game Launch**: Fixed XaeroPlus mod failing to load SQLite correctly.\r\n- **Game Versions**: Fixed incorrect NeoForge version categorization.\r\n"
