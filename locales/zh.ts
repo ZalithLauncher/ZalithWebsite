@@ -98,7 +98,9 @@ export default <DefaultTheme.Config> {
         {
             text: '关于本站',
             items: [
-                { text: '关于本站', link: '/docs/about/about' }
+                { text: '关于本站', link: '/docs/about/about' },
+                { text: '隐私政策', link: '/docs/about/privacy' },
+                { text: '服务条款', link: '/docs/about/terms' }
             ]
         }
     ],

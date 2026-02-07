@@ -101,7 +101,9 @@ export default <DefaultTheme.Config> {
         {
             text: 'About this site',
             items: [
-                { text: 'About', link: '/en/docs/about/about' }
+                { text: 'About', link: '/en/docs/about/about' },
+                { text: 'Privacy Policy', link: '/en/docs/about/privacy' },
+                { text: 'Terms of Service', link: '/en/docs/about/terms' }
             ]
         }
     ],
