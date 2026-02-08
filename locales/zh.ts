@@ -114,11 +114,6 @@ export default <DefaultTheme.Config> {
         officialDomain: 'www.zalithlauncher.cn'
     },
 
-    cookie: {
-        message: '本网站使用 Cookie 以提升您的浏览体验。继续使用本网站即表示您同意我们的 <a href="/docs/about/terms">服务条款</a> 和 <a href="/docs/about/privacy">隐私政策</a>。',
-        button: '我知道了'
-    },
-
     footer: {
         message: '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">新ICP备2024015133号-4</a>',
         copyright: '版权所有 © 2025 Zalith Launcher | GPL-3.0 许可证'

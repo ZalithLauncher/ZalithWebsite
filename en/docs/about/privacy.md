@@ -17,8 +17,11 @@ When you visit our website, we use your IP address to identify your general geog
 - Enhance your overall browsing experience.
 We do not log or persistently store your full IP address, nor do we associate it with any identifiable information.
 
-### 1.3 Use of Cookies
-We use cookies to enhance your browsing experience, such as remembering your language preferences and consent status. You can manage or refuse cookies through your browser settings.
+### 1.3 Use of Local Storage (LocalStorage)
+We use the browser's Local Storage (LocalStorage) instead of traditional Cookies to enhance your browsing experience. This includes:
+- **Language Preferences**: Remembering your chosen interface language.
+- **Access Optimization**: Caching your IP location detection results (valid for 24 hours) to determine whether to show redirection suggestions.
+These data are stored only locally on your device and are not uploaded to our servers. You can clear this data at any time through your browser settings.
 
 ## 2. How We Use Your Information
 

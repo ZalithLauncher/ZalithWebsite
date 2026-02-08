@@ -9,7 +9,6 @@ import './style.css'
 import './style/blur.css'
 
 import DomainWarningPopup from './components/DomainWarningPopup.vue'
-import CookieConsent from './components/CookieConsent.vue'
 
 export default {
   extends: DefaultTheme,
@@ -17,8 +16,7 @@ export default {
     return h(DefaultTheme.Layout, null, {
       // 在布局中插入弹窗组件
       'layout-bottom': () => [
-        h(DomainWarningPopup),
-        h(CookieConsent)
+        h(DomainWarningPopup)
       ],
     })
   },
