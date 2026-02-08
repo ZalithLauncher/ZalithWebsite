@@ -115,7 +115,7 @@ export default <DefaultTheme.Config> {
     },
 
     cookie: {
-        message: '本网站使用 Cookie 以提升您的浏览体验。继续使用本网站即表示您同意我们的 Cookie 政策。',
+        message: '本网站使用 Cookie 以提升您的浏览体验。继续使用本网站即表示您同意我们的 <a href="/docs/about/terms">服务条款</a> 和 <a href="/docs/about/privacy">隐私政策</a>。',
         button: '我知道了'
     },
 

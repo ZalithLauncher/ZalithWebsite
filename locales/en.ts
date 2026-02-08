@@ -116,7 +116,7 @@ export default <DefaultTheme.Config> {
     },
 
     cookie: {
-        message: 'This website uses cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our cookie policy.',
+        message: 'This website uses cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our <a href="/en/docs/about/terms">Terms of Service</a> and <a href="/en/docs/about/privacy">Privacy Policy</a>.',
         button: 'Got it'
     },
 

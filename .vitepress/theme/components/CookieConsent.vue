@@ -22,7 +22,7 @@ const acceptConsent = () => {
   <Transition name="fade">
     <div v-if="isVisible" class="cookie-consent">
       <div class="cookie-content">
-        <p class="cookie-text">{{ theme.cookie.message }}</p>
+        <p class="cookie-text" v-html="theme.cookie.message"></p>
         <button class="cookie-button" @click="acceptConsent">
           {{ theme.cookie.button }}
         </button>
@@ -65,6 +65,16 @@ const acceptConsent = () => {
   font-size: 14px;
   color: var(--vp-c-text-1);
   line-height: 1.5;
+}
+
+.cookie-text :deep(a) {
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cookie-text :deep(a:hover) {
+  text-decoration: underline;
 }
 
 .cookie-button {
