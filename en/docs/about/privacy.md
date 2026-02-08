@@ -7,7 +7,9 @@ Zalith Launcher ("we", "us", or "our") respects your privacy and is committed to
 ## 1. Information We Collect
 
 ### 1.1 Static Deployment & Data Collection
-This website is a static site primarily deployed on edge computing nodes (except for the Aliyun node). We do not actively collect, store, or process any of your personal data.
+This website is a static site primarily deployed on edge computing nodes (except for the Aliyun node).
+- **No Data Collection**: We do not actively collect, store, or process any of your personal data.
+- **No User Blocking**: We are committed to providing an open and fair access experience and will not restrict or block any user for any reason.
 
 ### 1.2 Use of IP Addresses
 When you visit our website, we use your IP address to identify your general geographic region. This is used solely to:
