@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.0.3-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.3/ZalithLauncher-2.0.3-arm64-v8a.apk",
       "size": "123.2 MB",
-      "download_count": 43993
+      "download_count": 47858
     },
     {
       "name": "ZalithLauncher-2.0.3-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.3/ZalithLauncher-2.0.3-armeabi-v7a.apk",
       "size": "116.9 MB",
-      "download_count": 1647
+      "download_count": 1789
     },
     {
       "name": "ZalithLauncher-2.0.3-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.3/ZalithLauncher-2.0.3-x86.apk",
       "size": "108.1 MB",
-      "download_count": 623
+      "download_count": 677
     },
     {
       "name": "ZalithLauncher-2.0.3-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.3/ZalithLauncher-2.0.3-x86_64.apk",
       "size": "126.7 MB",
-      "download_count": 532
+      "download_count": 586
     },
     {
       "name": "ZalithLauncher-2.0.3.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.0.3/ZalithLauncher-2.0.3.apk",
       "size": "244.7 MB",
-      "download_count": 8700
+      "download_count": 9281
     }
   ],
   "body": "Update:\r\n- Synchronized languages from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n\r\nFix:\r\n- UI related: Ensure the keep-screen-on function is called on the UI thread\r\n- Game Launch: Fixed abnormal rendering issues\r\n- Modpack Import: \"client-overrides\" directory from Modrinth modpacks was not imported\r\n"
