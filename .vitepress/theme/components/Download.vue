@@ -31,7 +31,8 @@ interface DownloadSource {
 const latestRelease = ref<any>(null)
 const foxingtonData = ref<any>(null)
 const lemwoodData = ref<any>(null)
-const versionJsonData = ref<any>(null) // 新的本地化版本数据源
+const hahaData = ref<any>(null)
+const versionJsonData = ref<any>(null)
 const isLoading = ref(false)
 const hasError = ref(false)
 const errorMessage = ref('')
@@ -40,8 +41,16 @@ const selectedDeviceType = ref('all')
 const selectedDownloadSource = ref('github')
 const isDeviceDropdownOpen = ref(false)
 const isSourceDropdownOpen = ref(false)
-const apiFailed = ref(false) // API是否失败标志
-const fallbackToLocal = ref(false) // 是否已降级到本地版本
+const apiFailed = ref(false)
+const fallbackToLocal = ref(false)
+
+const sourceAvailability = computed(() => ({
+  github: true,
+  mirror: !fallbackToLocal.value,
+  foxington: !fallbackToLocal.value && foxingtonData.value !== null,
+  haha: !fallbackToLocal.value && hahaData.value !== null,
+  lemwood: !fallbackToLocal.value && lemwoodData.value !== null && lemwoodData.value.length > 0
+}))
 
 // 基础设备类型定义（会根据API返回的文件动态扩展）
 const baseDeviceTypes: DeviceType[] = [
@@ -87,6 +96,7 @@ const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: '国内镜像', description: '第三方加速', speed: '国内较快', contributor: { name: '咬一口的鱼py(fishcpy)', url: 'https://github.com/fishcpy' } },
   { id: 'foxington', name: 'github.com/XiaoluoFoxington源', description: '第三方镜像源', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
+  { id: 'haha', name: '哈哈源', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://frostlynx.work' } },
   { id: 'lemwood', name: '柠枺镜像', description: '由 柠枺(lemwood.cn) 提供', speed: '国内较快', contributor: { name: '柠枺', url: 'https://lemwood.cn' } }
 ]
 
@@ -319,7 +329,6 @@ async function fetchFoxingtonData() {
   const foxingtonUrl = 'https://next.foldcraftlauncher.cn/data/down/zl/1/1.4.1.0/index.json'
   
   try {
-    // 首先尝试直接请求
     console.log('尝试直接获取Foxington源数据...')
     const response = await fetch(foxingtonUrl, {
       headers: {
@@ -339,7 +348,6 @@ async function fetchFoxingtonData() {
   } catch (error) {
     console.warn('❌ 直接请求Foxington源失败:', error)
     
-    // 如果直接请求失败，尝试使用代理API
     try {
       console.log('尝试使用代理API获取Foxington源数据...')
       const proxyResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(foxingtonUrl)}`, {
@@ -364,6 +372,58 @@ async function fetchFoxingtonData() {
     } catch (proxyError) {
       console.warn('❌ 代理API也失败了:', proxyError)
       foxingtonData.value = null
+    }
+  }
+}
+
+// 获取哈哈源数据
+async function fetchHahaData() {
+  const hahaUrl = 'https://api.mirror.frostlynx.work/api/projects/zl/latest'
+  
+  try {
+    console.log('尝试直接获取哈哈源数据...')
+    const response = await fetch(hahaUrl, {
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'ZalithLauncher-Website/1.0'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+    }
+    
+    const data = await response.json()
+    hahaData.value = data
+    console.log('✅ 哈哈源数据获取成功（直接请求）')
+    return
+  } catch (error) {
+    console.warn('❌ 直接请求哈哈源失败:', error)
+    
+    try {
+      console.log('尝试使用代理API获取哈哈源数据...')
+      const proxyResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(hahaUrl)}`, {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      
+      if (!proxyResponse.ok) {
+        throw new Error(`代理API HTTP ${proxyResponse.status}: ${proxyResponse.statusText}`)
+      }
+      
+      const proxyData = await proxyResponse.json()
+      
+      if (!proxyData.contents) {
+        throw new Error('代理API返回数据格式错误')
+      }
+      
+      const data = JSON.parse(proxyData.contents)
+      hahaData.value = data
+      console.log('✅ 哈哈源数据获取成功（代理API）')
+    } catch (proxyError) {
+      console.warn('❌ 代理API也失败了:', proxyError)
+      hahaData.value = null
     }
   }
 }
@@ -491,6 +551,7 @@ async function fetchLatestRelease() {
         // 同时获取其他镜像源数据
         await Promise.all([
           fetchFoxingtonData(),
+          fetchHahaData(),
           fetchLemwoodData()
         ])
         
@@ -529,6 +590,7 @@ async function fetchLatestRelease() {
           // 同时获取其他镜像源数据，确保第三方下载源也能正常工作
           await Promise.all([
             fetchFoxingtonData(),
+            fetchHahaData(),
             fetchLemwoodData()
           ])
           
@@ -628,6 +690,38 @@ function getFoxingtonUrl(asset: any) {
   return asset.browser_download_url
 }
 
+// 从哈哈源数据中获取对应的下载链接
+function getHahaUrl(asset: any) {
+  if (!hahaData.value || !hahaData.value.files) {
+    return asset.browser_download_url
+  }
+  
+  const fileName = asset.name.toLowerCase()
+  let targetArch = ''
+  
+  if (fileName.includes('arm64-v8a') || fileName.includes('arm64')) {
+    targetArch = 'arm64-v8a'
+  } else if (fileName.includes('armeabi-v7a') || fileName.includes('armeabi')) {
+    targetArch = 'armeabi-v7a'
+  } else if (fileName.includes('x86_64') || fileName.includes('x86-64')) {
+    targetArch = 'x86_64'
+  } else if (fileName.includes('x86')) {
+    targetArch = 'x86'
+  }
+  
+  const matchedFile = hahaData.value.files.find((file: any) => {
+    if (targetArch === '') {
+      return file.arch === '' || file.arch === 'all' || !file.arch
+    }
+    return file.arch === targetArch
+  })
+  
+  if (matchedFile && matchedFile.link) {
+    return matchedFile.link
+  }
+  
+  return asset.browser_download_url
+}
 
 
 
@@ -700,8 +794,6 @@ function getLemwoodUrl(asset: any) {
 
 // 获取下载链接
 function getDownloadUrl(asset: any) {
-  // 如果使用本地版本且fallbackToLocal为true，只提供GitHub官方链接
-  // 但API失败时（fallbackToLocal为false），仍然允许使用第三方下载源
   if (fallbackToLocal.value) {
     return asset.browser_download_url
   }
@@ -710,6 +802,8 @@ function getDownloadUrl(asset: any) {
     return generateMirrorUrl(asset.name, latestRelease.value.tag_name)
   } else if (selectedDownloadSource.value === 'foxington') {
     return getFoxingtonUrl(asset)
+  } else if (selectedDownloadSource.value === 'haha') {
+    return getHahaUrl(asset)
   } else if (selectedDownloadSource.value === 'lemwood') {
     return getLemwoodUrl(asset)
   } else {
@@ -851,18 +945,16 @@ onMounted(() => {
           <!-- 下载源选择器 -->
       <div class="dropdown-container">
         <label class="dropdown-label">下载源</label>
-        <div class="dropdown" :class="{ 'is-open': isSourceDropdownOpen, 'is-disabled': fallbackToLocal }">
+        <div class="dropdown" :class="{ 'is-open': isSourceDropdownOpen }">
           <button 
             class="dropdown-trigger" 
             @click="isSourceDropdownOpen = !isSourceDropdownOpen"
             @blur="handleSourceDropdownBlur"
-            :disabled="fallbackToLocal"
           >
             <span class="dropdown-content">
               <span class="source-info">
                 <span class="source-name">{{ currentDownloadSource.name }}</span>
                 <span class="source-desc">{{ currentDownloadSource.description }} · {{ currentDownloadSource.speed }}</span>
-                <span v-if="fallbackToLocal" class="local-version-hint">（本地版本）</span>
               </span>
             </span>
             <span class="dropdown-arrow">▼</span>
@@ -875,18 +967,18 @@ onMounted(() => {
               class="dropdown-item"
               :class="{ 
                 'is-selected': selectedDownloadSource === source.id,
-                'is-disabled': fallbackToLocal && source.id !== 'github'
+                'is-disabled': !sourceAvailability[source.id]
               }"
-              @click="if (!fallbackToLocal || source.id === 'github') { selectedDownloadSource = source.id; isSourceDropdownOpen = false }"
-              :disabled="fallbackToLocal && source.id !== 'github'"
+              :disabled="!sourceAvailability[source.id]"
+              @click="if (sourceAvailability[source.id]) { selectedDownloadSource = source.id; isSourceDropdownOpen = false }"
             >
               <span class="source-info">
                 <span class="source-name">{{ source.name }}</span>
                 <span class="source-desc">{{ source.description }} · {{ source.speed }}</span>
                 <span v-if="source.contributor" class="contributor-info">
-                  镜像加速由 <a :href="source.contributor.url" target="_blank" rel="noopener noreferrer" class="contributor-link">{{ source.contributor.name }}</a> 友情提供
+                  镜像加速由 <a :href="source.contributor.url" target="_blank" rel="noopener noreferrer" class="contributor-link" @click.stop>{{ source.contributor.name }}</a> 友情提供
                 </span>
-                <span v-if="fallbackToLocal && source.id !== 'github'" class="disabled-hint">本地版本不可用</span>
+                <span v-if="!sourceAvailability[source.id]" class="disabled-hint">（暂不可用）</span>
               </span>
               <span v-if="selectedDownloadSource === source.id" class="check-icon">✓</span>
             </button>
@@ -1397,6 +1489,23 @@ onMounted(() => {
 .dropdown-item.is-selected {
   background-color: var(--vp-c-brand-soft);
   color: var(--vp-c-brand-1);
+}
+
+.dropdown-item.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dropdown-item.is-disabled:hover {
+  background-color: transparent;
+}
+
+.disabled-hint {
+  font-size: 0.7rem;
+  color: var(--vp-c-danger-1);
+  margin-top: 4px;
+  display: block;
 }
 
 .check-icon {

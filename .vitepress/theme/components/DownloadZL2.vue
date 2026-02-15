@@ -43,6 +43,13 @@ const isSourceDropdownOpen = ref(false)
 const apiFailed = ref(false)
 const fallbackToLocal = ref(false)
 
+const sourceAvailability = computed(() => ({
+  github: true,
+  mirror: !fallbackToLocal.value,
+  haha: !fallbackToLocal.value && hahaData.value !== null,
+  lemwood: !fallbackToLocal.value && lemwoodData.value !== null && lemwoodData.value.length > 0
+}))
+
 // 下载源定义
 const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
@@ -301,7 +308,7 @@ async function fetchFromApi(apiConfig: any): Promise<any> {
 
 // 获取哈哈源数据
 async function fetchHahaData() {
-  const hahaUrl = 'https://frostlynx.work/external/zl2/file_tree.json'
+  const hahaUrl = 'https://api.mirror.frostlynx.work/api/projects/zl2/latest'
   
   try {
     // 首先尝试直接请求
@@ -679,34 +686,12 @@ function getLemwoodUrl(asset: any) {
 
 // 从哈哈源数据中获取对应的下载链接
 function getHahaUrl(asset: any) {
-  if (!hahaData.value || !hahaData.value.children) {
-    return asset.browser_download_url // 降级到GitHub链接
-  }
-  
-  // 获取zl2目录
-  const zl2Dir = hahaData.value.children.find((child: any) => child.name === 'zl2')
-  if (!zl2Dir || !zl2Dir.children) {
+  if (!hahaData.value || !hahaData.value.files) {
     return asset.browser_download_url
   }
   
-  // 获取最新版本的数据（优先使用latest字段，否则使用第一个版本）
-  let latestVersion: any = null
-  if (hahaData.value.latest) {
-    latestVersion = zl2Dir.children.find((child: any) => child.name === hahaData.value.latest)
-  }
-  
-  // 如果没有找到latest指定的版本，使用第一个版本
-  if (!latestVersion && zl2Dir.children.length > 0) {
-    latestVersion = zl2Dir.children[0]
-  }
-  
-  if (!latestVersion || !latestVersion.children) {
-    return asset.browser_download_url
-  }
-  
-  // 根据文件名匹配架构类型
   const fileName = asset.name.toLowerCase()
-  let targetArch = 'all'
+  let targetArch = ''
   
   if (fileName.includes('arm64-v8a') || fileName.includes('arm64')) {
     targetArch = 'arm64-v8a'
@@ -716,51 +701,19 @@ function getHahaUrl(asset: any) {
     targetArch = 'x86_64'
   } else if (fileName.includes('x86')) {
     targetArch = 'x86'
-  } else if (fileName.includes('universal') || !fileName.includes('-')) {
-    targetArch = 'all'
   }
   
-  // 查找匹配的文件 - 首先尝试通过arch字段匹配
-  let matchedFile = latestVersion.children.find((file: any) => 
-    file.arch === targetArch || 
-    (targetArch === 'all' && file.arch === 'all') ||
-    (targetArch === 'x86' && file.arch === 'x86') // 特殊处理x86
-  )
+  const matchedFile = hahaData.value.files.find((file: any) => {
+    if (targetArch === '') {
+      return file.arch === '' || file.arch === 'all' || !file.arch
+    }
+    return file.arch === targetArch
+  })
   
-  // 如果没有通过arch字段找到匹配，尝试通过文件名匹配
-  if (!matchedFile) {
-    matchedFile = latestVersion.children.find((file: any) => {
-      const hahaFileName = file.name.toLowerCase()
-      // 通过文件名包含的关键词进行匹配
-      if (targetArch === 'arm64-v8a' && (hahaFileName.includes('arm64-v8a') || hahaFileName.includes('arm64'))) {
-        return true
-      } else if (targetArch === 'armeabi-v7a' && (hahaFileName.includes('armeabi-v7a') || hahaFileName.includes('armeabi'))) {
-        return true
-      } else if (targetArch === 'x86_64' && (hahaFileName.includes('x86_64') || hahaFileName.includes('x86-64'))) {
-        return true
-      } else if (targetArch === 'x86' && hahaFileName.includes('x86') && !hahaFileName.includes('x86_64')) {
-        return true
-      } else if (targetArch === 'all' && (!hahaFileName.includes('-') || hahaFileName.includes('universal'))) {
-        return true
-      }
-      return false
-    })
+  if (matchedFile && matchedFile.link) {
+    return matchedFile.link
   }
   
-  if (matchedFile && matchedFile.download_link) {
-    return matchedFile.download_link
-  }
-  
-  // 如果没有找到精确匹配，尝试使用通用版本
-  const universalFile = latestVersion.children.find((file: any) => 
-    file.arch === 'all' || 
-    (!file.name.includes('-') || file.name.includes('universal'))
-  )
-  if (universalFile && universalFile.download_link) {
-    return universalFile.download_link
-  }
-  
-  // 最后降级到GitHub链接
   return asset.browser_download_url
 }
 
@@ -955,15 +908,20 @@ onMounted(() => {
                   v-for="source in downloadSources" 
                   :key="source.id"
                   class="dropdown-item"
-                  :class="{ 'is-selected': selectedDownloadSource === source.id }"
-                  @click="selectedDownloadSource = source.id; isSourceDropdownOpen = false"
+                  :class="{ 
+                    'is-selected': selectedDownloadSource === source.id,
+                    'is-disabled': !sourceAvailability[source.id]
+                  }"
+                  :disabled="!sourceAvailability[source.id]"
+                  @click="if (sourceAvailability[source.id]) { selectedDownloadSource = source.id; isSourceDropdownOpen = false }"
                 >
                   <span class="source-info">
                     <span class="source-name">{{ source.name }}</span>
                     <span class="source-desc">{{ source.description }} · {{ source.speed }}</span>
                     <span v-if="source.contributor" class="contributor-info">
-                      镜像加速由 <a :href="source.contributor.url" target="_blank" rel="noopener noreferrer" class="contributor-link">{{ source.contributor.name }}</a> 友情提供
+                      镜像加速由 <a :href="source.contributor.url" target="_blank" rel="noopener noreferrer" class="contributor-link" @click.stop>{{ source.contributor.name }}</a> 友情提供
                     </span>
+                    <span v-if="!sourceAvailability[source.id]" class="disabled-hint">（暂不可用）</span>
                   </span>
                   <span v-if="selectedDownloadSource === source.id" class="check-icon">✓</span>
                 </button>
@@ -1355,6 +1313,23 @@ onMounted(() => {
 .dropdown-item.is-selected {
   background-color: var(--vp-c-brand-soft);
   color: var(--vp-c-brand-1);
+}
+
+.dropdown-item.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dropdown-item.is-disabled:hover {
+  background-color: transparent;
+}
+
+.disabled-hint {
+  font-size: 0.7rem;
+  color: var(--vp-c-danger-1);
+  margin-top: 4px;
+  display: block;
 }
 
 .check-icon {
