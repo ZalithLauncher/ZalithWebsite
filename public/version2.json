@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.1.0-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.0/ZalithLauncher-2.1.0-arm64-v8a.apk",
       "size": "123.7 MB",
-      "download_count": 32744
+      "download_count": 38403
     },
     {
       "name": "ZalithLauncher-2.1.0-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.0/ZalithLauncher-2.1.0-armeabi-v7a.apk",
       "size": "117.4 MB",
-      "download_count": 1009
+      "download_count": 1220
     },
     {
       "name": "ZalithLauncher-2.1.0-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.0/ZalithLauncher-2.1.0-x86.apk",
       "size": "108.4 MB",
-      "download_count": 351
+      "download_count": 434
     },
     {
       "name": "ZalithLauncher-2.1.0-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.0/ZalithLauncher-2.1.0-x86_64.apk",
       "size": "127.2 MB",
-      "download_count": 304
+      "download_count": 369
     },
     {
       "name": "ZalithLauncher-2.1.0.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.0/ZalithLauncher-2.1.0.apk",
       "size": "245.2 MB",
-      "download_count": 5673
+      "download_count": 6578
     }
   ],
   "body": "Update:\r\n- Synchronized languages from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Game Download:\r\n  - Automatically select Fabric API and Quilted Fabric API\r\n  - Show a warning when only Fabric or Quilt is selected without the API mod installed\r\n- Download related: Warn users when downloading over mobile data\r\n- Account Management: Support custom UUID when creating offline accounts\r\n- Content Management:\r\n  - Support managing the server list\r\n  - Mod Manager: Display mod count statistics\r\n- Logs: Idea-style syntax highlighting\r\n- Language Settings: Added Uyghur and reordered the language list\r\n- Terracotta: Updated library to [v0.4.2](https://github.com/burningtnt/Terracotta/releases/tag/v0.4.2)\r\n- Renderer:\r\n  - Updated Krypton Wrapper to [0.4.4](https://github.com/BZLZHH/NG-GL4ES/releases/tag/R0.4.4)\r\n  - Updated ANGLE\r\n- Joystick Controls: Support customizing the forward lock detection range\r\n\r\nRefactor:\r\n- UI related: Refactored Minecraft-style text color rendering\r\n- Gamepad Controls:\r\n  - Handle key events earlier to prevent the 'B' button from being treated as the system back key\r\n  - Completely block gamepad events when gamepad control is disabled\r\n\r\nAdjustment:\r\n- UI related:\r\n  - Web pages: Adjusted web screen UI\r\n  - Version Management: Adjusted version description text opacity\r\n  - Logs: Dynamically adjust line spacing\r\n\r\nFix:\r\n- Controls:\r\n  - Thread-safety issues in the key event handler\r\n  - Only forcibly close the input method when the mouse is captured\r\n- Game Display: Use the actual screen size as the launch resolution\r\n- Input Proxy: Simple Mode could not use input method keys such as Enter\r\n- Mod Manager: Occasional thread-safety issues when refreshing the mod list\r\n- UI related:\r\n  - Crash when entering settings without a Java runtime environment\r\n  - Single-line input fields not preventing issues caused by pasting multi-line text\r\n- Renderer: Environment variables for the Krypton Wrapper renderer not configured correctly\r\n"
