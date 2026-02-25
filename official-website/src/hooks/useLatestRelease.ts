@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export interface Asset {
   id: string | number;
@@ -35,14 +36,6 @@ export interface DownloadSource {
   };
 }
 
-const BASE_DEVICE_TYPES: DeviceType[] = [
-  { id: 'all', name: '全部文件', description: '显示所有下载文件', patterns: ['*'] },
-  { id: 'windows', name: 'Windows', description: 'Windows 电脑', patterns: ['windows', 'win', '.exe', '.msi'] },
-  { id: 'macos', name: 'macOS', description: 'Mac 电脑', patterns: ['macos', 'mac', 'darwin', '.dmg'] },
-  { id: 'linux', name: 'Linux', description: 'Linux 系统', patterns: ['linux', '.appimage', '.deb', '.rpm', '.tar.gz'] },
-  { id: 'ios', name: 'iOS', description: 'iPhone/iPad', patterns: ['ios', '.ipa'] },
-];
-
 const DOWNLOAD_SOURCES: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: '国内加速', description: 'fishcpy 提供', speed: '国内较快', contributor: { name: 'fishcpy', url: 'https://github.com/fishcpy' } },
@@ -51,12 +44,14 @@ const DOWNLOAD_SOURCES: DownloadSource[] = [
   { id: 'lemwood', name: '柠枺镜像', description: 'Lemwood 提供', speed: '国内较快', contributor: { name: 'Lemwood', url: 'https://lemwood.cn' } },
 ];
 
-export const useLatestRelease = (project: 'zl1' | 'zl2') => {
+export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) => {
+  const { t } = useTranslation();
   const [release, setRelease] = useState<Release | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isChinaIP, setIsChinaIP] = useState(false);
   const [apiFailed, setApiFailed] = useState(false);
+  const [versionJsonData, setVersionJsonData] = useState<any>(null);
   
   const [mirrorData, setMirrorData] = useState<{
     foxington: any;
@@ -66,6 +61,21 @@ export const useLatestRelease = (project: 'zl1' | 'zl2') => {
 
   const repo = project === 'zl1' ? 'ZalithLauncher/ZalithLauncher' : 'ZalithLauncher/ZalithLauncher2';
   const localVersionFile = project === 'zl1' ? '/version.json' : '/version2.json';
+  const versionInfoUrl = project === 'zl1' 
+    ? 'https://fcl.lemwood.icu/zalith-info/launcher_version.json'
+    : 'https://fcl.lemwood.icu/zalith-info/v2/latest_version.json';
+
+  const fetchVersionJsonData = async () => {
+    try {
+      const res = await fetch(versionInfoUrl);
+      if (res.ok) {
+        const data = await res.json();
+        setVersionJsonData(data);
+      }
+    } catch (e) {
+      console.warn('Fetch version json data failed', e);
+    }
+  };
 
   const detectIP = async () => {
     try {
@@ -157,36 +167,114 @@ export const useLatestRelease = (project: 'zl1' | 'zl2') => {
         setIsLoading(false);
         detectIP();
         fetchMirrors();
+        fetchVersionJsonData();
       }
     };
 
     load();
-  }, [project, repo, localVersionFile]);
+  }, [project, repo, localVersionFile, versionInfoUrl]);
+
+  const localizedBody = useMemo(() => {
+    if (!versionJsonData) return null;
+
+    if (project === 'zl1') {
+      const desc = versionJsonData.description;
+      if (!desc) return null;
+      
+      const lang = currentLang.toLowerCase();
+      if (lang.includes('zh-tw') || lang.includes('zh-hk')) return desc.zh_tw || desc.zh_cn || desc.en_us;
+      if (lang.includes('zh')) return desc.zh_cn || desc.en_us;
+      return desc.en_us || desc.zh_cn;
+    } else {
+      // ZL2 logic
+      const bodies = versionJsonData.bodies || [];
+      const defaultBody = versionJsonData.default_body;
+      const lang = currentLang.toLowerCase();
+
+      let targetBody = null;
+      if (lang.includes('zh')) {
+        targetBody = bodies.find((b: any) => b.language === 'zh');
+      } else if (lang.includes('en')) {
+        targetBody = bodies.find((b: any) => b.language === 'en');
+      }
+
+      if (!targetBody) targetBody = defaultBody;
+
+      if (targetBody && targetBody.chunks) {
+        return targetBody.chunks.map((chunk: any) => {
+          let markdown = '';
+          if (chunk.title) markdown += `### ${chunk.title}\n\n`;
+          if (chunk.texts) {
+            chunk.texts.forEach((item: any) => {
+              let line = '';
+              if (item.indentation) line += '  '.repeat(item.indentation);
+              line += '- ';
+              let textContent = item.text || '';
+              if (item.links) {
+                item.links.forEach((link: any) => {
+                  textContent += ` [${link.text}](${link.link})`;
+                });
+              }
+              line += textContent + '\n';
+              markdown += line;
+            });
+          }
+          return markdown;
+        }).join('\n\n');
+      }
+    }
+    return null;
+  }, [versionJsonData, project, currentLang]);
 
   const dynamicDeviceTypes = useMemo(() => {
-    if (!release?.assets) return BASE_DEVICE_TYPES;
+    const baseTypes: DeviceType[] = [
+      { id: 'all', name: t('download.devices.all'), description: t('download.devices.allDesc'), patterns: ['*'] },
+    ];
+
+    if (!release?.assets) return baseTypes;
 
     const architectures = new Set<string>();
+    let hasUniversal = false;
+
     release.assets.forEach(asset => {
       const name = asset.name.toLowerCase();
       if (name.includes('arm64-v8a') || name.includes('arm64')) architectures.add('arm64');
       else if (name.includes('armeabi-v7a') || name.includes('armeabi')) architectures.add('armeabi');
       else if (name.includes('x86_64') || name.includes('x86-64')) architectures.add('x86_64');
       else if (name.includes('x86')) architectures.add('x86');
-      else if (name.includes('universal')) architectures.add('universal');
+      else {
+        // 检查是否为通用版本（没有架构后缀的 .apk 文件）
+        if (name.endsWith('.apk') && 
+            !name.includes('arm64') && !name.includes('armv8') && 
+            !name.includes('armeabi') && !name.includes('armv7') && 
+            !name.includes('x86')) {
+          hasUniversal = true;
+        }
+      }
     });
 
-    const result = [...BASE_DEVICE_TYPES];
+    const result = [...baseTypes];
+
+    // 如果有通用版本，添加 Android 通用选项
+    if (hasUniversal) {
+      result.push({ 
+        id: 'android', 
+        name: t('download.devices.android'), 
+        description: t('download.devices.androidDesc'), 
+        patterns: ['universal-not-used'] // 占位符，逻辑在过滤中处理
+      });
+    }
+
     architectures.forEach(arch => {
       result.push({
         id: arch,
-        name: arch === 'universal' ? '通用版本' : arch.toUpperCase(),
-        description: `${arch.toUpperCase()} 架构`,
+        name: t(`download.devices.${arch}`),
+        description: t(`download.devices.${arch}Desc`),
         patterns: [arch]
       });
     });
     return result;
-  }, [release]);
+  }, [release, t]);
 
   return {
     release,
@@ -196,6 +284,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2') => {
     apiFailed,
     mirrorData,
     dynamicDeviceTypes,
+    localizedBody,
     downloadSources: DOWNLOAD_SOURCES
   };
 };

@@ -12,7 +12,7 @@ function cn(...inputs: ClassValue[]) {
 }
 
 const DownloadSection = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeProject, setActiveProject] = useState<'zl1' | 'zl2'>('zl2');
   const { 
     release, 
@@ -22,8 +22,9 @@ const DownloadSection = () => {
     apiFailed, 
     mirrorData, 
     dynamicDeviceTypes, 
+    localizedBody,
     downloadSources 
-  } = useLatestRelease(activeProject);
+  } = useLatestRelease(activeProject, i18n.language);
 
   const [selectedDevice, setSelectedDevice] = useState('all');
   const [selectedSource, setSelectedSource] = useState('github');
@@ -37,19 +38,54 @@ const DownloadSection = () => {
     }
   }, [isChinaIP]);
 
+  // Auto-detect device type
+  useEffect(() => {
+    if (!isLoading && dynamicDeviceTypes.length > 1) {
+      const ua = navigator.userAgent.toLowerCase();
+      let detectedId = 'all';
+
+      if (ua.includes('android')) {
+        // 优先识别具体架构
+        if (ua.includes('aarch64') || ua.includes('arm64')) {
+          if (dynamicDeviceTypes.some(d => d.id === 'arm64')) {
+            detectedId = 'arm64';
+          }
+        } else if (ua.includes('armv7') || ua.includes('armeabi')) {
+          if (dynamicDeviceTypes.some(d => d.id === 'armeabi')) {
+            detectedId = 'armeabi';
+          }
+        }
+        
+        // 如果没识别出具体架构，或者识别出的架构在列表中不存在，再回退到通用版本
+        if (detectedId === 'all') {
+          if (dynamicDeviceTypes.some(d => d.id === 'android')) {
+            detectedId = 'android';
+          }
+        }
+      }
+      
+      if (detectedId !== 'all') {
+        setSelectedDevice(detectedId);
+      }
+    }
+  }, [isLoading, dynamicDeviceTypes]);
+
   useEffect(() => {
     const parseContent = async () => {
-      if (release?.body) {
+      const displayBody = localizedBody || release?.body || '';
+      if (displayBody) {
         try {
-          const html = await marked.parse(release.body);
+          const html = await marked.parse(displayBody);
           setParsedBody(html);
         } catch (e) {
           console.error('Failed to parse markdown', e);
         }
+      } else {
+        setParsedBody('');
       }
     };
     parseContent();
-  }, [release]);
+  }, [release, localizedBody]);
 
   const currentDevice = dynamicDeviceTypes.find(d => d.id === selectedDevice) || dynamicDeviceTypes[0];
   const currentSource = downloadSources.find(s => s.id === selectedSource) || downloadSources[0];
@@ -107,6 +143,15 @@ const DownloadSection = () => {
   const filteredAssets = release?.assets.filter(asset => {
     if (selectedDevice === 'all') return true;
     const name = asset.name.toLowerCase();
+    
+    // 特殊处理通用版本 (android id)
+    if (selectedDevice === 'android') {
+      return name.endsWith('.apk') && 
+             !name.includes('arm64') && !name.includes('armv8') && 
+             !name.includes('armeabi') && !name.includes('armv7') && 
+             !name.includes('x86');
+    }
+
     return currentDevice.patterns.some(p => p === '*' || name.includes(p.toLowerCase()));
   }) || [];
 
@@ -173,7 +218,7 @@ const DownloadSection = () => {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left: Release Info & Selector */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-6 relative z-10">
               {apiFailed && (
                 <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl flex items-start gap-3 text-yellow-700 dark:text-yellow-500 text-sm">
                   <AlertTriangle className="w-5 h-5 flex-shrink-0" />
@@ -184,7 +229,7 @@ const DownloadSection = () => {
                 </div>
               )}
 
-              <div className="glass-card p-8">
+              <div className="glass-card p-4 sm:p-8">
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
                   <div>
                     <h3 className="text-2xl font-bold text-[var(--brand)]">{release?.name}</h3>
@@ -295,18 +340,18 @@ const DownloadSection = () => {
                     <motion.div 
                       key={asset.id}
                       layout
-                      className="flex flex-col sm:flex-row items-center justify-between p-4 bg-[var(--bg-alt)] border border-[var(--divider)]/20 rounded-2xl hover:border-[var(--brand)]/30 transition-all gap-4"
+                      className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-[var(--bg-alt)] border border-[var(--divider)]/20 rounded-2xl hover:border-[var(--brand)]/30 transition-all gap-4"
                     >
-                      <div className="flex items-center gap-4 flex-1">
-                        <div className="w-10 h-10 bg-[var(--brand)]/10 text-[var(--brand)] rounded-xl flex items-center justify-center flex-shrink-0">
+                      <div className="flex items-start gap-4 flex-1 w-full">
+                        <div className="w-10 h-10 bg-[var(--brand)]/10 text-[var(--brand)] rounded-xl flex items-center justify-center flex-shrink-0 mt-1 sm:mt-0">
                           <Terminal size={20} />
                         </div>
-                        <div className="min-w-0">
-                          <p className="text-sm font-bold truncate pr-4 text-[var(--text-1)]">{asset.name}</p>
-                          <div className="flex items-center gap-3 mt-1">
-                            <span className="text-[10px] text-[var(--text-2)] font-medium uppercase">{formatSize(asset.size)}</span>
-                            <span className="w-1 h-1 bg-[var(--divider)]/50 rounded-full" />
-                            <span className="text-[10px] text-[var(--text-2)] font-medium uppercase">{asset.download_count.toLocaleString()} 下载</span>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm font-bold text-[var(--text-1)] break-all sm:break-normal line-clamp-2 sm:line-clamp-1">{asset.name}</p>
+                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
+                            <span className="text-[10px] text-[var(--text-2)] font-medium uppercase whitespace-nowrap">{formatSize(asset.size)}</span>
+                            <span className="w-1 h-1 bg-[var(--divider)]/50 rounded-full hidden sm:block" />
+                            <span className="text-[10px] text-[var(--text-2)] font-medium uppercase whitespace-nowrap">{asset.download_count.toLocaleString()} {t('download.downloads')}</span>
                           </div>
                         </div>
                       </div>
@@ -330,7 +375,7 @@ const DownloadSection = () => {
             </div>
 
             {/* Right: Release Notes */}
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1 relative z-0">
               <div className="glass-card p-8 h-full bg-[var(--bg)]/40 backdrop-blur-md">
                 <h4 className="text-lg font-bold mb-6 flex items-center gap-2 text-[var(--text-1)]">
                   <Info size={20} className="text-[var(--brand)]" /> {t('download.releaseNotes')}
