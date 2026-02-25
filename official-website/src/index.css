@@ -1,0 +1,155 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-brand-light: #A63A17;
+  --color-brand-dark: #FFB59F;
+  --color-brand: var(--brand);
+
+  --color-bg-light: #FFF8F6;
+  --color-bg-dark: #1C110E;
+  --color-bg: var(--bg);
+
+  --color-bg-alt-light: #FFF1ED;
+  --color-bg-alt-dark: #291D19;
+  --color-bg-alt: var(--bg-alt);
+
+  --color-text-1-light: #241916;
+  --color-text-1-dark: #F4DED8;
+  --color-text-1: var(--text-1);
+
+  --color-text-2-light: #58423B;
+  --color-text-2-dark: #DFC0B7;
+  --color-text-2: var(--text-2);
+
+  --color-divider-light: #DFC0B7;
+  --color-divider-dark: #58423B;
+  --color-divider: var(--divider);
+  
+  --background-image-hero-gradient: linear-gradient(-45deg, #ff9d7a 50%, #ffe6cc 50%);
+  --background-image-hero-gradient-dark: linear-gradient(-45deg, #ff7746 50%, #ffd890 50%);
+}
+
+/* Base Variables */
+:root {
+  --brand: #A63A17;
+  --bg: #FFF8F6;
+  --bg-alt: #FFF1ED;
+  --text-1: #241916;
+  --text-2: #58423B;
+  --divider: #DFC0B7;
+}
+
+/* Dark Mode Variables Override */
+.dark {
+  --brand: #FFB59F;
+  --bg: #1C110E;
+  --bg-alt: #291D19;
+  --text-1: #F4DED8;
+  --text-2: #DFC0B7;
+  --divider: #58423B;
+}
+
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--text-1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 rounded-full bg-[var(--brand)] text-white font-medium 
+    hover:opacity-90 transition-all active:scale-95 shadow-lg shadow-[var(--brand)]/20;
+  }
+  
+  .dark .btn-primary {
+    @apply bg-[var(--brand)] text-[var(--bg)] shadow-[var(--brand)]/10;
+  }
+
+  .glass-card {
+    background-color: color-mix(in srgb, var(--bg) 40%, transparent);
+    backdrop-filter: blur(12px);
+    border: 1px solid color-mix(in srgb, var(--divider) 20%, transparent);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    @apply transition-all duration-300;
+  }
+
+  /* Custom Prose - Fully Variable Based */
+  .prose-custom {
+    color: var(--text-2);
+    line-height: 1.75;
+  }
+  .prose-custom h1, .prose-custom h2, .prose-custom h3, .prose-custom h4 {
+    color: var(--text-1);
+    font-weight: 800;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  .prose-custom h1 { font-size: 2.25rem; }
+  .prose-custom h2 { font-size: 1.5rem; border-bottom: 1px solid var(--divider); padding-bottom: 0.5rem; }
+  .prose-custom h3 { font-size: 1.25rem; }
+  
+  .prose-custom p, .prose-custom li {
+    color: var(--text-2);
+    margin-bottom: 1rem;
+  }
+  
+  .prose-custom strong {
+    color: var(--text-1);
+    font-weight: 700;
+  }
+  
+  .prose-custom ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .prose-custom a {
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-medium: 500;
+  }
+  
+  .prose-custom code {
+    @apply bg-[var(--bg-alt)] px-1.5 py-0.5 rounded text-sm font-mono text-[var(--brand)];
+  }
+  
+  .prose-custom blockquote {
+    @apply border-l-4 border-[var(--brand)] pl-4 italic my-6 text-[var(--text-2)] bg-[var(--bg-alt)]/50 py-2 rounded-r-lg;
+  }
+}
+
+/* Custom Glow Effects */
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--brand) 15%, transparent) 0%, transparent 70%);
+  filter: blur(60px);
+  z-index: -1;
+  @apply transition-all duration-500;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--divider);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--divider) 80%, black);
+}

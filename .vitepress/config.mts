@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
   title: "Zalith Launcher",
   description: '在 Android 设备上游玩 Minecraft: Java Edition',
+  srcExclude: ['official-website/**'],
   lastUpdated: true,
   locales: {
     root: {label: '简体中文'},
