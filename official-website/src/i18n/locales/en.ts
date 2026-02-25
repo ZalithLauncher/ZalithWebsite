@@ -108,5 +108,52 @@ export default {
     weblate: "Weblate Translation",
     globalNodes: "Global Nodes",
     poweredBy: "Powered by Community",
+  },
+  privacy: {
+    lastUpdated: "Last Updated: Feb 8, 2026",
+    version: "Version 1.2",
+    questionTitle: "Questions about policy?",
+    questionDesc: "If you need further information about how we handle your data, feel free to contact us.",
+    submitIssue: "Open Issue",
+    content: `# Privacy Policy
+
+Zalith Launcher ("we", "us", or "our") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we handle your information when you visit our website and use our services.
+
+## 1. Information We Collect
+
+### 1.1 Static Deployment & Data Collection
+This website is a static site primarily deployed on edge computing nodes.
+- **No Data Collection**: We do not actively collect, store, or process any of your personal data.
+- **No User Blocking**: We are committed to providing an open and fair access experience and will not restrict or block any user for any reason.
+
+### 1.2 Use of IP Addresses
+When you visit our website, we use your IP address to identify your general geographic region. This is used solely to:
+- Determine the display language of the redirection popup.
+- Enhance your overall browsing experience.
+We do not log or persistently store your full IP address.
+
+### 1.3 Use of Local Storage (LocalStorage)
+We use the browser's Local Storage (LocalStorage) instead of traditional Cookies to enhance your browsing experience. This includes:
+- **Language Preferences**: Remembering your chosen interface language.
+- **Access Optimization**: Caching your IP location detection results (valid for 24 hours).
+These data are stored only locally on your device and are not uploaded to our servers.
+
+## 2. How We Use Your Information
+
+We use the collected information to:
+- Maintain the operation and security of the website.
+- Analyze website traffic to optimize user experience.
+
+## 3. Information Sharing and Disclosure
+
+We do not sell or rent your personal information to third parties.
+
+## 4. Data Security
+
+We implement reasonable security measures to protect your information from unauthorized access, alteration, or disclosure.
+
+## 5. Policy Updates
+
+We may update this Privacy Policy from time to time. We recommend checking this page periodically for the latest information.`,
   }
 };
