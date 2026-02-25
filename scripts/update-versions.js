@@ -102,8 +102,16 @@ async function main() {
   console.log(`📅 Timestamp: ${new Date().toISOString()}`);
   
   const publicDir = path.join(__dirname, '..', 'public');
-  const zl1VersionFile = path.join(publicDir, 'version.json');
-  const zl2VersionFile = path.join(publicDir, 'version2.json');
+  const officialPublicDir = path.join(__dirname, '..', 'official-website', 'public');
+  
+  const zl1VersionFiles = [
+    path.join(publicDir, 'version.json'),
+    path.join(officialPublicDir, 'version.json')
+  ];
+  const zl2VersionFiles = [
+    path.join(publicDir, 'version2.json'),
+    path.join(officialPublicDir, 'version2.json')
+  ];
   
   let hasAnyChanges = false;
   
@@ -113,17 +121,19 @@ async function main() {
     const zl1Release = await fetchLatestRelease('ZalithLauncher/ZalithLauncher');
     const zl1Data = transformReleaseData(zl1Release);
     
-    // 读取现有ZL1版本文件
+    // 读取现有ZL1版本文件 (以根目录为准进行比较)
     let oldZl1Data = {};
     try {
-      const oldZl1Content = await fs.readFile(zl1VersionFile, 'utf8');
+      const oldZl1Content = await fs.readFile(zl1VersionFiles[0], 'utf8');
       oldZl1Data = JSON.parse(oldZl1Content);
     } catch (error) {
       console.log('📄 No existing ZL1 version file found, creating new one...');
     }
     
     if (hasChanges(oldZl1Data, zl1Data)) {
-      await updateVersionFile(zl1VersionFile, zl1Data);
+      for (const file of zl1VersionFiles) {
+        await updateVersionFile(file, zl1Data);
+      }
       hasAnyChanges = true;
       console.log(`📈 ZL1 updated to version: ${zl1Data.latest_version}`);
     } else {
@@ -135,17 +145,19 @@ async function main() {
     const zl2Release = await fetchLatestRelease('ZalithLauncher/ZalithLauncher2');
     const zl2Data = transformReleaseData(zl2Release);
     
-    // 读取现有ZL2版本文件
+    // 读取现有ZL2版本文件 (以根目录为准进行比较)
     let oldZl2Data = {};
     try {
-      const oldZl2Content = await fs.readFile(zl2VersionFile, 'utf8');
+      const oldZl2Content = await fs.readFile(zl2VersionFiles[0], 'utf8');
       oldZl2Data = JSON.parse(oldZl2Content);
     } catch (error) {
       console.log('📄 No existing ZL2 version file found, creating new one...');
     }
     
     if (hasChanges(oldZl2Data, zl2Data)) {
-      await updateVersionFile(zl2VersionFile, zl2Data);
+      for (const file of zl2VersionFiles) {
+        await updateVersionFile(file, zl2Data);
+      }
       hasAnyChanges = true;
       console.log(`📈 ZL2 updated to version: ${zl2Data.latest_version}`);
     } else {

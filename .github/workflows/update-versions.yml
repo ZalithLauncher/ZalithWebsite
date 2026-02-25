@@ -47,7 +47,7 @@ jobs:
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add public/version.json public/version2.json
+        git add public/version.json public/version2.json official-website/public/version.json official-website/public/version2.json
         git commit -m "🤖 Auto update version info - $(date '+%Y-%m-%d %H:%M:%S')"
         git push origin HEAD:${{ github.ref_name }}
         
@@ -58,6 +58,8 @@ jobs:
         echo "Updated version information files:" >> $GITHUB_STEP_SUMMARY
         echo "- \`public/version.json\` (ZL1)" >> $GITHUB_STEP_SUMMARY
         echo "- \`public/version2.json\` (ZL2)" >> $GITHUB_STEP_SUMMARY
+        echo "- \`official-website/public/version.json\` (ZL1 - New)" >> $GITHUB_STEP_SUMMARY
+        echo "- \`official-website/public/version2.json\` (ZL2 - New)" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Timestamp:** $(date '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
         
