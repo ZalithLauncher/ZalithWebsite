@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Sun, Moon, Github, Menu, X } from 'lucide-react';
+import { Sun, Moon, Github, Menu, X, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
+  const { t, i18n } = useTranslation();
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme');
@@ -25,11 +27,16 @@ const Navbar = () => {
   }, [isDark]);
 
   const navLinks = [
-    { name: '首页', path: '/' },
-    { name: '特性', path: '/#features' },
-    { name: '下载', path: '/download' },
-    { name: '文档', path: 'https://www.zalithlauncher.cn/docs/projects/zl2', external: true },
+    { name: t('nav.home'), path: '/' },
+    { name: t('nav.features'), path: '/#features' },
+    { name: t('nav.download'), path: '/download' },
+    { name: t('nav.docs'), path: 'https://www.zalithlauncher.cn/docs/projects/zl2', external: true },
   ];
+
+  const toggleLanguage = () => {
+    const nextLang = i18n.language.startsWith('zh') ? 'en' : 'zh';
+    i18n.changeLanguage(nextLang);
+  };
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-[var(--bg)]/80 backdrop-blur-lg border-b border-[var(--divider)]/20 transition-colors duration-300">
@@ -42,7 +49,7 @@ const Navbar = () => {
                 Zalith Launcher
               </span>
               <span className="text-[10px] font-medium text-[var(--brand)] opacity-70 tracking-widest uppercase mt-0.5">
-                Preview / Beta
+                {t('common.beta')}
               </span>
             </div>
           </Link>
@@ -71,6 +78,16 @@ const Navbar = () => {
               )
             ))}
             <div className="h-4 w-px bg-[var(--divider)]/50 mx-2" />
+            
+            <button
+              onClick={toggleLanguage}
+              className="p-2 rounded-full hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-1)] flex items-center gap-1.5"
+              title="Switch Language"
+            >
+              <Globe size={18} />
+              <span className="text-xs font-bold uppercase">{i18n.language.startsWith('zh') ? 'EN' : '中文'}</span>
+            </button>
+
             <button
               onClick={() => setIsDark(!isDark)}
               className="p-2 rounded-full hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-1)]"
@@ -84,6 +101,12 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-4">
+            <button
+              onClick={toggleLanguage}
+              className="p-2 rounded-full hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-1)]"
+            >
+              <Globe size={20} />
+            </button>
             <button
               onClick={() => setIsDark(!isDark)}
               className="p-2 rounded-full hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-1)]"

@@ -5,12 +5,14 @@ import { useLatestRelease, type Asset } from '../hooks/useLatestRelease';
 import { marked } from 'marked';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { useTranslation } from 'react-i18next';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 const DownloadSection = () => {
+  const { t } = useTranslation();
   const [activeProject, setActiveProject] = useState<'zl1' | 'zl2'>('zl2');
   const { 
     release, 
@@ -126,7 +128,7 @@ const DownloadSection = () => {
             viewport={{ once: true }}
             className="text-3xl md:text-5xl font-bold mb-6 text-[var(--text-1)]"
           >
-            获取 Zalith Launcher
+            {t('download.title')}
           </motion.h2>
           
           {/* Project Switcher */}
@@ -140,7 +142,7 @@ const DownloadSection = () => {
                   : "text-[var(--text-2)] hover:bg-[var(--bg-alt)]"
               )}
             >
-              Zalith Launcher 2 (推荐)
+              Zalith Launcher 2 ({t('download.recommend')})
             </button>
             <button
               onClick={() => setActiveProject('zl1')}
@@ -151,7 +153,7 @@ const DownloadSection = () => {
                   : "text-[var(--text-2)] hover:bg-[var(--bg-alt)]"
               )}
             >
-              Zalith Launcher 1 (旧版)
+              Zalith Launcher 1 ({t('download.legacy')})
             </button>
           </div>
         </div>
@@ -159,14 +161,14 @@ const DownloadSection = () => {
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-20">
             <div className="w-12 h-12 border-4 border-[var(--brand)]/20 border-t-[var(--brand)] rounded-full animate-spin mb-4" />
-            <p className="text-[var(--text-2)]">加载版本信息中...</p>
+            <p className="text-[var(--text-2)]">{t('common.loading')}</p>
           </div>
         ) : error ? (
           <div className="max-w-md mx-auto glass-card border-red-500/20 text-center p-12 bg-[var(--bg)]">
             <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-            <h3 className="text-xl font-bold mb-2 text-[var(--text-1)]">获取失败</h3>
+            <h3 className="text-xl font-bold mb-2 text-[var(--text-1)]">{t('common.error')}</h3>
             <p className="text-[var(--text-2)] mb-6">{error}</p>
-            <button onClick={() => window.location.reload()} className="btn-primary">重试</button>
+            <button onClick={() => window.location.reload()} className="btn-primary">{t('common.retry')}</button>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -176,8 +178,8 @@ const DownloadSection = () => {
                 <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl flex items-start gap-3 text-yellow-700 dark:text-yellow-500 text-sm">
                   <AlertTriangle className="w-5 h-5 flex-shrink-0" />
                   <div>
-                    <p className="font-bold">API 访问受限</p>
-                    <p>GitHub API 无法访问，已自动切换至本地缓存数据。</p>
+                    <p className="font-bold">{t('download.apiFailed')}</p>
+                    <p>{t('download.apiFailedDesc')}</p>
                   </div>
                 </div>
               )}
@@ -187,7 +189,7 @@ const DownloadSection = () => {
                   <div>
                     <h3 className="text-2xl font-bold text-[var(--brand)]">{release?.name}</h3>
                     <p className="text-[var(--text-2)] text-sm mt-1">
-                      发布于 {release ? new Date(release.published_at).toLocaleDateString() : '-'}
+                      {t('download.publishedAt')} {release ? new Date(release.published_at).toLocaleDateString() : '-'}
                     </p>
                   </div>
                   <span className="px-3 py-1 bg-[var(--brand)]/10 text-[var(--brand)] rounded-full text-sm font-bold border border-[var(--brand)]/20">
@@ -198,7 +200,7 @@ const DownloadSection = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   {/* Device Dropdown */}
                   <div className="relative">
-                    <label className="block text-xs font-bold text-[var(--text-2)] mb-2 uppercase tracking-wider">设备类型</label>
+                    <label className="block text-xs font-bold text-[var(--text-2)] mb-2 uppercase tracking-wider">{t('download.deviceType')}</label>
                     <button 
                       onClick={() => setIsDeviceOpen(!isDeviceOpen)}
                       className="w-full flex items-center justify-between px-4 py-3 bg-[var(--bg)] border border-[var(--divider)]/20 rounded-xl hover:border-[var(--brand)]/50 transition-all text-[var(--text-1)]"
@@ -240,7 +242,7 @@ const DownloadSection = () => {
 
                   {/* Source Dropdown */}
                   <div className="relative">
-                    <label className="block text-xs font-bold text-[var(--text-2)] mb-2 uppercase tracking-wider">下载源</label>
+                    <label className="block text-xs font-bold text-[var(--text-2)] mb-2 uppercase tracking-wider">{t('download.source')}</label>
                     <button 
                       onClick={() => setIsSourceOpen(!isSourceOpen)}
                       className="w-full flex items-center justify-between px-4 py-3 bg-[var(--bg)] border border-[var(--divider)]/20 rounded-xl hover:border-[var(--brand)]/50 transition-all text-[var(--text-1)]"
@@ -287,7 +289,7 @@ const DownloadSection = () => {
                 {/* Assets List */}
                 <div className="space-y-3">
                   <h4 className="text-sm font-bold text-[var(--text-2)] mb-4 flex items-center gap-2">
-                    <Download size={16} /> 下载文件列表
+                    <Download size={16} /> {t('download.assetsTitle')}
                   </h4>
                   {filteredAssets.length > 0 ? filteredAssets.map(asset => (
                     <motion.div 
@@ -314,13 +316,13 @@ const DownloadSection = () => {
                         rel="noreferrer"
                         className="btn-primary py-2 px-6 text-sm flex items-center gap-2 whitespace-nowrap w-full sm:w-auto justify-center"
                       >
-                        立即下载 <ExternalLink size={14} />
+                        {t('common.download')} <ExternalLink size={14} />
                       </a>
                     </motion.div>
                   )) : (
                     <div className="text-center py-12 bg-[var(--bg-alt)] rounded-2xl border border-dashed border-[var(--divider)]/50">
                       <Info className="w-8 h-8 text-[var(--text-2)] mx-auto mb-2 opacity-20" />
-                      <p className="text-sm text-[var(--text-2)]">暂无匹配该架构的文件</p>
+                      <p className="text-sm text-[var(--text-2)]">{t('download.noAssets')}</p>
                     </div>
                   )}
                 </div>
@@ -331,14 +333,14 @@ const DownloadSection = () => {
             <div className="lg:col-span-1">
               <div className="glass-card p-8 h-full bg-[var(--bg)]/40 backdrop-blur-md">
                 <h4 className="text-lg font-bold mb-6 flex items-center gap-2 text-[var(--text-1)]">
-                  <Info size={20} className="text-[var(--brand)]" /> 版本发布说明
+                  <Info size={20} className="text-[var(--brand)]" /> {t('download.releaseNotes')}
                 </h4>
                 <div 
                   className="prose-custom text-sm overflow-y-auto max-h-[600px]"
                   dangerouslySetInnerHTML={{ __html: parsedBody }}
                 />
                 {!parsedBody && (
-                  <p className="text-sm text-[var(--text-2)] italic">暂无详细发布说明</p>
+                  <p className="text-sm text-[var(--text-2)] italic">{t('download.noNotes')}</p>
                 )}
               </div>
             </div>
@@ -350,15 +352,15 @@ const DownloadSection = () => {
           <div className="flex flex-wrap justify-center gap-8">
             <div className="flex items-center gap-2 text-[var(--text-2)] text-sm">
               <ShieldCheck size={16} className="text-green-500" />
-              <span>官方发布，安全无毒</span>
+              <span>{t('download.officialRelease')}</span>
             </div>
             <div className="flex items-center gap-2 text-[var(--text-2)] text-sm">
               <Zap size={16} className="text-yellow-500" />
-              <span>多源加速，极速下载</span>
+              <span>{t('download.multiSource')}</span>
             </div>
             <div className="flex items-center gap-2 text-[var(--text-2)] text-sm">
               <Globe size={16} className="text-blue-500" />
-              <span>开源社区，共同维护</span>
+              <span>{t('download.communityPowered')}</span>
             </div>
           </div>
         </div>

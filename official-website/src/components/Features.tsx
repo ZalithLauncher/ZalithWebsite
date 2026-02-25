@@ -1,47 +1,50 @@
 import { motion } from 'framer-motion';
 import { Smartphone, Layout, Settings, Cpu, Globe, Users } from 'lucide-react';
-
-const features = [
-  {
-    icon: <Layout className="w-6 h-6" />,
-    title: "现代化 UI 体验",
-    description: "采用 Jetpack Compose 与 Material Design 3 构建，提供丝滑、现代且符合直觉的界面设计。"
-  },
-  {
-    icon: <Cpu className="w-6 h-6" />,
-    title: "高性能启动核心",
-    description: "基于 PojavLauncher 核心深度优化，针对 Android 设备进行性能调优，确保游戏运行流畅稳定。"
-  },
-  {
-    icon: <Settings className="w-6 h-6" />,
-    title: "完善的版本管理",
-    description: "支持版本隔离与自定义路径设置，轻松管理多个游戏版本及其对应的模组与存档。"
-  },
-  {
-    icon: <Smartphone className="w-6 h-6" />,
-    title: "丰富的渲染器支持",
-    description: "内置多种渲染器方案并支持插件扩展，完美适配不同硬件性能的移动设备。"
-  },
-  {
-    icon: <Globe className="w-6 h-6" />,
-    title: "多语言支持",
-    description: "通过 Weblate 平台驱动的全球化翻译，支持多种语言，让全球玩家都能轻松上手。"
-  },
-  {
-    icon: <Users className="w-6 h-6" />,
-    title: "社区驱动更新",
-    description: "活跃的社区支持与开源精神，持续的功能迭代、BUG 修复以及实用的使用指南。"
-  }
-];
+import { useTranslation } from 'react-i18next';
 
 const Features = () => {
+  const { t } = useTranslation();
+
+  const features = [
+    {
+      icon: <Layout className="w-6 h-6" />,
+      title: t('features.ui.title'),
+      description: t('features.ui.desc')
+    },
+    {
+      icon: <Cpu className="w-6 h-6" />,
+      title: t('features.core.title'),
+      description: t('features.core.desc')
+    },
+    {
+      icon: <Settings className="w-6 h-6" />,
+      title: t('features.version.title'),
+      description: t('features.version.desc')
+    },
+    {
+      icon: <Smartphone className="w-6 h-6" />,
+      title: t('features.render.title'),
+      description: t('features.render.desc')
+    },
+    {
+      icon: <Globe className="w-6 h-6" />,
+      title: t('features.i18n.title'),
+      description: t('features.i18n.desc')
+    },
+    {
+      icon: <Users className="w-6 h-6" />,
+      title: t('features.community.title'),
+      description: t('features.community.desc')
+    }
+  ];
+
   return (
     <section id="features" className="py-24 bg-[var(--bg-alt)] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[var(--text-1)]">为什么选择 Zalith?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[var(--text-1)]">{t('features.title')}</h2>
           <p className="text-[var(--text-2)] max-w-2xl mx-auto">
-            我们不仅仅是一个启动器，更是您在移动端畅玩 Java 版的最佳伴侣。
+            {t('features.subtitle')}
           </p>
         </div>
 

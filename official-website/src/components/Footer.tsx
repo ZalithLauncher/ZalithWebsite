@@ -1,33 +1,35 @@
 import { Github, MessageSquare, Coffee, Heart, Globe, ShieldCheck, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   const footerLinks = [
     {
-      title: "项目",
+      title: t('footer.projects'),
       links: [
-        { name: "首页", path: "/" },
-        { name: "下载中心", path: "/download" },
-        { name: "官方文档", path: "https://www.zalithlauncher.cn/docs/projects/zl2", external: true },
-        { name: "GitHub 组织", path: "https://github.com/ZalithLauncher", external: true },
+        { name: t('footer.projects'), path: "/" },
+        { name: t('common.downloadCenter'), path: "/download" },
+        { name: t('common.docs'), path: "https://www.zalithlauncher.cn/docs/projects/zl2", external: true },
+        { name: t('footer.githubOrg'), path: "https://github.com/ZalithLauncher", external: true },
       ]
     },
     {
-      title: "社区",
+      title: t('footer.community'),
       links: [
         { name: "Discord", path: "https://discord.gg/e7C4kytRgK", external: true },
-        { name: "QQ 群组 (需赞助)", path: "https://afdian.com/a/MovTery", external: true },
-        { name: "Weblate 翻译", path: "https://hosted.weblate.org/projects/zalithlauncher2/", external: true },
+        { name: t('footer.qqGroup'), path: "https://afdian.com/a/MovTery", external: true },
+        { name: t('footer.weblate'), path: "https://hosted.weblate.org/projects/zalithlauncher2/", external: true },
       ]
     },
     {
-      title: "支持",
+      title: t('footer.support'),
       links: [
-        { name: "爱发电支持", path: "https://afdian.com/a/MovTery", external: true, icon: <Heart size={14} className="text-red-500" /> },
-        { name: "联系我们 (GitHub)", path: "https://github.com/ZalithLauncher", external: true },
-        { name: "隐私政策", path: "/privacy" },
+        { name: t('footer.afdian'), path: "https://afdian.com/a/MovTery", external: true, icon: <Heart size={14} className="text-red-500" /> },
+        { name: t('common.contactUs'), path: "https://github.com/ZalithLauncher", external: true },
+        { name: t('common.privacyPolicy'), path: "/privacy" },
       ]
     }
   ];
@@ -43,8 +45,7 @@ const Footer = () => {
               <span className="font-bold text-2xl tracking-tight text-[var(--text-1)]">Zalith Launcher</span>
             </div>
             <p className="text-[var(--text-2)] max-w-sm leading-relaxed">
-              致力于为 Android 用户提供最纯净、高效且现代化的 Minecraft Java 版启动体验。
-              开源、自由、由社区驱动。
+              {t('footer.desc')}
             </p>
             <div className="flex gap-4 pt-2">
               <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" 
@@ -91,10 +92,10 @@ const Footer = () => {
         <div className="pt-10 border-t border-[var(--divider)]/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="text-sm text-[var(--text-2)] text-center md:text-left">
-              <p>© {currentYear} Zalith Launcher Team. All rights reserved.</p>
+              <p>© {currentYear} Zalith Launcher Team. {t('common.allRightsReserved')}</p>
               <div className="mt-1 flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-1">
                 <p className="opacity-60 text-xs flex items-center gap-1">
-                  <ShieldCheck size={12} /> Minecraft is a trademark of Mojang AB. Not affiliated with Microsoft/Mojang.
+                  <ShieldCheck size={12} /> {t('common.notAffiliated')}
                 </p>
                 <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer" className="text-xs opacity-60 hover:opacity-100 hover:text-[var(--brand)] transition-all">
                   新ICP备2024015133号-4
@@ -105,11 +106,11 @@ const Footer = () => {
             <div className="flex items-center gap-6 text-xs text-[var(--text-2)]">
               <div className="flex items-center gap-1">
                 <Globe size={14} className="text-[var(--brand)]" />
-                <span>Global Nodes</span>
+                <span>{t('footer.globalNodes')}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Mail size={14} className="text-[var(--brand)]" />
-                <span>Powered by Community</span>
+                <span>{t('footer.poweredBy')}</span>
               </div>
             </div>
           </div>

@@ -1,0 +1,95 @@
+export default {
+  common: {
+    download: "立即下载",
+    viewDocs: "查看文档",
+    backToHome: "返回首页",
+    home: "首页",
+    features: "特性",
+    downloadCenter: "下载中心",
+    docs: "文档",
+    beta: "Preview / Beta",
+    contactUs: "联系我们 (GitHub)",
+    privacyPolicy: "隐私政策",
+    termsOfService: "服务条款",
+    allRightsReserved: "保留所有权利。",
+    notAffiliated: "Minecraft 是 Mojang AB 的商标。本项目与 Mojang AB 无关。",
+    loading: "加载中...",
+    error: "出错了",
+    retry: "重试",
+  },
+  nav: {
+    home: "首页",
+    features: "特性",
+    download: "下载",
+    docs: "文档",
+  },
+  hero: {
+    badge: "稳定、高效、纯净",
+    title: "在 Android 上 <span class='text-[var(--brand)]'>重新定义</span> Java 版体验",
+    description: "Zalith Launcher 是一款专为 Android 打造的 Minecraft: Java Edition 启动器。它提供了卓越的性能、极简的设计以及全方位的自定义功能。",
+    speed: "极速启动",
+    speedDesc: "经过优化的内核，秒级进入游戏世界",
+    safe: "纯净安全",
+    safeDesc: "开源透明，无广告，无多余权限申请",
+    custom: "高度定制",
+    customDesc: "从 UI 到游戏参数，一切皆可按需配置",
+  },
+  features: {
+    title: "为什么选择 Zalith?",
+    subtitle: "我们不仅仅是一个启动器，更是您在移动端畅玩 Java 版的最佳伴侣。",
+    ui: {
+      title: "现代化 UI 体验",
+      desc: "采用 Jetpack Compose 与 Material Design 3 构建，提供丝滑、现代且符合直觉的界面设计。"
+    },
+    core: {
+      title: "高性能启动核心",
+      desc: "基于 PojavLauncher 核心深度优化，针对 Android 设备进行性能调优，确保游戏运行流畅稳定。"
+    },
+    version: {
+      title: "完善的版本管理",
+      desc: "支持版本隔离与自定义路径设置，轻松管理多个游戏版本及其对应的模组与存档。"
+    },
+    render: {
+      title: "丰富的渲染器支持",
+      desc: "内置多种渲染器方案并支持插件扩展，完美适配不同硬件性能的移动设备。"
+    },
+    i18n: {
+      title: "多语言支持",
+      desc: "通过 Weblate 平台驱动的全球化翻译，支持多种语言，让全球玩家都能轻松上手。"
+    },
+    community: {
+      title: "社区驱动更新",
+      desc: "活跃的社区支持与开源精神，持续的功能迭代、BUG 修复以及实用的使用指南。"
+    }
+  },
+  download: {
+    title: "获取 Zalith Launcher",
+    subtitle: "获取最适合您设备的 Zalith Launcher 版本",
+    recommend: "推荐",
+    legacy: "旧版",
+    apiFailed: "API 访问受限",
+    apiFailedDesc: "GitHub API 无法访问，已自动切换至本地缓存数据。",
+    publishedAt: "发布于",
+    deviceType: "设备类型",
+    source: "下载源",
+    assetsTitle: "下载文件列表",
+    noAssets: "暂无匹配该架构的文件",
+    releaseNotes: "版本发布说明",
+    noNotes: "暂无详细发布说明",
+    officialRelease: "官方发布，安全无毒",
+    multiSource: "多源加速，极速下载",
+    communityPowered: "开源社区，共同维护",
+  },
+  footer: {
+    desc: "致力于为 Android 用户提供最纯净、高效且现代化的 Minecraft Java 版启动体验。开源、自由、由社区驱动。",
+    projects: "项目",
+    community: "社区",
+    support: "支持",
+    afdian: "爱发电支持",
+    githubOrg: "GitHub 组织",
+    qqGroup: "QQ 群组 (需赞助)",
+    weblate: "Weblate 翻译",
+    globalNodes: "Global Nodes",
+    poweredBy: "Powered by Community",
+  }
+};
