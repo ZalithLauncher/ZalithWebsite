@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.1.1-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.1/ZalithLauncher-2.1.1-arm64-v8a.apk",
       "size": "124.2 MB",
-      "download_count": 11
+      "download_count": 4767
     },
     {
       "name": "ZalithLauncher-2.1.1-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.1/ZalithLauncher-2.1.1-armeabi-v7a.apk",
       "size": "117.8 MB",
-      "download_count": 0
+      "download_count": 116
     },
     {
       "name": "ZalithLauncher-2.1.1-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.1/ZalithLauncher-2.1.1-x86.apk",
       "size": "108.9 MB",
-      "download_count": 0
+      "download_count": 36
     },
     {
       "name": "ZalithLauncher-2.1.1-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.1/ZalithLauncher-2.1.1-x86_64.apk",
       "size": "127.7 MB",
-      "download_count": 0
+      "download_count": 32
     },
     {
       "name": "ZalithLauncher-2.1.1.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.1/ZalithLauncher-2.1.1.apk",
       "size": "246.8 MB",
-      "download_count": 0
+      "download_count": 826
     }
   ],
   "body": "Update:\r\n- Synchronized languages from [Weblate](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Launcher: Display a sponsorship prompt after launching the game 100 times\r\n- Mod Manager: Support selecting all to update all mods\r\n- Version Manager: Support exporting modpacks in MCBBS, Modrinth, and MultiMC formats\r\n- UI related:\r\n  - Game Menu: Slider configuration values can be modified via manual input\r\n- Gamepad Controls: Support saving multiple mapping profiles\r\n- Game Download: Support downloading versions not listed in the official launcher\r\n\r\nRefactor:\r\n- UI related: Optimized game menu rendering performance\r\n\r\nAdjustment:\r\n- Control Layout Editor: Allow closing the edit control dialog by tapping outside the dialog\r\n- JVM: No longer pass the system language when running Jar files\r\n- Renderer: Freedreno renderer no longer loads Vulkan\r\n\r\nFix:\r\n- Renderer: Fixed crashes caused by ANGLE on some devices by [aaaapai](https://github.com/aaaapai)\r\n- Version Management: Crash when no third-party app is available to handle directory sharing requests"
