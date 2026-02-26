@@ -75,6 +75,10 @@ function transformReleaseData(release) {
  */
 async function updateVersionFile(filePath, data) {
   try {
+    // 确保目标目录存在
+    const dir = path.dirname(filePath);
+    await fs.mkdir(dir, { recursive: true });
+    
     const jsonString = JSON.stringify(data, null, 2);
     await fs.writeFile(filePath, jsonString, 'utf8');
     console.log(`✅ Updated ${filePath}`);
