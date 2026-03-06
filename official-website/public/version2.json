@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.1.1",
-  "release_date": "2026-02-26T07:45:42Z",
+  "latest_version": "2.1.2",
+  "release_date": "2026-03-05T10:28:38Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.1.1-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.1/ZalithLauncher-2.1.1-arm64-v8a.apk",
+      "name": "ZalithLauncher-2.1.2-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.2/ZalithLauncher-2.1.2-arm64-v8a.apk",
       "size": "124.2 MB",
-      "download_count": 33138
+      "download_count": 5230
     },
     {
-      "name": "ZalithLauncher-2.1.1-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.1/ZalithLauncher-2.1.1-armeabi-v7a.apk",
-      "size": "117.8 MB",
-      "download_count": 943
+      "name": "ZalithLauncher-2.1.2-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.2/ZalithLauncher-2.1.2-armeabi-v7a.apk",
+      "size": "117.9 MB",
+      "download_count": 148
     },
     {
-      "name": "ZalithLauncher-2.1.1-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.1/ZalithLauncher-2.1.1-x86.apk",
-      "size": "108.9 MB",
-      "download_count": 319
+      "name": "ZalithLauncher-2.1.2-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.2/ZalithLauncher-2.1.2-x86.apk",
+      "size": "109 MB",
+      "download_count": 56
     },
     {
-      "name": "ZalithLauncher-2.1.1-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.1/ZalithLauncher-2.1.1-x86_64.apk",
-      "size": "127.7 MB",
-      "download_count": 290
+      "name": "ZalithLauncher-2.1.2-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.2/ZalithLauncher-2.1.2-x86_64.apk",
+      "size": "127.8 MB",
+      "download_count": 54
     },
     {
-      "name": "ZalithLauncher-2.1.1.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.1/ZalithLauncher-2.1.1.apk",
+      "name": "ZalithLauncher-2.1.2.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.2/ZalithLauncher-2.1.2.apk",
       "size": "246.8 MB",
-      "download_count": 5511
+      "download_count": 947
     }
   ],
-  "body": "Update:\r\n- Synchronized languages from [Weblate](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Launcher: Display a sponsorship prompt after launching the game 100 times\r\n- Mod Manager: Support selecting all to update all mods\r\n- Version Manager: Support exporting modpacks in MCBBS, Modrinth, and MultiMC formats\r\n- UI related:\r\n  - Game Menu: Slider configuration values can be modified via manual input\r\n- Gamepad Controls: Support saving multiple mapping profiles\r\n- Game Download: Support downloading versions not listed in the official launcher\r\n\r\nRefactor:\r\n- UI related: Optimized game menu rendering performance\r\n\r\nAdjustment:\r\n- Control Layout Editor: Allow closing the edit control dialog by tapping outside the dialog\r\n- JVM: No longer pass the system language when running Jar files\r\n- Renderer: Freedreno renderer no longer loads Vulkan\r\n\r\nFix:\r\n- Renderer: Fixed crashes caused by ANGLE on some devices by [aaaapai](https://github.com/aaaapai)\r\n- Version Management: Crash when no third-party app is available to handle directory sharing requests"
+  "body": "Update:\r\n- Synchronized languages from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Open Link: Added a button to copy the link\r\n- Modpacks: Added hint messages to the modpack export page\r\n\r\nRefactor:\r\n- UI related: Reworked the modpack export information page & significantly optimized page performance\r\n- Input Proxy: Use the legacy input method as the simple input mode\r\n\r\nAdjustment:\r\n- Copy Text: Unified label\r\n- Logs: Write device architecture information to logs when the launcher crashes\r\n- UI related: Allow input fields to hide the input method when pressing Enter\r\n\r\nFix:\r\n- Control Layout: In tap control mode, controls that move the mouse only move the mouse\r\n- UI related:\r\n  - Version icon not refreshing correctly after being changed\r\n  - Incorrect parameter passing in some settings components\r\n- Modpack Export:\r\n  - Enabled mods were incorrectly marked as optional\r\n  - Disabled mods should also output paths with the .jar suffix\r\n  - Modrinth modpacks do not require specifying an author\r\n  - File list sorting algorithm causing crashes\r\n- Launch: Version 2.0 April Fools build failed to launch due to incorrect language configuration"
 }
