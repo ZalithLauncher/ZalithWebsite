@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.1.2-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.2/ZalithLauncher-2.1.2-arm64-v8a.apk",
       "size": "124.2 MB",
-      "download_count": 5230
+      "download_count": 7879
     },
     {
       "name": "ZalithLauncher-2.1.2-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.2/ZalithLauncher-2.1.2-armeabi-v7a.apk",
       "size": "117.9 MB",
-      "download_count": 148
+      "download_count": 245
     },
     {
       "name": "ZalithLauncher-2.1.2-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.2/ZalithLauncher-2.1.2-x86.apk",
       "size": "109 MB",
-      "download_count": 56
+      "download_count": 96
     },
     {
       "name": "ZalithLauncher-2.1.2-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.2/ZalithLauncher-2.1.2-x86_64.apk",
       "size": "127.8 MB",
-      "download_count": 54
+      "download_count": 74
     },
     {
       "name": "ZalithLauncher-2.1.2.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.2/ZalithLauncher-2.1.2.apk",
       "size": "246.8 MB",
-      "download_count": 947
+      "download_count": 1500
     }
   ],
   "body": "Update:\r\n- Synchronized languages from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Open Link: Added a button to copy the link\r\n- Modpacks: Added hint messages to the modpack export page\r\n\r\nRefactor:\r\n- UI related: Reworked the modpack export information page & significantly optimized page performance\r\n- Input Proxy: Use the legacy input method as the simple input mode\r\n\r\nAdjustment:\r\n- Copy Text: Unified label\r\n- Logs: Write device architecture information to logs when the launcher crashes\r\n- UI related: Allow input fields to hide the input method when pressing Enter\r\n\r\nFix:\r\n- Control Layout: In tap control mode, controls that move the mouse only move the mouse\r\n- UI related:\r\n  - Version icon not refreshing correctly after being changed\r\n  - Incorrect parameter passing in some settings components\r\n- Modpack Export:\r\n  - Enabled mods were incorrectly marked as optional\r\n  - Disabled mods should also output paths with the .jar suffix\r\n  - Modrinth modpacks do not require specifying an author\r\n  - File list sorting algorithm causing crashes\r\n- Launch: Version 2.0 April Fools build failed to launch due to incorrect language configuration"
