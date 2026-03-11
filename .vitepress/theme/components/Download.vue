@@ -33,7 +33,7 @@ const foxingtonData = ref<any>(null)
 const lemwoodData = ref<any>(null)
 const hahaData = ref<any>(null)
 const versionJsonData = ref<any>(null)
-const isLoading = ref(false)
+const loadingStage = ref<'ui' | 'release' | 'notes' | 'mirror'>('ui')
 const hasError = ref(false)
 const errorMessage = ref('')
 const parsedBody = ref('')
@@ -522,7 +522,7 @@ const localizedDescription = computed(() => {
 
 // 获取最新版本（带API检测、自动切换和异常处理）
 async function fetchLatestRelease() {
-  isLoading.value = true
+  loadingStage.value = 'ui'
   hasError.value = false
   errorMessage.value = ''
   apiFailed.value = false
@@ -530,9 +530,6 @@ async function fetchLatestRelease() {
   
   try {
     console.log('开始获取最新版本信息...')
-    
-    // 获取本地化版本数据
-    await fetchVersionJsonData()
     
     // 依次尝试每个API
     for (const apiConfig of API_CONFIGS) {
@@ -544,16 +541,28 @@ async function fetchLatestRelease() {
         console.log(`✅ ${apiConfig.name} 请求成功`)
         latestRelease.value = data
         
+        // 阶段1完成: release数据已加载
+        loadingStage.value = 'release'
+        
+        // 阶段2: 获取发布说明
+        await fetchVersionJsonData()
+        
         // 优先使用本地化数据中的描述
         const body = localizedDescription.value || data.body || ''
         parsedBody.value = body ? await marked.parse(body) : ''
         
-        // 同时获取其他镜像源数据
+        // 阶段2完成: 发布说明已加载
+        loadingStage.value = 'notes'
+        
+        // 阶段3: 获取镜像数据
         await Promise.all([
           fetchFoxingtonData(),
           fetchHahaData(),
           fetchLemwoodData()
         ])
+        
+        // 阶段3完成: 镜像数据已加载
+        loadingStage.value = 'mirror'
         
         // 数据加载完成后自动检测设备类型
         autoSelectDeviceType()
@@ -582,17 +591,28 @@ async function fetchLatestRelease() {
           const localRelease = await loadLocalVersionInfo()
           latestRelease.value = localRelease
           
+          // 阶段1完成
+          loadingStage.value = 'release'
+          
+          // 阶段2: 获取发布说明
+          await fetchVersionJsonData()
+          
           // 优先使用本地化数据中的描述
           const body = localizedDescription.value || localRelease.body || ''
           parsedBody.value = body ? await marked.parse(body) : ''
-          // 注意：这里不设置 fallbackToLocal.value = true，保持下载源不受限制
           
-          // 同时获取其他镜像源数据，确保第三方下载源也能正常工作
+          // 阶段2完成
+          loadingStage.value = 'notes'
+          
+          // 阶段3: 获取镜像数据
           await Promise.all([
             fetchFoxingtonData(),
             fetchHahaData(),
             fetchLemwoodData()
           ])
+          
+          // 阶段3完成
+          loadingStage.value = 'mirror'
           
           // 显示API失败通知
           errorMessage.value = 'API版本信息获取失败，但您仍然可以使用所有下载源。部分功能可能受限。'
@@ -620,8 +640,6 @@ async function fetchLatestRelease() {
     console.error('获取最新版本失败:', error)
     hasError.value = true
     errorMessage.value = '无法获取版本信息，请检查网络连接或稍后重试'
-  } finally {
-    isLoading.value = false
   }
 }
 
@@ -856,9 +874,12 @@ onMounted(() => {
 
 <template>
   <div class="download-container">
-    <div v-if="isLoading" class="loading">
-      <div class="loading-spinner"></div>
-      <p>正在获取最新版本信息...</p>
+    <!-- 骨架屏 -->
+    <div v-if="loadingStage === 'ui'" class="skeleton-container">
+      <div class="skeleton-header"></div>
+      <div class="skeleton-selector"></div>
+      <div class="skeleton-assets"></div>
+      <div class="skeleton-notes"></div>
     </div>
     
     <div v-else-if="hasError" class="error">
@@ -1028,7 +1049,8 @@ onMounted(() => {
         <div class="release-notes-header">
           <h3>发布说明</h3>
         </div>
-        <div class="release-notes" v-html="parsedBody"></div>
+        <div v-if="loadingStage === 'release'" class="skeleton-notes-inline"></div>
+        <div v-else class="release-notes" v-html="parsedBody"></div>
       </div>
     </div>
   </div>
@@ -1041,6 +1063,50 @@ onMounted(() => {
   padding: 12px;
   font-family: var(--vp-font-family-base);
   color: var(--vp-c-text-1);
+}
+
+/* 骨架屏样式 */
+.skeleton-container {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-header {
+  height: 80px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.skeleton-selector {
+  height: 100px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.skeleton-assets {
+  height: 200px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.skeleton-notes {
+  height: 300px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+}
+
+.skeleton-notes-inline {
+  height: 200px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 /* API失败通知 */

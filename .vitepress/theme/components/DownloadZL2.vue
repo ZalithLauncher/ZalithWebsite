@@ -32,7 +32,7 @@ interface DownloadSource {
 const latestRelease = ref<any>(null)
 const hahaData = ref<any>(null)
 const lemwoodData = ref<any>(null)
-const isLoading = ref(false)
+const loadingStage = ref<'ui' | 'release' | 'notes' | 'mirror'>('ui')
 const hasError = ref(false)
 const errorMessage = ref('')
 const parsedBody = ref('')
@@ -537,7 +537,7 @@ async function loadLocalVersionInfo() {
 
 // 获取最新版本（带API检测和自动切换）
 async function fetchLatestRelease() {
-  isLoading.value = true
+  loadingStage.value = 'ui'
   hasError.value = false
   errorMessage.value = ''
   apiFailed.value = false
@@ -556,14 +556,21 @@ async function fetchLatestRelease() {
         console.log(`✅ ${apiConfig.name} 请求成功`)
         latestRelease.value = data
         
-        // 尝试获取本地化版本数据
+        // 阶段1完成: release数据已加载
+        loadingStage.value = 'release'
+        
+        // 阶段2: 获取发布说明
         await fetchVersionJsonData()
         
-        // 获取哈哈源数据
-        await fetchHahaData()
+        // 阶段2完成: 发布说明已加载
+        loadingStage.value = 'notes'
         
-        // 获取柠枺镜像源数据
+        // 阶段3: 获取镜像数据
+        await fetchHahaData()
         await fetchLemwoodData()
+        
+        // 阶段3完成: 镜像数据已加载
+        loadingStage.value = 'mirror'
         
         // 数据加载完成后自动检测设备类型
         autoSelectDeviceType()
@@ -592,11 +599,21 @@ async function fetchLatestRelease() {
           const localData = await loadLocalVersionInfo()
           latestRelease.value = localData
           
-          // 获取哈哈源数据，确保第三方下载源也能正常工作
-          await fetchHahaData()
+          // 阶段1完成
+          loadingStage.value = 'release'
           
-          // 获取柠枺镜像源数据
+          // 阶段2: 获取发布说明
+          await fetchVersionJsonData()
+          
+          // 阶段2完成
+          loadingStage.value = 'notes'
+          
+          // 阶段3: 获取镜像数据
+          await fetchHahaData()
           await fetchLemwoodData()
+          
+          // 阶段3完成
+          loadingStage.value = 'mirror'
           
           // 数据加载完成后自动检测设备类型
           autoSelectDeviceType()
@@ -622,8 +639,6 @@ async function fetchLatestRelease() {
     console.error('获取最新版本失败:', error)
     hasError.value = true
     errorMessage.value = (error as any).message || '无法获取版本信息，请检查网络连接或稍后重试'
-  } finally {
-    isLoading.value = false
   }
 }
 
@@ -813,9 +828,12 @@ onMounted(() => {
       </div>
     </div>
     
-    <div v-if="isLoading" class="loading">
-      <div class="loading-spinner"></div>
-      <p>正在获取最新版本信息...</p>
+    <!-- 骨架屏 -->
+    <div v-if="loadingStage === 'ui'" class="skeleton-container">
+      <div class="skeleton-header"></div>
+      <div class="skeleton-selector"></div>
+      <div class="skeleton-assets"></div>
+      <div class="skeleton-notes"></div>
     </div>
     
     <div v-else-if="hasError" class="error">
@@ -971,7 +989,8 @@ onMounted(() => {
         <div class="release-notes-header">
           <h3>发布说明</h3>
         </div>
-        <div class="release-notes" v-html="parsedBody"></div>
+        <div v-if="loadingStage === 'release'" class="skeleton-notes-inline"></div>
+        <div v-else class="release-notes" v-html="parsedBody"></div>
       </div>
     </div>
   </div>
@@ -984,6 +1003,50 @@ onMounted(() => {
   padding: 12px;
   font-family: var(--vp-font-family-base);
   color: var(--vp-c-text-1);
+}
+
+/* 骨架屏样式 */
+.skeleton-container {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-header {
+  height: 80px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.skeleton-selector {
+  height: 100px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.skeleton-assets {
+  height: 200px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.skeleton-notes {
+  height: 300px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+}
+
+.skeleton-notes-inline {
+  height: 200px;
+  background: var(--vp-c-bg-soft);
+  border-radius: 12px;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 /* API失败警告 */

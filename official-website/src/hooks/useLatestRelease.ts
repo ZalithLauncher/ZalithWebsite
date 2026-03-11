@@ -36,6 +36,8 @@ export interface DownloadSource {
   };
 }
 
+export type LoadingStage = 'ui' | 'release' | 'notes' | 'mirror';
+
 const DOWNLOAD_SOURCES: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: '国内加速', description: 'fishcpy 提供', speed: '国内较快', contributor: { name: 'fishcpy', url: 'https://github.com/fishcpy' } },
@@ -47,7 +49,7 @@ const DOWNLOAD_SOURCES: DownloadSource[] = [
 export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) => {
   const { t } = useTranslation();
   const [release, setRelease] = useState<Release | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loadingStage, setLoadingStage] = useState<LoadingStage>('ui');
   const [error, setError] = useState<string | null>(null);
   const [isChinaIP, setIsChinaIP] = useState(false);
   const [apiFailed, setApiFailed] = useState(false);
@@ -135,7 +137,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
 
   useEffect(() => {
     const load = async () => {
-      setIsLoading(true);
+      setLoadingStage('ui');
       setError(null);
       setApiFailed(false);
 
@@ -163,12 +165,15 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
         } catch (le) {
           setError('无法获取版本信息');
         }
-      } finally {
-        setIsLoading(false);
-        detectIP();
-        fetchMirrors();
-        fetchVersionJsonData();
       }
+      
+      setLoadingStage('release');
+      
+      await fetchVersionJsonData();
+      setLoadingStage('notes');
+      
+      await Promise.all([detectIP(), fetchMirrors()]);
+      setLoadingStage('mirror');
     };
 
     load();
@@ -278,7 +283,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
 
   return {
     release,
-    isLoading,
+    loadingStage,
     error,
     isChinaIP,
     apiFailed,

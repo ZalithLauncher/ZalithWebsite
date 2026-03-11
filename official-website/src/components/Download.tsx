@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Smartphone, Terminal, ShieldCheck, Zap, Globe, ChevronDown, Check, AlertTriangle, ExternalLink, Info } from 'lucide-react';
-import { useLatestRelease, type Asset } from '../hooks/useLatestRelease';
+import { useLatestRelease, type Asset, type LoadingStage } from '../hooks/useLatestRelease';
 import { marked } from 'marked';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -16,7 +16,7 @@ const DownloadSection = () => {
   const [activeProject, setActiveProject] = useState<'zl1' | 'zl2'>('zl2');
   const { 
     release, 
-    isLoading, 
+    loadingStage, 
     error, 
     isChinaIP, 
     apiFailed, 
@@ -32,6 +32,38 @@ const DownloadSection = () => {
   const [isSourceOpen, setIsSourceOpen] = useState(false);
   const [parsedBody, setParsedBody] = useState('');
 
+  const ReleaseSkeleton = () => (
+    <div className="glass-card p-4 sm:p-8 animate-pulse">
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div>
+          <div className="h-8 bg-[var(--bg-alt)] rounded w-48 mb-2" />
+          <div className="h-4 bg-[var(--bg-alt)] rounded w-32" />
+        </div>
+        <div className="h-8 bg-[var(--bg-alt)] rounded w-20" />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="h-12 bg-[var(--bg-alt)] rounded-xl" />
+        <div className="h-12 bg-[var(--bg-alt)] rounded-xl" />
+      </div>
+      <div className="space-y-3">
+        {[1, 2, 3].map(i => (
+          <div key={i} className="h-20 bg-[var(--bg-alt)] rounded-2xl" />
+        ))}
+      </div>
+    </div>
+  );
+
+  const NotesSkeleton = () => (
+    <div className="glass-card p-8 h-full animate-pulse bg-[var(--bg)]/40 backdrop-blur-md">
+      <div className="h-6 bg-[var(--bg-alt)] rounded w-1/2 mb-6" />
+      <div className="space-y-3">
+        {[1, 2, 3, 4, 5].map(i => (
+          <div key={i} className="h-4 bg-[var(--bg-alt)] rounded" style={{ width: `${80 - i * 10}%` }} />
+        ))}
+      </div>
+    </div>
+  );
+
   useEffect(() => {
     if (isChinaIP) {
       setSelectedSource('lemwood');
@@ -40,7 +72,7 @@ const DownloadSection = () => {
 
   // Auto-detect device type
   useEffect(() => {
-    if (!isLoading && dynamicDeviceTypes.length > 1) {
+    if (loadingStage !== 'ui' && dynamicDeviceTypes.length > 1) {
       const ua = navigator.userAgent.toLowerCase();
       let detectedId = 'all';
 
@@ -68,7 +100,7 @@ const DownloadSection = () => {
         setSelectedDevice(detectedId);
       }
     }
-  }, [isLoading, dynamicDeviceTypes]);
+  }, [loadingStage, dynamicDeviceTypes]);
 
   useEffect(() => {
     const parseContent = async () => {
@@ -203,12 +235,16 @@ const DownloadSection = () => {
           </div>
         </div>
 
-        {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-20">
-            <div className="w-12 h-12 border-4 border-[var(--brand)]/20 border-t-[var(--brand)] rounded-full animate-spin mb-4" />
-            <p className="text-[var(--text-2)]">{t('common.loading')}</p>
+        {loadingStage === 'ui' ? (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-6 relative z-10">
+              <ReleaseSkeleton />
+            </div>
+            <div className="lg:col-span-1 relative z-0">
+              <NotesSkeleton />
+            </div>
           </div>
-        ) : error ? (
+        ) : error && !release ? (
           <div className="max-w-md mx-auto glass-card border-red-500/20 text-center p-12 bg-[var(--bg)]">
             <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2 text-[var(--text-1)]">{t('common.error')}</h3>
@@ -376,18 +412,22 @@ const DownloadSection = () => {
 
             {/* Right: Release Notes */}
             <div className="lg:col-span-1 relative z-0">
-              <div className="glass-card p-8 h-full bg-[var(--bg)]/40 backdrop-blur-md">
-                <h4 className="text-lg font-bold mb-6 flex items-center gap-2 text-[var(--text-1)]">
-                  <Info size={20} className="text-[var(--brand)]" /> {t('download.releaseNotes')}
-                </h4>
-                <div 
-                  className="prose-custom text-sm overflow-y-auto max-h-[600px]"
-                  dangerouslySetInnerHTML={{ __html: parsedBody }}
-                />
-                {!parsedBody && (
-                  <p className="text-sm text-[var(--text-2)] italic">{t('download.noNotes')}</p>
-                )}
-              </div>
+              {loadingStage === 'release' ? (
+                <NotesSkeleton />
+              ) : (
+                <div className="glass-card p-8 h-full bg-[var(--bg)]/40 backdrop-blur-md">
+                  <h4 className="text-lg font-bold mb-6 flex items-center gap-2 text-[var(--text-1)]">
+                    <Info size={20} className="text-[var(--brand)]" /> {t('download.releaseNotes')}
+                  </h4>
+                  <div 
+                    className="prose-custom text-sm overflow-y-auto max-h-[600px]"
+                    dangerouslySetInnerHTML={{ __html: parsedBody }}
+                  />
+                  {!parsedBody && (
+                    <p className="text-sm text-[var(--text-2)] italic">{t('download.noNotes')}</p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         )}
