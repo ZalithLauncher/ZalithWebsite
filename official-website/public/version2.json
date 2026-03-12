@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.1.3-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.3/ZalithLauncher-2.1.3-arm64-v8a.apk",
       "size": "124.2 MB",
-      "download_count": 7943
+      "download_count": 10155
     },
     {
       "name": "ZalithLauncher-2.1.3-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.3/ZalithLauncher-2.1.3-armeabi-v7a.apk",
       "size": "117.9 MB",
-      "download_count": 243
+      "download_count": 328
     },
     {
       "name": "ZalithLauncher-2.1.3-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.3/ZalithLauncher-2.1.3-x86.apk",
       "size": "109 MB",
-      "download_count": 95
+      "download_count": 131
     },
     {
       "name": "ZalithLauncher-2.1.3-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.3/ZalithLauncher-2.1.3-x86_64.apk",
       "size": "127.8 MB",
-      "download_count": 93
+      "download_count": 124
     },
     {
       "name": "ZalithLauncher-2.1.3.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.1.3/ZalithLauncher-2.1.3.apk",
       "size": "246.9 MB",
-      "download_count": 1592
+      "download_count": 2054
     }
   ],
   "body": "Update:\r\n- Synchronized languages from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Game: When browsing the game directory, support importing files\r\n- Terracotta: Added support for custom server nodes and restored cross-launcher multiplayer\r\n\r\nFix:\r\n- Terracotta: After a guest enters an invite code, the input dialog did not close in time\r\n- UI related: Auto-scroll could crash in rare cases due to index out-of-bounds"
