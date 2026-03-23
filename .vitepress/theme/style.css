@@ -510,6 +510,10 @@
   --vp-home-hero-image-filter: blur(44px);
 }
 
+.divider {
+	display: none;
+}
+
 /* ===========================
    修复VitePress导航栏问题
    补丁代码 不确定兼容性
