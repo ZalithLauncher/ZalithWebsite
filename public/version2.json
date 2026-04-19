@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.3.3-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.3.3/ZalithLauncher-2.3.3-arm64-v8a.apk",
       "size": "181 MB",
-      "download_count": 26501
+      "download_count": 32824
     },
     {
       "name": "ZalithLauncher-2.3.3-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.3.3/ZalithLauncher-2.3.3-armeabi-v7a.apk",
       "size": "175 MB",
-      "download_count": 914
+      "download_count": 1206
     },
     {
       "name": "ZalithLauncher-2.3.3-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.3.3/ZalithLauncher-2.3.3-x86.apk",
       "size": "166.8 MB",
-      "download_count": 437
+      "download_count": 573
     },
     {
       "name": "ZalithLauncher-2.3.3-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.3.3/ZalithLauncher-2.3.3-x86_64.apk",
       "size": "184.9 MB",
-      "download_count": 366
+      "download_count": 463
     },
     {
       "name": "ZalithLauncher-2.3.3.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.3.3/ZalithLauncher-2.3.3.apk",
       "size": "311.1 MB",
-      "download_count": 5106
+      "download_count": 6326
     }
   ],
   "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, you **may** be unable to launch the latest version of Minecraft.\r\n\r\n## Updates:\r\n- Synced translations from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Added support for directly overwriting an existing version installation (allows upgrading/downgrading versions while retaining version data)\r\n\r\n## Fixes:\r\n- Refactored launch logic code to fix login issues\r\n- Controls: Allow long press to repeatedly trigger key events\r\n- File sorting: Use full natural sorting"
