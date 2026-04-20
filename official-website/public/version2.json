@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.3.3",
-  "release_date": "2026-04-14T13:15:17Z",
+  "latest_version": "2.4.0",
+  "release_date": "2026-04-20T11:45:24Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.3.3-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.3.3/ZalithLauncher-2.3.3-arm64-v8a.apk",
+      "name": "ZalithLauncher-2.4.0-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.0/ZalithLauncher-2.4.0-arm64-v8a.apk",
       "size": "181 MB",
-      "download_count": 32824
+      "download_count": 4435
     },
     {
-      "name": "ZalithLauncher-2.3.3-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.3.3/ZalithLauncher-2.3.3-armeabi-v7a.apk",
+      "name": "ZalithLauncher-2.4.0-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.0/ZalithLauncher-2.4.0-armeabi-v7a.apk",
       "size": "175 MB",
-      "download_count": 1206
+      "download_count": 191
     },
     {
-      "name": "ZalithLauncher-2.3.3-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.3.3/ZalithLauncher-2.3.3-x86.apk",
+      "name": "ZalithLauncher-2.4.0-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.0/ZalithLauncher-2.4.0-x86.apk",
       "size": "166.8 MB",
-      "download_count": 573
+      "download_count": 65
     },
     {
-      "name": "ZalithLauncher-2.3.3-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.3.3/ZalithLauncher-2.3.3-x86_64.apk",
-      "size": "184.9 MB",
-      "download_count": 463
+      "name": "ZalithLauncher-2.4.0-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.0/ZalithLauncher-2.4.0-x86_64.apk",
+      "size": "185 MB",
+      "download_count": 58
     },
     {
-      "name": "ZalithLauncher-2.3.3.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.3.3/ZalithLauncher-2.3.3.apk",
-      "size": "311.1 MB",
-      "download_count": 6326
+      "name": "ZalithLauncher-2.4.0.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.0/ZalithLauncher-2.4.0.apk",
+      "size": "311 MB",
+      "download_count": 1002
     }
   ],
-  "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, you **may** be unable to launch the latest version of Minecraft.\r\n\r\n## Updates:\r\n- Synced translations from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Added support for directly overwriting an existing version installation (allows upgrading/downgrading versions while retaining version data)\r\n\r\n## Fixes:\r\n- Refactored launch logic code to fix login issues\r\n- Controls: Allow long press to repeatedly trigger key events\r\n- File sorting: Use full natural sorting"
+  "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, please do **not** use the **Vulkan backend** to launch the latest version of Minecraft.\r\n\r\n\r\n## Hotfix:\r\n- Launch: Apply key conflict fix only for versions below 1.13\r\n\r\n\r\n## Updates:\r\n- Synced translations from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- Control layout editor:\r\n  - Added support for resizing controls by dragging the selection box cursor\r\n  - Show basic action bar at the bottom of a control when selected\r\n- Game menu: Added support for dragging and saving the floating window position\r\n- Downloads: Added support for searching by entering custom game version\r\n- Renderer: Updated Krypton Wrapper to 0.4.5 by [youfeng11](https://github.com/youfeng11)\r\n- Added support for loading [Sable Rapier native library plugin](https://github.com/ZalithLauncher/NativeLibPlugin/releases/tag/sable_rapier-0.1.0_NDK_BUILD)\r\n- Settings: Added download channels for renderer plugins, Turnip plugins, and native library plugins\r\n- Accounts: Added support for parsing and using \"Unified Pass\" authentication method\r\n- Disable using other accounts when not logged into a Microsoft account\r\n\r\n\r\n## Changes:\r\n- Downloads:\r\n  - Removed height change animation for download items\r\n  - Now only list popular major Minecraft versions by default\r\n- Control layout editor:\r\n  - Draw selection box near the selected control\r\n  - Now requires double-click to open the edit page\r\n  - Control alignment guide lines now sync with launcher theme color\r\n  - Only images can be used as editor background\r\n- Controls: Removed no-operation handling that could cause abnormal states\r\n- Properly handle WebView lifecycle to avoid memory leaks by [youfeng11](https://github.com/youfeng11)\r\n- Simplified IO stream handling in archive utilities by [youfeng11](https://github.com/youfeng11)\r\n- Adjusted asset extraction function and require re-extraction\r\n- Specify input type for password fields to invoke secure keyboard input\r\n- Graphics API: Added default setting \"Set to OpenGL only on first launch\"\r\n\r\n\r\n## Fixes:\r\n- Launch: Disabled key bindings that were incorrectly triggered on older versions\r\n- Fixed some errors by [youfeng11](https://github.com/youfeng11)\r\n- Gyro controls: Added HIGH_SAMPLING_RATE_SENSORS permission by [youfeng11](https://github.com/youfeng11)\r\n- Use ProcessPhoenix to restart when the game exits\r\n- Fixed inconsistent double-click reset speed for skin preview on different screen refresh rates by [youfeng11](https://github.com/youfeng11)\r\n- Incorrect X coordinate of joystick control in RTL layouts\r\n- Controller support:\r\n  - Fixed repeated triggering of left/right trigger events\r\n  - Fixed some key values not being saved correctly when saving mappings"
 }
