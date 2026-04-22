@@ -92,6 +92,12 @@
   --vp-c-red-2: #FFDDD6; /* errorContainerLight */
   --vp-c-red-3: #410002; /* onErrorContainerLight */
   --vp-c-red-soft: rgba(255, 218, 214, 0.14);
+
+  /* Danger/Warning Container - More Vibrant */
+  --vp-c-danger-1: #D50000;
+  --vp-c-danger-2: #FF1744;
+  --vp-c-danger-3: #FF5252;
+  --vp-c-danger-soft: rgba(255, 23, 68, 0.14);
 }
 
 .dark {
@@ -119,6 +125,12 @@
   --vp-c-red-2: #93000A; /* errorContainerDark */
   --vp-c-red-3: #690005; /* onErrorDark */
   --vp-c-red-soft: rgba(255, 218, 214, 0.16);
+
+  /* Danger/Warning Container - More Vibrant (Dark) */
+  --vp-c-danger-1: #FF6B6B;
+  --vp-c-danger-2: #FF5252;
+  --vp-c-danger-3: #FF1744;
+  --vp-c-danger-soft: rgba(255, 82, 82, 0.16);
 }
 
 /* ===========================
@@ -532,3 +544,72 @@
 }
 
 /* =========================== */
+
+/* ===========================
+   自定义警告卡片 - 更鲜艳的红色
+   =========================== */
+.custom-container.warning,
+.custom-container.danger {
+  border-color: var(--vp-c-danger-soft);
+}
+
+.custom-block.danger .custom-block-title {
+  color: #ef4444;
+}
+
+.custom-container.warning p,
+.custom-container.danger p {
+  color: var(--vp-c-text-1);
+}
+
+.custom-container.warning::before,
+.custom-container.danger::before {
+  background-color: var(--vp-c-danger-1);
+}
+
+.dark .custom-container.warning,
+.dark .custom-container.danger {
+  border-color: var(--vp-c-danger-soft);
+}
+
+.dark .custom-block.danger .custom-block-title {
+  color: #f87171;
+}
+
+.dark .custom-container.warning::before,
+.dark .custom-container.danger::before {
+  background-color: var(--vp-c-danger-1);
+}
+
+/* ===========================
+   自定义 info 卡片 - 浅绿色（无边框）
+   =========================== */
+.custom-block.info {
+  background-color: rgba(16, 185, 129, 0.08);
+  border: none;
+}
+
+.custom-block.info .custom-block-title {
+  color: #059669;
+}
+
+.custom-block.info p {
+  color: var(--vp-c-text-1);
+}
+
+.custom-block.info::before {
+  background-color: #10b981;
+}
+
+.dark .custom-block.info {
+  background-color: rgba(52, 211, 153, 0.08);
+  border: none;
+}
+
+.dark .custom-block.info .custom-block-title {
+  color: #34d399;
+}
+
+.dark .custom-block.info::before {
+  background-color: #10b981;
+}

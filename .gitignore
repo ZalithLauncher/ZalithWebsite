@@ -1,6 +1,7 @@
 # vitepress忽略文件
 /.vitepress/dist
 /.vitepress/cache
+/.vitepress/.temp
 # 其他文件
 .idea
 .trae
