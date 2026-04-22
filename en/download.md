@@ -3,6 +3,10 @@ sidebar: false
 ---
 # Download Zalith Launcher 1
 
+::: danger Notice
+Zalith Launcher 1 repository has been archived. Please migrate to Zalith Launcher 2.
+:::
+
 ## Official Download Channels
 
 You can download the latest version of Zalith Launcher from our GitHub Releases page.
