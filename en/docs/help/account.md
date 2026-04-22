@@ -67,6 +67,10 @@ Once verified, your Microsoft account will appear in Account Management:
 
 ## Offline Account
 
+::: warning Notice
+From version 2.4.0, the offline account feature requires logging in with a valid Microsoft account.  
+:::
+
 The launcher allows using offline accounts without internet. Official or external accounts can also function as offline accounts.  
 Create an offline account in the Account Management page:  
 
