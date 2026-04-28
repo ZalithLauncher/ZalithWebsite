@@ -432,7 +432,7 @@ async function fetchHahaData() {
 
 // 获取柠枺镜像源数据
 async function fetchLemwoodData() {
-  const url = 'https://mirror.lemwood.icu/api/status/zl';
+  const url = 'https://mirror.lemwood.cn/api/status/zl';
   const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
   
   try {
@@ -493,7 +493,7 @@ async function loadLocalVersionInfo() {
 
 // 获取本地化版本描述数据
 async function fetchVersionJsonData() {
-  const url = 'https://fcl.lemwood.icu/zalith-info/launcher_version.json'
+  const url = 'https://fcl.lemwood.cn/zalith-info/launcher_version.json'
   try {
     const response = await fetch(url)
     if (!response.ok) throw new Error('Fetch version json failed')
