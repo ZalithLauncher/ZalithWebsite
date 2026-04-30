@@ -25,47 +25,47 @@ export default {
     blog: "博客",
   },
   hero: {
-    badge: "稳定、高效、纯净",
+    badge: "稳定高效，没有广告",
     title: "在 Android 上 <span class='text-[var(--brand)]'>重新定义</span> Java 版体验",
-    description: "Zalith Launcher 是一款专为 Android 打造的 Minecraft: Java Edition 启动器。它提供了卓越的性能、极简的设计以及全方位的自定义功能。",
+    description: "Zalith Launcher 是专为 Android 开发的 Minecraft: Java Edition 启动器。性能好，界面简洁，支持自定义。",
     speed: "极速启动",
-    speedDesc: "经过优化的内核，秒级进入游戏世界",
+    speedDesc: "启动快，进游戏不墨迹",
     safe: "纯净安全",
-    safeDesc: "开源透明，无广告，无多余权限申请",
+    safeDesc: "开源，没广告，不乱要权限",
     custom: "高度定制",
-    customDesc: "从 UI 到游戏参数，一切皆可按需配置",
+    customDesc: "界面、参数都能自己调",
   },
   features: {
-    title: "为什么选择 Zalith?",
-    subtitle: "我们不仅仅是一个启动器，更是您在移动端畅玩 Java 版的最佳伴侣。",
+    title: "为什么选择 Zalith Launcher?",
+    subtitle: "专门为手机玩 Java 版设计的。",
     ui: {
       title: "现代化 UI 体验",
-      desc: "采用现代设计语言构建，提供丝滑、直观的界面设计。告别繁琐的操作，一切功能触手可及，让启动游戏本身成为一种享受。"
+      desc: "界面干净，操作不绕。该有的功能都有，不需要到处点来点去。"
     },
     download: {
       title: "一站式资源下载",
-      desc: "内置强大的下载管理器，支持直接获取并安装游戏核心、模组、整合包以及资源包。多源加速，极速下载，省去四处寻找资源的烦恼。"
+      desc: "可以直接下载游戏核心、模组、整合包和资源包。国内多源加速，不用自己去别的地方找资源。"
     },
     version: {
-      title: "完善的版本管理",
-      desc: "支持灵活的版本隔离与自定义路径设置。无论是原版、Fabric 还是 Forge，都能轻松管理，让您的多个游戏环境井井有条，互不干扰。"
+      title: "版本管理",
+      desc: "支持版本隔离和自定义路径。原版、Fabric、Forge 都能管，多个版本互不影响。"
     },
     render: {
-      title: "丰富的渲染器支持",
-      desc: "内置多种渲染器方案并支持高级参数调节。无论您的设备性能如何，都能找到最适合的渲染配置，完美平衡游戏画质与运行帧率。"
+      title: "多种渲染器",
+      desc: "提供多种渲染器方案，可以调参数。根据设备性能选择适合的配置，平衡画质和帧数。"
     },
     multiplayer: {
-      title: "内置多人联机",
-      desc: "原生支持多人游戏联机功能，轻松连接至各大服务器。与好友并肩作战，探索无尽的方块世界，畅享流畅稳定的联机体验。"
+      title: "多人联机",
+      desc: "可以直接连服务器，和朋友一起玩。"
     },
     settings: {
-      title: "高度自定义设置",
-      desc: "从游戏运行参数到控制布局，从语言选项到外观主题，一切皆可按需配置。打造专属于您的个性化启动器环境。"
+      title: "自定义设置",
+      desc: "游戏参数、按键布局、语言、主题都能改。"
     }
   },
   download: {
     title: "获取 Zalith Launcher",
-    subtitle: "获取最适合您设备的 Zalith Launcher 版本",
+    subtitle: "选一个适合你设备的版本",
     recommend: "推荐",
     legacy: "旧版",
     apiFailed: "API 访问受限",
@@ -102,7 +102,7 @@ export default {
     },
   },
   footer: {
-    desc: "致力于为 Android 用户提供最纯净、高效且现代化的 Minecraft Java 版启动体验。开源、自由、由社区驱动。",
+    desc: "给 Android 用户做个干净的 Minecraft Java 版启动器。开源，社区维护。",
     projects: "项目",
     community: "社区",
     support: "支持",
@@ -143,7 +143,7 @@ export default {
     submitIssue: "提交 Issue",
     content: `# 隐私政策
 
-Zalith Launcher（以下简称“我们”）深知隐私对您的重要性，并致力于保护您的个人信息。本隐私政策阐述了我们在您访问本网站及使用相关服务时如何处理您的数据。
+Zalith Launcher（以下简称"我们"）重视您的隐私，并采取措施保护您的个人信息。本隐私政策说明我们在您访问本网站及使用相关服务时如何处理您的数据。
 
 ## 1. 我们收集的信息
 

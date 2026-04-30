@@ -1,59 +1,53 @@
 ---
-title: "Welcome to Zalith Launcher Blog"
+title: "Zalith Launcher Blog is Live"
 slug: "welcome-to-zalith-blog"
 date: "2026-03-27"
 authors: ["leemwood"]
 tags: ["Announcement", "Blog"]
 category: "Announcement"
-description: "Welcome to the official Zalith Launcher blog! We'll be posting the latest development updates, tutorials, and version release notes here."
+description: "The Zalith Launcher blog is live. Expect dev logs, tutorials, and release notes here."
 ---
 
-# Welcome to Zalith Launcher Blog
+# Zalith Launcher Blog is Live
 
-We're excited to announce that the official Zalith Launcher blog is now live!
+Blog is up and running. We'll be posting updates here.
 
-## What Will We Share Here?
+## What to Expect
 
-In this blog, we plan to share the following content:
+### Dev Logs
 
-### Development Logs
-
-We'll regularly post development progress updates to keep you informed about new features and improvements we're working on, including:
+Progress updates on what we're working on:
 
 - New feature previews
-- Performance optimization progress
-- Bug fix reports
+- Performance improvements
+- Bug fixes
 
-### Tutorial Articles
+### Tutorials
 
-Helping you make the most of Zalith Launcher:
+Making the most of Zalith Launcher:
 
-- Installation and configuration guides
-- Frequently asked questions
-- Advanced feature tips and tricks
+- Installation and setup
+- Common questions
+- Advanced tips
 
-### Version Updates
+### Release Notes
 
-For each major release, we'll publish detailed changelogs:
+Changelogs for important releases:
 
-- New feature introductions
-- Known issues list
-- Upgrade recommendations
+- What's new
+- Known issues
+- Upgrade notes
 
-## How to Subscribe?
+## Stay Updated
 
-You can stay updated with our latest articles through:
+- Check back here for new posts
+- Watch the [GitHub](https://github.com/ZalithLauncher) repo
+- Join the Discord community
 
-1. Regularly visiting this blog page
-2. Following our [GitHub](https://github.com/ZalithLauncher) repository
-3. Joining our Discord community
+## Feedback
 
-## Contact Us
-
-If you have any questions or suggestions, feel free to reach out through:
+Questions or suggestions:
 
 - GitHub Issues
 - Discord Community
 - QQ Group
-
-Thank you for supporting Zalith Launcher!
