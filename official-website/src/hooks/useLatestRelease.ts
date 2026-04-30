@@ -68,8 +68,8 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
   const repo = project === 'zl1' ? 'ZalithLauncher/ZalithLauncher' : 'ZalithLauncher/ZalithLauncher2';
   const localVersionFile = project === 'zl1' ? '/version.json' : '/version2.json';
   const versionInfoUrl = project === 'zl1' 
-    ? 'https://fcl.lemwood.cn/zalith-info/launcher_version.json'
-    : 'https://fcl.lemwood.cn/zalith-info/v2/latest_version_md.json';
+    ? 'https://repo.miawa.cn/zalith-info/launcher_version.json'
+    : 'https://repo.miawa.cn/zalith-info/v2/latest_version_md.json';
 
   useEffect(() => {
     let isMounted = true;
@@ -182,7 +182,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
       const fetchMirrorsTask = async () => {
         const foxingtonUrl = project === 'zl1' ? 'https://next.foldcraftlauncher.cn/data/down/zl/1/1.4.1.0/index.json' : null;
         const hahaUrl = `https://api.mirror.frostlynx.work/api/projects/${project === 'zl1' ? 'zl' : 'zl2'}/latest`;
-        const lemwoodUrl = `https://mirror.lemwood.cn/api/status/${project === 'zl1' ? 'zl' : 'zl2'}`;
+        const lemwoodUrl = `https://miawa.cn/api/status/${project === 'zl1' ? 'zl' : 'zl2'}`;
 
         const fetchJson = async (url: string) => {
           try {

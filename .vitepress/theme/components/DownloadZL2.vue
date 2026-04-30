@@ -362,7 +362,7 @@ async function fetchHahaData() {
 
 // 获取柠枺镜像源数据
 async function fetchLemwoodData() {
-  const lemwoodUrl = 'https://mirror.lemwood.cn/api/status/zl2'
+  const lemwoodUrl = 'https://miawa.cn/api/status/zl2'
   
   try {
     // 首先尝试直接请求
@@ -416,7 +416,7 @@ async function fetchLemwoodData() {
 
 // 获取远程 JSON 版本数据
 async function fetchVersionJsonData() {
-  const url = 'https://fcl.lemwood.cn/zalith-info/v2/latest_version_md.json'
+  const url = 'https://repo.miawa.cn/zalith-info/v2/latest_version_md.json'
   try {
     const response = await fetch(url)
     if (!response.ok) throw new Error('Fetch version json failed')
