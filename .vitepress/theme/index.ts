@@ -6,6 +6,7 @@ import Download from './components/Download.vue'
 import DownloadZL2 from './components/DownloadZL2.vue'
 import ApngPlayer from './components/ApngPlayer.vue'
 import AnnouncementBanner from './components/AnnouncementBanner.vue'
+import Twikoo from './components/Twikoo.vue'
 import './style.css'
 import './style/blur.css'
 
@@ -27,5 +28,6 @@ export default {
     app.component('Download', Download)
     app.component('DownloadZL2', DownloadZL2)
     app.component('ApngPlayer', ApngPlayer)
+    app.component('Twikoo', Twikoo)
   }
 } satisfies Theme

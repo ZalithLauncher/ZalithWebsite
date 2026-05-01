@@ -14,6 +14,9 @@ importers:
       marked:
         specifier: ^16.4.2
         version: 16.4.2
+      twikoo:
+        specifier: ^1.7.7
+        version: 1.7.7
     devDependencies:
       '@types/marked':
         specifier: ^5.0.2
@@ -676,6 +679,9 @@ packages:
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
 
+  twikoo@1.7.7:
+    resolution: {integrity: sha512-eG4LcMxOxaIMiMU4T4X6TPnq1Gw7qBrLyXTL8AbliMKInY52Et5HbnCWrZ9vDrkeoxSWOWakQ2MglbJSpl6Cog==}
+
   unist-util-is@6.0.1:
     resolution: {integrity: sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g==}
 
@@ -1324,6 +1330,8 @@ snapshots:
       picomatch: 4.0.4
 
   trim-lines@3.0.1: {}
+
+  twikoo@1.7.7: {}
 
   unist-util-is@6.0.1:
     dependencies:

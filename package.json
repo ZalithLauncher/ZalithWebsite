@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "apng-js": "^1.1.5",
-    "marked": "^16.4.2"
+    "marked": "^16.4.2",
+    "twikoo": "^1.7.7"
   }
 }
