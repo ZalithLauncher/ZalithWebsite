@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.4.2-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.2/ZalithLauncher-2.4.2-arm64-v8a.apk",
       "size": "177.9 MB",
-      "download_count": 21703
+      "download_count": 27833
     },
     {
       "name": "ZalithLauncher-2.4.2-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.2/ZalithLauncher-2.4.2-armeabi-v7a.apk",
       "size": "171.8 MB",
-      "download_count": 1115
+      "download_count": 1406
     },
     {
       "name": "ZalithLauncher-2.4.2-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.2/ZalithLauncher-2.4.2-x86.apk",
       "size": "163.7 MB",
-      "download_count": 543
+      "download_count": 694
     },
     {
       "name": "ZalithLauncher-2.4.2-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.2/ZalithLauncher-2.4.2-x86_64.apk",
       "size": "181.8 MB",
-      "download_count": 447
+      "download_count": 546
     },
     {
       "name": "ZalithLauncher-2.4.2.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.2/ZalithLauncher-2.4.2.apk",
       "size": "307.9 MB",
-      "download_count": 4741
+      "download_count": 5909
     }
   ],
   "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, please do **not** use the **Vulkan backend** to launch the latest version of Minecraft.\r\n\r\n## Updates:\r\n- [GP#1169](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1169): Synced translations from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- [GP#1136](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1136): Display download speed for download tasks (by MovTery)\r\n- [GP#1151](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1151): Clicking on a screenshot in the screenshot manager opens it with the system image viewer (by youfeng11)\r\n- [GP#1152](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1152): Check for content count changes when returning to Content Manager to auto-refresh the list (by MovTery)\r\n- [GP#1160](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1160): Updated launcher to support using multi-cloud storage links (by MovTery)\r\n- [GP#1161](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1161): Apply fullscreen to launch extraction page according to settings (by youfeng11)\r\n- [GP#1143](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1143): Added JVM keep-alive foreground service (by MovTery)\r\n\r\n## Changes:\r\n- [GP#1145](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1145): Only use default name when the name is empty when modifying/adding a server (by MovTery)\r\n- [GP#1146](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1146): Adjusted prompt text color for overwriting an existing version installation (by MovTery)\r\n- [GP#1147](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1147): Automatically select the newly added account when adding an account (by MovTery)\r\n- [GP#1162](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1162): Adjusted theme configuration for the Terracotta multiplayer menu (by MovTery)\r\n\r\n## Fixes:\r\n- [Main#71125970](https://github.com/ZalithLauncher/ZalithLauncher2/commit/7112597021a0b6ad9ddde7bac3933b840cef77c6), [Main#20054dac](https://github.com/ZalithLauncher/ZalithLauncher2/commit/20054dac5b12da4b4236c2a92c726fdfad3cd5a6): Reverted changes that caused display anomalies on some devices (by MovTery)\r\n- [GP#1133](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1133): 26.2 snapshot4 failing to run (by MovTery)\r\n- [GP#1137](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1137): Added path traversal check for filename legality validation (by MovTery)\r\n- [GP#1142](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1142): Activity configuration issue causing multiple launcher instances to exist (by MovTery)\r\n- [GP#1149](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1149): UI anomalies on some devices when entering fullscreen (by MovTery)\r\n- [GP#1150](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1150): Launch extraction page should ignore Java runtime environments not supported by the current device (by MovTery)\r\n- [GP#1165](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1165): Replaced domestic mirror API domain within China (by leemwood)\r\n"
