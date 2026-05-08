@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.4.3-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.3/ZalithLauncher-2.4.3-arm64-v8a.apk",
       "size": "178.2 MB",
-      "download_count": 2867
+      "download_count": 8376
     },
     {
       "name": "ZalithLauncher-2.4.3-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.3/ZalithLauncher-2.4.3-armeabi-v7a.apk",
       "size": "172.2 MB",
-      "download_count": 123
+      "download_count": 358
     },
     {
       "name": "ZalithLauncher-2.4.3-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.3/ZalithLauncher-2.4.3-x86.apk",
       "size": "164 MB",
-      "download_count": 74
+      "download_count": 223
     },
     {
       "name": "ZalithLauncher-2.4.3-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.3/ZalithLauncher-2.4.3-x86_64.apk",
       "size": "182.2 MB",
-      "download_count": 57
+      "download_count": 181
     },
     {
       "name": "ZalithLauncher-2.4.3.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.3/ZalithLauncher-2.4.3.apk",
       "size": "308.2 MB",
-      "download_count": 632
+      "download_count": 1711
     }
   ],
   "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, please do **not** use the **Vulkan backend** to launch the latest version of Minecraft.\r\n\r\n## Updates:\r\n- [GP#1222](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1222): Synced translations from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- [GP#1210](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1210): Added support for customizing the launcher home page using Markdown (by MovTery)\r\n- [GP#1214](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1214): Store log files separately for each game version (by MovTery)\r\n- [GP#1214](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1214): Added ability to share and view logs in the version overview (by MovTery)\r\n\r\n## Changes:\r\n- [GP#1177](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1177): Replaced domestic mirror API domain within China (by leemwood)\r\n- [GP#1214](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1214): Use read-only editor preview when opening dependency project licenses in the About page (by MovTery)\r\n\r\n## Fixes:\r\n- [GP#1167](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1167): imgui loading issue for Veil mod version 3.1.0- (by MovTery)\r\n- [GP#1176](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1176): Fullscreen not taking effect and system UI components not hiding on some devices (by MovTery)\r\n- [GP#1186](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1186): Unable to correctly locate the actual directory level when importing saves (by MovTery)\r\n- [GP#1214](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1214): Upload dialog not closing when canceling game log upload (by MovTery)\r\n- [GP#1217](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1217): LabyMod 3 and similar clients failing to launch due to incorrect vanilla inheritance logic (by MovTery)\r\n- [GP#1218](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1218): Angelica mod failing to launch (by MovTery)\r\n- [GP#1219](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1219): Control layout conflicting with mouse movement on some devices (by MovTery)\r\n- [GP#1221](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1221): LWJGL missing IME positioning function causing TouchController to crash (by MovTery)"
