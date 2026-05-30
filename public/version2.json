@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.4.4-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.4/ZalithLauncher-2.4.4-arm64-v8a.apk",
       "size": "178.3 MB",
-      "download_count": 55345
+      "download_count": 60853
     },
     {
       "name": "ZalithLauncher-2.4.4-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.4/ZalithLauncher-2.4.4-armeabi-v7a.apk",
       "size": "172.2 MB",
-      "download_count": 2341
+      "download_count": 2550
     },
     {
       "name": "ZalithLauncher-2.4.4-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.4/ZalithLauncher-2.4.4-x86.apk",
       "size": "164.1 MB",
-      "download_count": 1043
+      "download_count": 1155
     },
     {
       "name": "ZalithLauncher-2.4.4-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.4/ZalithLauncher-2.4.4-x86_64.apk",
       "size": "182.2 MB",
-      "download_count": 853
+      "download_count": 928
     },
     {
       "name": "ZalithLauncher-2.4.4.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.4/ZalithLauncher-2.4.4.apk",
       "size": "308.3 MB",
-      "download_count": 9374
+      "download_count": 10300
     }
   ],
   "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, please do **not** use the **Vulkan backend** to launch the latest version of Minecraft.\r\n\r\n## Updates:\r\n- [GP#1283](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1283): Synced translations from [Weblate project](https://hosted.weblate.org/projects/zalithlauncher2/)\r\n- [GP#1231](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1231): Save selected target download platform when downloading resources (by @MovTery)\r\n- [GP#1247](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1247): Custom home page - Added share_game_log event (by @MovTery)\r\n- [GP#1247](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1247): Custom home page - Added server parameter to launch_game event (by @MovTery)\r\n- [GP#1247](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1247): Custom home page - Added random text block component (by @MovTery)\r\n- [GP#1254](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1254): Added toolbar to log output: Clear, Auto-scroll, Scroll to bottom (by @MovTery)\r\n- [GP#1255](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1255): Added device Vulkan check to detect whether MC 26.2+ can be launched (by @MovTery)\r\n  - **Tested by**: @ConfectionaryQwQ, @Vera-Firefly, and other helpful community members\r\n- [GP#1277](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1277): Added ability to open quick menu by long-pressing the version list in the main menu (by @MovTery)\r\n\r\n## Refactors:\r\n- [GP#1246](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1246): Separated game log sharing logic into its own handler (by @MovTery)\r\n\r\n## Fixes:\r\n- [GP#1244](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1244): Deduplicate game dependency libraries when launching and added logging (by @MovTery)\r\n- [GP#1245](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1245): Release active component on pointer up in control layout & pointer capture logic (by @MovTery)\r\n- [GP#1247](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1247): Custom home page - Improved security of home page events (by @MovTery)\r\n- [GP#1252](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1252): Multi-touch conflict on scrollable controls in control layout (by @MovTery)\r\n- [GP#1263](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1263): MC 26.2+ failing to fall back to OpenGL when Vulkan requirements are not met (by @MovTery)\r\n- [GP#1263](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1263): MC 26.2+ crashing when running in picture-in-picture mode (by @MovTery)\r\n- [GP#1264](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1264): Error handling coroutine not using main thread dispatcher in account management (by @MovTery)\r\n- [GP#1281](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1281): Do not use user-defined parameters when installing a loader from the foreground (by @MovTery)\r\n- [GP#1282](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1282): Control layout pointer handling conflict on some devices (only pointer slide) (by @MovTery)"
