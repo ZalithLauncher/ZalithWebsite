@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.4.6-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.6/ZalithLauncher-2.4.6-arm64-v8a.apk",
       "size": "151.8 MB",
-      "download_count": 2886
+      "download_count": 11517
     },
     {
       "name": "ZalithLauncher-2.4.6-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.6/ZalithLauncher-2.4.6-armeabi-v7a.apk",
       "size": "144.5 MB",
-      "download_count": 105
+      "download_count": 417
     },
     {
       "name": "ZalithLauncher-2.4.6-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.6/ZalithLauncher-2.4.6-x86.apk",
       "size": "132.4 MB",
-      "download_count": 43
+      "download_count": 213
     },
     {
       "name": "ZalithLauncher-2.4.6-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.6/ZalithLauncher-2.4.6-x86_64.apk",
       "size": "156.7 MB",
-      "download_count": 47
+      "download_count": 220
     },
     {
       "name": "ZalithLauncher-2.4.6.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.6/ZalithLauncher-2.4.6.apk",
       "size": "291.9 MB",
-      "download_count": 586
+      "download_count": 2458
     }
   ],
   "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, please do **not** use the **Vulkan backend** to launch the latest version of Minecraft.\r\n\r\n## Updates:\r\n- [GP#1348](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1348): Added support for fetching target resources by project ID (by @MovTery)\r\n\r\n## Fixes:\r\n- [GP#1345](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1345): Removed library deduplication mechanism due to impact on game launch (by @MovTery)\r\n- [GP#1346](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1346): Some features not working after enabling R8 obfuscation (by @MovTery)\r\n- [GP#1349](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1349): MC 26.2-pre-4 failing to launch due to missing LWJGL functions (by @MovTery)"
