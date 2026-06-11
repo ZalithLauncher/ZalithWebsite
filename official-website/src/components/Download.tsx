@@ -428,11 +428,11 @@ const DownloadSection = () => {
                   </div>
                 </div>
 
-                {/* Cloud Drive Link */}
+                {/* Cloud Drive Links */}
                 {cloudDrive && (
                   <div className="mb-6 p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl">
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="flex items-center gap-3">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                      <div className="flex items-center gap-3 flex-shrink-0">
                         <div className="w-10 h-10 bg-blue-500/20 text-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
                           <Cloud size={20} />
                         </div>
@@ -441,14 +441,19 @@ const DownloadSection = () => {
                           <p className="text-xs text-[var(--text-2)]">{t('download.cloudDriveDesc')}</p>
                         </div>
                       </div>
-                      <a 
-                        href={cloudDrive.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0"
-                      >
-                        {t('download.cloudDriveBtn')} <ExternalLink size={14} />
-                      </a>
+                      <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+                        {(cloudDrive.links?.length ? cloudDrive.links : [{ name: t('download.cloudDriveBtn'), link: cloudDrive.link }]).map((drive: { name: string; link: string }, i: number) => (
+                          <a
+                            key={i}
+                            href={drive.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-xs sm:text-sm font-medium transition-colors whitespace-nowrap"
+                          >
+                            {drive.name} <ExternalLink size={14} />
+                          </a>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}

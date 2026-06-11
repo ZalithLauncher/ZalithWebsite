@@ -47,12 +47,7 @@ export default <DefaultTheme.Config> {
     },
     nav: [
         { text: 'Home', link: '/en/' },
-        { text: 'Download',
-            items: [
-                { text: 'Zalith Launcher 1', link: '/en/download' },
-                { text: 'Zalith Launcher 2', link: '/en/zl2-download' }
-            ]
-        },
+        { text: 'Download', link: '/en/zl2-download' },
         { text: 'Announcement', link: '/en/docs/announcement/discord-shutdown' },
         { 
             text: 'More',

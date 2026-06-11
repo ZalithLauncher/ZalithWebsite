@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Github, MessageSquare, Coffee, Heart, Globe, ShieldCheck, Mail, GitBranch } from 'lucide-react';
+import { MessageSquare, Coffee, Heart, Globe, ShieldCheck, Mail, GitBranch } from 'lucide-react';
+import GithubIcon from './icons/GithubIcon';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { BuildInfo } from '../types/blog';
@@ -65,7 +66,7 @@ const Footer = () => {
             <div className="flex gap-4 pt-2">
               <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" 
                 className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
-                <Github size={20} />
+                <GithubIcon size={20} />
               </a>
               <a href="https://discord.gg/e7C4kytRgK" target="_blank" rel="noreferrer"
                 className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">

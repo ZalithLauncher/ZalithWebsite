@@ -521,6 +521,10 @@ async function fetchLatestRelease() {
         
         console.log(`✅ ${apiConfig.name} 请求成功`)
         latestRelease.value = data
+        // 过滤 mapping 文件
+        if (latestRelease.value?.assets) {
+          latestRelease.value = { ...latestRelease.value, assets: latestRelease.value.assets.filter((a: any) => !/^mapping.*\.zip$/i.test(a.name)) }
+        }
         
         // 阶段1完成: release数据已加载
         loadingStage.value = 'release'
@@ -564,6 +568,10 @@ async function fetchLatestRelease() {
         try {
           const localData = await loadLocalVersionInfo()
           latestRelease.value = localData
+          // 过滤 mapping 文件
+          if (latestRelease.value?.assets) {
+            latestRelease.value = { ...latestRelease.value, assets: latestRelease.value.assets.filter((a: any) => !/^mapping.*\.zip$/i.test(a.name)) }
+          }
           
           // 阶段1完成
           loadingStage.value = 'release'
@@ -925,14 +933,18 @@ onMounted(() => {
             <h4>网盘下载</h4>
             <p>国内用户推荐，下载更稳定</p>
           </div>
-          <a 
-            :href="versionJsonData.default_cloud_drive.link" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="cloud-drive-btn"
-          >
-            访问网盘
-          </a>
+          <div class="cloud-drive-links">
+            <a
+              v-for="(drive, index) in (versionJsonData.default_cloud_drive.links?.length ? versionJsonData.default_cloud_drive.links : [{ name: '访问网盘', link: versionJsonData.default_cloud_drive.link }])"
+              :key="index"
+              :href="drive.link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cloud-drive-btn"
+            >
+              {{ drive.name }}
+            </a>
+          </div>
         </div>
       </div>
       
@@ -1556,6 +1568,32 @@ onMounted(() => {
 .cloud-drive-btn:hover {
   background: #2563eb;
   transform: translateY(-1px);
+}
+
+.cloud-drive-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 640px) {
+  .cloud-drive-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cloud-drive-info {
+    width: 100%;
+  }
+
+  .cloud-drive-links {
+    width: 100%;
+  }
+
+  .cloud-drive-btn {
+    font-size: 0.8rem;
+    padding: 8px 14px;
+  }
 }
 
 /* 发布说明 */

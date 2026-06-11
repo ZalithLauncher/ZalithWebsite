@@ -540,6 +540,10 @@ async function fetchLatestRelease() {
         
         console.log(`✅ ${apiConfig.name} 请求成功`)
         latestRelease.value = data
+        // 过滤 mapping 文件
+        if (latestRelease.value?.assets) {
+          latestRelease.value = { ...latestRelease.value, assets: latestRelease.value.assets.filter((a: any) => !/^mapping.*\.zip$/i.test(a.name)) }
+        }
         
         // 阶段1完成: release数据已加载
         loadingStage.value = 'release'
@@ -590,6 +594,10 @@ async function fetchLatestRelease() {
         try {
           const localRelease = await loadLocalVersionInfo()
           latestRelease.value = localRelease
+          // 过滤 mapping 文件
+          if (latestRelease.value?.assets) {
+            latestRelease.value = { ...latestRelease.value, assets: latestRelease.value.assets.filter((a: any) => !/^mapping.*\.zip$/i.test(a.name)) }
+          }
           
           // 阶段1完成
           loadingStage.value = 'release'

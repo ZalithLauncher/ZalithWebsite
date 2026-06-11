@@ -1,4 +1,5 @@
-import { Github, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
+import GithubIcon from '../icons/GithubIcon';
 import type { Author } from '../../types/blog';
 
 interface AuthorCardProps {
@@ -53,7 +54,7 @@ const AuthorCard = ({ author, size = 'md' }: AuthorCardProps) => {
               rel="noreferrer"
               className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors"
             >
-              {author.socials?.github ? <Github size={14} /> : <ExternalLink size={14} />}
+              {author.socials?.github ? <GithubIcon size={14} /> : <ExternalLink size={14} />}
             </a>
           )}
         </div>

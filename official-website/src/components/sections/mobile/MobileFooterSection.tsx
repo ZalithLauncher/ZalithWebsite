@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Github, MessageSquare, Coffee, Heart, ShieldCheck } from 'lucide-react';
+import { MessageSquare, Coffee, Heart, ShieldCheck } from 'lucide-react';
+import GithubIcon from '../../icons/GithubIcon';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -35,7 +36,7 @@ const MobileFooterSection = () => {
         >
           <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer"
             className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] transition-colors">
-            <Github size={18} />
+            <GithubIcon size={18} />
           </a>
           <a href="https://discord.gg/e7C4kytRgK" target="_blank" rel="noreferrer"
             className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] transition-colors">

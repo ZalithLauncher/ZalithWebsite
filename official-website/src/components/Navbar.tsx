@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Sun, Moon, Github, Menu, X, Globe } from 'lucide-react';
+import { Sun, Moon, Menu, X, Globe } from 'lucide-react';
+import GithubIcon from './icons/GithubIcon';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -96,7 +97,7 @@ const Navbar = () => {
               {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer">
-              <Github size={20} className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors" />
+              <GithubIcon size={20} className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors" />
             </a>
           </div>
 
@@ -158,7 +159,7 @@ const Navbar = () => {
                 )
               ))}
               <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-lg text-[var(--text-2)] hover:text-[var(--brand)]">
-                <Github size={20} /> GitHub
+                <GithubIcon size={20} /> GitHub
               </a>
             </div>
           </motion.div>

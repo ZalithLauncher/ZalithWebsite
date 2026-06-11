@@ -44,6 +44,14 @@ const DOWNLOAD_SOURCES: DownloadSource[] = [
   { id: 'lemwood', name: '柠枺镜像', description: 'Lemwood 提供', speed: '国内较快', contributor: { name: 'Lemwood', url: 'https://lemwood.cn' } },
 ];
 
+function filterMappingAssets(release: Release): Release {
+  if (!release?.assets) return release;
+  return {
+    ...release,
+    assets: release.assets.filter(a => !/^mapping.*\.zip$/i.test(a.name))
+  };
+}
+
 export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) => {
   const { t } = useTranslation();
   const [release, setRelease] = useState<Release | null>(null);
@@ -91,7 +99,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
 
       if (cachedRelease) {
         try {
-          setRelease(JSON.parse(cachedRelease));
+          setRelease(filterMappingAssets(JSON.parse(cachedRelease)));
           setIsReleaseLoading(false);
           hasCache = true;
         } catch (e) { /* ignore */ }
@@ -126,8 +134,9 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
           if (!res.ok) throw new Error('GitHub API failed');
           const data = await res.json();
           if (isMounted) {
-            setRelease(data);
-            localStorage.setItem(`${cacheKeyPrefix}release`, JSON.stringify(data));
+            const filtered = filterMappingAssets(data);
+            setRelease(filtered);
+            localStorage.setItem(`${cacheKeyPrefix}release`, JSON.stringify(filtered));
             setIsReleaseLoading(false);
           }
         } catch (e) {
@@ -147,8 +156,9 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
               }))
             };
             if (isMounted) {
-              setRelease(fallbackRelease);
-              localStorage.setItem(`${cacheKeyPrefix}release`, JSON.stringify(fallbackRelease));
+              const filtered = filterMappingAssets(fallbackRelease);
+              setRelease(filtered);
+              localStorage.setItem(`${cacheKeyPrefix}release`, JSON.stringify(filtered));
               setIsReleaseLoading(false);
             }
           } catch (le) {

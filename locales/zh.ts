@@ -44,12 +44,7 @@ export default <DefaultTheme.Config> {
     },
     nav: [
         { text: '首页', link: '/' },
-        { text: '下载',
-            items: [
-                { text: 'Zalith Launcher 1', link: '/download' },
-                { text: 'Zalith Launcher 2', link: '/zl2-download' }
-            ]
-        },
+        { text: '下载', link: '/zl2-download' },
         { text: '公告', link: '/docs/announcement/discord-shutdown' },
         { text: '更多', 
             items: [

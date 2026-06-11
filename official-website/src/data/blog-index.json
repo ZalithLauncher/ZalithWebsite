@@ -2,7 +2,7 @@
   "posts": [
     {
       "slug": "welcome-to-zalith-blog",
-      "title": "欢迎来到 Zalith Launcher 博客",
+      "title": "Zalith Launcher 博客上线",
       "date": "2026-03-27",
       "authors": [
         {
@@ -21,15 +21,15 @@
         "博客"
       ],
       "category": "公告",
-      "description": "欢迎来到 Zalith Launcher 官方博客！我们将在这里发布最新的开发动态、教程文章和版本更新信息。",
-      "content": "<h1 id=\"欢迎来到-zalith-launcher-博客\">欢迎来到 Zalith Launcher 博客</h1>\n<p>我们很高兴地宣布，Zalith Launcher 官方博客正式上线了！</p>\n<h2 id=\"我们将在这里分享什么\">我们将在这里分享什么？</h2>\n<p>在这个博客中，我们计划分享以下内容：</p>\n<h3 id=\"开发日志\">开发日志</h3>\n<p>我们会定期发布开发进度更新，让您了解我们正在开发的新功能和改进。包括：</p>\n<ul>\n<li>新功能预览</li>\n<li>性能优化进展</li>\n<li>Bug 修复报告</li>\n</ul>\n<h3 id=\"教程文章\">教程文章</h3>\n<p>帮助您更好地使用 Zalith Launcher：</p>\n<ul>\n<li>安装和配置指南</li>\n<li>常见问题解答</li>\n<li>高级功能使用技巧</li>\n</ul>\n<h3 id=\"版本更新\">版本更新</h3>\n<p>每次重要版本发布时，我们会发布详细的更新日志：</p>\n<ul>\n<li>新功能介绍</li>\n<li>已知问题列表</li>\n<li>升级建议</li>\n</ul>\n<h2 id=\"如何订阅\">如何订阅？</h2>\n<p>您可以通过以下方式获取最新文章：</p>\n<ol>\n<li>定期访问本博客页面</li>\n<li>关注我们的 <a href=\"https://github.com/ZalithLauncher\">GitHub</a> 仓库</li>\n<li>加入我们的 Discord 社区</li>\n</ol>\n<h2 id=\"联系我们\">联系我们</h2>\n<p>如果您有任何问题或建议，欢迎通过以下方式联系我们：</p>\n<ul>\n<li>GitHub Issues</li>\n<li>Discord 社区</li>\n<li>QQ 群组</li>\n</ul>\n<p>感谢您对 Zalith Launcher 的支持！</p>\n",
-      "excerpt": "欢迎来到 Zalith Launcher 官方博客！我们将在这里发布最新的开发动态、教程文章和版本更新信息。",
+      "description": "Zalith Launcher 博客正式上线，后续会发开发日志、教程和版本更新。",
+      "content": "<h1 id=\"zalith-launcher-博客上线\">Zalith Launcher 博客上线</h1>\n<p>博客开了，以后会在这里更新一些内容。</p>\n<h2 id=\"内容方向\">内容方向</h2>\n<h3 id=\"开发日志\">开发日志</h3>\n<p>同步开发进度，包括：</p>\n<ul>\n<li>新功能预览</li>\n<li>性能优化</li>\n<li>Bug 修复</li>\n</ul>\n<h3 id=\"教程\">教程</h3>\n<p>怎么用好 Zalith Launcher：</p>\n<ul>\n<li>安装和配置</li>\n<li>常见问题</li>\n<li>进阶用法</li>\n</ul>\n<h3 id=\"版本更新\">版本更新</h3>\n<p>重要版本会发更新日志：</p>\n<ul>\n<li>新特性</li>\n<li>已知问题</li>\n<li>升级建议</li>\n</ul>\n<h2 id=\"获取更新\">获取更新</h2>\n<ul>\n<li>常来看看博客</li>\n<li>关注 <a href=\"https://github.com/ZalithLauncher\">GitHub</a> 仓库</li>\n<li>加入 Discord 社区</li>\n</ul>\n<h2 id=\"反馈\">反馈</h2>\n<p>有问题或建议：</p>\n<ul>\n<li>GitHub Issues</li>\n<li>Discord 社区</li>\n<li>QQ 群组</li>\n</ul>\n",
+      "excerpt": "Zalith Launcher 博客正式上线，后续会发开发日志、教程和版本更新。",
       "readingTime": 1,
       "lang": "zh"
     },
     {
       "slug": "welcome-to-zalith-blog",
-      "title": "Welcome to Zalith Launcher Blog",
+      "title": "Zalith Launcher Blog is Live",
       "date": "2026-03-27",
       "authors": [
         {
@@ -48,9 +48,9 @@
         "Blog"
       ],
       "category": "Announcement",
-      "description": "Welcome to the official Zalith Launcher blog! We'll be posting the latest development updates, tutorials, and version release notes here.",
-      "content": "<h1 id=\"welcome-to-zalith-launcher-blog\">Welcome to Zalith Launcher Blog</h1>\n<p>We&#39;re excited to announce that the official Zalith Launcher blog is now live!</p>\n<h2 id=\"what-will-we-share-here\">What Will We Share Here?</h2>\n<p>In this blog, we plan to share the following content:</p>\n<h3 id=\"development-logs\">Development Logs</h3>\n<p>We&#39;ll regularly post development progress updates to keep you informed about new features and improvements we&#39;re working on, including:</p>\n<ul>\n<li>New feature previews</li>\n<li>Performance optimization progress</li>\n<li>Bug fix reports</li>\n</ul>\n<h3 id=\"tutorial-articles\">Tutorial Articles</h3>\n<p>Helping you make the most of Zalith Launcher:</p>\n<ul>\n<li>Installation and configuration guides</li>\n<li>Frequently asked questions</li>\n<li>Advanced feature tips and tricks</li>\n</ul>\n<h3 id=\"version-updates\">Version Updates</h3>\n<p>For each major release, we&#39;ll publish detailed changelogs:</p>\n<ul>\n<li>New feature introductions</li>\n<li>Known issues list</li>\n<li>Upgrade recommendations</li>\n</ul>\n<h2 id=\"how-to-subscribe\">How to Subscribe?</h2>\n<p>You can stay updated with our latest articles through:</p>\n<ol>\n<li>Regularly visiting this blog page</li>\n<li>Following our <a href=\"https://github.com/ZalithLauncher\">GitHub</a> repository</li>\n<li>Joining our Discord community</li>\n</ol>\n<h2 id=\"contact-us\">Contact Us</h2>\n<p>If you have any questions or suggestions, feel free to reach out through:</p>\n<ul>\n<li>GitHub Issues</li>\n<li>Discord Community</li>\n<li>QQ Group</li>\n</ul>\n<p>Thank you for supporting Zalith Launcher!</p>\n",
-      "excerpt": "Welcome to the official Zalith Launcher blog! We'll be posting the latest development updates, tutorials, and version release notes here.",
+      "description": "The Zalith Launcher blog is live. Expect dev logs, tutorials, and release notes here.",
+      "content": "<h1 id=\"zalith-launcher-blog-is-live\">Zalith Launcher Blog is Live</h1>\n<p>Blog is up and running. We&#39;ll be posting updates here.</p>\n<h2 id=\"what-to-expect\">What to Expect</h2>\n<h3 id=\"dev-logs\">Dev Logs</h3>\n<p>Progress updates on what we&#39;re working on:</p>\n<ul>\n<li>New feature previews</li>\n<li>Performance improvements</li>\n<li>Bug fixes</li>\n</ul>\n<h3 id=\"tutorials\">Tutorials</h3>\n<p>Making the most of Zalith Launcher:</p>\n<ul>\n<li>Installation and setup</li>\n<li>Common questions</li>\n<li>Advanced tips</li>\n</ul>\n<h3 id=\"release-notes\">Release Notes</h3>\n<p>Changelogs for important releases:</p>\n<ul>\n<li>What&#39;s new</li>\n<li>Known issues</li>\n<li>Upgrade notes</li>\n</ul>\n<h2 id=\"stay-updated\">Stay Updated</h2>\n<ul>\n<li>Check back here for new posts</li>\n<li>Watch the <a href=\"https://github.com/ZalithLauncher\">GitHub</a> repo</li>\n<li>Join the Discord community</li>\n</ul>\n<h2 id=\"feedback\">Feedback</h2>\n<p>Questions or suggestions:</p>\n<ul>\n<li>GitHub Issues</li>\n<li>Discord Community</li>\n<li>QQ Group</li>\n</ul>\n",
+      "excerpt": "The Zalith Launcher blog is live. Expect dev logs, tutorials, and release notes here.",
       "readingTime": 1,
       "lang": "en"
     }
