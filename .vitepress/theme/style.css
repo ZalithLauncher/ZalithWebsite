@@ -537,10 +537,16 @@ html[data-theme="custom"].dark {
 }
 
 .VPNavScreen .container {
+  display: flex;
+  flex-direction: column;
   padding: 16px 0px;
   margin-left: 5px !important;
   margin-right: 5px !important;
   max-width: 100% !important;
+}
+
+.VPNavScreen .social-links {
+  order: 1;
 }
 
 /* =========================== */

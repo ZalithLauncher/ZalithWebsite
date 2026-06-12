@@ -88,9 +88,9 @@ onUnmounted(() => {
     </Transition>
   </div>
 
-  <!-- NavScreen mode: labeled section with inline buttons -->
-  <div v-else class="theme-switcher-navscreen">
-    <div class="navscreen-label">主题</div>
+  <!-- NavScreen mode: card matching Appearance card style -->
+  <div v-else class="theme-switcher-navscreen-card">
+    <p class="navscreen-label">主题</p>
     <div class="navscreen-options">
       <button
         v-for="t in themes"
@@ -228,23 +228,25 @@ onUnmounted(() => {
 }
 
 /* ==================== NavScreen mode ==================== */
-.theme-switcher-navscreen {
-  padding: 12px 0 4px;
+.theme-switcher-navscreen-card {
+  border-radius: 8px;
+  padding: 12px 14px 12px 16px;
+  background-color: var(--vp-c-bg-soft);
+  margin-top: 16px;
 }
 
 .navscreen-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1);
-  margin-bottom: 8px;
-  padding: 0 24px;
+  line-height: 24px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--vp-c-text-2);
+  margin: 0 0 8px 0;
 }
 
 .navscreen-options {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  padding: 0 24px;
 }
 
 .navscreen-option {
@@ -254,7 +256,7 @@ onUnmounted(() => {
   padding: 5px 10px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 6px;
-  background: var(--vp-c-bg-soft);
+  background: var(--vp-c-bg);
   color: var(--vp-c-text-2);
   font-size: 0.78rem;
   cursor: pointer;
