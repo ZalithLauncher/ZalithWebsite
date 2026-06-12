@@ -27,4 +27,4 @@ Thank you for your understanding and support.
 ## Chinese Version
 
 For the Chinese version of this announcement, please see [Chinese Announcement Page](/docs/announcement/discord-shutdown).
-<Twikoo />
+

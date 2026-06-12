@@ -5,9 +5,11 @@ import DefaultTheme from 'vitepress/theme'
 import Download from './components/Download.vue'
 import DownloadZL2 from './components/DownloadZL2.vue'
 import ApngPlayer from './components/ApngPlayer.vue'
-import Twikoo from './components/Twikoo.vue'
+import ThemeSwitcher from './components/ThemeSwitcher.vue'
 import './style.css'
 import './style/blur.css'
+import './style/red.css'
+import './style/sakura.css'
 
 import DomainWarningPopup from './components/DomainWarningPopup.vue'
 
@@ -15,6 +17,12 @@ export default {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
+      'nav-bar-content-after': () => [
+        h(ThemeSwitcher, { mode: 'navbar' }),
+      ],
+      'nav-screen-content-after': () => [
+        h(ThemeSwitcher, { mode: 'navscreen' }),
+      ],
       'layout-bottom': () => [
         h(DomainWarningPopup)
       ],
@@ -24,6 +32,5 @@ export default {
     app.component('Download', Download)
     app.component('DownloadZL2', DownloadZL2)
     app.component('ApngPlayer', ApngPlayer)
-    app.component('Twikoo', Twikoo)
   }
 } satisfies Theme
