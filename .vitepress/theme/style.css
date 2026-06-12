@@ -549,6 +549,15 @@ html[data-theme="custom"].dark {
   order: 1;
 }
 
+/* 隐藏 VitePress 内置外观组件，已合并到自定义 ThemeSwitcher 中 */
+.VPNavBar .appearance {
+  display: none !important;
+}
+
+.VPNavScreen .appearance {
+  display: none !important;
+}
+
 /* =========================== */
 
 /* ===========================

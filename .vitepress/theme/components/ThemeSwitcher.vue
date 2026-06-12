@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, inject, watchPostEffect } from 'vue'
+import { useData } from 'vitepress'
 
 type ThemeId = 'custom' | 'native' | 'red' | 'sakura'
 
@@ -15,6 +16,12 @@ const props = withDefaults(defineProps<{
   mode: 'navbar',
 })
 
+const { isDark, site, theme } = useData()
+
+const toggleAppearance = inject<() => void>('toggle-appearance', () => {
+  isDark.value = !isDark.value
+})
+
 const themes: ThemeOption[] = [
   { id: 'custom', label: '默认', color: '#FE7A52' },
   { id: 'native', label: '原生', color: '#646cff' },
@@ -24,6 +31,17 @@ const themes: ThemeOption[] = [
 
 const current = ref<ThemeId>('custom')
 const open = ref(false)
+const switchTitle = ref('')
+
+const showAppearance = !!(site.value.appearance &&
+  site.value.appearance !== 'force-dark' &&
+  site.value.appearance !== 'force-auto')
+
+watchPostEffect(() => {
+  switchTitle.value = isDark.value
+    ? theme.value.lightModeSwitchTitle || 'Switch to light theme'
+    : theme.value.darkModeSwitchTitle || 'Switch to dark theme'
+})
 
 function applyTheme(id: ThemeId) {
   current.value = id
@@ -64,15 +82,35 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- NavBar mode: compact button + dropdown -->
+  <!-- NavBar mode: appearance icon button + combined dropdown -->
   <div v-if="mode === 'navbar'" class="theme-switcher">
-    <button class="theme-btn" :title="themes.find(t => t.id === current)?.label" @click.stop="toggleOpen">
-      <span class="theme-dot" :style="{ background: themes.find(t => t.id === current)?.color }"></span>
-      <span class="theme-label">{{ themes.find(t => t.id === current)?.label }}</span>
+    <button
+      class="theme-btn"
+      :title="switchTitle"
+      @click.stop="toggleOpen"
+    >
+      <span class="vpi-sun sun-icon" />
+      <span class="vpi-moon moon-icon" />
       <span class="theme-arrow" :class="{ open }">&#9662;</span>
     </button>
     <Transition name="dropdown">
       <div v-if="open" class="theme-dropdown">
+        <!-- Appearance row -->
+        <div v-if="showAppearance" class="dropdown-row">
+          <span class="dropdown-label">{{ theme.darkModeSwitchLabel || 'Appearance' }}</span>
+          <button
+            :title="switchTitle"
+            class="appearance-toggle"
+            :aria-checked="isDark"
+            @click="toggleAppearance"
+          >
+            <span class="toggle-track">
+              <span class="toggle-thumb"></span>
+            </span>
+          </button>
+        </div>
+        <div v-if="showAppearance" class="dropdown-divider"></div>
+        <!-- Theme options -->
         <button
           v-for="t in themes"
           :key="t.id"
@@ -88,8 +126,24 @@ onUnmounted(() => {
     </Transition>
   </div>
 
-  <!-- NavScreen mode: card matching Appearance card style -->
-  <div v-else class="theme-switcher-navscreen-card">
+  <!-- NavScreen mode: combined card -->
+  <div v-else class="navscreen-card">
+    <!-- Appearance row -->
+    <div v-if="showAppearance" class="navscreen-appearance-row">
+      <p class="navscreen-label">{{ theme.darkModeSwitchLabel || 'Appearance' }}</p>
+      <button
+        :title="switchTitle"
+        class="appearance-toggle"
+        :aria-checked="isDark"
+        @click="toggleAppearance"
+      >
+        <span class="toggle-track">
+          <span class="toggle-thumb"></span>
+        </span>
+      </button>
+    </div>
+    <div v-if="showAppearance" class="navscreen-divider"></div>
+    <!-- Theme row -->
     <p class="navscreen-label">主题</p>
     <div class="navscreen-options">
       <button
@@ -123,38 +177,51 @@ onUnmounted(() => {
 .theme-btn {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  border: 1px solid var(--vp-c-divider);
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
   border-radius: 6px;
-  background: var(--vp-c-bg-soft);
-  color: var(--vp-c-text-1);
-  font-size: 0.82rem;
+  background: transparent;
+  color: var(--vp-c-text-2);
   cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
+  transition: color 0.25s;
+  position: relative;
 }
 
 .theme-btn:hover {
-  border-color: var(--vp-c-brand-1);
-  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-text-1);
 }
 
-.theme-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
+.sun-icon,
+.moon-icon {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  transition: opacity 0.2s;
 }
 
-.theme-label {
-  font-weight: 500;
+.sun-icon {
+  opacity: 1;
+}
+
+.moon-icon {
+  opacity: 0;
+}
+
+:global(.dark) .sun-icon {
+  opacity: 0;
+}
+
+:global(.dark) .moon-icon {
+  opacity: 1;
 }
 
 .theme-arrow {
-  font-size: 0.65rem;
+  font-size: 0.5rem;
   transition: transform 0.2s;
-  opacity: 0.6;
+  opacity: 0.5;
+  margin-left: 22px;
 }
 
 .theme-arrow.open {
@@ -165,15 +232,36 @@ onUnmounted(() => {
   position: absolute;
   top: calc(100% + 4px);
   right: 0;
-  min-width: 130px;
+  min-width: 160px;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  padding: 4px;
+  padding: 6px;
   z-index: 100;
 }
 
+/* Appearance row inside dropdown */
+.dropdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+}
+
+.dropdown-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--vp-c-text-2);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--vp-c-divider);
+  margin: 4px 6px;
+}
+
+/* Theme option */
 .theme-option {
   display: flex;
   align-items: center;
@@ -216,6 +304,46 @@ onUnmounted(() => {
   opacity: 0.7;
 }
 
+/* ==================== Appearance Toggle ==================== */
+.appearance-toggle {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.toggle-track {
+  width: 32px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--vp-c-divider);
+  position: relative;
+  transition: background 0.2s;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.appearance-toggle[aria-checked="true"] .toggle-track {
+  background: var(--vp-c-brand-2);
+}
+
+.appearance-toggle[aria-checked="true"] .toggle-thumb {
+  transform: translateX(14px);
+}
+
+/* ==================== Transitions ==================== */
 .dropdown-enter-active,
 .dropdown-leave-active {
   transition: opacity 0.15s ease, transform 0.15s ease;
@@ -228,11 +356,17 @@ onUnmounted(() => {
 }
 
 /* ==================== NavScreen mode ==================== */
-.theme-switcher-navscreen-card {
+.navscreen-card {
   border-radius: 8px;
   padding: 12px 14px 12px 16px;
   background-color: var(--vp-c-bg-soft);
   margin-top: 16px;
+}
+
+.navscreen-appearance-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navscreen-label {
@@ -240,13 +374,20 @@ onUnmounted(() => {
   font-size: 12px;
   font-weight: 500;
   color: var(--vp-c-text-2);
-  margin: 0 0 8px 0;
+  margin: 0;
+}
+
+.navscreen-divider {
+  height: 1px;
+  background: var(--vp-c-divider);
+  margin: 10px 0;
 }
 
 .navscreen-options {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  margin-top: 8px;
 }
 
 .navscreen-option {
