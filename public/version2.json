@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.4.7-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.7/ZalithLauncher-2.4.7-arm64-v8a.apk",
       "size": "151.7 MB",
-      "download_count": 33889
+      "download_count": 40837
     },
     {
       "name": "ZalithLauncher-2.4.7-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.7/ZalithLauncher-2.4.7-armeabi-v7a.apk",
       "size": "144.5 MB",
-      "download_count": 1559
+      "download_count": 1902
     },
     {
       "name": "ZalithLauncher-2.4.7-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.7/ZalithLauncher-2.4.7-x86.apk",
       "size": "132.3 MB",
-      "download_count": 751
+      "download_count": 913
     },
     {
       "name": "ZalithLauncher-2.4.7-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.7/ZalithLauncher-2.4.7-x86_64.apk",
       "size": "156.6 MB",
-      "download_count": 812
+      "download_count": 1022
     },
     {
       "name": "ZalithLauncher-2.4.7.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.7/ZalithLauncher-2.4.7.apk",
       "size": "291.9 MB",
-      "download_count": 6923
+      "download_count": 8420
     }
   ],
   "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, please do **not** use the **Vulkan backend** to launch the latest version of Minecraft.\r\n\r\n## Refactors:\r\n- [GP#1367](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1367): Rewrote control layout interaction logic (by @MovTery)\r\n\r\n## Changes:\r\n- [GP#1358](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1358): Search ID input field now supports pressing Enter to search (by @MovTery)\r\n- [GP#1359](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1359): Updated project dependencies (by @MovTery)\r\n- [GP#1369](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1369): Theme: Use Scheme's built-in Surface color attributes (by @MovTery)\r\n\r\n## Fixes:\r\n- [GP#1357](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1357): Physical mouse movement position and stylus event handling (by @MovTery)\r\n- [Main#8c4f2c6](https://github.com/ZalithLauncher/ZalithLauncher2/commit/8c4f2c6): Game manifest merge logic should use the original assetsIndex (by @MovTery)\r\n- [Main#8c4f2c6](https://github.com/ZalithLauncher/ZalithLauncher2/commit/8c4f2c6): Clean game files should ignore non-existent version JSONs (by @MovTery)\r\n- [GP#1366](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1366): Pass current account data via Intent during launch process (by @MovTery)\r\n- [GP#1368](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1368): Attempting to render blur effect when no background is set (by @MovTery)"
