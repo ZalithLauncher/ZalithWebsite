@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.4.7",
-  "release_date": "2026-06-08T02:52:16Z",
+  "latest_version": "2.4.8",
+  "release_date": "2026-06-17T06:53:08Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.4.7-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.7/ZalithLauncher-2.4.7-arm64-v8a.apk",
+      "name": "ZalithLauncher-2.4.8-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-arm64-v8a.apk",
       "size": "151.7 MB",
-      "download_count": 59782
+      "download_count": 15429
     },
     {
-      "name": "ZalithLauncher-2.4.7-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.7/ZalithLauncher-2.4.7-armeabi-v7a.apk",
+      "name": "ZalithLauncher-2.4.8-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-armeabi-v7a.apk",
       "size": "144.5 MB",
-      "download_count": 2846
+      "download_count": 548
     },
     {
-      "name": "ZalithLauncher-2.4.7-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.7/ZalithLauncher-2.4.7-x86.apk",
+      "name": "ZalithLauncher-2.4.8-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-x86.apk",
       "size": "132.3 MB",
-      "download_count": 1428
+      "download_count": 292
     },
     {
-      "name": "ZalithLauncher-2.4.7-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.7/ZalithLauncher-2.4.7-x86_64.apk",
+      "name": "ZalithLauncher-2.4.8-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-x86_64.apk",
       "size": "156.6 MB",
-      "download_count": 1492
+      "download_count": 289
     },
     {
-      "name": "ZalithLauncher-2.4.7.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.7/ZalithLauncher-2.4.7.apk",
+      "name": "ZalithLauncher-2.4.8.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8.apk",
       "size": "291.9 MB",
-      "download_count": 12213
+      "download_count": 2990
     }
   ],
-  "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, please do **not** use the **Vulkan backend** to launch the latest version of Minecraft.\r\n\r\n## Refactors:\r\n- [GP#1367](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1367): Rewrote control layout interaction logic (by @MovTery)\r\n\r\n## Changes:\r\n- [GP#1358](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1358): Search ID input field now supports pressing Enter to search (by @MovTery)\r\n- [GP#1359](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1359): Updated project dependencies (by @MovTery)\r\n- [GP#1369](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1369): Theme: Use Scheme's built-in Surface color attributes (by @MovTery)\r\n\r\n## Fixes:\r\n- [GP#1357](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1357): Physical mouse movement position and stylus event handling (by @MovTery)\r\n- [Main#8c4f2c6](https://github.com/ZalithLauncher/ZalithLauncher2/commit/8c4f2c6): Game manifest merge logic should use the original assetsIndex (by @MovTery)\r\n- [Main#8c4f2c6](https://github.com/ZalithLauncher/ZalithLauncher2/commit/8c4f2c6): Clean game files should ignore non-existent version JSONs (by @MovTery)\r\n- [GP#1366](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1366): Pass current account data via Intent during launch process (by @MovTery)\r\n- [GP#1368](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1368): Attempting to render blur effect when no background is set (by @MovTery)"
+  "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, please do **not** use the **Vulkan backend** to launch the latest version of Minecraft.\r\n\r\n## Updates:\r\n- [GP#1379](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1379): Optimized rendering performance and quality for player avatar and cape previews (by @MovTery)\r\n- [GP#1381](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1381): Added Vietnamese translation for Terracotta multiplayer (by @dryfish09)\r\n- [GP#1406](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1406): Added scrollbars to some scrollable UI components (by @MovTery)\r\n- [Main#1c1973d4](https://github.com/ZalithLauncher/ZalithLauncher2/commit/1c1973d): Check OptiFine mod separately, no longer fetching its project remotely (by @MovTery)\r\n\r\n## Changes:\r\n- [GP#1404](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1404): Crash page now uses buttons to switch between landscape/portrait orientation (by @MovTery)\r\n- [Main#cc39747d](https://github.com/ZalithLauncher/ZalithLauncher2/commit/cc39747d): Use loader icon as fallback when local mod fails to fetch its icon (by @MovTery)\r\n- [Main#5db42d44](https://github.com/ZalithLauncher/ZalithLauncher2/commit/5db42d44): Exclude mods that cannot fetch remote projects when updating mods (by @MovTery)\r\n\r\n## Fixes:\r\n- [GP#1385](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1385): Unable to search for mods or modpacks using Chinese (by @MovTery)\r\n- [GP#1390](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1390): Use OkHttp for file downloads to fix timeout and freeze issues (by @MovTery)\r\n- [GP#1420](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1420): Control layout - filtering valid events unexpectedly disrupted the original order (by @MovTery)\r\n- [GP#1421](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1421): Filter out non-publicly visible remote projects when searching (by @MovTery)\r\n- [GP#1422](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1422): Reserve safe area for title bar in multi-window mode (by @MovTery)\r\n- [GP#1423](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1423): Persistent black screen when switching to background while using SurfaceView (by @MovTery)"
 }
