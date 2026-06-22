@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.4.8-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-arm64-v8a.apk",
       "size": "151.7 MB",
-      "download_count": 37592
+      "download_count": 44053
     },
     {
       "name": "ZalithLauncher-2.4.8-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-armeabi-v7a.apk",
       "size": "144.5 MB",
-      "download_count": 1415
+      "download_count": 1733
     },
     {
       "name": "ZalithLauncher-2.4.8-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-x86.apk",
       "size": "132.3 MB",
-      "download_count": 807
+      "download_count": 1005
     },
     {
       "name": "ZalithLauncher-2.4.8-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-x86_64.apk",
       "size": "156.6 MB",
-      "download_count": 799
+      "download_count": 954
     },
     {
       "name": "ZalithLauncher-2.4.8.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8.apk",
       "size": "291.9 MB",
-      "download_count": 8046
+      "download_count": 9399
     }
   ],
   "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, please do **not** use the **Vulkan backend** to launch the latest version of Minecraft.\r\n\r\n## Updates:\r\n- [GP#1379](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1379): Optimized rendering performance and quality for player avatar and cape previews (by @MovTery)\r\n- [GP#1381](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1381): Added Vietnamese translation for Terracotta multiplayer (by @dryfish09)\r\n- [GP#1406](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1406): Added scrollbars to some scrollable UI components (by @MovTery)\r\n- [Main#1c1973d4](https://github.com/ZalithLauncher/ZalithLauncher2/commit/1c1973d): Check OptiFine mod separately, no longer fetching its project remotely (by @MovTery)\r\n\r\n## Changes:\r\n- [GP#1404](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1404): Crash page now uses buttons to switch between landscape/portrait orientation (by @MovTery)\r\n- [Main#cc39747d](https://github.com/ZalithLauncher/ZalithLauncher2/commit/cc39747d): Use loader icon as fallback when local mod fails to fetch its icon (by @MovTery)\r\n- [Main#5db42d44](https://github.com/ZalithLauncher/ZalithLauncher2/commit/5db42d44): Exclude mods that cannot fetch remote projects when updating mods (by @MovTery)\r\n\r\n## Fixes:\r\n- [GP#1385](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1385): Unable to search for mods or modpacks using Chinese (by @MovTery)\r\n- [GP#1390](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1390): Use OkHttp for file downloads to fix timeout and freeze issues (by @MovTery)\r\n- [GP#1420](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1420): Control layout - filtering valid events unexpectedly disrupted the original order (by @MovTery)\r\n- [GP#1421](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1421): Filter out non-publicly visible remote projects when searching (by @MovTery)\r\n- [GP#1422](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1422): Reserve safe area for title bar in multi-window mode (by @MovTery)\r\n- [GP#1423](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1423): Persistent black screen when switching to background while using SurfaceView (by @MovTery)"
