@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.4.8",
-  "release_date": "2026-06-17T06:53:08Z",
+  "latest_version": "2.4.9_hotfix1",
+  "release_date": "2026-06-26T11:39:42Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.4.8-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-arm64-v8a.apk",
+      "name": "ZalithLauncher-2.4.9_hotfix1-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-arm64-v8a.apk",
       "size": "151.7 MB",
-      "download_count": 60828
+      "download_count": 4219
     },
     {
-      "name": "ZalithLauncher-2.4.8-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-armeabi-v7a.apk",
+      "name": "ZalithLauncher-2.4.9_hotfix1-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-armeabi-v7a.apk",
       "size": "144.5 MB",
-      "download_count": 2659
+      "download_count": 165
     },
     {
-      "name": "ZalithLauncher-2.4.8-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-x86.apk",
-      "size": "132.3 MB",
-      "download_count": 1497
+      "name": "ZalithLauncher-2.4.9_hotfix1-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-x86.apk",
+      "size": "132.4 MB",
+      "download_count": 93
     },
     {
-      "name": "ZalithLauncher-2.4.8-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8-x86_64.apk",
-      "size": "156.6 MB",
-      "download_count": 1399
+      "name": "ZalithLauncher-2.4.9_hotfix1-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-x86_64.apk",
+      "size": "156.7 MB",
+      "download_count": 75
     },
     {
-      "name": "ZalithLauncher-2.4.8.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.8/ZalithLauncher-2.4.8.apk",
+      "name": "ZalithLauncher-2.4.9_hotfix1.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1.apk",
       "size": "291.9 MB",
-      "download_count": 12930
+      "download_count": 985
     }
   ],
-  "body": "## Notes:\r\n- Since version 26.2+, Mojang has introduced the Vulkan rendering engine. If your device does **not** support **Vulkan 1.2**, please do **not** use the **Vulkan backend** to launch the latest version of Minecraft.\r\n\r\n## Updates:\r\n- [GP#1379](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1379): Optimized rendering performance and quality for player avatar and cape previews (by @MovTery)\r\n- [GP#1381](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1381): Added Vietnamese translation for Terracotta multiplayer (by @dryfish09)\r\n- [GP#1406](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1406): Added scrollbars to some scrollable UI components (by @MovTery)\r\n- [Main#1c1973d4](https://github.com/ZalithLauncher/ZalithLauncher2/commit/1c1973d): Check OptiFine mod separately, no longer fetching its project remotely (by @MovTery)\r\n\r\n## Changes:\r\n- [GP#1404](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1404): Crash page now uses buttons to switch between landscape/portrait orientation (by @MovTery)\r\n- [Main#cc39747d](https://github.com/ZalithLauncher/ZalithLauncher2/commit/cc39747d): Use loader icon as fallback when local mod fails to fetch its icon (by @MovTery)\r\n- [Main#5db42d44](https://github.com/ZalithLauncher/ZalithLauncher2/commit/5db42d44): Exclude mods that cannot fetch remote projects when updating mods (by @MovTery)\r\n\r\n## Fixes:\r\n- [GP#1385](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1385): Unable to search for mods or modpacks using Chinese (by @MovTery)\r\n- [GP#1390](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1390): Use OkHttp for file downloads to fix timeout and freeze issues (by @MovTery)\r\n- [GP#1420](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1420): Control layout - filtering valid events unexpectedly disrupted the original order (by @MovTery)\r\n- [GP#1421](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1421): Filter out non-publicly visible remote projects when searching (by @MovTery)\r\n- [GP#1422](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1422): Reserve safe area for title bar in multi-window mode (by @MovTery)\r\n- [GP#1423](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1423): Persistent black screen when switching to background while using SurfaceView (by @MovTery)"
+  "body": "## Updates:\r\n- [GP#1465](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1465): Updated local Minecraft version list (by @MovTery)\r\n- [GP#1466](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1466): Include API Key when downloading files from CurseForge source (by @MovTery)\r\n\r\n## Fixes:\r\n- [GP#1443](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1443): Version configuration enum serialization broken due to obfuscation (by @MovTery)\r\n- [Main#1679297](https://github.com/ZalithLauncher/ZalithLauncher2/commit/1679297): Use launcher UA directly when downloading (by @MovTery)\r\n- [GP#1467](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1467): Clipboard content read in-game may be null (by @MovTery)\r\n- [Main#132b8d1](https://github.com/ZalithLauncher/ZalithLauncher2/commit/132b8d1): Fixed JVM argument parsing causing incorrect argument concatenation (by @MovTery)\r\n- [GP#1479](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1479): Roll back the Material3 library to version 1.5.0-alpha20 (by @MovTery)"
 }
