@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.4.9_hotfix1-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-arm64-v8a.apk",
       "size": "151.7 MB",
-      "download_count": 4219
+      "download_count": 14241
     },
     {
       "name": "ZalithLauncher-2.4.9_hotfix1-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-armeabi-v7a.apk",
       "size": "144.5 MB",
-      "download_count": 165
+      "download_count": 557
     },
     {
       "name": "ZalithLauncher-2.4.9_hotfix1-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-x86.apk",
       "size": "132.4 MB",
-      "download_count": 93
+      "download_count": 291
     },
     {
       "name": "ZalithLauncher-2.4.9_hotfix1-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-x86_64.apk",
       "size": "156.7 MB",
-      "download_count": 75
+      "download_count": 272
     },
     {
       "name": "ZalithLauncher-2.4.9_hotfix1.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1.apk",
       "size": "291.9 MB",
-      "download_count": 985
+      "download_count": 3044
     }
   ],
   "body": "## Updates:\r\n- [GP#1465](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1465): Updated local Minecraft version list (by @MovTery)\r\n- [GP#1466](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1466): Include API Key when downloading files from CurseForge source (by @MovTery)\r\n\r\n## Fixes:\r\n- [GP#1443](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1443): Version configuration enum serialization broken due to obfuscation (by @MovTery)\r\n- [Main#1679297](https://github.com/ZalithLauncher/ZalithLauncher2/commit/1679297): Use launcher UA directly when downloading (by @MovTery)\r\n- [GP#1467](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1467): Clipboard content read in-game may be null (by @MovTery)\r\n- [Main#132b8d1](https://github.com/ZalithLauncher/ZalithLauncher2/commit/132b8d1): Fixed JVM argument parsing causing incorrect argument concatenation (by @MovTery)\r\n- [GP#1479](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1479): Roll back the Material3 library to version 1.5.0-alpha20 (by @MovTery)"
