@@ -14,6 +14,7 @@ export default {
     allRightsReserved: "保留所有权利。",
     notAffiliated: "Minecraft 是 Mojang AB 的商标。本项目与 Mojang AB 无关。",
     loading: "加载中...",
+    preparing: "准备中...",
     error: "出错了",
     retry: "重试",
   },

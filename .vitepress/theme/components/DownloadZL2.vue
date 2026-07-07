@@ -8,6 +8,9 @@ import { useData } from 'vitepress'
 */
 
 const { lang } = useData()
+
+const LEMWOOD_API_BASE = 'https://miawa.cn/api/v2'
+const LEMWOOD_SITE_BASE = LEMWOOD_API_BASE.replace('/api/v2', '')
 const versionJsonData = ref<any>(null)
 
 interface DeviceType {
@@ -42,6 +45,7 @@ const isDeviceDropdownOpen = ref(false)
 const isSourceDropdownOpen = ref(false)
 const apiFailed = ref(false)
 const fallbackToLocal = ref(false)
+const downloadingAssets = ref<Set<string | number>>(new Set())
 
 const sourceAvailability = computed(() => ({
   github: true,
@@ -360,10 +364,18 @@ async function fetchHahaData() {
   }
 }
 
+// 柠枺镜像 v2 接口统一信封解析
+function normalizeLemwoodResponse(data: any): any {
+  if (data && typeof data === 'object' && 'data' in data && data.error === null) {
+    return data.data;
+  }
+  return data;
+}
+
 // 获取柠枺镜像源数据
 async function fetchLemwoodData() {
-  const lemwoodUrl = 'https://miawa.cn/api/status/zl2'
-  
+  const lemwoodUrl = `${LEMWOOD_API_BASE}/launchers/zl2`
+
   try {
     // 首先尝试直接请求
     console.log('尝试直接获取柠枺镜像源数据...')
@@ -373,18 +385,18 @@ async function fetchLemwoodData() {
         'User-Agent': 'ZalithLauncher-Website/1.0'
       }
     })
-    
+
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`)
     }
-    
+
     const data = await response.json()
-    lemwoodData.value = data
+    lemwoodData.value = normalizeLemwoodResponse(data)
     console.log('✅ 柠枺镜像源数据获取成功（直接请求）')
     return
   } catch (error) {
     console.warn('❌ 直接请求柠枺镜像源失败:', error)
-    
+
     // 如果直接请求失败，尝试使用代理API
     try {
       console.log('尝试使用代理API获取柠枺镜像源数据...')
@@ -393,19 +405,19 @@ async function fetchLemwoodData() {
           'Accept': 'application/json'
         }
       })
-      
+
       if (!proxyResponse.ok) {
         throw new Error(`代理API HTTP ${proxyResponse.status}: ${proxyResponse.statusText}`)
       }
-      
+
       const proxyData = await proxyResponse.json()
-      
+
       if (!proxyData.contents) {
         throw new Error('代理API返回数据格式错误')
       }
-      
+
       const data = JSON.parse(proxyData.contents)
-      lemwoodData.value = data
+      lemwoodData.value = normalizeLemwoodResponse(data)
       console.log('✅ 柠枺镜像源数据获取成功（代理API）')
     } catch (proxyError) {
       console.warn('❌ 代理API也失败了:', proxyError)
@@ -757,6 +769,50 @@ function getDownloadUrl(asset: any) {
   }
 }
 
+// 处理下载按钮点击（柠枺镜像使用 v2 准备接口获取下载令牌）
+async function handleDownload(asset: any) {
+  if (selectedDownloadSource.value !== 'lemwood') {
+    window.open(getDownloadUrl(asset), '_blank', 'noopener,noreferrer')
+    return
+  }
+
+  downloadingAssets.value.add(asset.id)
+  try {
+    const version = latestRelease.value.tag_name.replace(/^v/, '')
+    const filePath = `zl2/${version}/${asset.name}`
+
+    const res = await fetch(`${LEMWOOD_API_BASE}/downloads/prepare`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        file_path: filePath,
+        return_url: window.location.href,
+        source: 'zl-website-download'
+      })
+    })
+
+    if (!res.ok) {
+      throw new Error(`Prepare failed: ${res.status}`)
+    }
+
+    const result = await res.json()
+    const payload = result.data ?? result
+    const downloadUrl = payload.download_url
+
+    if (downloadUrl) {
+      const fullUrl = downloadUrl.startsWith('http') ? downloadUrl : `${LEMWOOD_SITE_BASE}${downloadUrl}`
+      window.open(fullUrl, '_blank', 'noopener,noreferrer')
+    } else {
+      throw new Error('No download_url in response')
+    }
+  } catch (e) {
+    console.error('柠枺镜像准备下载失败，降级到直接链接', e)
+    window.open(getDownloadUrl(asset), '_blank', 'noopener,noreferrer')
+  } finally {
+    downloadingAssets.value.delete(asset.id)
+  }
+}
+
 // 格式化文件大小
 function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes'
@@ -965,12 +1021,14 @@ onMounted(() => {
             </div>
             
             <div class="download-action">
-              <a :href="getDownloadUrl(asset)" 
-                 class="download-btn primary-btn" 
-                 target="_blank" 
-                 rel="noopener noreferrer">
-                <span class="btn-text">立即下载</span>
-              </a>
+              <button
+                type="button"
+                class="download-btn primary-btn"
+                :disabled="downloadingAssets.has(asset.id)"
+                @click="handleDownload(asset)">
+                <span v-if="downloadingAssets.has(asset.id)" class="btn-icon">↻</span>
+                <span class="btn-text">{{ downloadingAssets.has(asset.id) ? '准备中...' : '立即下载' }}</span>
+              </button>
             </div>
           </div>
         </div>
@@ -1479,14 +1537,26 @@ onMounted(() => {
   box-shadow: var(--vp-shadow-2);
 }
 
-.download-btn:hover {
+.download-btn:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: var(--vp-shadow-3);
   background: var(--vp-c-brand-1);
 }
 
+.download-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .btn-icon {
   font-size: 1.125rem;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* 无文件状态 */

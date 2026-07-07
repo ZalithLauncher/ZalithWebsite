@@ -14,6 +14,7 @@ export default {
     allRightsReserved: "All rights reserved.",
     notAffiliated: "Minecraft is a trademark of Mojang AB. Not affiliated with Microsoft/Mojang.",
     loading: "Loading...",
+    preparing: "Preparing...",
     error: "Error",
     retry: "Retry",
   },

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Smartphone, Terminal, ShieldCheck, Zap, Globe, ChevronDown, Check, AlertTriangle, ExternalLink, Info, Cloud } from 'lucide-react';
-import { useLatestRelease, type Asset } from '../hooks/useLatestRelease';
+import { useLatestRelease, type Asset, LEMWOOD_API_BASE } from '../hooks/useLatestRelease';
 import { marked } from 'marked';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -35,6 +35,7 @@ const DownloadSection = () => {
   const [isDeviceOpen, setIsDeviceOpen] = useState(false);
   const [isSourceOpen, setIsSourceOpen] = useState(false);
   const [parsedBody, setParsedBody] = useState('');
+  const [downloadingAssets, setDownloadingAssets] = useState<Set<string | number>>(new Set());
 
   const ReleaseSkeleton = () => (
     <div className="glass-card p-4 sm:p-8 animate-pulse relative overflow-hidden">
@@ -155,6 +156,8 @@ const DownloadSection = () => {
   const currentDevice = dynamicDeviceTypes.find(d => d.id === selectedDevice) || dynamicDeviceTypes[0];
   const currentSource = downloadSources.find(s => s.id === selectedSource) || downloadSources[0];
 
+  const lemwoodSiteBase = LEMWOOD_API_BASE.replace('/api/v2', '');
+
   const getDownloadUrl = (asset: Asset) => {
     const tagName = release?.tag_name || '';
     
@@ -203,6 +206,54 @@ const DownloadSection = () => {
     }
 
     return asset.browser_download_url;
+  };
+
+  const handleDownload = async (asset: Asset) => {
+    if (selectedSource !== 'lemwood') {
+      window.open(getDownloadUrl(asset), '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    setDownloadingAssets(prev => new Set(prev).add(asset.id));
+    try {
+      const launcher = activeProject === 'zl1' ? 'zl' : 'zl2';
+      const version = release?.tag_name?.replace(/^v/, '') || '';
+      const filePath = `${launcher}/${version}/${asset.name}`;
+
+      const res = await fetch(`${LEMWOOD_API_BASE}/downloads/prepare`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          file_path: filePath,
+          return_url: window.location.href,
+          source: 'zl-website-download'
+        })
+      });
+
+      if (!res.ok) {
+        throw new Error(`Prepare failed: ${res.status}`);
+      }
+
+      const result = await res.json();
+      const payload = result.data ?? result;
+      const downloadUrl = payload.download_url;
+
+      if (downloadUrl) {
+        const fullUrl = downloadUrl.startsWith('http') ? downloadUrl : `${lemwoodSiteBase}${downloadUrl}`;
+        window.open(fullUrl, '_blank', 'noopener,noreferrer');
+      } else {
+        throw new Error('No download_url in response');
+      }
+    } catch (e) {
+      console.error('Lemwood prepare download failed, falling back to direct URL', e);
+      window.open(getDownloadUrl(asset), '_blank', 'noopener,noreferrer');
+    } finally {
+      setDownloadingAssets(prev => {
+        const next = new Set(prev);
+        next.delete(asset.id);
+        return next;
+      });
+    }
   };
 
   const filteredAssets = release?.assets.filter(asset => {
@@ -486,14 +537,28 @@ const DownloadSection = () => {
                           </div>
                         </div>
                       </div>
-                      <a 
-                        href={getDownloadUrl(asset)} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="btn-primary py-2 px-6 text-sm flex items-center gap-2 whitespace-nowrap w-full sm:w-auto justify-center"
+                      <button
+                        type="button"
+                        onClick={() => handleDownload(asset)}
+                        disabled={downloadingAssets.has(asset.id)}
+                        className="btn-primary py-2 px-6 text-sm flex items-center gap-2 whitespace-nowrap w-full sm:w-auto justify-center disabled:opacity-70 disabled:cursor-not-allowed"
                       >
-                        {t('common.download')} <ExternalLink size={14} />
-                      </a>
+                        {downloadingAssets.has(asset.id) ? (
+                          <>
+                            <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                            >
+                              <Zap size={14} />
+                            </motion.div>
+                            {t('common.preparing') || '准备中'}
+                          </>
+                        ) : (
+                          <>
+                            {t('common.download')} <ExternalLink size={14} />
+                          </>
+                        )}
+                      </button>
                     </motion.div>
                   )) : (
                     <div className="text-center py-12 bg-[var(--bg-alt)] rounded-2xl border border-dashed border-[var(--divider)]/50">

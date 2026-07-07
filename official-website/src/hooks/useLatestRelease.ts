@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+export const LEMWOOD_API_BASE = 'https://miawa.cn/api/v2';
+
 export interface Asset {
   id: string | number;
   name: string;
@@ -192,7 +194,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
       const fetchMirrorsTask = async () => {
         const foxingtonUrl = project === 'zl1' ? 'https://next.foldcraftlauncher.cn/data/down/zl/1/1.4.1.0/index.json' : null;
         const hahaUrl = `https://api.mirror.frostlynx.work/api/projects/${project === 'zl1' ? 'zl' : 'zl2'}/latest`;
-        const lemwoodUrl = `https://miawa.cn/api/status/${project === 'zl1' ? 'zl' : 'zl2'}`;
+        const lemwoodUrl = `${LEMWOOD_API_BASE}/launchers/${project === 'zl1' ? 'zl' : 'zl2'}`;
 
         const fetchJson = async (url: string) => {
           try {
@@ -200,14 +202,27 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
             const timeoutId = setTimeout(() => controller.abort(), 5000);
             const res = await fetch(url, { signal: controller.signal });
             clearTimeout(timeoutId);
-            
-            if (res.ok) return await res.json();
-            
+
+            const parseBody = async (response: Response) => {
+              const data = await response.json();
+              // 柠枺镜像 v2 接口使用统一信封：{ data, error, meta }
+              if (data && typeof data === 'object' && 'data' in data && data.error === null) {
+                return data.data;
+              }
+              return data;
+            };
+
+            if (res.ok) return await parseBody(res);
+
             const proxyRes = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
             if (!proxyRes.ok) return null;
             const proxyData = await proxyRes.json();
             if (!proxyData || !proxyData.contents) return null;
-            return JSON.parse(proxyData.contents);
+            const parsed = JSON.parse(proxyData.contents);
+            if (parsed && typeof parsed === 'object' && 'data' in parsed && parsed.error === null) {
+              return parsed.data;
+            }
+            return parsed;
           } catch (e) {
             console.error('Fetch mirror data failed', e);
             return null;
