@@ -42,7 +42,7 @@ const DOWNLOAD_SOURCES: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: '国内加速', description: 'fishcpy 提供', speed: '国内较快', contributor: { name: 'fishcpy', url: 'https://github.com/fishcpy' } },
   { id: 'foxington', name: 'Foxington 源', description: '第三方镜像', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
-  { id: 'haha', name: '哈哈源', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://frostlynx.work' } },
+  { id: 'haha', name: '枫源镜像', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://fengyuan.frostlynx.work' } },
   { id: 'lemwood', name: '柠枺镜像', description: 'Lemwood 提供', speed: '国内较快', contributor: { name: 'Lemwood', url: 'https://lemwood.cn' } },
 ];
 
@@ -193,7 +193,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
 
       const fetchMirrorsTask = async () => {
         const foxingtonUrl = project === 'zl1' ? 'https://next.foldcraftlauncher.cn/data/down/zl/1/1.4.1.0/index.json' : null;
-        const hahaUrl = `https://api.mirror.frostlynx.work/api/projects/${project === 'zl1' ? 'zl' : 'zl2'}/latest`;
+        const hahaUrl = `https://fengyuan.frostlynx.work/api/public/v1/projects/${project === 'zl1' ? 'zl' : 'zl2'}/assets`;
         const lemwoodUrl = `${LEMWOOD_API_BASE}/launchers/${project === 'zl1' ? 'zl' : 'zl2'}`;
 
         const fetchJson = async (url: string) => {
@@ -209,6 +209,10 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
               if (data && typeof data === 'object' && 'data' in data && data.error === null) {
                 return data.data;
               }
+              // 枫源镜像接口：{ status: "success", data: { assets: [...] } }
+              if (data && typeof data === 'object' && data.status === 'success' && data.data && Array.isArray(data.data.assets)) {
+                return data.data.assets;
+              }
               return data;
             };
 
@@ -221,6 +225,9 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
             const parsed = JSON.parse(proxyData.contents);
             if (parsed && typeof parsed === 'object' && 'data' in parsed && parsed.error === null) {
               return parsed.data;
+            }
+            if (parsed && typeof parsed === 'object' && parsed.status === 'success' && parsed.data && Array.isArray(parsed.data.assets)) {
+              return parsed.data.assets;
             }
             return parsed;
           } catch (e) {

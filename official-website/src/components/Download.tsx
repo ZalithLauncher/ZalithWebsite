@@ -176,14 +176,31 @@ const DownloadSection = () => {
       return matched?.url || asset.browser_download_url;
     }
 
-    if (selectedSource === 'haha' && mirrorData.haha?.files && Array.isArray(mirrorData.haha.files)) {
+    if (selectedSource === 'haha' && Array.isArray(mirrorData.haha)) {
+      const projectId = activeProject === 'zl1' ? 'zl' : 'zl2';
+
+      // 优先按文件名精确匹配
+      const matchedByName = mirrorData.haha.find((f: any) => f.file_name === asset.name && f.available !== false);
+      if (matchedByName) {
+        return `https://fengyuan.frostlynx.work/${projectId}/${matchedByName.version}/${matchedByName.file_name}`;
+      }
+
+      // 按架构回退匹配
       const fileName = asset.name.toLowerCase();
       let targetArch = '';
       if (fileName.includes('arm64')) targetArch = 'arm64-v8a';
       else if (fileName.includes('armeabi')) targetArch = 'armeabi-v7a';
-      
-      const matched = mirrorData.haha.files.find((f: any) => f.arch === targetArch || (!targetArch && (!f.arch || f.arch === 'all')));
-      return matched?.link || asset.browser_download_url;
+      else if (fileName.includes('x86_64')) targetArch = 'x86_64';
+      else if (fileName.includes('x86')) targetArch = 'x86';
+
+      const matchedByArch = mirrorData.haha.find((f: any) => {
+        if (f.available === false) return false;
+        if (targetArch) return f.architecture === targetArch;
+        return !f.architecture || f.architecture === 'all' || f.architecture === '';
+      });
+      if (matchedByArch) {
+        return `https://fengyuan.frostlynx.work/${projectId}/${matchedByArch.version}/${matchedByArch.file_name}`;
+      }
     }
 
     if (selectedSource === 'lemwood' && Array.isArray(mirrorData.lemwood)) {

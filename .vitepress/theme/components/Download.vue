@@ -100,7 +100,7 @@ const downloadSources: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: '国内镜像', description: '第三方加速', speed: '国内较快', contributor: { name: '咬一口的鱼py(fishcpy)', url: 'https://github.com/fishcpy' } },
   { id: 'foxington', name: 'github.com/XiaoluoFoxington源', description: '第三方镜像源', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
-  { id: 'haha', name: '哈哈源', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://frostlynx.work' } },
+  { id: 'haha', name: '枫源镜像', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://fengyuan.frostlynx.work' } },
   { id: 'lemwood', name: '柠枺镜像', description: '由 柠枺(lemwood.cn) 提供', speed: '国内较快', contributor: { name: '柠枺', url: 'https://lemwood.cn' } }
 ]
 
@@ -380,51 +380,59 @@ async function fetchFoxingtonData() {
   }
 }
 
-// 获取哈哈源数据
+// 枫源镜像接口响应解析：{ status: "success", data: { assets: [...] } }
+function normalizeFengyuanResponse(data: any): any {
+  if (data && typeof data === 'object' && data.status === 'success' && data.data && Array.isArray(data.data.assets)) {
+    return data.data.assets;
+  }
+  return data;
+}
+
+// 获取枫源镜像数据
 async function fetchHahaData() {
-  const hahaUrl = 'https://api.mirror.frostlynx.work/api/projects/zl/latest'
-  
+  const hahaUrl = 'https://fengyuan.frostlynx.work/api/public/v1/projects/zl/assets'
+
   try {
-    console.log('尝试直接获取哈哈源数据...')
+    console.log('尝试直接获取枫源镜像数据...')
     const response = await fetch(hahaUrl, {
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'ZalithLauncher-Website/1.0'
       }
     })
-    
+
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`)
     }
-    
+
     const data = await response.json()
-    hahaData.value = data
-    console.log('✅ 哈哈源数据获取成功（直接请求）')
+    hahaData.value = normalizeFengyuanResponse(data)
+    console.log('✅ 枫源镜像数据获取成功（直接请求）')
     return
   } catch (error) {
-    console.warn('❌ 直接请求哈哈源失败:', error)
-    
+    console.warn('❌ 直接请求枫源镜像失败:', error)
+
     try {
-      console.log('尝试使用代理API获取哈哈源数据...')
+      console.log('尝试使用代理API获取枫源镜像数据...')
       const proxyResponse = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(hahaUrl)}`, {
         headers: {
           'Accept': 'application/json'
         }
       })
-      
+
       if (!proxyResponse.ok) {
         throw new Error(`代理API HTTP ${proxyResponse.status}: ${proxyResponse.statusText}`)
       }
-      
+
       const proxyData = await proxyResponse.json()
-      
+
       if (!proxyData.contents) {
         throw new Error('代理API返回数据格式错误')
       }
-      
+
       const data = JSON.parse(proxyData.contents)
-      hahaData.value = data
-      console.log('✅ 哈哈源数据获取成功（代理API）')
+      hahaData.value = normalizeFengyuanResponse(data)
+      console.log('✅ 枫源镜像数据获取成功（代理API）')
     } catch (proxyError) {
       console.warn('❌ 代理API也失败了:', proxyError)
       hahaData.value = null
@@ -728,15 +736,24 @@ function getFoxingtonUrl(asset: any) {
   return asset.browser_download_url
 }
 
-// 从哈哈源数据中获取对应的下载链接
+// 从枫源镜像数据中获取对应的下载链接
 function getHahaUrl(asset: any) {
-  if (!hahaData.value || !hahaData.value.files) {
+  if (!hahaData.value || !Array.isArray(hahaData.value)) {
     return asset.browser_download_url
   }
-  
+
+  const projectId = 'zl'
+
+  // 优先按文件名精确匹配
+  const matchedByName = hahaData.value.find((file: any) => file.file_name === asset.name && file.available !== false)
+  if (matchedByName) {
+    return `https://fengyuan.frostlynx.work/${projectId}/${matchedByName.version}/${matchedByName.file_name}`
+  }
+
+  // 按架构回退匹配
   const fileName = asset.name.toLowerCase()
   let targetArch = ''
-  
+
   if (fileName.includes('arm64-v8a') || fileName.includes('arm64')) {
     targetArch = 'arm64-v8a'
   } else if (fileName.includes('armeabi-v7a') || fileName.includes('armeabi')) {
@@ -746,18 +763,19 @@ function getHahaUrl(asset: any) {
   } else if (fileName.includes('x86')) {
     targetArch = 'x86'
   }
-  
-  const matchedFile = hahaData.value.files.find((file: any) => {
+
+  const matchedFile = hahaData.value.find((file: any) => {
+    if (file.available === false) return false
     if (targetArch === '') {
-      return file.arch === '' || file.arch === 'all' || !file.arch
+      return !file.architecture || file.architecture === 'all' || file.architecture === ''
     }
-    return file.arch === targetArch
+    return file.architecture === targetArch
   })
-  
-  if (matchedFile && matchedFile.link) {
-    return matchedFile.link
+
+  if (matchedFile) {
+    return `https://fengyuan.frostlynx.work/${projectId}/${matchedFile.version}/${matchedFile.file_name}`
   }
-  
+
   return asset.browser_download_url
 }
 
