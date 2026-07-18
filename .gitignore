@@ -32,3 +32,4 @@ dist-ssr
 # lock files
 yarn.lock
 CLAUDE.md
+.claude/settings.local.json

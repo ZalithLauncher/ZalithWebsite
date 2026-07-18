@@ -5,10 +5,8 @@ import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react';
 import AuthorCard from '../components/blog/AuthorCard';
 import TOC from '../components/blog/TOC';
 import RelatedPosts from '../components/blog/RelatedPosts';
-import blogIndexData from '../data/blog-index.json';
-import type { BlogIndex, TOCItem } from '../types/blog';
-
-const blogIndex: BlogIndex = blogIndexData as unknown as BlogIndex;
+import { findPost, getPostsByLang, resolveBlogLang } from '../lib/blog';
+import type { TOCItem } from '../types/blog';
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -22,11 +20,7 @@ const BlogPostPage = () => {
       .catch(() => {});
   }, []);
 
-  const post = useMemo(() => {
-    return blogIndex.posts.find(
-      (p) => p.slug === slug && p.lang === i18n.language
-    ) || blogIndex.posts.find((p) => p.slug === slug);
-  }, [slug, i18n.language]);
+  const post = useMemo(() => findPost(slug, i18n.language), [slug, i18n.language]);
 
   const tocItems = useMemo((): TOCItem[] => {
     if (!post) return [];
@@ -71,7 +65,7 @@ const BlogPostPage = () => {
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString(i18n.language === 'zh' ? 'zh-CN' : 'en-US', {
+    return date.toLocaleDateString(resolveBlogLang(i18n.language) === 'zh' ? 'zh-CN' : 'en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -165,7 +159,7 @@ const BlogPostPage = () => {
           )}
         </div>
 
-        <RelatedPosts posts={blogIndex.posts} currentSlug={post.slug} />
+        <RelatedPosts posts={getPostsByLang(i18n.language)} currentSlug={post.slug} />
       </div>
     </div>
   );

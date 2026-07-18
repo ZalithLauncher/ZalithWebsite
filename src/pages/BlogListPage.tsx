@@ -3,18 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Tag, Search } from 'lucide-react';
 import BlogCard from '../components/blog/BlogCard';
-import type { BlogPost, BlogIndex } from '../types/blog';
-import blogIndexData from '../data/blog-index.json';
-
-const blogIndex: BlogIndex = blogIndexData;
+import { getPostsByLang } from '../lib/blog';
+import type { BlogPost } from '../types/blog';
 
 const BlogListPage = () => {
   const { t, i18n } = useTranslation();
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
+  const langPosts = useMemo(() => getPostsByLang(i18n.language), [i18n.language]);
+
   const filteredPosts = useMemo(() => {
-    let posts = blogIndex.posts.filter((post) => post.lang === i18n.language);
+    let posts = langPosts;
     
     if (selectedTag) {
       posts = posts.filter((post) => post.tags.includes(selectedTag));
@@ -31,9 +31,12 @@ const BlogListPage = () => {
     }
     
     return posts;
-  }, [i18n.language, selectedTag, searchQuery]);
+  }, [langPosts, selectedTag, searchQuery]);
 
-  const tags = blogIndex.tags;
+  const tags = useMemo(
+    () => Array.from(new Set(langPosts.flatMap((post) => post.tags))),
+    [langPosts]
+  );
 
   return (
     <div className="pb-20 min-h-screen bg-[var(--bg)]/70 transition-colors duration-300">

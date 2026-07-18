@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Calendar, Clock, Tag } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { resolveBlogLang } from '../../lib/blog';
 import type { BlogPost } from '../../types/blog';
 
 interface BlogCardProps {
@@ -12,7 +13,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
   
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString(i18n.language === 'zh' ? 'zh-CN' : 'en-US', {
+    return date.toLocaleDateString(resolveBlogLang(i18n.language) === 'zh' ? 'zh-CN' : 'en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
