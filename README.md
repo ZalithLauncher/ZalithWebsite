@@ -2,6 +2,8 @@
 
 Zalith Launcher 官方网站的源码仓库，基于 React + Vite + Tailwind CSS 构建。
 
+文档站已迁移至 [zalithdocs](https://github.com/ZalithLauncher/zalithdocs)。
+
 ## 技术栈
 
 - **框架**: React 19 + React Router 7
@@ -15,7 +17,7 @@ Zalith Launcher 官方网站的源码仓库，基于 React + Vite + Tailwind CSS
 ## 项目结构
 
 ```
-official-website/
+.
 ├── content/          # 博客 Markdown 源文件
 ├── public/           # 静态资源与构建产物
 ├── scripts/          # 构建脚本（博客索引、构建信息）
@@ -28,7 +30,8 @@ official-website/
 │   ├── types/        # TypeScript 类型定义
 │   ├── data/         # 构建生成的数据索引
 │   └── assets/       # 静态资源
-└── vite.config.ts
+├── vite.config.ts
+└── package.json
 ```
 
 ## 可用脚本
