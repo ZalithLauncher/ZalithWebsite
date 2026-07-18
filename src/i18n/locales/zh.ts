@@ -122,6 +122,12 @@ export default {
     title: "页面未找到",
     description: "您访问的页面不存在或已被移除。",
   },
+  inAppBrowser: {
+    title: "建议在浏览器中打开",
+    description: "您正在使用 QQ 内置浏览器访问，页面可能显示异常，下载等功能也可能无法正常使用。为获得完整体验，建议使用系统浏览器打开。",
+    hint: "点击右上角「···」，选择「在浏览器打开」",
+    continue: "继续访问",
+  },
   blog: {
     title: "博客",
     subtitle: "了解 Zalith Launcher 的最新动态、开发日志和教程文章",

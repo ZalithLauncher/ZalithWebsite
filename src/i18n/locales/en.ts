@@ -122,6 +122,12 @@ export default {
     title: "Page Not Found",
     description: "The page you're looking for doesn't exist or has been moved.",
   },
+  inAppBrowser: {
+    title: "Open in Your Browser",
+    description: "You're viewing this page in QQ's built-in browser. The page may not display correctly and downloads may not work. For the full experience, please open it in your system browser.",
+    hint: "Tap the \"···\" menu in the top right and choose \"Open in browser\"",
+    continue: "Continue Anyway",
+  },
   blog: {
     title: "Blog",
     subtitle: "Latest updates, dev logs, and tutorials for Zalith Launcher",

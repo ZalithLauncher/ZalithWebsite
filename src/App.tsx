@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import InAppBrowserNotice from './components/InAppBrowserNotice';
 import Home from './pages/Home';
 import DownloadPage from './pages/DownloadPage';
 import PrivacyPage from './pages/PrivacyPage';
@@ -49,6 +50,7 @@ const AppContent = () => {
 
   return (
     <div className="min-h-screen">
+      <InAppBrowserNotice />
       <Navbar />
       <main className={isHomePage ? '' : 'pt-16'}>
         <Routes>
