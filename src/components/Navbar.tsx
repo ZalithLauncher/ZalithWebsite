@@ -58,7 +58,7 @@ const Navbar = () => {
     { name: t('nav.features'), path: '/#features' },
     { name: t('nav.download'), path: '/download' },
     { name: t('nav.blog'), path: '/blog' },
-    { name: t('nav.docs'), path: 'https://www.zalithlauncher.cn/docs/projects/zl2', external: true },
+    { name: t('nav.docs'), path: 'https://docs.zalithlauncher.cn/docs/projects/zl2', external: true },
   ];
 
   const toggleLanguage = () => {
@@ -68,7 +68,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-[100] transition-all duration-300 pt-[env(safe-area-inset-top)] ${
+      className={`fixed top-0 w-full z-[100] transition-all duration-300 ${
         isScrolled
           ? 'bg-[var(--bg)]/85 backdrop-blur-lg border-b border-[var(--divider)]/30 shadow-sm shadow-black/5'
           : 'bg-[var(--bg)]/40 backdrop-blur-md border-b border-transparent'

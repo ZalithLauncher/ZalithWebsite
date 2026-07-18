@@ -14,7 +14,7 @@ const FooterSection = () => {
       links: [
         { name: t('footer.projects'), path: "/" },
         { name: t('common.downloadCenter'), path: "/download" },
-        { name: t('common.docs'), path: "https://www.zalithlauncher.cn/docs/projects/zl2", external: true },
+        { name: t('common.docs'), path: "https://docs.zalithlauncher.cn/docs/projects/zl2", external: true },
         { name: t('footer.githubOrg'), path: "https://github.com/ZalithLauncher", external: true },
       ]
     },

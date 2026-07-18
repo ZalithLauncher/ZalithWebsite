@@ -54,7 +54,7 @@ const HeroSection = () => {
               <Link to="/download" className="btn-primary flex items-center gap-2 text-base sm:text-lg w-full sm:w-auto justify-center">
                 {t('common.download')} <Download size={20} />
               </Link>
-              <a href="https://www.zalithlauncher.cn/docs/projects/zl2" target="_blank" rel="noreferrer" className="px-8 py-3 rounded-full border border-[var(--divider)]/50 hover:bg-[var(--bg-alt)] transition-all flex items-center gap-2 text-base sm:text-lg text-[var(--text-1)] w-full sm:w-auto justify-center">
+              <a href="https://docs.zalithlauncher.cn/docs/projects/zl2" target="_blank" rel="noreferrer" className="px-8 py-3 rounded-full border border-[var(--divider)]/50 hover:bg-[var(--bg-alt)] transition-all flex items-center gap-2 text-base sm:text-lg text-[var(--text-1)] w-full sm:w-auto justify-center">
                 {t('common.viewDocs')} <ArrowRight size={20} />
               </a>
             </motion.div>
