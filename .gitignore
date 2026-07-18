@@ -31,3 +31,4 @@ dist-ssr
 
 # lock files
 yarn.lock
+CLAUDE.md
