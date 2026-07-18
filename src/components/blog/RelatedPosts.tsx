@@ -10,9 +10,11 @@ interface RelatedPostsProps {
 }
 
 const RelatedPosts = ({ posts, currentSlug }: RelatedPostsProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   
-  const filteredPosts = posts
+  const langPosts = posts.filter((post) => post.lang === i18n.language);
+  const source = langPosts.length > 0 ? langPosts : posts;
+  const filteredPosts = source
     .filter((post) => post.slug !== currentSlug)
     .slice(0, 3);
 

@@ -21,8 +21,8 @@ const TermsPage = () => {
   }, [pathname, i18n.language, t]);
 
   return (
-    <div className="pt-24 pb-20 min-h-screen bg-[var(--bg)]/70 transition-colors duration-300">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pb-20 min-h-screen bg-[var(--bg)]/70 transition-colors duration-300">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         {/* Header */}
         <div className="mb-12">
           <Link to="/" className="inline-flex items-center gap-2 text-[var(--text-2)] hover:text-[var(--brand)] transition-colors mb-8 group">
@@ -31,13 +31,13 @@ const TermsPage = () => {
           </Link>
 
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-[var(--brand)]/10 text-[var(--brand)] flex items-center justify-center">
+            <div className="w-12 h-12 shrink-0 rounded-2xl bg-[var(--brand)]/10 text-[var(--brand)] flex items-center justify-center">
               <FileText size={28} />
             </div>
-            <h1 className="text-4xl font-bold text-[var(--text-1)]">{t('common.termsOfService')}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-[var(--text-1)]">{t('common.termsOfService')}</h1>
           </div>
 
-          <div className="flex items-center gap-4 text-sm text-[var(--text-2)]">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[var(--text-2)]">
             <span className="flex items-center gap-1.5">
               <Clock size={14} />
               {t('terms.lastUpdated')}
@@ -48,7 +48,7 @@ const TermsPage = () => {
         </div>
 
         {/* Content */}
-        <div className="glass-card p-8 md:p-12">
+        <div className="glass-card p-6 sm:p-8 md:p-12">
           <div
             className="prose-custom max-w-none"
             dangerouslySetInnerHTML={{ __html: html }}
@@ -56,14 +56,14 @@ const TermsPage = () => {
         </div>
 
         {/* Quick Contact */}
-        <div className="mt-12 p-8 rounded-3xl bg-[var(--bg-alt)] border border-[var(--divider)]/20 text-center">
+        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-[var(--bg-alt)] border border-[var(--divider)]/20 text-center">
           <h3 className="text-xl font-bold text-[var(--text-1)] mb-2">{t('terms.questionTitle')}</h3>
           <p className="text-[var(--text-2)] mb-6">{t('terms.questionDesc')}</p>
-          <div className="flex justify-center gap-4">
-            <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" className="btn-primary px-8 py-2 text-sm">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" className="btn-primary inline-flex justify-center w-full sm:w-auto px-8 py-2 text-sm">
               GitHub
             </a>
-            <a href="https://github.com/ZalithLauncher/ZalithLauncher2/issues" target="_blank" rel="noreferrer" className="px-8 py-2 rounded-full border border-[var(--divider)]/50 text-[var(--text-1)] hover:bg-[var(--bg)] transition-all text-sm">
+            <a href="https://github.com/ZalithLauncher/ZalithLauncher2/issues" target="_blank" rel="noreferrer" className="inline-flex justify-center w-full sm:w-auto px-8 py-2 rounded-full border border-[var(--divider)]/50 text-[var(--text-1)] hover:bg-[var(--bg)] transition-all text-sm">
               {t('terms.submitIssue')}
             </a>
           </div>

@@ -22,13 +22,15 @@ const BlogCard = ({ post }: BlogCardProps) => {
   return (
     <Link 
       to={`/blog/${post.slug}`}
-      className="group block glass-card overflow-hidden hover:shadow-xl hover:shadow-[var(--brand)]/10 transition-all duration-300"
+      className="group block glass-card overflow-hidden hover:-translate-y-1 hover:shadow-xl hover:shadow-[var(--brand)]/10 hover:border-[var(--brand)]/40 transition-all duration-300"
     >
       {post.image && (
-        <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden">
+        <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden bg-[var(--bg-alt)]">
           <img 
             src={post.image} 
             alt={post.title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-transparent to-transparent" />
@@ -56,14 +58,16 @@ const BlogCard = ({ post }: BlogCardProps) => {
           {post.excerpt}
         </p>
         
-        <div className="flex items-center justify-between pt-2 border-t border-[var(--divider)]/20">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[var(--divider)]/20">
+          <div className="flex items-center gap-2 min-w-0">
             {post.authors[0] && (
               <>
                 {post.authors[0].image_url ? (
                   <img 
                     src={post.authors[0].image_url} 
                     alt={post.authors[0].name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-6 h-6 rounded-full object-cover"
                   />
                 ) : (
@@ -71,12 +75,12 @@ const BlogCard = ({ post }: BlogCardProps) => {
                     {post.authors[0].name[0]}
                   </div>
                 )}
-                <span className="text-sm text-[var(--text-2)]">{post.authors[0].name}</span>
+                <span className="text-sm text-[var(--text-2)] truncate">{post.authors[0].name}</span>
               </>
             )}
           </div>
           
-          <div className="flex items-center gap-3 text-xs text-[var(--text-2)]">
+          <div className="flex items-center gap-3 text-xs text-[var(--text-2)] whitespace-nowrap">
             <span className="flex items-center gap-1">
               <Calendar size={12} />
               {formatDate(post.date)}

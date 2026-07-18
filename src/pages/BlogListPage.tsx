@@ -56,7 +56,7 @@ const BlogListPage = () => {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          <aside className="lg:w-64 flex-shrink-0 space-y-6">
+          <aside className="lg:w-64 flex-shrink-0 space-y-6 lg:sticky lg:top-24 lg:self-start">
             <div className="glass-card p-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-2)]" size={18} />

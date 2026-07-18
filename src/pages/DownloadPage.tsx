@@ -14,9 +14,9 @@ const DownloadPage = () => {
   return (
     <div className="pt-16 min-h-screen bg-[var(--bg)]/70 transition-colors duration-300">
       {/* Optional: Add a simple page header here if needed */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
-        <h1 className="text-3xl font-bold text-center mb-2 text-[var(--text-1)]">{t('common.downloadCenter')}</h1>
-        <p className="text-[var(--text-2)] text-center">{t('download.subtitle')}</p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center mb-2 text-[var(--text-1)]">{t('common.downloadCenter')}</h1>
+        <p className="text-[var(--text-2)] text-center text-sm sm:text-base">{t('download.subtitle')}</p>
       </div>
       <DownloadSection />
     </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, Globe } from 'lucide-react';
+import { Sun, Moon, Menu, X, Globe, ExternalLink } from 'lucide-react';
 import GithubIcon from './icons/GithubIcon';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
@@ -16,6 +16,7 @@ const Navbar = () => {
     return false;
   });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -26,6 +27,31 @@ const Navbar = () => {
       document.documentElement.classList.remove('dark');
     }
   }, [isDark]);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 8);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close the mobile menu whenever the route changes
+  const locationKey = location.pathname + location.hash;
+  const [prevLocationKey, setPrevLocationKey] = useState(locationKey);
+  if (prevLocationKey !== locationKey) {
+    setPrevLocationKey(locationKey);
+    setIsMenuOpen(false);
+  }
+
+  // Lock body scroll while the mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }
+  }, [isMenuOpen]);
 
   const navLinks = [
     { name: t('nav.home'), path: '/' },
@@ -41,7 +67,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 w-full z-[100] bg-[var(--bg)]/80 backdrop-blur-lg border-b border-[var(--divider)]/20 transition-colors duration-300">
+    <nav
+      className={`fixed top-0 w-full z-[100] transition-all duration-300 pt-[env(safe-area-inset-top)] ${
+        isScrolled
+          ? 'bg-[var(--bg)]/85 backdrop-blur-lg border-b border-[var(--divider)]/30 shadow-sm shadow-black/5'
+          : 'bg-[var(--bg)]/40 backdrop-blur-md border-b border-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <Link to="/" className="flex items-center gap-2 group">
@@ -58,29 +90,40 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              link.external ? (
-                <a 
+            {navLinks.map((link) => {
+              const isActive = !link.external && location.pathname === link.path;
+              return link.external ? (
+                <a
                   key={link.name}
-                  href={link.path} 
-                  className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors font-medium"
+                  href={link.path}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors font-medium inline-flex items-center gap-1"
                 >
                   {link.name}
+                  <ExternalLink size={14} className="opacity-60" />
                 </a>
               ) : (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`text-[var(--text-2)] hover:text-[var(--brand)] transition-colors font-medium ${
-                    location.pathname === link.path ? 'text-[var(--brand)]' : ''
+                  className={`relative py-1 text-[var(--text-2)] hover:text-[var(--brand)] transition-colors font-medium ${
+                    isActive ? 'text-[var(--brand)]' : ''
                   }`}
                 >
                   {link.name}
+                  {isActive && (
+                    <motion.span
+                      layoutId="navbar-active-underline"
+                      className="absolute left-0 right-0 -bottom-1 h-0.5 rounded-full bg-[var(--brand)]"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </Link>
-              )
-            ))}
+              );
+            })}
             <div className="h-4 w-px bg-[var(--divider)]/50 mx-2" />
-            
+
             <button
               onClick={toggleLanguage}
               className="p-2 rounded-full hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-1)] flex items-center gap-1.5"
@@ -118,6 +161,8 @@ const Navbar = () => {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-full text-[var(--text-1)]"
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -132,25 +177,28 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[var(--bg)] border-b border-[var(--divider)]/20 overflow-hidden"
+            className="md:hidden bg-[var(--bg)]/90 backdrop-blur-xl border-b border-[var(--divider)]/20 overflow-hidden"
           >
-            <div className="px-4 pt-2 pb-6 space-y-4">
+            <div className="px-4 pt-2 pb-6">
               {navLinks.map((link) => (
                 link.external ? (
-                  <a 
+                  <a
                     key={link.name}
-                    href={link.path} 
+                    href={link.path}
+                    target="_blank"
+                    rel="noreferrer"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block text-lg text-[var(--text-2)] hover:text-[var(--brand)]"
+                    className="flex items-center gap-1.5 py-3 text-lg text-[var(--text-2)] hover:text-[var(--brand)]"
                   >
                     {link.name}
+                    <ExternalLink size={16} className="opacity-60" />
                   </a>
                 ) : (
                   <Link
                     key={link.name}
                     to={link.path}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`block text-lg text-[var(--text-2)] hover:text-[var(--brand)] ${
+                    className={`block py-3 text-lg text-[var(--text-2)] hover:text-[var(--brand)] ${
                       location.pathname === link.path ? 'text-[var(--brand)]' : ''
                     }`}
                   >
@@ -158,7 +206,7 @@ const Navbar = () => {
                   </Link>
                 )
               ))}
-              <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-lg text-[var(--text-2)] hover:text-[var(--brand)]">
+              <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" className="flex items-center gap-2 py-3 text-lg text-[var(--text-2)] hover:text-[var(--brand)]">
                 <GithubIcon size={20} /> GitHub
               </a>
             </div>

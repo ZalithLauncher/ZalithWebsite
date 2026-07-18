@@ -34,6 +34,8 @@ const AuthorCard = ({ author, size = 'md' }: AuthorCardProps) => {
         <img 
           src={author.image_url} 
           alt={author.name}
+          loading="lazy"
+          decoding="async"
           className={`${classes.avatar} rounded-full object-cover ring-2 ring-[var(--divider)]/30`}
         />
       ) : (

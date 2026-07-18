@@ -92,13 +92,20 @@ const BlogPostPage = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           <article className="flex-1 min-w-0">
             {post.image && (
-              <div className="relative h-64 md:h-96 -mx-4 sm:-mx-6 lg:-mx-8 mb-8 overflow-hidden rounded-2xl">
+              <div className="relative h-56 sm:h-64 md:h-96 -mx-4 sm:-mx-6 lg:-mx-8 mb-8 overflow-hidden rounded-none sm:rounded-2xl bg-[var(--bg-alt)]">
                 <img 
                   src={post.image} 
                   alt={post.title}
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-transparent to-transparent" />
+              </div>
+            )}
+
+            {tocItems.length > 0 && (
+              <div className="lg:hidden glass-card mb-8">
+                <TOC items={tocItems} className="" />
               </div>
             )}
 

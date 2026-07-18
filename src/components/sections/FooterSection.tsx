@@ -39,7 +39,7 @@ const FooterSection = () => {
   return (
     <section className="relative overflow-hidden flex flex-col justify-end bg-[var(--bg)]/70 border-t border-[var(--divider)]/10 pt-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 md:gap-8 mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -56,15 +56,15 @@ const FooterSection = () => {
             </p>
             <div className="flex gap-4 pt-2">
               <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
+                className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:bg-[var(--brand)]/10 hover:scale-110 transition-all duration-300">
                 <GithubIcon size={20} />
               </a>
               <a href="https://discord.gg/e7C4kytRgK" target="_blank" rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
+                className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:bg-[var(--brand)]/10 hover:scale-110 transition-all duration-300">
                 <MessageSquare size={20} />
               </a>
               <a href="https://afdian.com/a/MovTery" target="_blank" rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
+                className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:bg-[var(--brand)]/10 hover:scale-110 transition-all duration-300">
                 <Coffee size={20} />
               </a>
             </div>
@@ -85,12 +85,12 @@ const FooterSection = () => {
                   <li key={link.name}>
                     {link.external ? (
                       <a href={link.path} target="_blank" rel="noreferrer"
-                        className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors flex items-center gap-2 group">
+                        className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors duration-300 flex items-center gap-2 group">
                         {link.icon}
                         {link.name}
                       </a>
                     ) : (
-                      <Link to={link.path} className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors">
+                      <Link to={link.path} className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors duration-300">
                         {link.name}
                       </Link>
                     )}

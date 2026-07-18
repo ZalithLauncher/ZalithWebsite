@@ -55,25 +55,25 @@ const Footer = () => {
   return (
     <footer className="pt-20 pb-10 border-t border-[var(--divider)]/20 bg-[var(--bg)]/70 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
-          <div className="lg:col-span-2 space-y-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-12 mb-16">
+          <div className="col-span-2 md:col-span-3 lg:col-span-2 space-y-6">
             <div className="flex items-center gap-3">
-              <img src="/zl_icon.webp" alt="Logo" className="w-10 h-10 rounded-xl shadow-lg" />
+              <img src="/zl_icon.webp" alt="Zalith Launcher" className="w-10 h-10 rounded-xl shadow-lg" />
               <span className="font-bold text-2xl tracking-tight text-[var(--text-1)]">Zalith Launcher</span>
             </div>
             <p className="text-[var(--text-2)] max-w-sm leading-relaxed">
               {t('footer.desc')}
             </p>
             <div className="flex gap-4 pt-2">
-              <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" 
+              <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" aria-label="GitHub"
                 className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
                 <GithubIcon size={20} />
               </a>
-              <a href="https://discord.gg/e7C4kytRgK" target="_blank" rel="noreferrer"
+              <a href="https://discord.gg/e7C4kytRgK" target="_blank" rel="noreferrer" aria-label="Discord"
                 className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
                 <MessageSquare size={20} />
               </a>
-              <a href="https://afdian.com/a/MovTery" target="_blank" rel="noreferrer"
+              <a href="https://afdian.com/a/MovTery" target="_blank" rel="noreferrer" aria-label="Afdian"
                 className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
                 <Coffee size={20} />
               </a>
@@ -137,7 +137,7 @@ const Footer = () => {
                   <span className="flex items-center gap-1">
                     {t('footer.builtOn')}: {formatBuildTime(buildInfo.buildTime)}
                   </span>
-                  <span className="hidden sm:inline">|</span>
+                  <span className="hidden sm:inline" aria-hidden="true">|</span>
                   <a 
                     href={`${buildInfo.repoUrl}/commit/${buildInfo.commitHash}`}
                     target="_blank"
@@ -146,7 +146,7 @@ const Footer = () => {
                   >
                     {t('footer.commit')}: {buildInfo.commitHash}
                   </a>
-                  <span className="hidden sm:inline">|</span>
+                  <span className="hidden sm:inline" aria-hidden="true">|</span>
                   <span className="flex items-center gap-1">
                     <GitBranch size={10} />
                     {buildInfo.branch}

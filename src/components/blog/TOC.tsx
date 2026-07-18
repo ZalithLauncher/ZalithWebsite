@@ -4,16 +4,19 @@ import type { TOCItem } from '../../types/blog';
 
 interface TOCProps {
   items: TOCItem[];
+  className?: string;
 }
 
-const TOC = ({ items }: TOCProps) => {
+const TOC = ({ items, className = 'sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto' }: TOCProps) => {
   const { t } = useTranslation();
   const [activeId, setActiveId] = useState<string>('');
 
   const scrollToHeading = useCallback((id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Offset for the fixed site header (h-16) plus a small margin
+      const top = element.getBoundingClientRect().top + window.scrollY - 96;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   }, []);
 
@@ -45,7 +48,7 @@ const TOC = ({ items }: TOCProps) => {
   if (items.length === 0) return null;
 
   return (
-    <nav className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
+    <nav className={className}>
       <h4 className="text-sm font-bold text-[var(--text-1)] uppercase tracking-wider mb-4">
         {t('blog.toc')}
       </h4>

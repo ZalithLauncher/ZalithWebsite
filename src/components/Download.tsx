@@ -7,7 +7,7 @@ import { cn } from '../lib/utils';
 import { useTranslation } from 'react-i18next';
 
 const ReleaseSkeleton = () => (
-  <div className="glass-card p-4 sm:p-8 animate-pulse relative overflow-hidden">
+  <div className="glass-card p-4 sm:p-8 animate-pulse relative overflow-hidden" role="status" aria-busy="true">
     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--bg-alt)] to-transparent opacity-20 skeleton-shimmer" />
     <div className="flex flex-wrap items-center justify-between gap-4 mb-8 relative z-10">
       <div>
@@ -44,7 +44,7 @@ const ReleaseSkeleton = () => (
 );
 
 const NotesSkeleton = () => (
-  <div className="glass-card p-8 h-full animate-pulse bg-[var(--bg)]/40 backdrop-blur-md relative overflow-hidden flex flex-col">
+  <div className="glass-card p-4 sm:p-8 h-full animate-pulse bg-[var(--bg)]/40 backdrop-blur-md relative overflow-hidden flex flex-col" role="status" aria-busy="true">
     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--bg-alt)] to-transparent opacity-20 skeleton-shimmer" />
     <div className="h-6 bg-[var(--bg-alt)] rounded w-1/2 mb-6 relative z-10" />
     <div className="space-y-4 relative z-10 flex-1">
@@ -275,9 +275,9 @@ const DownloadSection = () => {
   };
 
   return (
-    <section id="download" className="py-24 relative overflow-hidden bg-[var(--bg-alt)] transition-colors duration-300">
+    <section id="download" className="pt-10 pb-16 sm:pt-16 sm:pb-24 relative overflow-hidden bg-[var(--bg-alt)] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -288,11 +288,13 @@ const DownloadSection = () => {
           </motion.h2>
           
           {/* Project Switcher */}
-          <div className="inline-flex p-1 bg-[var(--bg)] rounded-xl border border-[var(--divider)]/20 mb-8">
+          <div className="inline-flex flex-wrap justify-center p-1 bg-[var(--bg)] rounded-xl border border-[var(--divider)]/20 mb-6 sm:mb-8 max-w-full">
             <button
+              type="button"
               onClick={() => setActiveProject('zl2')}
+              aria-pressed={activeProject === 'zl2'}
               className={cn(
-                "px-6 py-2 rounded-lg text-sm font-medium transition-all",
+                "px-4 sm:px-6 py-2 rounded-lg text-sm font-medium transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/60",
                 activeProject === 'zl2' 
                   ? "bg-[var(--brand)] text-white shadow-md dark:text-[var(--bg)]" 
                   : "text-[var(--text-2)] hover:bg-[var(--bg-alt)]"
@@ -301,9 +303,11 @@ const DownloadSection = () => {
               Zalith Launcher 2 ({t('download.recommend')})
             </button>
             <button
+              type="button"
               onClick={() => setActiveProject('zl1')}
+              aria-pressed={activeProject === 'zl1'}
               className={cn(
-                "px-6 py-2 rounded-lg text-sm font-medium transition-all",
+                "px-4 sm:px-6 py-2 rounded-lg text-sm font-medium transition-all active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/60",
                 activeProject === 'zl1' 
                   ? "bg-[var(--brand)] text-white shadow-md dark:text-[var(--bg)]" 
                   : "text-[var(--text-2)] hover:bg-[var(--bg-alt)]"
@@ -324,11 +328,11 @@ const DownloadSection = () => {
             </div>
           </div>
         ) : error && !release ? (
-          <div className="max-w-md mx-auto glass-card border-red-500/20 text-center p-12 bg-[var(--bg)]">
+          <div className="max-w-md mx-auto glass-card border-red-500/20 text-center p-6 sm:p-12 bg-[var(--bg)]" role="alert">
             <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2 text-[var(--text-1)]">{t('common.error')}</h3>
-            <p className="text-[var(--text-2)] mb-6">{error}</p>
-            <button onClick={() => window.location.reload()} className="btn-primary">{t('common.retry')}</button>
+            <p className="text-[var(--text-2)] mb-6 break-words">{error}</p>
+            <button type="button" onClick={() => window.location.reload()} className="btn-primary">{t('common.retry')}</button>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -371,41 +375,50 @@ const DownloadSection = () => {
                       </span>
                     </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 sm:mb-8">
                   {/* Device Dropdown */}
                   <div className="relative">
-                    <label className="block text-xs font-bold text-[var(--text-2)] mb-2 uppercase tracking-wider">{t('download.deviceType')}</label>
+                    <label htmlFor="device-type-btn" className="block text-xs font-bold text-[var(--text-2)] mb-2 uppercase tracking-wider">{t('download.deviceType')}</label>
                     <button 
+                      type="button"
+                      id="device-type-btn"
                       onClick={() => setIsDeviceOpen(!isDeviceOpen)}
-                      className="w-full flex items-center justify-between px-4 py-3 bg-[var(--bg)] border border-[var(--divider)]/20 rounded-xl hover:border-[var(--brand)]/50 transition-all text-[var(--text-1)]"
+                      aria-expanded={isDeviceOpen}
+                      aria-haspopup="listbox"
+                      className="w-full flex items-center justify-between px-4 py-3 bg-[var(--bg)] border border-[var(--divider)]/20 rounded-xl hover:border-[var(--brand)]/50 transition-all text-[var(--text-1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/60"
                     >
-                      <span className="flex items-center gap-3">
-                        <Smartphone size={18} className="text-[var(--brand)]" />
-                        <span className="text-sm font-medium">{currentDevice.name}</span>
+                      <span className="flex items-center gap-3 min-w-0">
+                        <Smartphone size={18} className="text-[var(--brand)] flex-shrink-0" />
+                        <span className="text-sm font-medium truncate">{currentDevice.name}</span>
                       </span>
-                      <ChevronDown size={16} className={cn("transition-transform", isDeviceOpen && "rotate-180")} />
+                      <ChevronDown size={16} className={cn("transition-transform flex-shrink-0", isDeviceOpen && "rotate-180")} />
                     </button>
                     <AnimatePresence>
                       {isDeviceOpen && (
                         <>
-                          <div className="fixed inset-0 z-10" onClick={() => setIsDeviceOpen(false)} />
+                          <div className="fixed inset-0 z-10" aria-hidden="true" onClick={() => setIsDeviceOpen(false)} />
                           <motion.div 
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 10 }}
+                            role="listbox"
+                            aria-label={t('download.deviceType')}
                             className="absolute top-full left-0 w-full mt-2 bg-[var(--bg)] border border-[var(--divider)]/20 rounded-xl shadow-2xl z-20 overflow-hidden"
                           >
                             {dynamicDeviceTypes.map(d => (
                               <button
+                                type="button"
+                                role="option"
+                                aria-selected={selectedDevice === d.id}
                                 key={d.id}
                                 onClick={() => { setUserSelectedDevice(d.id); setIsDeviceOpen(false); }}
-                                className="w-full flex items-center justify-between px-4 py-3 hover:bg-[var(--bg-alt)] text-left transition-colors text-[var(--text-1)]"
+                                className="w-full flex items-center justify-between px-4 py-3 hover:bg-[var(--bg-alt)] active:bg-[var(--bg-alt)] text-left transition-colors text-[var(--text-1)]"
                               >
-                                <div className="flex flex-col">
+                                <div className="flex flex-col min-w-0">
                                   <span className="text-sm font-bold">{d.name}</span>
                                   <span className="text-xs text-[var(--text-2)]">{d.description}</span>
                                 </div>
-                                {selectedDevice === d.id && <Check size={16} className="text-[var(--brand)]" />}
+                                {selectedDevice === d.id && <Check size={16} className="text-[var(--brand)] flex-shrink-0" />}
                               </button>
                             ))}
                           </motion.div>
@@ -416,7 +429,7 @@ const DownloadSection = () => {
 
                   {/* Source Dropdown */}
                   <div className="relative">
-                    <label className="block text-xs font-bold text-[var(--text-2)] mb-2 uppercase tracking-wider flex items-center justify-between">
+                    <label htmlFor="source-btn" className="block text-xs font-bold text-[var(--text-2)] mb-2 uppercase tracking-wider flex items-center justify-between">
                       {t('download.source')}
                       {isMirrorsLoading && (
                         <span className="flex items-center gap-1 text-[var(--brand)] text-[10px] normal-case">
@@ -428,43 +441,52 @@ const DownloadSection = () => {
                       )}
                     </label>
                     <button 
+                      type="button"
+                      id="source-btn"
                       onClick={() => setIsSourceOpen(!isSourceOpen)}
                       disabled={isMirrorsLoading}
+                      aria-expanded={isSourceOpen}
+                      aria-haspopup="listbox"
                       className={cn(
-                        "w-full flex items-center justify-between px-4 py-3 bg-[var(--bg)] border border-[var(--divider)]/20 rounded-xl transition-all text-[var(--text-1)]",
+                        "w-full flex items-center justify-between px-4 py-3 bg-[var(--bg)] border border-[var(--divider)]/20 rounded-xl transition-all text-[var(--text-1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/60",
                         isMirrorsLoading ? "opacity-70 cursor-not-allowed" : "hover:border-[var(--brand)]/50"
                       )}
                     >
-                      <span className="flex items-center gap-3">
-                        <Globe size={18} className="text-[var(--brand)]" />
-                        <span className="text-sm font-medium">{currentSource.name}</span>
+                      <span className="flex items-center gap-3 min-w-0">
+                        <Globe size={18} className="text-[var(--brand)] flex-shrink-0" />
+                        <span className="text-sm font-medium truncate">{currentSource.name}</span>
                       </span>
-                      <ChevronDown size={16} className={cn("transition-transform", isSourceOpen && "rotate-180")} />
+                      <ChevronDown size={16} className={cn("transition-transform flex-shrink-0", isSourceOpen && "rotate-180")} />
                     </button>
                     <AnimatePresence>
                       {isSourceOpen && (
                         <>
-                          <div className="fixed inset-0 z-10" onClick={() => setIsSourceOpen(false)} />
+                          <div className="fixed inset-0 z-10" aria-hidden="true" onClick={() => setIsSourceOpen(false)} />
                           <motion.div 
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 10 }}
+                            role="listbox"
+                            aria-label={t('download.source')}
                             className="absolute top-full left-0 w-full mt-2 bg-[var(--bg)] border border-[var(--divider)]/20 rounded-xl shadow-2xl z-20 overflow-hidden"
                           >
                             {downloadSources.map(s => (
                               <button
+                                type="button"
+                                role="option"
+                                aria-selected={selectedSource === s.id}
                                 key={s.id}
                                 onClick={() => { setUserSelectedSource(s.id); setIsSourceOpen(false); }}
-                                className="w-full px-4 py-3 hover:bg-[var(--bg-alt)] text-left transition-colors flex items-center justify-between text-[var(--text-1)]"
+                                className="w-full px-4 py-3 hover:bg-[var(--bg-alt)] active:bg-[var(--bg-alt)] text-left transition-colors flex items-center justify-between text-[var(--text-1)]"
                               >
-                                <div className="flex flex-col">
+                                <div className="flex flex-col min-w-0">
                                   <div className="flex items-center gap-2">
                                     <span className="text-sm font-bold">{s.name}</span>
-                                    <span className="px-1.5 py-0.5 bg-green-500/10 text-green-600 dark:text-green-400 text-[10px] rounded uppercase">{s.speed}</span>
+                                    <span className="px-1.5 py-0.5 bg-green-500/10 text-green-600 dark:text-green-400 text-[10px] rounded uppercase whitespace-nowrap">{s.speed}</span>
                                   </div>
                                   <span className="text-xs text-[var(--text-2)]">{s.description}</span>
                                 </div>
-                                {selectedSource === s.id && <Check size={16} className="text-[var(--brand)]" />}
+                                {selectedSource === s.id && <Check size={16} className="text-[var(--brand)] flex-shrink-0" />}
                               </button>
                             ))}
                           </motion.div>
@@ -493,8 +515,8 @@ const DownloadSection = () => {
                             key={i}
                             href={drive.link}
                             target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-xs sm:text-sm font-medium transition-colors whitespace-nowrap"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-blue-500 hover:bg-blue-600 active:scale-95 text-white rounded-xl text-xs sm:text-sm font-medium transition-all whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70"
                           >
                             {drive.name} <ExternalLink size={14} />
                           </a>
@@ -513,7 +535,7 @@ const DownloadSection = () => {
                     <motion.div 
                       key={asset.id}
                       layout
-                      className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-[var(--bg-alt)] border border-[var(--divider)]/20 rounded-2xl hover:border-[var(--brand)]/30 transition-all gap-4"
+                      className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-[var(--bg-alt)] border border-[var(--divider)]/20 rounded-2xl hover:border-[var(--brand)]/30 hover:bg-[var(--bg)] hover:shadow-lg hover:shadow-[var(--brand)]/5 transition-all gap-4"
                     >
                       <div className="flex items-start gap-4 flex-1 w-full">
                         <div className="w-10 h-10 bg-[var(--brand)]/10 text-[var(--brand)] rounded-xl flex items-center justify-center flex-shrink-0 mt-1 sm:mt-0 overflow-hidden">
@@ -536,7 +558,8 @@ const DownloadSection = () => {
                         type="button"
                         onClick={() => handleDownload(asset)}
                         disabled={downloadingAssets.has(asset.id)}
-                        className="btn-primary py-2 px-6 text-sm flex items-center gap-2 whitespace-nowrap w-full sm:w-auto justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+                        aria-label={`${t('common.download')} ${asset.name}`}
+                        className="btn-primary py-2 px-6 text-sm flex items-center gap-2 whitespace-nowrap w-full sm:w-auto justify-center disabled:opacity-70 disabled:cursor-not-allowed disabled:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/60"
                       >
                         {downloadingAssets.has(asset.id) ? (
                           <>
@@ -572,12 +595,15 @@ const DownloadSection = () => {
               {isNotesLoading ? (
                 <NotesSkeleton />
               ) : (
-                <div className="glass-card p-8 h-full bg-[var(--bg)]/40 backdrop-blur-md">
+                <div className="glass-card p-4 sm:p-8 h-full bg-[var(--bg)]/40 backdrop-blur-md">
                   <h4 className="text-lg font-bold mb-6 flex items-center gap-2 text-[var(--text-1)]">
                     <Info size={20} className="text-[var(--brand)]" /> {t('download.releaseNotes')}
                   </h4>
                   <div 
-                    className="prose-custom text-sm overflow-y-auto max-h-[600px]"
+                    className="prose-custom text-sm overflow-y-auto max-h-[600px] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/60"
+                    role="region"
+                    aria-label={t('download.releaseNotes')}
+                    tabIndex={0}
                     dangerouslySetInnerHTML={{ __html: parsedBody }}
                   />
                   {!parsedBody && (
@@ -590,8 +616,8 @@ const DownloadSection = () => {
         )}
 
         {/* Footer info */}
-        <div className="mt-16 text-center">
-          <div className="flex flex-wrap justify-center gap-8">
+        <div className="mt-10 sm:mt-16 text-center">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
             <div className="flex items-center gap-2 text-[var(--text-2)] text-sm">
               <ShieldCheck size={16} className="text-green-500" />
               <span>{t('download.officialRelease')}</span>
