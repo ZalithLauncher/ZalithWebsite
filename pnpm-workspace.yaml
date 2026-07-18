@@ -3,3 +3,8 @@ packages:
 
 allowBuilds:
   esbuild: true
+
+overrides:
+  brace-expansion@>=5.0.0 <5.0.6: ^5.0.6
+  js-yaml@<3.15.0: ^3.15.0
+  '@babel/core@<=7.29.0': ^7.29.6
