@@ -1,4 +1,4 @@
-name: 部署至 VPS服务器
+name: 部署新官网至 VPS
 
 on:
   push:
@@ -23,23 +23,28 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '24.x'
-        cache: 'npm'
+        cache: 'pnpm'
 
     - name: Install dependencies
-      run: npm install
+      run: pnpm install
 
     - name: Build project
-      run: npm run docs:build
+      run: pnpm build
 
     - name: Install sshpass
       run: sudo apt-get update && sudo apt-get install -y sshpass
 
     - name: Compress build artifacts
-      run: tar -czvf build.tar.gz -C ./.vitepress/dist .
+      run: tar -czvf build.tar.gz -C ./dist .
 
     - name: Upload to VPS
       run: |
@@ -50,11 +55,11 @@ jobs:
       run: |
         export SSHPASS="${{ secrets.VPS_PASSWORD }}"
         sshpass -e ssh -p ${{ env.VPS_PORT }} -o StrictHostKeyChecking=no ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }} 'rm -rf ${{ env.VPS_BASE_URL }}/* && tar -xzvf /tmp/build.tar.gz -C ${{ env.VPS_BASE_URL }} && rm /tmp/build.tar.gz'
-        
+
     - name: Set Permissions on VPS
       run: |
         export SSHPASS="${{ secrets.VPS_PASSWORD }}"
         sshpass -e ssh -p ${{ env.VPS_PORT }} -o StrictHostKeyChecking=no ${{ env.VPS_USERNAME }}@${{ env.VPS_IP }} "chmod -R 755 ${{ env.VPS_BASE_URL }}"
 
     - name: Deployment completed
-      run: echo "已将文档站部署到VPS服务器！"
+      run: echo "已将新官网部署到 VPS 服务器！"

@@ -1,6 +1,0 @@
-packages:
-  - '.'
-  - 'official-website'
-
-allowBuilds:
-  esbuild: true

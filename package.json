@@ -1,24 +1,52 @@
 {
-  "name": "zlcn",
+  "name": "zalithwebsite",
+  "private": true,
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview",
-    "update-versions": "node scripts/update-versions.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "@types/marked": "^6.0.0",
-    "vitepress": "2.0.0-alpha.17"
+    "dev": "vite",
+    "build": "npm run build:info && npm run build:blog && tsc -b && vite build",
+    "build:info": "npx tsx scripts/build-info.ts",
+    "build:blog": "npx tsx scripts/build-blog.ts",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "apng-js": "^1.1.5",
-    "marked": "^18.0.5"
+    "@types/marked": "^6.0.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.40.0",
+    "glob": "^13.0.6",
+    "gray-matter": "^4.0.3",
+    "i18next": "^26.3.1",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "lucide-react": "^1.17.0",
+    "marked": "^18.0.5",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-i18next": "^17.0.8",
+    "react-router-dom": "^7.17.0",
+    "tailwind-merge": "^3.6.0",
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/postcss": "^4.3.0",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "^25.9.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^10.4.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.0",
+    "tsx": "^4.22.4",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.61.0",
+    "vite": "^8.0.16"
   }
 }

@@ -1,16 +1,33 @@
-# vitepress忽略文件
-/.vitepress/dist
-/.vitepress/cache
-/.vitepress/.temp
-# 其他文件
-.idea
-.trae
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
 node_modules
+dist
+dist-ssr
+*.local
 
-# lock文件
-yarn.lock
-pnpm-lock.json
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
+# Qwen Code
 .qwen/
 
-server/
+# VitePress docs (now separate repository)
+/zalithdocs/
+
+# lock files
+yarn.lock
