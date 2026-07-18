@@ -1,11 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { cn } from '../../lib/utils';
 
 const FeaturesSection = () => {
   const { t, i18n } = useTranslation();
@@ -51,7 +46,7 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section id="features" className="py-24 bg-[var(--bg-alt)] transition-colors duration-300 overflow-hidden">
+    <section id="features" className="py-24 bg-[var(--bg-alt)]/70 transition-colors duration-300 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
           <motion.h2 

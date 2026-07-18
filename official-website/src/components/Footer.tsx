@@ -42,6 +42,7 @@ const Footer = () => {
         { name: t('footer.afdian'), path: "https://afdian.com/a/MovTery", external: true, icon: <Heart size={14} className="text-red-500" /> },
         { name: t('common.contactUs'), path: "https://github.com/ZalithLauncher", external: true },
         { name: t('common.privacyPolicy'), path: "/privacy" },
+        { name: t('common.termsOfService'), path: "/terms" },
       ]
     }
   ];
@@ -52,7 +53,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="pt-20 pb-10 border-t border-[var(--divider)]/20 bg-[var(--bg)] transition-colors duration-300">
+    <footer className="pt-20 pb-10 border-t border-[var(--divider)]/20 bg-[var(--bg)]/70 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           <div className="lg:col-span-2 space-y-6">
@@ -108,12 +109,14 @@ const Footer = () => {
             <div className="text-sm text-[var(--text-2)] text-center md:text-left">
               <p>© {currentYear} Zalith Launcher Team. {t('common.allRightsReserved')}</p>
               <div className="mt-1 flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-1">
-                <p className="opacity-60 text-xs flex items-center gap-1">
-                  <ShieldCheck size={12} /> {t('common.notAffiliated')}
+                <p className="opacity-60 text-xs flex items-center gap-1.5">
+                  <ShieldCheck size={12} className="shrink-0" /> {t('common.notAffiliated')}
                 </p>
-                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer" className="text-xs opacity-60 hover:opacity-100 hover:text-[var(--brand)] transition-all">
-                  新ICP备2024015133号-4
-                </a>
+                {t('footer.icp') && (
+                  <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer" className="text-xs opacity-60 hover:opacity-100 hover:text-[var(--brand)] transition-all">
+                    {t('footer.icp')}
+                  </a>
+                )}
               </div>
             </div>
             

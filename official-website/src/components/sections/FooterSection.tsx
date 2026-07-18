@@ -37,7 +37,7 @@ const FooterSection = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden flex flex-col justify-end bg-[var(--bg)] border-t border-[var(--divider)]/10 pt-12">
+    <section className="relative overflow-hidden flex flex-col justify-end bg-[var(--bg)]/70 border-t border-[var(--divider)]/10 pt-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           <motion.div

@@ -116,6 +116,11 @@ export default {
     builtOn: "Built on",
     commit: "Commit",
     branch: "Branch",
+    icp: "新ICP备2024015133号-4",
+  },
+  notFound: {
+    title: "Page Not Found",
+    description: "The page you're looking for doesn't exist or has been moved.",
   },
   blog: {
     title: "Blog",
@@ -182,5 +187,37 @@ We implement reasonable security measures to protect your information from unaut
 ## 5. Policy Updates
 
 We may update this Privacy Policy from time to time. We recommend checking this page periodically for the latest information.`,
+  },
+  terms: {
+    lastUpdated: "Last Updated: Feb 8, 2026",
+    version: "Version 1.0",
+    questionTitle: "Questions about terms?",
+    questionDesc: "If you need further information about these terms of service, feel free to contact us.",
+    submitIssue: "Open Issue",
+    content: `# Terms of Service
+
+Welcome to the Zalith Launcher official website. By accessing and using this website, you agree to the following terms of service.
+
+## 1. Service Description
+
+Zalith Launcher is a third-party Minecraft: Java Edition launcher for Android devices. This website only provides project information, download links, blog posts, and related documentation.
+
+## 2. Usage Rules
+
+- You may not use this website for any illegal, infringing, or disruptive activities.
+- You may not maliciously scrape, copy, or use the website content for commercial purposes.
+- Downloading and using Zalith Launcher means you understand and agree to its open-source license.
+
+## 3. Intellectual Property
+
+The intellectual property rights of this website and related open-source projects belong to their respective owners. Minecraft is a trademark of Mojang AB and is not affiliated with this project.
+
+## 4. Disclaimer
+
+This website is provided "as is" without any express or implied warranties regarding continuity, accuracy, or completeness. You use the content of this website at your own risk.
+
+## 5. Terms Updates
+
+We may update these Terms of Service from time to time. We recommend checking this page periodically for the latest information.`,
   }
 };

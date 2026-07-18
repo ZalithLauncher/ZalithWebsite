@@ -36,7 +36,7 @@ const BlogListPage = () => {
   const tags = blogIndex.tags;
 
   return (
-    <div className="pb-20 min-h-screen bg-[var(--bg)] transition-colors duration-300">
+    <div className="pb-20 min-h-screen bg-[var(--bg)]/70 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <Link 
           to="/" 

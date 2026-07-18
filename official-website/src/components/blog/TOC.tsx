@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { TOCItem } from '../../types/blog';
 
 interface TOCProps {
@@ -6,6 +7,7 @@ interface TOCProps {
 }
 
 const TOC = ({ items }: TOCProps) => {
+  const { t } = useTranslation();
   const [activeId, setActiveId] = useState<string>('');
 
   const scrollToHeading = useCallback((id: string) => {
@@ -45,7 +47,7 @@ const TOC = ({ items }: TOCProps) => {
   return (
     <nav className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
       <h4 className="text-sm font-bold text-[var(--text-1)] uppercase tracking-wider mb-4">
-        Table of Contents
+        {t('blog.toc')}
       </h4>
       <ul className="space-y-2">
         {items.map((item) => (

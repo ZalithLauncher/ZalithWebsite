@@ -5,9 +5,10 @@ import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react';
 import AuthorCard from '../components/blog/AuthorCard';
 import TOC from '../components/blog/TOC';
 import RelatedPosts from '../components/blog/RelatedPosts';
+import blogIndexData from '../data/blog-index.json';
 import type { BlogIndex, TOCItem } from '../types/blog';
 
-const blogIndex: BlogIndex = await import('../data/blog-index.json').then(m => m.default);
+const blogIndex: BlogIndex = blogIndexData as unknown as BlogIndex;
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -51,7 +52,7 @@ const BlogPostPage = () => {
 
   if (!post) {
     return (
-      <div className="pb-20 min-h-screen bg-[var(--bg)]">
+      <div className="pb-20 min-h-screen bg-[var(--bg)]/70">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link 
             to="/blog" 
@@ -78,7 +79,7 @@ const BlogPostPage = () => {
   };
 
   return (
-    <div className="pb-20 min-h-screen bg-[var(--bg)] transition-colors duration-300">
+    <div className="pb-20 min-h-screen bg-[var(--bg)]/70 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <Link 
           to="/blog" 

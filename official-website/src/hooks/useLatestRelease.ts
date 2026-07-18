@@ -38,6 +38,58 @@ export interface DownloadSource {
   };
 }
 
+export interface MirrorAsset {
+  name: string;
+  url: string;
+  file_name?: string;
+  version?: string;
+  architecture?: string;
+  available?: boolean;
+}
+
+export interface MirrorRelease {
+  tag_name: string;
+  assets: MirrorAsset[];
+}
+
+export interface VersionJsonAsset {
+  name: string;
+  browser_download_url?: string;
+  size?: number;
+  download_count?: number;
+  [key: string]: unknown;
+}
+
+export interface VersionJsonData {
+  latest_version?: string;
+  release_date?: string;
+  body?: string;
+  assets?: VersionJsonAsset[];
+  description?: {
+    zh_cn?: string;
+    zh_tw?: string;
+    en_us?: string;
+  };
+  bodies?: Array<{
+    language: string;
+    markdown: string;
+  }>;
+  default_body?: {
+    language: string;
+    markdown: string;
+  };
+  default_cloud_drive?: {
+    link: string;
+    links?: Array<{ name: string; link: string }>;
+  };
+}
+
+export interface MirrorData {
+  foxington: MirrorAsset[] | null;
+  haha: MirrorAsset[] | null;
+  lemwood: MirrorRelease[] | null;
+}
+
 const DOWNLOAD_SOURCES: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: '国内加速', description: 'fishcpy 提供', speed: '国内较快', contributor: { name: 'fishcpy', url: 'https://github.com/fishcpy' } },
@@ -67,13 +119,9 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
   const [error, setError] = useState<string | null>(null);
   const [isChinaIP, setIsChinaIP] = useState(false);
   const [apiFailed, setApiFailed] = useState(false);
-  const [versionJsonData, setVersionJsonData] = useState<any>(null);
-  
-  const [mirrorData, setMirrorData] = useState<{
-    foxington: any;
-    haha: any;
-    lemwood: any;
-  }>({ foxington: null, haha: null, lemwood: null });
+  const [versionJsonData, setVersionJsonData] = useState<VersionJsonData | null>(null);
+
+  const [mirrorData, setMirrorData] = useState<MirrorData>({ foxington: null, haha: null, lemwood: null });
 
   const repo = project === 'zl1' ? 'ZalithLauncher/ZalithLauncher' : 'ZalithLauncher/ZalithLauncher2';
   const localVersionFile = project === 'zl1' ? '/version.json' : '/version2.json';
@@ -104,19 +152,19 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
           setRelease(filterMappingAssets(JSON.parse(cachedRelease)));
           setIsReleaseLoading(false);
           hasCache = true;
-        } catch (e) { /* ignore */ }
+        } catch { /* ignore */ }
       }
       if (cachedNotes) {
         try {
           setVersionJsonData(JSON.parse(cachedNotes));
           setIsNotesLoading(false);
-        } catch (e) { /* ignore */ }
+        } catch { /* ignore */ }
       }
       if (cachedMirrors) {
         try {
           setMirrorData(JSON.parse(cachedMirrors));
           setIsMirrorsLoading(false);
-        } catch (e) { /* ignore */ }
+        } catch { /* ignore */ }
       }
 
       if (hasCache) {
@@ -141,7 +189,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
             localStorage.setItem(`${cacheKeyPrefix}release`, JSON.stringify(filtered));
             setIsReleaseLoading(false);
           }
-        } catch (e) {
+        } catch {
           if (isMounted) setApiFailed(true);
           try {
             const localRes = await fetch(localVersionFile);
@@ -151,7 +199,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
               tag_name: `v${localData.latest_version}`,
               published_at: localData.release_date,
               body: localData.body || '',
-              assets: localData.assets.map((a: any) => ({
+              assets: localData.assets.map((a: VersionJsonAsset) => ({
                 ...a,
                 id: Math.random(),
                 download_count: a.download_count || 0
@@ -163,7 +211,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
               localStorage.setItem(`${cacheKeyPrefix}release`, JSON.stringify(filtered));
               setIsReleaseLoading(false);
             }
-          } catch (le) {
+          } catch {
             if (isMounted && !hasCache) {
               setError('无法获取版本信息');
               setIsReleaseLoading(false);
@@ -268,7 +316,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
             if (isMounted) setIsChinaIP(isCN);
             return;
           }
-        } catch (e) {
+        } catch {
           const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
           const isCN = tz.includes('Asia/Shanghai') || tz.includes('Asia/Chongqing');
           if (isMounted) setIsChinaIP(isCN);
@@ -312,9 +360,9 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
 
       let targetBody = null;
       if (lang.includes('zh')) {
-        targetBody = bodies.find((b: any) => b.language === 'zh');
+        targetBody = bodies.find((b) => b.language === 'zh');
       } else if (lang.includes('en')) {
-        targetBody = bodies.find((b: any) => b.language === 'en');
+        targetBody = bodies.find((b) => b.language === 'en');
       }
 
       if (!targetBody) targetBody = defaultBody;

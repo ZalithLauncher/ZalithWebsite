@@ -1,140 +1,118 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Smartphone, Terminal, ShieldCheck, Zap, Globe, ChevronDown, Check, AlertTriangle, ExternalLink, Info, Cloud } from 'lucide-react';
-import { useLatestRelease, type Asset, LEMWOOD_API_BASE } from '../hooks/useLatestRelease';
+import { useLatestRelease, type Asset, type MirrorAsset, type MirrorRelease, LEMWOOD_API_BASE } from '../hooks/useLatestRelease';
 import { marked } from 'marked';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '../lib/utils';
 import { useTranslation } from 'react-i18next';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+const ReleaseSkeleton = () => (
+  <div className="glass-card p-4 sm:p-8 animate-pulse relative overflow-hidden">
+    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--bg-alt)] to-transparent opacity-20 skeleton-shimmer" />
+    <div className="flex flex-wrap items-center justify-between gap-4 mb-8 relative z-10">
+      <div>
+        <div className="h-8 bg-[var(--bg-alt)] rounded w-48 mb-2" />
+        <div className="h-4 bg-[var(--bg-alt)] rounded w-32" />
+      </div>
+      <div className="h-8 bg-[var(--bg-alt)] rounded w-20" />
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 relative z-10">
+      <div className="h-12 bg-[var(--bg-alt)] rounded-xl" />
+      <div className="h-12 bg-[var(--bg-alt)] rounded-xl" />
+    </div>
+    <div className="space-y-3 relative z-10">
+      {[1, 2, 3].map(i => (
+        <div key={i} className="h-20 bg-[var(--bg-alt)] rounded-2xl flex items-center px-4 gap-4">
+           <div className="w-10 h-10 bg-[var(--bg)] rounded-xl" />
+           <div className="flex-1">
+             <div className="h-4 bg-[var(--bg)] rounded w-1/3 mb-2" />
+             <div className="h-3 bg-[var(--bg)] rounded w-1/4" />
+           </div>
+        </div>
+      ))}
+    </div>
+    <div className="mt-6 flex items-center justify-center gap-2 text-[var(--text-2)] text-sm font-medium">
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+      >
+        <Zap size={16} className="text-[var(--brand)]" />
+      </motion.div>
+      正在获取最新版本信息...
+    </div>
+  </div>
+);
+
+const NotesSkeleton = () => (
+  <div className="glass-card p-8 h-full animate-pulse bg-[var(--bg)]/40 backdrop-blur-md relative overflow-hidden flex flex-col">
+    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--bg-alt)] to-transparent opacity-20 skeleton-shimmer" />
+    <div className="h-6 bg-[var(--bg-alt)] rounded w-1/2 mb-6 relative z-10" />
+    <div className="space-y-4 relative z-10 flex-1">
+      {[1, 2, 3, 4, 5].map(i => (
+        <div key={i} className="space-y-2">
+          <div className="h-4 bg-[var(--bg-alt)] rounded" style={{ width: `${80 - i * 10}%` }} />
+          <div className="h-4 bg-[var(--bg-alt)] rounded w-full" />
+        </div>
+      ))}
+    </div>
+    <div className="mt-8 pt-4 border-t border-[var(--divider)]/20 flex items-center justify-center gap-2 text-[var(--text-2)] text-sm font-medium relative z-10">
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+      >
+        <Zap size={16} className="text-[var(--brand)]" />
+      </motion.div>
+      正在拉取更新日志...
+    </div>
+  </div>
+);
 
 const DownloadSection = () => {
   const { t, i18n } = useTranslation();
   const [activeProject, setActiveProject] = useState<'zl1' | 'zl2'>('zl2');
-  const { 
-    release, 
+  const {
+    release,
     isReleaseLoading,
     isNotesLoading,
     isMirrorsLoading,
     isSyncing,
-    error, 
-    isChinaIP, 
-    apiFailed, 
-    mirrorData, 
-    dynamicDeviceTypes, 
+    error,
+    isChinaIP,
+    apiFailed,
+    mirrorData,
+    dynamicDeviceTypes,
     localizedBody,
     cloudDrive,
-    downloadSources 
+    downloadSources
   } = useLatestRelease(activeProject, i18n.language);
 
-  const [selectedDevice, setSelectedDevice] = useState('all');
-  const [selectedSource, setSelectedSource] = useState('github');
+  const [userSelectedDevice, setUserSelectedDevice] = useState<string | null>(null);
+  const [userSelectedSource, setUserSelectedSource] = useState<string | null>(null);
   const [isDeviceOpen, setIsDeviceOpen] = useState(false);
   const [isSourceOpen, setIsSourceOpen] = useState(false);
   const [parsedBody, setParsedBody] = useState('');
   const [downloadingAssets, setDownloadingAssets] = useState<Set<string | number>>(new Set());
 
-  const ReleaseSkeleton = () => (
-    <div className="glass-card p-4 sm:p-8 animate-pulse relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--bg-alt)] to-transparent opacity-20 skeleton-shimmer" />
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-8 relative z-10">
-        <div>
-          <div className="h-8 bg-[var(--bg-alt)] rounded w-48 mb-2" />
-          <div className="h-4 bg-[var(--bg-alt)] rounded w-32" />
-        </div>
-        <div className="h-8 bg-[var(--bg-alt)] rounded w-20" />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 relative z-10">
-        <div className="h-12 bg-[var(--bg-alt)] rounded-xl" />
-        <div className="h-12 bg-[var(--bg-alt)] rounded-xl" />
-      </div>
-      <div className="space-y-3 relative z-10">
-        {[1, 2, 3].map(i => (
-          <div key={i} className="h-20 bg-[var(--bg-alt)] rounded-2xl flex items-center px-4 gap-4">
-             <div className="w-10 h-10 bg-[var(--bg)] rounded-xl" />
-             <div className="flex-1">
-               <div className="h-4 bg-[var(--bg)] rounded w-1/3 mb-2" />
-               <div className="h-3 bg-[var(--bg)] rounded w-1/4" />
-             </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-6 flex items-center justify-center gap-2 text-[var(--text-2)] text-sm font-medium">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-        >
-          <Zap size={16} className="text-[var(--brand)]" />
-        </motion.div>
-        正在获取最新版本信息...
-      </div>
-    </div>
-  );
+  const detectedDevice = useMemo(() => {
+    if (isReleaseLoading || dynamicDeviceTypes.length <= 1) return 'all';
 
-  const NotesSkeleton = () => (
-    <div className="glass-card p-8 h-full animate-pulse bg-[var(--bg)]/40 backdrop-blur-md relative overflow-hidden flex flex-col">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--bg-alt)] to-transparent opacity-20 skeleton-shimmer" />
-      <div className="h-6 bg-[var(--bg-alt)] rounded w-1/2 mb-6 relative z-10" />
-      <div className="space-y-4 relative z-10 flex-1">
-        {[1, 2, 3, 4, 5].map(i => (
-          <div key={i} className="space-y-2">
-            <div className="h-4 bg-[var(--bg-alt)] rounded" style={{ width: `${80 - i * 10}%` }} />
-            <div className="h-4 bg-[var(--bg-alt)] rounded w-full" />
-          </div>
-        ))}
-      </div>
-      <div className="mt-8 pt-4 border-t border-[var(--divider)]/20 flex items-center justify-center gap-2 text-[var(--text-2)] text-sm font-medium relative z-10">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-        >
-          <Zap size={16} className="text-[var(--brand)]" />
-        </motion.div>
-        正在拉取更新日志...
-      </div>
-    </div>
-  );
+    const ua = navigator.userAgent.toLowerCase();
+    if (!ua.includes('android')) return 'all';
 
-  useEffect(() => {
-    if (isChinaIP) {
-      setSelectedSource('lemwood');
+    if ((ua.includes('aarch64') || ua.includes('arm64')) && dynamicDeviceTypes.some(d => d.id === 'arm64')) {
+      return 'arm64';
     }
-  }, [isChinaIP]);
-
-  // Auto-detect device type
-  useEffect(() => {
-    if (!isReleaseLoading && dynamicDeviceTypes.length > 1) {
-      const ua = navigator.userAgent.toLowerCase();
-      let detectedId = 'all';
-
-      if (ua.includes('android')) {
-        // 优先识别具体架构
-        if (ua.includes('aarch64') || ua.includes('arm64')) {
-          if (dynamicDeviceTypes.some(d => d.id === 'arm64')) {
-            detectedId = 'arm64';
-          }
-        } else if (ua.includes('armv7') || ua.includes('armeabi')) {
-          if (dynamicDeviceTypes.some(d => d.id === 'armeabi')) {
-            detectedId = 'armeabi';
-          }
-        }
-        
-        // 如果没识别出具体架构，或者识别出的架构在列表中不存在，再回退到通用版本
-        if (detectedId === 'all') {
-          if (dynamicDeviceTypes.some(d => d.id === 'android')) {
-            detectedId = 'android';
-          }
-        }
-      }
-      
-      if (detectedId !== 'all') {
-        setSelectedDevice(detectedId);
-      }
+    if ((ua.includes('armv7') || ua.includes('armeabi')) && dynamicDeviceTypes.some(d => d.id === 'armeabi')) {
+      return 'armeabi';
     }
+    if (dynamicDeviceTypes.some(d => d.id === 'android')) {
+      return 'android';
+    }
+    return 'all';
   }, [isReleaseLoading, dynamicDeviceTypes]);
+
+  const selectedDevice = userSelectedDevice ?? detectedDevice;
+  const selectedSource = userSelectedSource ?? (isChinaIP ? 'lemwood' : 'github');
 
   useEffect(() => {
     const parseContent = async () => {
@@ -172,7 +150,7 @@ const DownloadSection = () => {
       if (fileName.includes('arm64')) targetArch = 'arm64-v8a 架构';
       else if (fileName.includes('armeabi')) targetArch = 'armeabi-v7a 架构';
       
-      const matched = mirrorData.foxington.find((f: any) => f.name === targetArch);
+      const matched = mirrorData.foxington.find((f: MirrorAsset) => f.name === targetArch);
       return matched?.url || asset.browser_download_url;
     }
 
@@ -180,7 +158,7 @@ const DownloadSection = () => {
       const projectId = activeProject === 'zl1' ? 'zl' : 'zl2';
 
       // 优先按文件名精确匹配
-      const matchedByName = mirrorData.haha.find((f: any) => f.file_name === asset.name && f.available !== false);
+      const matchedByName = mirrorData.haha.find((f: MirrorAsset) => f.file_name === asset.name && f.available !== false);
       if (matchedByName) {
         return `https://fengyuan.frostlynx.work/${projectId}/${matchedByName.version}/${matchedByName.file_name}`;
       }
@@ -193,7 +171,7 @@ const DownloadSection = () => {
       else if (fileName.includes('x86_64')) targetArch = 'x86_64';
       else if (fileName.includes('x86')) targetArch = 'x86';
 
-      const matchedByArch = mirrorData.haha.find((f: any) => {
+      const matchedByArch = mirrorData.haha.find((f: MirrorAsset) => {
         if (f.available === false) return false;
         if (targetArch) return f.architecture === targetArch;
         return !f.architecture || f.architecture === 'all' || f.architecture === '';
@@ -207,16 +185,16 @@ const DownloadSection = () => {
       const currentTagName = release?.tag_name || '';
       const normalizedTagName = currentTagName.replace(/^v/, '');
       
-      let matchedRelease = mirrorData.lemwood.find((r: any) => r.tag_name === currentTagName || r.tag_name === normalizedTagName);
+      const matchedRelease = mirrorData.lemwood.find((r: MirrorRelease) => r.tag_name === currentTagName || r.tag_name === normalizedTagName);
       if (matchedRelease?.assets && Array.isArray(matchedRelease.assets)) {
-        const matchedAsset = matchedRelease.assets.find((a: any) => a.name === asset.name);
+        const matchedAsset = matchedRelease.assets.find((a: MirrorAsset) => a.name === asset.name);
         if (matchedAsset) return matchedAsset.url;
       }
       
       // Fallback: search by name in all releases
       for (let i = mirrorData.lemwood.length - 1; i >= 0; i--) {
         if (Array.isArray(mirrorData.lemwood[i].assets)) {
-          const asset_match = mirrorData.lemwood[i].assets.find((a: any) => a.name === asset.name);
+          const asset_match = mirrorData.lemwood[i].assets.find((a: MirrorAsset) => a.name === asset.name);
           if (asset_match) return asset_match.url;
         }
       }
@@ -420,7 +398,7 @@ const DownloadSection = () => {
                             {dynamicDeviceTypes.map(d => (
                               <button
                                 key={d.id}
-                                onClick={() => { setSelectedDevice(d.id); setIsDeviceOpen(false); }}
+                                onClick={() => { setUserSelectedDevice(d.id); setIsDeviceOpen(false); }}
                                 className="w-full flex items-center justify-between px-4 py-3 hover:bg-[var(--bg-alt)] text-left transition-colors text-[var(--text-1)]"
                               >
                                 <div className="flex flex-col">
@@ -476,7 +454,7 @@ const DownloadSection = () => {
                             {downloadSources.map(s => (
                               <button
                                 key={s.id}
-                                onClick={() => { setSelectedSource(s.id); setIsSourceOpen(false); }}
+                                onClick={() => { setUserSelectedSource(s.id); setIsSourceOpen(false); }}
                                 className="w-full px-4 py-3 hover:bg-[var(--bg-alt)] text-left transition-colors flex items-center justify-between text-[var(--text-1)]"
                               >
                                 <div className="flex flex-col">

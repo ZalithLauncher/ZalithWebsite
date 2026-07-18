@@ -56,6 +56,25 @@
     color: var(--text-1);
     transition: background-color 0.3s ease, color 0.3s ease;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-image: url('/image/backgrounds/underwater-moonlight.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
+
+  .dark body {
+    background-image: url('/image/backgrounds/lush-caves.png');
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: color-mix(in srgb, var(--bg) 50%, transparent);
+    transition: background-color 0.3s ease;
   }
 }
 
@@ -199,5 +218,10 @@ html {
   .hero-glow {
     width: 300px;
     height: 300px;
+  }
+
+  body {
+    background-attachment: scroll;
+    background-position: center top;
   }
 }

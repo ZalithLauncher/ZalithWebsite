@@ -1,73 +1,61 @@
-# React + TypeScript + Vite
+# Zalith Launcher 官方网站
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Zalith Launcher 官方网站的源码仓库，基于 React + Vite + Tailwind CSS 构建。
 
-Currently, two official plugins are available:
+## 技术栈
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **框架**: React 19 + React Router 7
+- **构建工具**: Vite 8
+- **样式**: Tailwind CSS v4
+- **动画**: Framer Motion
+- **国际化**: i18next + react-i18next
+- **图标**: Lucide React
+- **Markdown 渲染**: marked
 
-## React Compiler
+## 项目结构
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+official-website/
+├── content/          # 博客 Markdown 源文件
+├── public/           # 静态资源与构建产物
+├── scripts/          # 构建脚本（博客索引、构建信息）
+├── src/
+│   ├── components/   # 可复用组件
+│   ├── pages/        # 页面组件
+│   ├── hooks/        # 自定义 Hooks
+│   ├── i18n/         # 国际化配置与翻译
+│   ├── lib/          # 工具函数
+│   ├── types/        # TypeScript 类型定义
+│   ├── data/         # 构建生成的数据索引
+│   └── assets/       # 静态资源
+└── vite.config.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 可用脚本
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# 启动开发服务器
+pnpm dev
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 构建生产版本
+pnpm build
+
+# 本地预览构建产物
+pnpm preview
+
+# 运行 ESLint
+pnpm lint
 ```
+
+## 页面
+
+- `/` - 首页
+- `/download` - 下载中心
+- `/blog` - 博客列表
+- `/blog/:slug` - 博客详情
+- `/privacy` - 隐私政策
+- `/terms` - 服务条款
+
+## 许可证
+
+与主项目保持一致。

@@ -18,7 +18,7 @@ function getBuildInfo(): BuildInfo {
     commitHash = execSync('git rev-parse --short HEAD', { encoding: 'utf-8' }).trim();
     commitDate = execSync('git log -1 --format=%cI', { encoding: 'utf-8' }).trim();
     branch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim();
-  } catch (error) {
+  } catch {
     console.warn('Warning: Could not get git info, using defaults');
   }
 
