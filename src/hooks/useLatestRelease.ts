@@ -45,6 +45,7 @@ export interface MirrorAsset {
   version?: string;
   architecture?: string;
   available?: boolean;
+  download_path?: string;
 }
 
 export interface MirrorRelease {
@@ -94,7 +95,7 @@ const DOWNLOAD_SOURCES: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'mirror', name: '国内加速', description: 'fishcpy 提供', speed: '国内较快', contributor: { name: 'fishcpy', url: 'https://github.com/fishcpy' } },
   { id: 'foxington', name: 'Foxington 源', description: '第三方镜像', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
-  { id: 'haha', name: '枫源镜像', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://fengyuan.frostlynx.work' } },
+  { id: 'haha', name: '枫源镜像', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://fyhub.cn' } },
   { id: 'lemwood', name: '柠枺镜像', description: 'Lemwood 提供', speed: '国内较快', contributor: { name: 'Lemwood', url: 'https://lemwood.cn' } },
 ];
 
@@ -241,7 +242,8 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
 
       const fetchMirrorsTask = async () => {
         const foxingtonUrl = project === 'zl1' ? 'https://next.foldcraftlauncher.cn/data/down/zl/1/1.4.1.0/index.json' : null;
-        const hahaUrl = `https://fengyuan.frostlynx.work/api/public/v1/projects/${project === 'zl1' ? 'zl' : 'zl2'}/assets`;
+        // 枫源镜像新站 fyhub.cn：项目 ID 使用仓库名，且仅收录 ZalithLauncher2（ZL1 已下架）
+        const hahaUrl = project === 'zl2' ? 'https://fyhub.cn/api/public/v1/projects/ZalithLauncher2/assets' : null;
         const lemwoodUrl = `${LEMWOOD_API_BASE}/launchers/${project === 'zl1' ? 'zl' : 'zl2'}`;
 
         const fetchJson = async (url: string) => {
@@ -286,7 +288,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
 
         const [fox, ha, lem] = await Promise.all([
           foxingtonUrl ? fetchJson(foxingtonUrl) : Promise.resolve(null),
-          fetchJson(hahaUrl),
+          hahaUrl ? fetchJson(hahaUrl) : Promise.resolve(null),
           fetchJson(lemwoodUrl)
         ]);
 
@@ -429,6 +431,12 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
     return versionJsonData.default_cloud_drive || null;
   }, [versionJsonData, project]);
 
+  // 枫源镜像（新站 fyhub.cn）已下架 ZL1，ZL1 页面不再提供该下载源
+  const downloadSources = useMemo(
+    () => (project === 'zl1' ? DOWNLOAD_SOURCES.filter(s => s.id !== 'haha') : DOWNLOAD_SOURCES),
+    [project]
+  );
+
   return {
     release,
     isReleaseLoading,
@@ -442,6 +450,6 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
     dynamicDeviceTypes,
     localizedBody,
     cloudDrive,
-    downloadSources: DOWNLOAD_SOURCES
+    downloadSources
   };
 };

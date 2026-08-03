@@ -112,7 +112,8 @@ const DownloadSection = () => {
   }, [isReleaseLoading, dynamicDeviceTypes]);
 
   const selectedDevice = userSelectedDevice ?? detectedDevice;
-  const selectedSource = userSelectedSource ?? (isChinaIP ? 'lemwood' : 'github');
+  // 默认下载源：ZL2 用枫源镜像（ZL1 已被枫源下架，保持原默认逻辑）
+  const selectedSource = userSelectedSource ?? (activeProject === 'zl2' ? 'haha' : (isChinaIP ? 'lemwood' : 'github'));
 
   useEffect(() => {
     const parseContent = async () => {
@@ -155,12 +156,14 @@ const DownloadSection = () => {
     }
 
     if (selectedSource === 'haha' && Array.isArray(mirrorData.haha)) {
-      const projectId = activeProject === 'zl1' ? 'zl' : 'zl2';
+      // 枫源镜像新 API 直接返回 download_path，拼上主站域名即为验证页地址
+      const buildHahaUrl = (f: MirrorAsset) =>
+        f.download_path ? `https://fyhub.cn${f.download_path}` : `https://fyhub.cn/ZalithLauncher2/${f.version}/${f.file_name}`;
 
       // 优先按文件名精确匹配
       const matchedByName = mirrorData.haha.find((f: MirrorAsset) => f.file_name === asset.name && f.available !== false);
       if (matchedByName) {
-        return `https://fengyuan.frostlynx.work/${projectId}/${matchedByName.version}/${matchedByName.file_name}`;
+        return buildHahaUrl(matchedByName);
       }
 
       // 按架构回退匹配
@@ -177,7 +180,7 @@ const DownloadSection = () => {
         return !f.architecture || f.architecture === 'all' || f.architecture === '';
       });
       if (matchedByArch) {
-        return `https://fengyuan.frostlynx.work/${projectId}/${matchedByArch.version}/${matchedByArch.file_name}`;
+        return buildHahaUrl(matchedByArch);
       }
     }
 
