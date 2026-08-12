@@ -1,6 +1,62 @@
 {
   "posts": [
     {
+      "slug": "download-page-update",
+      "title": "官网下载页更新：更智能的下载源选择",
+      "date": "2026-08-12",
+      "authors": [
+        {
+          "name": "柠枺",
+          "title": "Contributor",
+          "url": "https://github.com/leemwood",
+          "image_url": "https://wiki.lemwood.cn/img/logo.png",
+          "socials": {
+            "github": "leemwood"
+          },
+          "id": "leemwood"
+        }
+      ],
+      "tags": [
+        "公告",
+        "官网更新",
+        "下载"
+      ],
+      "category": "公告",
+      "description": "下载页默认下载源逻辑升级：按地区与语言智能推荐，云盘入口仅对国内用户展示。",
+      "content": "<h1 id=\"官网下载页更新-更智能的下载源选择\">官网下载页更新：更智能的下载源选择</h1>\n<p>本次官网更新聚焦下载体验，让不同地区的用户都能更快地找到合适的下载路线。</p>\n<h2 id=\"默认下载源智能推荐\">默认下载源智能推荐</h2>\n<p>之前下载页对所有用户一视同仁，现在会根据访问者的语言与地区自动推荐最优下载源：</p>\n<ul>\n<li><strong>中文页面（国内）</strong>：75% 概率默认推荐「柠泽资源站」，其余情况默认「枫源镜像」，两个源随机轮换以分散负载。</li>\n<li><strong>英文页面（海外）</strong>：默认直接使用「枫源镜像」，海外访问速度更佳。</li>\n</ul>\n<p>切换界面语言时，默认下载源也会重新匹配当前地区的推荐结果。当然，所有下载源仍可在页面下拉框中自由切换。</p>\n<h2 id=\"云盘入口仅面向国内用户\">云盘入口仅面向国内用户</h2>\n<p>网盘分流主要用于国内环境，本次更新后云盘卡片将只对国内用户展示，海外用户不再看到无效的网盘入口。</p>\n<h2 id=\"下载源命名调整\">下载源命名调整</h2>\n<ul>\n<li>「国内加速」更名为 <strong>Fishcpy 加速</strong>。</li>\n<li>「柠枺镜像」更名为 <strong>柠泽资源站</strong>。</li>\n</ul>\n<p>下载路线本身不受影响，欢迎体验新的默认推荐逻辑！</p>\n",
+      "excerpt": "下载页默认下载源逻辑升级：按地区与语言智能推荐，云盘入口仅对国内用户展示。",
+      "readingTime": 2,
+      "lang": "zh"
+    },
+    {
+      "slug": "download-page-update",
+      "title": "Website Download Page Update: Smarter Source Selection",
+      "date": "2026-08-12",
+      "authors": [
+        {
+          "name": "柠枺",
+          "title": "Contributor",
+          "url": "https://github.com/leemwood",
+          "image_url": "https://wiki.lemwood.cn/img/logo.png",
+          "socials": {
+            "github": "leemwood"
+          },
+          "id": "leemwood"
+        }
+      ],
+      "tags": [
+        "Announcement",
+        "Website",
+        "Download"
+      ],
+      "category": "Announcement",
+      "description": "The download page now recommends the best download source by region and language, and the cloud drive card is shown to domestic users only.",
+      "content": "<h1 id=\"website-download-page-update-smarter-source-selection\">Website Download Page Update: Smarter Source Selection</h1>\n<p>This update focuses on the download experience, helping users in different regions find the right download route faster.</p>\n<h2 id=\"smarter-default-download-source\">Smarter Default Download Source</h2>\n<p>Previously the download page treated everyone the same. Now the default source is recommended based on the visitor&#39;s language and region:</p>\n<ul>\n<li><strong>Chinese pages (domestic)</strong>: 75% chance the default is the Ningze Resource Station (柠泽资源站), otherwise the Fengyuan mirror (枫源镜像) — the two sources rotate randomly to spread load.</li>\n<li><strong>English pages (overseas)</strong>: the Fengyuan mirror (枫源镜像) is used by default for better speed abroad.</li>\n</ul>\n<p>Switching the interface language re-matches the recommended source to the current region. Of course, all sources can still be freely selected from the dropdown.</p>\n<h2 id=\"cloud-drive-for-domestic-users-only\">Cloud Drive for Domestic Users Only</h2>\n<p>The cloud drive mirror mainly serves users in China. It is now only shown to domestic visitors, so overseas users no longer see a card they can&#39;t use.</p>\n<h2 id=\"download-source-renames\">Download Source Renames</h2>\n<ul>\n<li>&quot;国内加速&quot; (Domestic Acceleration) is now <strong>Fishcpy Acceleration</strong>.</li>\n<li>&quot;柠枺镜像&quot; (Ningmei Mirror) is now <strong>Ningze Resource Station (柠泽资源站)</strong>.</li>\n</ul>\n<p>The download routes themselves are unchanged. Enjoy the new default recommendations!</p>\n",
+      "excerpt": "The download page now recommends the best download source by region and language, and the cloud drive card is shown to domestic users only.",
+      "readingTime": 1,
+      "lang": "en"
+    },
+    {
       "slug": "welcome-to-zalith-blog",
       "title": "Zalith Launcher 博客上线",
       "date": "2026-03-27",
@@ -81,8 +137,12 @@
   ],
   "tags": [
     "公告",
+    "官网更新",
+    "下载",
     "博客",
     "Announcement",
+    "Website",
+    "Download",
     "Blog"
   ]
 }
