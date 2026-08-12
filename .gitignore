@@ -33,3 +33,4 @@ dist-ssr
 yarn.lock
 CLAUDE.md
 .claude/settings.local.json
+AGENTS.md

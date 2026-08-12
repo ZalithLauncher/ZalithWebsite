@@ -93,10 +93,10 @@ export interface MirrorData {
 
 const DOWNLOAD_SOURCES: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
-  { id: 'mirror', name: '国内加速', description: 'fishcpy 提供', speed: '国内较快', contributor: { name: 'fishcpy', url: 'https://github.com/fishcpy' } },
+  { id: 'mirror', name: 'Fishcpy 加速', description: 'fishcpy 提供', speed: '国内较快', contributor: { name: 'fishcpy', url: 'https://github.com/fishcpy' } },
   { id: 'foxington', name: 'Foxington 源', description: '第三方镜像', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
   { id: 'haha', name: '枫源镜像', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://fyhub.cn' } },
-  { id: 'lemwood', name: '柠枺镜像', description: 'Lemwood 提供', speed: '国内较快', contributor: { name: 'Lemwood', url: 'https://lemwood.cn' } },
+  { id: 'lemwood', name: '柠泽资源站', description: 'Lemwood 提供', speed: '国内较快', contributor: { name: 'Lemwood', url: 'https://lemwood.cn' } },
 ];
 
 function filterMappingAssets(release: Release): Release {
@@ -255,7 +255,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
 
             const parseBody = async (response: Response) => {
               const data = await response.json();
-              // 柠枺镜像 v2 接口使用统一信封：{ data, error, meta }
+              // 柠泽资源站（柠枺）v2 接口使用统一信封：{ data, error, meta }
               if (data && typeof data === 'object' && 'data' in data && data.error === null) {
                 return data.data;
               }

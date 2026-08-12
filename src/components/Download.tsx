@@ -77,8 +77,8 @@ const DownloadSection = () => {
     isMirrorsLoading,
     isSyncing,
     error,
-    isChinaIP,
     apiFailed,
+    isChinaIP,
     mirrorData,
     dynamicDeviceTypes,
     localizedBody,
@@ -112,8 +112,18 @@ const DownloadSection = () => {
   }, [isReleaseLoading, dynamicDeviceTypes]);
 
   const selectedDevice = userSelectedDevice ?? detectedDevice;
-  // 默认下载源：ZL2 用枫源镜像（ZL1 已被枫源下架，保持原默认逻辑）
-  const selectedSource = userSelectedSource ?? (activeProject === 'zl2' ? 'haha' : (isChinaIP ? 'lemwood' : 'github'));
+  // 默认下载源：英文页面（海外）默认枫源镜像；中文页面 75% 概率默认柠泽资源站，其余枫源镜像（ZL1 无枫源会自动回退到首个可用源）
+  const isZhLang = i18n.language.toLowerCase().startsWith('zh');
+  const langKey = isZhLang ? 'zh' : 'en';
+  const rollDefaultSource = (key: 'zh' | 'en'): string =>
+    key === 'zh' ? (Math.random() < 0.75 ? 'lemwood' : 'haha') : 'haha';
+  const [rolledSource, setRolledSource] = useState<string>(() => rollDefaultSource(langKey));
+  const [prevLangKey, setPrevLangKey] = useState(langKey);
+  if (prevLangKey !== langKey) {
+    setPrevLangKey(langKey);
+    setRolledSource(rollDefaultSource(langKey));
+  }
+  const selectedSource = userSelectedSource ?? rolledSource;
 
   useEffect(() => {
     const parseContent = async () => {
@@ -499,8 +509,8 @@ const DownloadSection = () => {
                   </div>
                 </div>
 
-                {/* Cloud Drive Links */}
-                {cloudDrive && (
+                {/* Cloud Drive Links（仅国内用户显示） */}
+                {cloudDrive && isChinaIP && (
                   <div className="mb-6 p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-2xl">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                       <div className="flex items-center gap-3 flex-shrink-0">
