@@ -91,7 +91,6 @@ const DownloadSection = () => {
   const [isDeviceOpen, setIsDeviceOpen] = useState(false);
   const [isSourceOpen, setIsSourceOpen] = useState(false);
   const [parsedBody, setParsedBody] = useState('');
-  const [downloadingAssets, setDownloadingAssets] = useState<Set<string | number>>(new Set());
 
   const detectedDevice = useMemo(() => {
     if (isReleaseLoading || dynamicDeviceTypes.length <= 1) return 'all';
@@ -216,52 +215,18 @@ const DownloadSection = () => {
     return asset.browser_download_url;
   };
 
-  const handleDownload = async (asset: Asset) => {
-    if (selectedSource !== 'lemwood') {
-      window.open(getDownloadUrl(asset), '_blank', 'noopener,noreferrer');
-      return;
-    }
-
-    setDownloadingAssets(prev => new Set(prev).add(asset.id));
-    try {
+  const handleDownload = (asset: Asset) => {
+    if (selectedSource === 'lemwood') {
+      // 柠泽资源站走 PoW 下载验证：直连下载地址（不带 token），
+      // 服务端对浏览器请求 302 重定向到验证页 /verify?file=...，由用户在验证页求解 PoW 后下载
       const launcher = activeProject === 'zl1' ? 'zl' : 'zl2';
       const version = release?.tag_name?.replace(/^v/, '') || '';
       const filePath = `${launcher}/${version}/${asset.name}`;
-
-      const res = await fetch(`${LEMWOOD_API_BASE}/downloads/prepare`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          file_path: filePath,
-          return_url: window.location.href,
-          source: 'zl-website-download'
-        })
-      });
-
-      if (!res.ok) {
-        throw new Error(`Prepare failed: ${res.status}`);
-      }
-
-      const result = await res.json();
-      const payload = result.data ?? result;
-      const downloadUrl = payload.download_url;
-
-      if (downloadUrl) {
-        const fullUrl = downloadUrl.startsWith('http') ? downloadUrl : `${lemwoodSiteBase}${downloadUrl}`;
-        window.open(fullUrl, '_blank', 'noopener,noreferrer');
-      } else {
-        throw new Error('No download_url in response');
-      }
-    } catch (e) {
-      console.error('Lemwood prepare download failed, falling back to direct URL', e);
-      window.open(getDownloadUrl(asset), '_blank', 'noopener,noreferrer');
-    } finally {
-      setDownloadingAssets(prev => {
-        const next = new Set(prev);
-        next.delete(asset.id);
-        return next;
-      });
+      window.open(`${lemwoodSiteBase}/download/${filePath}`, '_blank', 'noopener,noreferrer');
+      return;
     }
+
+    window.open(getDownloadUrl(asset), '_blank', 'noopener,noreferrer');
   };
 
   const filteredAssets = release?.assets.filter(asset => {
@@ -570,25 +535,10 @@ const DownloadSection = () => {
                       <button
                         type="button"
                         onClick={() => handleDownload(asset)}
-                        disabled={downloadingAssets.has(asset.id)}
                         aria-label={`${t('common.download')} ${asset.name}`}
-                        className="btn-primary py-2 px-6 text-sm flex items-center gap-2 whitespace-nowrap w-full sm:w-auto justify-center disabled:opacity-70 disabled:cursor-not-allowed disabled:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/60"
+                        className="btn-primary py-2 px-6 text-sm flex items-center gap-2 whitespace-nowrap w-full sm:w-auto justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)]/60"
                       >
-                        {downloadingAssets.has(asset.id) ? (
-                          <>
-                            <motion.div
-                              animate={{ rotate: 360 }}
-                              transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                            >
-                              <Zap size={14} />
-                            </motion.div>
-                            {t('common.preparing') || '准备中'}
-                          </>
-                        ) : (
-                          <>
-                            {t('common.download')} <ExternalLink size={14} />
-                          </>
-                        )}
+                        {t('common.download')} <ExternalLink size={14} />
                       </button>
                     </motion.div>
                   )) : (
