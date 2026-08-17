@@ -111,11 +111,11 @@ const DownloadSection = () => {
   }, [isReleaseLoading, dynamicDeviceTypes]);
 
   const selectedDevice = userSelectedDevice ?? detectedDevice;
-  // 默认下载源：英文页面（海外）默认枫源镜像；中文页面 75% 概率默认柠泽资源站，其余枫源镜像（ZL1 无枫源会自动回退到首个可用源）
+  // 默认下载源：英文页面（海外）默认枫源镜像；中文页面 20% 概率默认柠泽资源站，其余枫源镜像（ZL1 无枫源会自动回退到首个可用源）
   const isZhLang = i18n.language.toLowerCase().startsWith('zh');
   const langKey = isZhLang ? 'zh' : 'en';
   const rollDefaultSource = (key: 'zh' | 'en'): string =>
-    key === 'zh' ? (Math.random() < 0.75 ? 'lemwood' : 'haha') : 'haha';
+    key === 'zh' ? (Math.random() < 0.20 ? 'lemwood' : 'haha') : 'haha';
   const [rolledSource, setRolledSource] = useState<string>(() => rollDefaultSource(langKey));
   const [prevLangKey, setPrevLangKey] = useState(langKey);
   if (prevLangKey !== langKey) {
