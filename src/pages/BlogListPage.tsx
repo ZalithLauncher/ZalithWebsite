@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Tag, Search } from 'lucide-react';
+import { ArrowLeft, Search } from 'lucide-react';
 import BlogCard from '../components/blog/BlogCard';
 import { getPostsByLang } from '../lib/blog';
 import type { BlogPost } from '../types/blog';
@@ -9,7 +9,14 @@ import type { BlogPost } from '../types/blog';
 const BlogListPage = () => {
   const { t, i18n } = useTranslation();
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
+
+  // Debounce search input
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedQuery(searchInput), 300);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
   const langPosts = useMemo(() => getPostsByLang(i18n.language), [i18n.language]);
 
@@ -20,82 +27,77 @@ const BlogListPage = () => {
       posts = posts.filter((post) => post.tags.includes(selectedTag));
     }
     
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      posts = posts.filter(
-        (post) =>
-          post.title.toLowerCase().includes(query) ||
-          post.excerpt.toLowerCase().includes(query) ||
-          post.tags.some((tag) => tag.toLowerCase().includes(query))
+    if (debouncedQuery) {
+      const query = debouncedQuery.toLowerCase();
+      posts = posts.filter((post) => 
+        post.title.toLowerCase().includes(query) ||
+        post.tags.some(tag => tag.toLowerCase().includes(query))
       );
     }
     
     return posts;
-  }, [langPosts, selectedTag, searchQuery]);
+  }, [langPosts, selectedTag, debouncedQuery]);
 
-  const tags = useMemo(
-    () => Array.from(new Set(langPosts.flatMap((post) => post.tags))),
-    [langPosts]
-  );
+  const allTags = useMemo(() => {
+    const tags = new Set<string>();
+    langPosts.forEach((post) => {
+      post.tags.forEach((tag) => tags.add(tag));
+    });
+    return Array.from(tags);
+  }, [langPosts]);
 
   return (
     <div className="pb-20 min-h-screen bg-[var(--bg)]/70 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12">
         <Link 
           to="/" 
-          className="inline-flex items-center gap-2 text-[var(--text-2)] hover:text-[var(--brand)] transition-colors mb-8 group"
+          className="inline-flex items-center gap-2 text-sm text-[var(--text-2)] hover:text-[var(--brand)] transition-colors mb-6"
         >
-          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+          <ArrowLeft size={16} />
           {t('common.backToHome')}
         </Link>
-
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-[var(--text-1)] mb-4">
-            {t('blog.title')}
-          </h1>
-          <p className="text-lg text-[var(--text-2)] max-w-2xl">
-            {t('blog.subtitle')}
-          </p>
-        </div>
+        
+        <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-[var(--text-1)]">{t('blog.title')}</h1>
+        <p className="text-[var(--text-2)] mb-8 sm:mb-12">{t('blog.subtitle')}</p>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          <aside className="lg:w-64 flex-shrink-0 space-y-6 lg:sticky lg:top-24 lg:self-start">
-            <div className="glass-card p-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-2)]" size={18} />
+          <aside className="lg:w-64 flex-shrink-0">
+            <div className="glass-card p-4 lg:sticky lg:top-24">
+              <div className="relative mb-6">
+                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-2)]" />
                 <input
                   type="text"
-                  placeholder={t('blog.search')}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-[var(--bg-alt)] border border-[var(--divider)]/30 rounded-lg text-[var(--text-1)] placeholder:text-[var(--text-2)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]/50"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  placeholder={t('blog.searchPlaceholder') || 'Search...'}
+                  aria-label={t('blog.searchPlaceholder') || 'Search'}
+                  className="w-full pl-9 pr-3 py-2 rounded-lg bg-[var(--bg)] border border-[var(--divider)]/30 text-sm text-[var(--text-1)] placeholder:text-[var(--text-2)]/60 focus:outline-none focus:border-[var(--brand)]/50 transition-colors"
                 />
               </div>
-            </div>
-
-            {tags.length > 0 && (
-              <div className="glass-card p-4">
-                <h3 className="flex items-center gap-2 text-sm font-bold text-[var(--text-1)] uppercase tracking-wider mb-3">
-                  <Tag size={14} />
-                  {t('blog.tags')}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((tag) => (
-                    <button
-                      key={tag}
-                      onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                      className={`px-2 py-1 text-xs rounded-full transition-colors ${
-                        selectedTag === tag
-                          ? 'bg-[var(--brand)] text-white'
-                          : 'bg-[var(--bg-alt)] text-[var(--text-2)] hover:bg-[var(--brand)]/10 hover:text-[var(--brand)]'
-                      }`}
-                    >
-                      {tag}
-                    </button>
-                  ))}
+              
+              {allTags.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-bold text-[var(--text-1)] uppercase tracking-wider mb-3">
+                    {t('blog.tags')}
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {allTags.map((tag) => (
+                      <button
+                        key={tag}
+                        onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                        className={`px-3 py-1 rounded-full text-xs transition-colors ${
+                          selectedTag === tag
+                            ? 'bg-[var(--brand)] text-white'
+                            : 'bg-[var(--bg)] text-[var(--text-2)] hover:text-[var(--text-1)]'
+                        }`}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </aside>
 
           <main className="flex-1">

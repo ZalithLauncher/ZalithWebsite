@@ -60,10 +60,10 @@ const PrivacyPage = () => {
           <h3 className="text-xl font-bold text-[var(--text-1)] mb-2">{t('privacy.questionTitle')}</h3>
           <p className="text-[var(--text-2)] mb-6">{t('privacy.questionDesc')}</p>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" className="btn-primary inline-flex justify-center w-full sm:w-auto px-8 py-2 text-sm">
+            <a href="https://github.com/ZalithLauncher" target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex justify-center w-full sm:w-auto px-8 py-2 text-sm">
               GitHub
             </a>
-            <a href="https://github.com/ZalithLauncher/ZalithLauncher2/issues" target="_blank" rel="noreferrer" className="inline-flex justify-center w-full sm:w-auto px-8 py-2 rounded-full border border-[var(--divider)]/50 text-[var(--text-1)] hover:bg-[var(--bg)] transition-all text-sm">
+            <a href="https://github.com/ZalithLauncher/ZalithLauncher2/issues" target="_blank" rel="noopener noreferrer" className="inline-flex justify-center w-full sm:w-auto px-8 py-2 rounded-full border border-[var(--divider)]/50 text-[var(--text-1)] hover:bg-[var(--bg)] transition-all text-sm">
               {t('privacy.submitIssue')}
             </a>
           </div>

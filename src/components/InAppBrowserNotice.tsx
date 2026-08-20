@@ -6,18 +6,34 @@ import { useTranslation } from 'react-i18next';
 const DISMISS_KEY = 'in-app-browser-notice-dismissed';
 
 /**
- * 检测 QQ App 内置浏览器（Mobile QQ 的 UA 含 " QQ/x.y.z"）。
- * 注意排除 MQQBrowser（QQ 浏览器 App，属于正常浏览器）。
+ * Detect common in-app browsers that may cause rendering or download issues.
+ * Covers QQ, WeChat, Douyin, Weibo, and other WebView-based browsers.
+ * Note: MQQBrowser (QQ Browser app) is excluded as it's a normal browser.
  */
-const isQQBuiltInBrowser = (): boolean => {
+const isInAppBrowser = (): boolean => {
   if (typeof navigator === 'undefined') return false;
-  return /\sQQ\//i.test(navigator.userAgent);
+  const ua = navigator.userAgent;
+  // QQ built-in browser (exclude MQQBrowser which is a standalone browser app)
+  if (/\sQQ\//i.test(ua)) return true;
+  // WeChat
+  if (/MicroMessenger/i.test(ua) && !/WeChat/i.test(ua)) return true;
+  // WeChat (international)
+  if (/WeChat/i.test(ua)) return true;
+  // Douyin / TikTok
+  if (/aweme|BytedanceWebview|tiktok/i.test(ua)) return true;
+  // Weibo
+  if (/Weibo/i.test(ua)) return true;
+  // Baidu
+  if (/baiduboxapp/i.test(ua)) return true;
+  // Generic WebView detection for known apps
+  if (/WebView|wv/i.test(ua) && !/Chrome/i.test(ua)) return true;
+  return false;
 };
 
 const InAppBrowserNotice = () => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(() => {
-    if (!isQQBuiltInBrowser()) return false;
+    if (!isInAppBrowser()) return false;
     try {
       return !sessionStorage.getItem(DISMISS_KEY);
     } catch {
@@ -28,19 +44,21 @@ const InAppBrowserNotice = () => {
   useEffect(() => {
     if (visible) {
       document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = '';
-      };
+    } else {
+      document.body.style.overflow = '';
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [visible]);
 
   const dismiss = () => {
-    setVisible(false);
     try {
       sessionStorage.setItem(DISMISS_KEY, '1');
     } catch {
-      // sessionStorage 不可用时仅在本次会话内隐藏
+      // ignore
     }
+    setVisible(false);
   };
 
   return (
@@ -50,20 +68,15 @@ const InAppBrowserNotice = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-[var(--bg)]/80 backdrop-blur-md"
-          role="alertdialog"
-          aria-modal="true"
-          aria-label={t('inAppBrowser.title')}
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm px-4"
         >
           <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 24, scale: 0.96 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="glass-card max-w-sm w-full text-center"
+            initial={{ scale: 0.9, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.9, y: 20 }}
+            className="glass-card p-8 max-w-md w-full text-center"
           >
-            <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[var(--brand)]/10 flex items-center justify-center text-[var(--brand)]">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-[var(--brand)]/10 flex items-center justify-center text-[var(--brand)]">
               <ExternalLink size={26} />
             </div>
             <h2 className="text-xl font-bold text-[var(--text-1)] mb-3">

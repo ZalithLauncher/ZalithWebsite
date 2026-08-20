@@ -22,4 +22,14 @@ i18n
     },
   });
 
+// Keep <html lang> in sync with the active language
+const updateHtmlLang = (lng: string) => {
+  document.documentElement.lang = lng.startsWith('zh') ? 'zh-CN' : 'en';
+};
+
+if (typeof document !== 'undefined') {
+  updateHtmlLang(i18n.language);
+  i18n.on('languageChanged', updateHtmlLang);
+}
+
 export default i18n;

@@ -56,7 +56,7 @@ const BlogPostPage = () => {
             {t('common.backToHome')}
           </Link>
           <div className="glass-card p-12 text-center">
-            <p className="text-[var(--text-2)]">{t('blog.notFound')}</p>
+            <h1 className="text-2xl font-bold text-[var(--text-1)] mb-3">{t('blog.notFound')}</h1>
           </div>
         </div>
       </div>

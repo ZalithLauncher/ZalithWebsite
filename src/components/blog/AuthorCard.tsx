@@ -53,7 +53,7 @@ const AuthorCard = ({ author, size = 'md' }: AuthorCardProps) => {
             <a 
               href={author.url}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors"
             >
               {author.socials?.github ? <GithubIcon size={14} /> : <ExternalLink size={14} />}

@@ -65,15 +65,15 @@ const Footer = () => {
               {t('footer.desc')}
             </p>
             <div className="flex gap-4 pt-2">
-              <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" aria-label="GitHub"
+              <a href="https://github.com/ZalithLauncher" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
                 className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
                 <GithubIcon size={20} />
               </a>
-              <a href="https://discord.gg/e7C4kytRgK" target="_blank" rel="noreferrer" aria-label="Discord"
+              <a href="https://discord.gg/e7C4kytRgK" target="_blank" rel="noopener noreferrer" aria-label="Discord"
                 className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
                 <MessageSquare size={20} />
               </a>
-              <a href="https://afdian.com/a/MovTery" target="_blank" rel="noreferrer" aria-label="Afdian"
+              <a href="https://afdian.com/a/MovTery" target="_blank" rel="noopener noreferrer" aria-label="Afdian"
                 className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
                 <Coffee size={20} />
               </a>
@@ -87,7 +87,7 @@ const Footer = () => {
                 {group.links.map((link) => (
                   <li key={link.name}>
                     {link.external ? (
-                      <a href={link.path} target="_blank" rel="noreferrer" 
+                      <a href={link.path} target="_blank" rel="noopener noreferrer" 
                         className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors flex items-center gap-2 group">
                         {link.icon}
                         {link.name}
@@ -113,7 +113,7 @@ const Footer = () => {
                   <ShieldCheck size={12} className="shrink-0" /> {t('common.notAffiliated')}
                 </p>
                 {t('footer.icp') && (
-                  <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer" className="text-xs opacity-60 hover:opacity-100 hover:text-[var(--brand)] transition-all">
+                  <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" className="text-xs opacity-60 hover:opacity-100 hover:text-[var(--brand)] transition-all">
                     {t('footer.icp')}
                   </a>
                 )}
@@ -141,7 +141,7 @@ const Footer = () => {
                   <a 
                     href={`${buildInfo.repoUrl}/commit/${buildInfo.commitHash}`}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-1 hover:text-[var(--brand)] hover:opacity-100 transition-all"
                   >
                     {t('footer.commit')}: {buildInfo.commitHash}
