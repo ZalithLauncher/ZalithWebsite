@@ -78,6 +78,11 @@
     background-color: color-mix(in srgb, var(--bg) 50%, transparent);
     transition: background-color 0.3s ease;
   }
+
+  /* Stronger overlay in dark mode to prevent bright background image bleed-through */
+  .dark body::before {
+    background-color: color-mix(in srgb, var(--bg) 82%, transparent);
+  }
 }
 
 @layer components {

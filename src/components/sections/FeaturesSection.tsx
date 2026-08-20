@@ -46,9 +46,9 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section id="features" className="py-16 md:py-24 bg-[var(--bg-alt)]/70 transition-colors duration-300 overflow-hidden">
+    <section id="features" className="py-16 md:py-20 bg-[var(--bg-alt)]/70 transition-colors duration-300 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-20">
+        <div className="text-center mb-10 md:mb-14">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -69,14 +69,14 @@ const FeaturesSection = () => {
           </motion.p>
         </div>
 
-        <div className="space-y-16 md:space-y-24 lg:space-y-32">
+        <div className="space-y-12 md:space-y-16 lg:space-y-20">
           {features.map((feature, index) => {
             const isEven = index % 2 === 0;
             return (
               <div 
                 key={feature.id} 
                 className={cn(
-                  "flex flex-col gap-10 md:gap-12 lg:gap-16 items-center",
+                  "flex flex-col gap-8 md:gap-10 lg:gap-12 items-center",
                   isEven ? "md:flex-row" : "md:flex-row-reverse"
                 )}
               >

@@ -97,7 +97,7 @@ const Navbar = () => {
                   key={link.name}
                   href={link.path}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors font-medium inline-flex items-center gap-1"
                 >
                   {link.name}
@@ -127,7 +127,8 @@ const Navbar = () => {
             <button
               onClick={toggleLanguage}
               className="p-2 rounded-full hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-1)] flex items-center gap-1.5"
-              title="Switch Language"
+              title={t('common.switchLanguage')}
+              aria-label={t('common.switchLanguage')}
             >
               <Globe size={18} />
               <span className="text-xs font-bold uppercase">{i18n.language.startsWith('zh') ? 'EN' : '中文'}</span>
@@ -136,10 +137,16 @@ const Navbar = () => {
             <button
               onClick={() => setIsDark(!isDark)}
               className="p-2 rounded-full hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-1)]"
+              aria-label={isDark ? t('common.switchToLight') : t('common.switchToDark')}
             >
               {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer">
+            <a
+              href="https://github.com/ZalithLauncher"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+            >
               <GithubIcon size={20} className="text-[var(--text-2)] hover:text-[var(--brand)] transition-colors" />
             </a>
           </div>
@@ -149,19 +156,21 @@ const Navbar = () => {
             <button
               onClick={toggleLanguage}
               className="p-2 rounded-full hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-1)]"
+              aria-label={t('common.switchLanguage')}
             >
               <Globe size={20} />
             </button>
             <button
               onClick={() => setIsDark(!isDark)}
               className="p-2 rounded-full hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-1)]"
+              aria-label={isDark ? t('common.switchToLight') : t('common.switchToDark')}
             >
               {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-full text-[var(--text-1)]"
-              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-label={isMenuOpen ? t('common.closeMenu') : t('common.openMenu')}
               aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -186,7 +195,7 @@ const Navbar = () => {
                     key={link.name}
                     href={link.path}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     onClick={() => setIsMenuOpen(false)}
                     className="flex items-center gap-1.5 py-3 text-lg text-[var(--text-2)] hover:text-[var(--brand)]"
                   >
@@ -206,7 +215,12 @@ const Navbar = () => {
                   </Link>
                 )
               ))}
-              <a href="https://github.com/ZalithLauncher" target="_blank" rel="noreferrer" className="flex items-center gap-2 py-3 text-lg text-[var(--text-2)] hover:text-[var(--brand)]">
+              <a
+                href="https://github.com/ZalithLauncher"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 py-3 text-lg text-[var(--text-2)] hover:text-[var(--brand)]"
+              >
                 <GithubIcon size={20} /> GitHub
               </a>
             </div>

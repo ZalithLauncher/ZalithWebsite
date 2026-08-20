@@ -5,8 +5,9 @@ import { useLatestRelease, type Asset, type MirrorAsset, type MirrorRelease, LEM
 import { marked } from 'marked';
 import { cn } from '../lib/utils';
 import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 
-const ReleaseSkeleton = () => (
+const ReleaseSkeleton = ({ t }: { t: TFunction }) => (
   <div className="glass-card p-4 sm:p-8 animate-pulse relative overflow-hidden" role="status" aria-busy="true">
     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--bg-alt)] to-transparent opacity-20 skeleton-shimmer" />
     <div className="flex flex-wrap items-center justify-between gap-4 mb-8 relative z-10">
@@ -38,12 +39,12 @@ const ReleaseSkeleton = () => (
       >
         <Zap size={16} className="text-[var(--brand)]" />
       </motion.div>
-      正在获取最新版本信息...
+      {t('download.fetchingRelease')}
     </div>
   </div>
 );
 
-const NotesSkeleton = () => (
+const NotesSkeleton = ({ t }: { t: TFunction }) => (
   <div className="glass-card p-4 sm:p-8 h-full animate-pulse bg-[var(--bg)]/40 backdrop-blur-md relative overflow-hidden flex flex-col" role="status" aria-busy="true">
     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--bg-alt)] to-transparent opacity-20 skeleton-shimmer" />
     <div className="h-6 bg-[var(--bg-alt)] rounded w-1/2 mb-6 relative z-10" />
@@ -62,7 +63,7 @@ const NotesSkeleton = () => (
       >
         <Zap size={16} className="text-[var(--brand)]" />
       </motion.div>
-      正在拉取更新日志...
+      {t('download.fetchingNotes')}
     </div>
   </div>
 );
@@ -111,18 +112,16 @@ const DownloadSection = () => {
   }, [isReleaseLoading, dynamicDeviceTypes]);
 
   const selectedDevice = userSelectedDevice ?? detectedDevice;
-  // 默认下载源：英文页面（海外）默认枫源镜像；中文页面 20% 概率默认柠泽资源站，其余枫源镜像（ZL1 无枫源会自动回退到首个可用源）
+  // 默认下载源：中文页面默认枫源镜像（国内加速），英文页面默认枫源镜像（海外 CDN）
+  // ZL1 无枫源会自动回退到首个可用源
   const isZhLang = i18n.language.toLowerCase().startsWith('zh');
   const langKey = isZhLang ? 'zh' : 'en';
-  const rollDefaultSource = (key: 'zh' | 'en'): string =>
-    key === 'zh' ? (Math.random() < 0.20 ? 'lemwood' : 'haha') : 'haha';
-  const [rolledSource, setRolledSource] = useState<string>(() => rollDefaultSource(langKey));
+  const defaultSource = 'haha';
   const [prevLangKey, setPrevLangKey] = useState(langKey);
   if (prevLangKey !== langKey) {
     setPrevLangKey(langKey);
-    setRolledSource(rollDefaultSource(langKey));
   }
-  const selectedSource = userSelectedSource ?? rolledSource;
+  const selectedSource = userSelectedSource ?? defaultSource;
 
   useEffect(() => {
     const parseContent = async () => {
@@ -299,10 +298,10 @@ const DownloadSection = () => {
         {isReleaseLoading && isNotesLoading ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-6 relative z-10">
-              <ReleaseSkeleton />
+              <ReleaseSkeleton t={t} />
             </div>
             <div className="lg:col-span-1 relative z-0">
-              <NotesSkeleton />
+              <NotesSkeleton t={t} />
             </div>
           </div>
         ) : error && !release ? (
@@ -317,7 +316,7 @@ const DownloadSection = () => {
             {/* Left: Release Info & Selector */}
             <div className="lg:col-span-2 space-y-6 relative z-10">
               {isReleaseLoading ? (
-                <ReleaseSkeleton />
+                <ReleaseSkeleton t={t} />
               ) : (
                 <>
                   {apiFailed && (
@@ -340,7 +339,7 @@ const DownloadSection = () => {
                               <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
                                 <Zap size={12} />
                               </motion.div>
-                              更新中...
+                              {t('download.syncing')}
                             </span>
                           )}
                         </div>
@@ -414,7 +413,7 @@ const DownloadSection = () => {
                           <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }}>
                             <Zap size={10} />
                           </motion.div>
-                          测速中...
+                          {t('download.speedTesting')}
                         </span>
                       )}
                     </label>
@@ -556,7 +555,7 @@ const DownloadSection = () => {
             {/* Right: Release Notes */}
             <div className="lg:col-span-1 relative z-0">
               {isNotesLoading ? (
-                <NotesSkeleton />
+                <NotesSkeleton t={t} />
               ) : (
                 <div className="glass-card p-4 sm:p-8 h-full bg-[var(--bg)]/40 backdrop-blur-md">
                   <h4 className="text-lg font-bold mb-6 flex items-center gap-2 text-[var(--text-1)]">
