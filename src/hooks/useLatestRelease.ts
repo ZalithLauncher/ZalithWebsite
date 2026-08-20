@@ -86,17 +86,15 @@ export interface VersionJsonData {
 }
 
 export interface MirrorData {
-  foxington: MirrorAsset[] | null;
   haha: MirrorAsset[] | null;
   lemwood: MirrorRelease[] | null;
 }
 
 const DOWNLOAD_SOURCES: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
-  { id: 'mirror', name: 'Fishcpy 加速', description: 'fishcpy 提供', speed: '国内较快', contributor: { name: 'fishcpy', url: 'https://github.com/fishcpy' } },
-  { id: 'foxington', name: 'Foxington 源', description: '第三方镜像', speed: '国内较快', contributor: { name: 'XiaoluoFoxington', url: 'https://github.com/XiaoluoFoxington' } },
   { id: 'haha', name: '枫源镜像', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://fyhub.cn' } },
   { id: 'lemwood', name: '柠泽资源站', description: 'Lemwood 提供', speed: '国内较快', contributor: { name: 'Lemwood', url: 'https://lemwood.cn' } },
+  { id: 'cxsj', name: '创想镜像', description: '239LAN 提供', speed: '国内较快', contributor: { name: '创想镜像', url: 'https://mirror.cxsjmc.cn' } },
 ];
 
 function filterMappingAssets(release: Release): Release {
@@ -122,7 +120,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
   const [apiFailed, setApiFailed] = useState(false);
   const [versionJsonData, setVersionJsonData] = useState<VersionJsonData | null>(null);
 
-  const [mirrorData, setMirrorData] = useState<MirrorData>({ foxington: null, haha: null, lemwood: null });
+  const [mirrorData, setMirrorData] = useState<MirrorData>({ haha: null, lemwood: null });
 
   const repo = project === 'zl1' ? 'ZalithLauncher/ZalithLauncher' : 'ZalithLauncher/ZalithLauncher2';
   const localVersionFile = project === 'zl1' ? '/version.json' : '/version2.json';
@@ -241,7 +239,6 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
       };
 
       const fetchMirrorsTask = async () => {
-        const foxingtonUrl = project === 'zl1' ? 'https://next.foldcraftlauncher.cn/data/down/zl/1/1.4.1.0/index.json' : null;
         // 枫源镜像新站 fyhub.cn：项目 ID 使用仓库名，且仅收录 ZalithLauncher2（ZL1 已下架）
         const hahaUrl = project === 'zl2' ? 'https://fyhub.cn/api/public/v1/projects/ZalithLauncher2/assets' : null;
         const lemwoodUrl = `${LEMWOOD_API_BASE}/launchers/${project === 'zl1' ? 'zl' : 'zl2'}`;
@@ -286,14 +283,13 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
           }
         };
 
-        const [fox, ha, lem] = await Promise.all([
-          foxingtonUrl ? fetchJson(foxingtonUrl) : Promise.resolve(null),
+        const [ha, lem] = await Promise.all([
           hahaUrl ? fetchJson(hahaUrl) : Promise.resolve(null),
           fetchJson(lemwoodUrl)
         ]);
 
         if (isMounted) {
-          const newMirrorData = { foxington: fox, haha: ha, lemwood: lem };
+          const newMirrorData = { haha: ha, lemwood: lem };
           setMirrorData(newMirrorData);
           localStorage.setItem(`${cacheKeyPrefix}mirrors`, JSON.stringify(newMirrorData));
           setIsMirrorsLoading(false);
@@ -431,9 +427,9 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
     return versionJsonData.default_cloud_drive || null;
   }, [versionJsonData, project]);
 
-  // 枫源镜像（新站 fyhub.cn）已下架 ZL1，ZL1 页面不再提供该下载源
+  // 枫源镜像（新站 fyhub.cn）已下架 ZL1，创想镜像仅支持 ZL2
   const downloadSources = useMemo(
-    () => (project === 'zl1' ? DOWNLOAD_SOURCES.filter(s => s.id !== 'haha') : DOWNLOAD_SOURCES),
+    () => (project === 'zl1' ? DOWNLOAD_SOURCES.filter(s => s.id !== 'haha' && s.id !== 'cxsj') : DOWNLOAD_SOURCES),
     [project]
   );
 

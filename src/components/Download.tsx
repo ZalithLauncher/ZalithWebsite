@@ -146,21 +146,21 @@ const DownloadSection = () => {
   const lemwoodSiteBase = LEMWOOD_API_BASE.replace('/api/v2', '');
 
   const getDownloadUrl = (asset: Asset) => {
-    const tagName = release?.tag_name || '';
-    
-    if (selectedSource === 'mirror') {
-      const version = activeProject === 'zl1' ? tagName.replace('v', '').replace(/\./g, '') : tagName.replace('v', '');
-      return `https://download.fishcpy.top/dl/${activeProject === 'zl1' ? 'zl' : 'zl2'}/${version}/${asset.name}`;
-    }
-
-    if (selectedSource === 'foxington' && Array.isArray(mirrorData.foxington)) {
+    if (selectedSource === 'cxsj') {
+      // 创想镜像：URL 格式固定为 https://mirror.cxsjmc.cn/ZL/ZalithLauncher-latest-{arch}.apk
+      // 仅支持 ZL2，ZL1 回退到 GitHub
+      if (activeProject !== 'zl2') return asset.browser_download_url;
       const fileName = asset.name.toLowerCase();
-      let targetArch = 'all 架构';
-      if (fileName.includes('arm64')) targetArch = 'arm64-v8a 架构';
-      else if (fileName.includes('armeabi')) targetArch = 'armeabi-v7a 架构';
-      
-      const matched = mirrorData.foxington.find((f: MirrorAsset) => f.name === targetArch);
-      return matched?.url || asset.browser_download_url;
+      let archPart = '';
+      if (fileName.includes('arm64-v8a') || fileName.includes('arm64')) archPart = 'arm64-v8a';
+      else if (fileName.includes('armeabi-v7a') || fileName.includes('armeabi')) archPart = 'armeabi-v7a';
+      else if (fileName.includes('x86_64') || fileName.includes('x86-64')) archPart = 'x86_64';
+      else if (fileName.includes('x86')) archPart = 'x86';
+      // 通用版本文件名不含架构后缀
+      const file = archPart
+        ? `ZalithLauncher-latest-${archPart}.apk`
+        : `ZalithLauncher-latest.apk`;
+      return `https://mirror.cxsjmc.cn/ZL/${file}`;
     }
 
     if (selectedSource === 'haha' && Array.isArray(mirrorData.haha)) {

@@ -1,7 +1,7 @@
 {
-  "commitHash": "be22bae",
-  "commitDate": "2026-08-17T21:59:22+08:00",
-  "branch": "main",
-  "buildTime": "2026-08-20T02:57:39.265Z",
+  "commitHash": "386ff12",
+  "commitDate": "2026-08-20T11:06:41+08:00",
+  "branch": "fix/download-sources-cleanup",
+  "buildTime": "2026-08-20T03:17:46.495Z",
   "repoUrl": "https://github.com/ZalithLauncher/ZalithWebsite"
 }
