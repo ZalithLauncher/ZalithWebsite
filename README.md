@@ -42,6 +42,4 @@ pnpm preview    # 预览构建产物
 | 柠泽资源站 | [Lemwood](https://lemwood.cn) | ZL1 / ZL2 | 已授权（网站维护者提供） |
 | 创想镜像 | [239LAN](https://github.com/239LAN)（主站 [mirror.cxsjmc.cn](https://mirror.cxsjmc.cn)） | 仅 ZL2 | 已授权（#59） |
 
-已下架的下载源：**Fishcpy 加速**（未授权，#60）、**Foxington 源**（已停止维护）。
-
 网页端下载链接统一跳转镜像主站验证页，由主站完成验证与节点调度，前端不直接调用程序下载 API。
