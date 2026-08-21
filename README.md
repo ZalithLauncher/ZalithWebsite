@@ -33,12 +33,13 @@ pnpm preview    # 预览构建产物
 
 ## 下载源说明 / Download Sources
 
-下载页聚合多个下载渠道：
+下载页聚合多个下载渠道，所有镜像源均经项目方确认授权后收录（见 #59、#60）：
 
-- **GitHub 官方** — 官方 Release
-- **国内加速** — fishcpy 提供
-- **Foxington 源** — 第三方镜像（仅 ZL1）
-- **枫源镜像** — FrostLynx 提供，主站 [fyhub.cn](https://fyhub.cn)（仅 ZL2，为 ZL2 默认下载源）
-- **柠枺镜像** — Lemwood 提供
+| 下载源 | 提供者 | 支持项目 | 授权情况 |
+|--------|--------|----------|----------|
+| GitHub 官方 | ZalithLauncher 项目方 | ZL1 / ZL2 | 官方渠道 |
+| 枫源镜像 | [FrostLynx](https://frostlynx.work)（主站 [fyhub.cn](https://fyhub.cn)） | 仅 ZL2 | 已授权（#60） |
+| 柠泽资源站 | [Lemwood](https://lemwood.cn) | ZL1 / ZL2 | 已授权（网站维护者提供） |
+| 创想镜像 | [239LAN](https://github.com/239LAN)（主站 [mirror.cxsjmc.cn](https://mirror.cxsjmc.cn)） | 仅 ZL2 | 已授权（#59） |
 
 网页端下载链接统一跳转镜像主站验证页，由主站完成验证与节点调度，前端不直接调用程序下载 API。
