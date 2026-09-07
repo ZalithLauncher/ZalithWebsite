@@ -182,8 +182,12 @@ const DownloadSection = () => {
       else if (fileName.includes('x86_64')) targetArch = 'x86_64';
       else if (fileName.includes('x86')) targetArch = 'x86';
 
+      // 按架构回退匹配：镜像资产带版本号时必须与当前版本一致，
+      // 避免镜像同步滞后时把旧版本文件当作当前版本下发
+      const normalizedHahaTag = (release?.tag_name || '').replace(/^v/, '');
       const matchedByArch = mirrorData.haha.find((f: MirrorAsset) => {
         if (f.available === false) return false;
+        if (f.version && normalizedHahaTag && f.version !== normalizedHahaTag) return false;
         if (targetArch) return f.architecture === targetArch;
         return !f.architecture || f.architecture === 'all' || f.architecture === '';
       });
@@ -217,12 +221,24 @@ const DownloadSection = () => {
   const handleDownload = (asset: Asset) => {
     if (selectedSource === 'lemwood') {
       // 柠泽资源站走 PoW 下载验证：直连下载地址（不带 token），
-      // 服务端对浏览器请求 302 重定向到验证页 /verify?file=...，由用户在验证页求解 PoW 后下载
-      const launcher = activeProject === 'zl1' ? 'zl' : 'zl2';
-      const version = release?.tag_name?.replace(/^v/, '') || '';
-      const filePath = `${launcher}/${version}/${asset.name}`;
-      window.open(`${lemwoodSiteBase}/download/${filePath}`, '_blank', 'noopener,noreferrer');
-      return;
+      // 服务端对浏览器请求 302 重定向到验证页 /verify?file=...，由用户在验证页求解 PoW 后下载。
+      // 镜像同步滞后时直连地址会 404，故先确认镜像已收录当前版本的该资产再跳验证页，
+      // 未收录则回退普通下载逻辑（镜像清单未命中时最终走 GitHub 原链）。
+      const currentTag = release?.tag_name || '';
+      const normalizedTag = currentTag.replace(/^v/, '');
+      const mirrored = (mirrorData.lemwood || []).some(
+        (r: MirrorRelease) =>
+          (r.tag_name === currentTag || r.tag_name === normalizedTag) &&
+          Array.isArray(r.assets) &&
+          r.assets.some((a: MirrorAsset) => a.name === asset.name)
+      );
+      if (mirrored) {
+        const launcher = activeProject === 'zl1' ? 'zl' : 'zl2';
+        const version = normalizedTag;
+        const filePath = `${launcher}/${version}/${asset.name}`;
+        window.open(`${lemwoodSiteBase}/download/${filePath}`, '_blank', 'noopener,noreferrer');
+        return;
+      }
     }
 
     window.open(getDownloadUrl(asset), '_blank', 'noopener,noreferrer');
@@ -526,8 +542,12 @@ const DownloadSection = () => {
                           <p className="text-sm font-bold text-[var(--text-1)] break-all sm:break-normal line-clamp-2 sm:line-clamp-1">{asset.name}</p>
                           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
                             <span className="text-[10px] text-[var(--text-2)] font-medium uppercase whitespace-nowrap">{formatSize(asset.size)}</span>
-                            <span className="w-1 h-1 bg-[var(--divider)]/50 rounded-full hidden sm:block" />
-                            <span className="text-[10px] text-[var(--text-2)] font-medium uppercase whitespace-nowrap">{asset.download_count.toLocaleString()} {t('download.downloads')}</span>
+                            {(asset.download_count || 0) > 0 && (
+                              <>
+                                <span className="w-1 h-1 bg-[var(--divider)]/50 rounded-full hidden sm:block" />
+                                <span className="text-[10px] text-[var(--text-2)] font-medium uppercase whitespace-nowrap">{asset.download_count.toLocaleString()} {t('download.downloads')}</span>
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>

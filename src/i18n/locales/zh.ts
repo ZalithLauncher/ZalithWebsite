@@ -76,7 +76,7 @@ export default {
     recommend: "推荐",
     legacy: "旧版",
     apiFailed: "API 访问受限",
-    apiFailedDesc: "GitHub API 无法访问，已自动切换至本地缓存数据。",
+    apiFailedDesc: "远端版本接口无法访问，已自动切换至本地缓存数据。",
     publishedAt: "发布于",
     deviceType: "设备类型",
     source: "下载源",

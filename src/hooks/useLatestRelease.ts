@@ -61,6 +61,14 @@ export interface VersionJsonAsset {
   [key: string]: unknown;
 }
 
+// ZL2 更新日志（repo.miawa.cn/zalith-info/v2/latest_version_md.json）的文件清单条目
+export interface ChangelogFile {
+  file_name: string;
+  uri: string;
+  arch?: string;
+  size?: number;
+}
+
 export interface VersionJsonData {
   latest_version?: string;
   release_date?: string;
@@ -83,6 +91,16 @@ export interface VersionJsonData {
     link: string;
     links?: Array<{ name: string; link: string }>;
   };
+  // ZL1 更新日志格式（repo.miawa.cn/zalith-info/launcher_version.json）：
+  // 仅版本号、发布时间、多语言说明与各架构精确体积，不含文件清单
+  version_code?: number;
+  version_name?: string;
+  published_at?: string;
+  file_size?: Record<string, number>;
+  // ZL2 更新日志格式：完整文件清单（uri 指向 GitHub releases 下载地址）
+  version?: string;
+  created_at?: string;
+  files?: ChangelogFile[];
 }
 
 export interface MirrorData {
@@ -103,6 +121,81 @@ function filterMappingAssets(release: Release): Release {
     ...release,
     assets: release.assets.filter(a => !/^mapping.*\.zip$/i.test(a.name))
   };
+}
+
+// 把 "145 MB" 之类的历史字符串体积归一为字节数（纯展示用途，按 1024 进制换算）
+function parseSizeToBytes(size: number | string | undefined): number {
+  if (typeof size === 'number') return size;
+  if (typeof size !== 'string') return 0;
+  const match = size.trim().match(/^([\d.]+)\s*(B|KB|MB|GB|TB)$/i);
+  if (!match) return 0;
+  const units: Record<string, number> = { b: 1, kb: 1024, mb: 1024 ** 2, gb: 1024 ** 3, tb: 1024 ** 4 };
+  const value = parseFloat(match[1]);
+  const unit = units[match[2].toLowerCase()] || 1;
+  return Number.isFinite(value) ? Math.round(value * unit) : 0;
+}
+
+// ZL1 更新日志不带文件清单，按文件名中的架构从 file_size 取精确体积（与 GitHub 一致）
+function zl1AssetSizeFromChangelog(fileName: string, fileSize?: Record<string, number>): number {
+  if (!fileSize) return 0;
+  const name = fileName.toLowerCase();
+  if (name.includes('arm64')) return fileSize.arm64 || 0;
+  if (name.includes('armeabi')) return fileSize.arm || 0;
+  if (name.includes('x86_64') || name.includes('x86-64')) return fileSize.x86_64 || 0;
+  if (name.includes('x86')) return fileSize.x86 || 0;
+  return fileSize.all || 0;
+}
+
+// 从更新日志 JSON（repo.miawa.cn，与 GitHub releases 同步维护）构造 Release。
+// ZL2：files 自带完整资产清单与下载地址；ZL1：日志只含版本与体积，
+// 资产清单取站内打包的 version.json（ZL1 已停止发版，两边版本长期一致）。
+async function buildReleaseFromChangelog(
+  data: VersionJsonData,
+  project: 'zl1' | 'zl2',
+  localVersionFile: string,
+  cachedCounts: Map<string, number>
+): Promise<Release | null> {
+  if (project === 'zl2') {
+    const version = data.version;
+    const files = Array.isArray(data.files) ? data.files : [];
+    if (!version || files.length === 0) return null;
+    return {
+      name: version,
+      tag_name: version,
+      published_at: data.created_at || '',
+      body: data.default_body?.markdown || '',
+      assets: files.map(f => ({
+        id: f.file_name,
+        name: f.file_name,
+        browser_download_url: f.uri,
+        size: f.size ?? 0,
+        download_count: cachedCounts.get(f.file_name) || 0
+      }))
+    };
+  }
+
+  const version = data.version_name;
+  if (!version || data.version_code === undefined) return null;
+  try {
+    const localRes = await fetch(localVersionFile);
+    const localData: VersionJsonData = await localRes.json();
+    if (!Array.isArray(localData.assets) || localData.assets.length === 0) return null;
+    return {
+      name: version,
+      tag_name: String(data.version_code),
+      published_at: data.published_at || localData.release_date || '',
+      body: data.description?.zh_cn || localData.body || '',
+      assets: localData.assets.map(a => ({
+        id: a.name,
+        name: a.name,
+        browser_download_url: a.browser_download_url || '',
+        size: zl1AssetSizeFromChangelog(a.name, data.file_size) || parseSizeToBytes(a.size),
+        download_count: a.download_count || cachedCounts.get(a.name) || 0
+      }))
+    };
+  } catch {
+    return null;
+  }
 }
 
 export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) => {
@@ -145,10 +238,14 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
       const cachedMirrors = localStorage.getItem(`${cacheKeyPrefix}mirrors`);
       
       let hasCache = false;
+      // 供更新日志构造 Release 时沿用最近一次拿到的资产下载数（日志本身不含该数据）
+      const cachedCounts = new Map<string, number>();
 
       if (cachedRelease) {
         try {
-          setRelease(filterMappingAssets(JSON.parse(cachedRelease)));
+          const parsedCache = filterMappingAssets(JSON.parse(cachedRelease));
+          (parsedCache.assets || []).forEach(a => cachedCounts.set(a.name, a.download_count || 0));
+          setRelease(parsedCache);
           setIsReleaseLoading(false);
           hasCache = true;
         } catch { /* ignore */ }
@@ -170,71 +267,105 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
         setIsSyncing(true);
       }
 
-      const fetchReleaseTask = async () => {
+      // 更新日志（repo.miawa.cn）只拉取一次，版本数据与发布说明共用
+      const changelogJsonPromise: Promise<VersionJsonData | null> = (async () => {
         try {
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 3000);
-          
-          const res = await fetch(`https://api.github.com/repos/${repo}/releases/latest`, {
-            signal: controller.signal
-          });
+          const timeoutId = setTimeout(() => controller.abort(), 5000);
+          const res = await fetch(versionInfoUrl, { signal: controller.signal });
           clearTimeout(timeoutId);
-          
-          if (!res.ok) throw new Error('GitHub API failed');
-          const data = await res.json();
+          if (!res.ok) return null;
+          return (await res.json()) as VersionJsonData;
+        } catch {
+          return null;
+        }
+      })();
+
+      const fetchNotesTask = async () => {
+        const data = await changelogJsonPromise;
+        if (data) {
           if (isMounted) {
-            const filtered = filterMappingAssets(data);
+            setVersionJsonData(data);
+            localStorage.setItem(`${cacheKeyPrefix}notes`, JSON.stringify(data));
+            setIsNotesLoading(false);
+          }
+        } else if (isMounted && !cachedNotes) {
+          setIsNotesLoading(false);
+        }
+      };
+
+      // 检查更新的数据源按归属地选择：国内优先更新日志（repo.miawa.cn 国内直连、
+      // 与 GitHub releases 同步维护，字段齐全），海外优先 GitHub API；
+      // 主源失败时依次回退，最后才用站内打包的 version.json（可能滞后于线上）。
+      const fetchReleaseTask = async () => {
+        const applyRelease = (rel: Release) => {
+          const filtered = filterMappingAssets(rel);
+          if (isMounted) {
             setRelease(filtered);
             localStorage.setItem(`${cacheKeyPrefix}release`, JSON.stringify(filtered));
             setIsReleaseLoading(false);
           }
-        } catch {
-          if (isMounted) setApiFailed(true);
-          try {
-            const localRes = await fetch(localVersionFile);
-            const localData = await localRes.json();
-            const fallbackRelease = {
-              name: `${project.toUpperCase()} ${localData.latest_version}`,
-              tag_name: `v${localData.latest_version}`,
-              published_at: localData.release_date,
-              body: localData.body || '',
-              assets: localData.assets.map((a: VersionJsonAsset) => ({
-                ...a,
-                id: Math.random(),
-                download_count: a.download_count || 0
-              }))
-            };
-            if (isMounted) {
-              const filtered = filterMappingAssets(fallbackRelease);
-              setRelease(filtered);
-              localStorage.setItem(`${cacheKeyPrefix}release`, JSON.stringify(filtered));
-              setIsReleaseLoading(false);
-            }
-          } catch {
-            if (isMounted && !hasCache) {
-              setError('无法获取版本信息');
-              setIsReleaseLoading(false);
+        };
+
+        // 先等 IP 归属地结果（最多 1.5s；未知按国内处理，更新日志失败仍会回退 GitHub）
+        let isCN: boolean | null = null;
+        try {
+          isCN = await Promise.race([
+            detectIPTask(),
+            new Promise<null>((resolve) => setTimeout(() => resolve(null), 1500))
+          ]);
+        } catch { /* 探测异常按未知处理 */ }
+
+        if (isCN !== false) {
+          const changelogData = await changelogJsonPromise;
+          if (changelogData) {
+            const rel = await buildReleaseFromChangelog(changelogData, project, localVersionFile, cachedCounts);
+            if (rel) {
+              applyRelease(rel);
+              return;
             }
           }
         }
-      };
 
-      const fetchNotesTask = async () => {
         try {
-          const res = await fetch(versionInfoUrl);
-          if (res.ok) {
-            const data = await res.json();
-            if (isMounted) {
-              setVersionJsonData(data);
-              localStorage.setItem(`${cacheKeyPrefix}notes`, JSON.stringify(data));
-              setIsNotesLoading(false);
-            }
-          } else {
-             if (isMounted && !cachedNotes) setIsNotesLoading(false);
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+          const res = await fetch(`https://api.github.com/repos/${repo}/releases/latest`, {
+            signal: controller.signal
+          });
+          clearTimeout(timeoutId);
+
+          if (!res.ok) throw new Error('GitHub API failed');
+          const data = await res.json();
+          applyRelease(data);
+          return;
+        } catch { /* GitHub 不可用，走本地兜底 */ }
+
+        // 走到这里说明远端主源与回退源都失败，本地数据可能滞后，给出提示
+        if (isMounted) setApiFailed(true);
+        try {
+          const localRes = await fetch(localVersionFile);
+          const localData = await localRes.json();
+          const fallbackRelease: Release = {
+            name: localData.latest_version,
+            tag_name: localData.latest_version,
+            published_at: localData.release_date,
+            body: localData.body || '',
+            assets: localData.assets.map((a: VersionJsonAsset) => ({
+              id: a.name,
+              name: a.name,
+              browser_download_url: a.browser_download_url || '',
+              size: parseSizeToBytes(a.size),
+              download_count: a.download_count || 0
+            }))
+          };
+          applyRelease(fallbackRelease);
+        } catch {
+          if (isMounted && !hasCache) {
+            setError('无法获取版本信息');
+            setIsReleaseLoading(false);
           }
-        } catch (e) {
-          console.warn('Fetch version json data failed', e);
-          if (isMounted && !cachedNotes) setIsNotesLoading(false);
         }
       };
 
@@ -296,36 +427,43 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
         }
       };
 
-      const detectIPTask = async () => {
+      // 探测用户是否来自国内：localStorage 缓存 → ipapi.co → 失败时回退时区推断。
+      // 返回 null 表示无法判断（fetchReleaseTask 会按国内策略处理）。
+      const detectIPTask = async (): Promise<boolean | null> => {
         try {
           const cached = localStorage.getItem('isChineseIP');
           const expire = localStorage.getItem('isChineseIPExpire');
           if (cached && expire && Date.now() < parseInt(expire)) {
-            if (isMounted) setIsChinaIP(cached === 'true');
-            return;
+            const isCN = cached === 'true';
+            if (isMounted) setIsChinaIP(isCN);
+            return isCN;
           }
 
-          const res = await fetch('https://ipapi.co/json/');
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3000);
+          const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+          clearTimeout(timeoutId);
           if (res.ok) {
             const data = await res.json();
             const isCN = data.country === 'CN' || data.region === 'China';
             localStorage.setItem('isChineseIP', isCN.toString());
             localStorage.setItem('isChineseIPExpire', (Date.now() + 86400000).toString());
             if (isMounted) setIsChinaIP(isCN);
-            return;
+            return isCN;
           }
+          return null;
         } catch {
           const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
           const isCN = tz.includes('Asia/Shanghai') || tz.includes('Asia/Chongqing');
           if (isMounted) setIsChinaIP(isCN);
+          return isCN;
         }
       };
 
       await Promise.allSettled([
         fetchReleaseTask(),
         fetchNotesTask(),
-        fetchMirrorsTask(),
-        detectIPTask()
+        fetchMirrorsTask()
       ]);
 
       if (isMounted) {
