@@ -76,7 +76,7 @@ export default {
     recommend: "Recommended",
     legacy: "Legacy",
     apiFailed: "API Access Restricted",
-    apiFailedDesc: "GitHub API is inaccessible, switched to local cache.",
+    apiFailedDesc: "Remote version APIs are inaccessible, switched to local cache.",
     publishedAt: "Published at",
     deviceType: "Device Type",
     source: "Download Source",
