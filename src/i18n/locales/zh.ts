@@ -1,4 +1,4 @@
-Beta default {
+export default {
   common: {
     download: "立即下载",
     viewDocs: "查看文档",
