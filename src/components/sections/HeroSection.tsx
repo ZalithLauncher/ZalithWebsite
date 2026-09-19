@@ -14,16 +14,6 @@ const HeroSection = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="inline-block mb-6 px-4 py-1.5 rounded-full bg-[var(--brand)]/10 text-[var(--brand)] text-sm font-medium border border-[var(--brand)]/20"
-            >
-              {t('hero.badge')}
-            </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -77,12 +67,12 @@ const HeroSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="relative rounded-2xl md:rounded-3xl overflow-hidden border border-[var(--divider)]/10"
+          className="relative rounded-2xl overflow-hidden border border-[var(--divider)]/10 md:hidden"
         >
           <img
             src={`/image/${lang}/home.jpg`}
             alt="Zalith Launcher Home"
-            className="w-full h-[300px] md:h-auto object-cover md:object-contain object-[right_top] md:object-center transform hover:scale-[1.01] transition-transform duration-700"
+            className="w-full h-[300px] object-cover object-[right_top] transform hover:scale-[1.01] transition-transform duration-700"
           />
         </motion.div>
       </div>
