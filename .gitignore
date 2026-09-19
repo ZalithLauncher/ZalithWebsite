@@ -34,3 +34,6 @@ yarn.lock
 CLAUDE.md
 .claude/settings.local.json
 AGENTS.md
+
+# Local secrets
+.env
