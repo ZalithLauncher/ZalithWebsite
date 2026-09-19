@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -122,6 +122,14 @@ const AppContent = () => {
 };
 
 function App() {
+  // 应用挂载后淡出并移除启动加载页
+  useEffect(() => {
+    const loader = document.getElementById('boot-loader');
+    if (!loader) return;
+    loader.classList.add('boot-done');
+    window.setTimeout(() => loader.remove(), 700);
+  }, []);
+
   return (
     <Router>
       <AppContent />
