@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.4.9_hotfix1",
-  "release_date": "2026-06-26T11:39:42Z",
+  "latest_version": "2.5.3",
+  "release_date": "2026-09-15T01:04:37Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.4.9_hotfix1-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-arm64-v8a.apk",
-      "size": "151.7 MB",
-      "download_count": 130229
+      "name": "ZalithLauncher-2.5.3-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.5.3/ZalithLauncher-2.5.3-arm64-v8a.apk",
+      "size": "172.8 MB",
+      "download_count": 26925
     },
     {
-      "name": "ZalithLauncher-2.4.9_hotfix1-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-armeabi-v7a.apk",
-      "size": "144.5 MB",
-      "download_count": 6744
+      "name": "ZalithLauncher-2.5.3-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.5.3/ZalithLauncher-2.5.3-armeabi-v7a.apk",
+      "size": "165.1 MB",
+      "download_count": 679
     },
     {
-      "name": "ZalithLauncher-2.4.9_hotfix1-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-x86.apk",
-      "size": "132.4 MB",
-      "download_count": 3588
+      "name": "ZalithLauncher-2.5.3-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.5.3/ZalithLauncher-2.5.3-x86.apk",
+      "size": "154.1 MB",
+      "download_count": 310
     },
     {
-      "name": "ZalithLauncher-2.4.9_hotfix1-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1-x86_64.apk",
-      "size": "156.7 MB",
-      "download_count": 3633
+      "name": "ZalithLauncher-2.5.3-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.5.3/ZalithLauncher-2.5.3-x86_64.apk",
+      "size": "178.3 MB",
+      "download_count": 335
     },
     {
-      "name": "ZalithLauncher-2.4.9_hotfix1.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.4.9_hotfix1/ZalithLauncher-2.4.9_hotfix1.apk",
-      "size": "291.9 MB",
-      "download_count": 33207
+      "name": "ZalithLauncher-2.5.3.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.5.3/ZalithLauncher-2.5.3.apk",
+      "size": "337.8 MB",
+      "download_count": 5952
     }
   ],
-  "body": "## Updates:\r\n- [GP#1465](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1465): Updated local Minecraft version list (by @MovTery)\r\n- [GP#1466](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1466): Include API Key when downloading files from CurseForge source (by @MovTery)\r\n\r\n## Fixes:\r\n- [GP#1443](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1443): Version configuration enum serialization broken due to obfuscation (by @MovTery)\r\n- [Main#1679297](https://github.com/ZalithLauncher/ZalithLauncher2/commit/1679297): Use launcher UA directly when downloading (by @MovTery)\r\n- [GP#1467](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1467): Clipboard content read in-game may be null (by @MovTery)\r\n- [Main#132b8d1](https://github.com/ZalithLauncher/ZalithLauncher2/commit/132b8d1): Fixed JVM argument parsing causing incorrect argument concatenation (by @MovTery)\r\n- [GP#1479](https://github.com/ZalithLauncher/ZalithLauncher2/pull/1479): Roll back the Material3 library to version 1.5.0-alpha20 (by @MovTery)"
+  "body": "## Updates:\r\n- #1843: Added support for selecting a Java runtime once by long-pressing the run jar file button (by @CiiLu)\r\n- #1867: Added a real-time JVM installation log card to the task flow dialog (by @MovTery)\r\n\r\n## Changes:\r\n- #1868: Updated default control layout (by @MovTery)\r\n- #1869: In control layout, newly created joystick controls now default to Ctrl as the lock event modifier (by @MovTery)\r\n\r\n## Fixes:\r\n- #1864: Force game JVM to use UTF-8 encoding, fixing FTB mods failing to initialize properly (by @MovTery)\r\n- #1865: Installer failing to start in foreground service when GlobalContext is not initialized (by @MovTery)\r\n- #1871: Fixed corner radius distribution issue for file manager entries (by @MovTery)\r\n- #1874: GLFW bridge initialization now uses the calling thread's JNIEnv, fixing crashes and freezes caused by cross-thread reuse (by @MovTery)"
 }

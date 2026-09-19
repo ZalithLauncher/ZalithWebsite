@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, Smartphone, Terminal, ShieldCheck, Zap, Globe, ChevronDown, Check, AlertTriangle, ExternalLink, Info, Cloud } from 'lucide-react';
+import { Download, Smartphone, Terminal, Zap, Globe, ChevronDown, Check, AlertTriangle, ExternalLink, Info, Cloud } from 'lucide-react';
 import { useLatestRelease, type Asset, type MirrorAsset, type MirrorRelease, LEMWOOD_API_BASE } from '../hooks/useLatestRelease';
 import { marked } from 'marked';
 import { cn } from '../lib/utils';
@@ -112,16 +112,18 @@ const DownloadSection = () => {
   }, [isReleaseLoading, dynamicDeviceTypes]);
 
   const selectedDevice = userSelectedDevice ?? detectedDevice;
-  // 默认下载源：中文页面默认枫源镜像（国内加速），英文页面默认枫源镜像（海外 CDN）
-  // ZL1 无枫源会自动回退到首个可用源
+  // 默认下载源：英文页面（海外）默认枫源镜像；中文页面 80% 概率默认柠泽资源站，其余枫源镜像（ZL1 无柠泽会自动回退到首个可用源）
   const isZhLang = i18n.language.toLowerCase().startsWith('zh');
   const langKey = isZhLang ? 'zh' : 'en';
-  const defaultSource = 'haha';
+  const rollDefaultSource = (key: 'zh' | 'en'): string =>
+    key === 'zh' ? (Math.random() < 0.8 ? 'lemwood' : 'haha') : 'haha';
+  const [rolledSource, setRolledSource] = useState<string>(() => rollDefaultSource(langKey));
   const [prevLangKey, setPrevLangKey] = useState(langKey);
   if (prevLangKey !== langKey) {
     setPrevLangKey(langKey);
+    setRolledSource(rollDefaultSource(langKey));
   }
-  const selectedSource = userSelectedSource ?? defaultSource;
+  const selectedSource = userSelectedSource ?? rolledSource;
 
   useEffect(() => {
     const parseContent = async () => {
@@ -363,9 +365,6 @@ const DownloadSection = () => {
                           {t('download.publishedAt')} {release ? new Date(release.published_at).toLocaleDateString() : '-'}
                         </p>
                       </div>
-                      <span className="px-3 py-1 bg-[var(--brand)]/10 text-[var(--brand)] rounded-full text-sm font-bold border border-[var(--brand)]/20">
-                        {release?.tag_name}
-                      </span>
                     </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 sm:mb-8">
@@ -597,23 +596,6 @@ const DownloadSection = () => {
           </div>
         )}
 
-        {/* Footer info */}
-        <div className="mt-10 sm:mt-16 text-center">
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
-            <div className="flex items-center gap-2 text-[var(--text-2)] text-sm">
-              <ShieldCheck size={16} className="text-green-500" />
-              <span>{t('download.officialRelease')}</span>
-            </div>
-            <div className="flex items-center gap-2 text-[var(--text-2)] text-sm">
-              <Zap size={16} className="text-yellow-500" />
-              <span>{t('download.multiSource')}</span>
-            </div>
-            <div className="flex items-center gap-2 text-[var(--text-2)] text-sm">
-              <Globe size={16} className="text-blue-500" />
-              <span>{t('download.communityPowered')}</span>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
