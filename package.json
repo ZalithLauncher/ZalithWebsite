@@ -6,11 +6,12 @@
   "packageManager": "pnpm@11.14.0",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:info && npm run build:blog && tsc -b && vite build",
+    "build": "npm run build:info && npm run build:blog && npm run build:sitemap && tsc -b && vite build",
     "build:info": "npx tsx scripts/build-info.ts",
     "build:blog": "npx tsx scripts/build-blog.ts",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:sitemap": "npx tsx scripts/build-sitemap.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",
