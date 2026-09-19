@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MessageSquare, Coffee, Heart, Globe, ShieldCheck, Mail, GitBranch } from 'lucide-react';
+import { Coffee, Heart, Globe, ShieldCheck, Mail, GitBranch } from 'lucide-react';
 import GithubIcon from './icons/GithubIcon';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -31,7 +31,6 @@ const Footer = () => {
     {
       title: t('footer.community'),
       links: [
-        { name: "Discord", path: "https://discord.gg/e7C4kytRgK", external: true },
         { name: t('footer.qqGroup'), path: "https://afdian.com/a/MovTery", external: true },
         { name: t('footer.weblate'), path: "https://hosted.weblate.org/projects/zalithlauncher2/", external: true },
       ]
@@ -68,10 +67,6 @@ const Footer = () => {
               <a href="https://github.com/ZalithLauncher" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
                 className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
                 <GithubIcon size={20} />
-              </a>
-              <a href="https://discord.gg/e7C4kytRgK" target="_blank" rel="noopener noreferrer" aria-label="Discord"
-                className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
-                <MessageSquare size={20} />
               </a>
               <a href="https://afdian.com/a/MovTery" target="_blank" rel="noopener noreferrer" aria-label="Afdian"
                 className="w-10 h-10 rounded-full bg-[var(--bg-alt)] flex items-center justify-center text-[var(--text-2)] hover:text-[var(--brand)] hover:scale-110 transition-all">
