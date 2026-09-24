@@ -7,7 +7,7 @@ export default {
     features: "Features",
     downloadCenter: "Download Center",
     docs: "Docs",
-    beta: "Preview / Beta",
+    beta: "Stable",
     contactUs: "Contact Us (GitHub)",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
