@@ -56,7 +56,7 @@
     color: var(--text-1);
     transition: background-color 0.3s ease, color 0.3s ease;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-image: url('/image/backgrounds/underwater-moonlight.png');
+    background-image: url('/image/backgrounds/mirror-lake.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

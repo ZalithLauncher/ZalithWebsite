@@ -16,7 +16,7 @@ This update focuses on the download experience, helping users in different regio
 
 Previously the download page treated everyone the same. Now the default source is recommended based on the visitor's language and region:
 
-- **Chinese pages (domestic)**: 75% chance the default is the Ningze Resource Station (柠泽资源站), otherwise the Fengyuan mirror (枫源镜像) — the two sources rotate randomly to spread load.
+- **Chinese pages (domestic)**: 80% chance the default is the Ningze Resource Station (柠泽资源站), otherwise the Fengyuan mirror (枫源镜像) — the two sources rotate randomly to spread load.
 - **English pages (overseas)**: the Fengyuan mirror (枫源镜像) is used by default for better speed abroad.
 
 Switching the interface language re-matches the recommended source to the current region. Of course, all sources can still be freely selected from the dropdown.

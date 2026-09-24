@@ -5,26 +5,133 @@
     <link rel="icon" type="image/webp" href="/zl_icon.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="zl,zl2,zalith,zalithlauncher,minecraft,mc,zl官网,zl下载,zl启动器" />
-    <meta name="description" content="Zalith Launcher - 在 Android 设备上游玩 Minecraft: Java Edition，稳定、高效、纯净。" />
+    <meta name="description" itemprop="description" content="Zalith Launcher - 在 Android 设备上游玩 Minecraft: Java Edition，稳定、高效、纯净。" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://zalithlauncher.cn/" />
+    <meta name="theme-color" content="#FFF8F6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1C110E" media="(prefers-color-scheme: dark)" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Zalith Launcher" />
     <meta property="og:description" content="在 Android 设备上游玩 Minecraft: Java Edition，稳定、高效、纯净。" />
-    <meta property="og:image" content="/zl_icon.webp" />
-    <meta property="og:url" content="https://zalithlauncher.cn" />
+    <meta property="og:image" content="https://zalithlauncher.cn/zl_icon.webp" />
+    <meta property="og:url" content="https://zalithlauncher.cn/" />
     <meta property="og:site_name" content="Zalith Launcher" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- QQ 分享卡片 -->
+    <meta itemprop="name" content="Zalith Launcher" />
+    <meta itemprop="image" content="https://zalithlauncher.cn/zl_icon.webp" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Zalith Launcher" />
     <meta name="twitter:description" content="在 Android 设备上游玩 Minecraft: Java Edition，稳定、高效、纯净。" />
-    <meta name="twitter:image" content="/zl_icon.webp" />
+    <meta name="twitter:image" content="https://zalithlauncher.cn/zl_icon.webp" />
+
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Zalith Launcher",
+      "operatingSystem": "Android",
+      "applicationCategory": "GameApplication",
+      "url": "https://zalithlauncher.cn/",
+      "image": "https://zalithlauncher.cn/zl_icon.webp",
+      "description": "Zalith Launcher 是专为 Android 开发的 Minecraft: Java Edition 启动器。性能好，界面简洁，支持自定义。",
+      "inLanguage": ["zh-CN", "en"],
+      "author": {
+        "@type": "Organization",
+        "name": "ZalithLauncher",
+        "url": "https://github.com/ZalithLauncher"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      }
+    }
+    </script>
 
     <title>Zalith Launcher - 稳定、高效、纯净的 Android 版 Minecraft 启动器</title>
+
+    <!-- 绘制前应用已保存的主题，避免暗色用户首屏闪白 -->
+    <script>
+      try {
+        if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+      } catch (e) {}
+      // 兜底：应用异常未能移除加载页时强制淡出
+      setTimeout(function () {
+        var l = document.getElementById('boot-loader');
+        if (l) l.classList.add('boot-done');
+      }, 6000);
+    </script>
+
+    <!-- 启动加载页（内联样式，先于资源包渲染） -->
+    <style>
+      #boot-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        background: #fff8f6;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+      html.dark #boot-loader { background: #1c110e; }
+      #boot-loader img {
+        width: 76px;
+        height: 76px;
+        border-radius: 18px;
+        animation: boot-pulse 1.6s ease-in-out infinite;
+      }
+      #boot-loader .boot-name {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: #58423b;
+      }
+      html.dark #boot-loader .boot-name { color: #dfc0b7; }
+      .boot-dots { display: flex; gap: 8px; }
+      .boot-dots i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #a63a17;
+        animation: boot-bounce 1.2s ease-in-out infinite;
+      }
+      html.dark .boot-dots i { background: #ffb59f; }
+      .boot-dots i:nth-child(2) { animation-delay: 0.15s; }
+      .boot-dots i:nth-child(3) { animation-delay: 0.3s; }
+      #boot-loader.boot-done { opacity: 0; visibility: hidden; pointer-events: none; }
+      @keyframes boot-pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.06); opacity: 0.85; }
+      }
+      @keyframes boot-bounce {
+        0%, 100% { transform: translateY(0); opacity: 0.5; }
+        50% { transform: translateY(-6px); opacity: 1; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #boot-loader img, .boot-dots i { animation: none; }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <div id="boot-loader" aria-hidden="true">
+      <img src="/zl_icon.webp" alt="" width="76" height="76" />
+      <span class="boot-name">Zalith Launcher</span>
+      <div class="boot-dots"><i></i><i></i><i></i></div>
+    </div>
+    <noscript><style>#boot-loader { display: none; }</style></noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

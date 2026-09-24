@@ -32,7 +32,6 @@ export default {
     blog: "博客",
   },
   hero: {
-    badge: "稳定高效，没有广告",
     title: "在 Android 上 <span class='text-[var(--brand)]'>重新定义</span> Java 版体验",
     description: "Zalith Launcher 是专为 Android 开发的 Minecraft: Java Edition 启动器。性能好，界面简洁，支持自定义。",
     speed: "极速启动",
@@ -84,9 +83,6 @@ export default {
     noAssets: "暂无匹配该架构的文件",
     releaseNotes: "版本发布说明",
     noNotes: "暂无详细发布说明",
-    officialRelease: "官方发布，安全无毒",
-    multiSource: "多源加速，极速下载",
-    communityPowered: "开源社区，共同维护",
     downloads: "下载",
     fetchingRelease: "正在获取最新版本信息...",
     fetchingNotes: "正在拉取更新日志...",

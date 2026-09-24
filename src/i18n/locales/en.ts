@@ -32,7 +32,6 @@ export default {
     blog: "Blog",
   },
   hero: {
-    badge: "Stable, efficient, no ads",
     title: "On Android <span class='text-[var(--brand)]'>Redefining</span> Java Experience",
     description: "Zalith Launcher is a Minecraft: Java Edition launcher built for Android. Good performance, clean interface, customizable.",
     speed: "Fast Launch",
@@ -84,9 +83,6 @@ export default {
     noAssets: "No matching files for this architecture",
     releaseNotes: "Release Notes",
     noNotes: "No detailed release notes available",
-    officialRelease: "Official Release, Safe & Pure",
-    multiSource: "Multi-source Acceleration",
-    communityPowered: "Open Source Community",
     downloads: "Downloads",
     fetchingRelease: "Fetching latest release info...",
     fetchingNotes: "Loading release notes...",
