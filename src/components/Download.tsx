@@ -105,6 +105,10 @@ const DownloadSection = () => {
     if ((ua.includes('armv7') || ua.includes('armeabi')) && dynamicDeviceTypes.some(d => d.id === 'armeabi')) {
       return 'armeabi';
     }
+    // 手机浏览器 UA 通常不包含 CPU 架构信息：现代 Android 设备绝大多数为 arm64，默认选 arm64
+    if (dynamicDeviceTypes.some(d => d.id === 'arm64')) {
+      return 'arm64';
+    }
     if (dynamicDeviceTypes.some(d => d.id === 'android')) {
       return 'android';
     }
