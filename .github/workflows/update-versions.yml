@@ -23,7 +23,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        # 配置 WORKFLOW_PUSH_TOKEN（PAT）后，bot 提交可触发下游部署工作流；未配置时回退默认 token
+        token: ${{ secrets.WORKFLOW_PUSH_TOKEN || secrets.GITHUB_TOKEN }}
         fetch-depth: 0
         
     - name: Setup Node.js
