@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.7-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7/ZalithLauncher-2.7-arm64-v8a.apk",
       "size": "172.4 MB",
-      "download_count": 12181
+      "download_count": 21262
     },
     {
       "name": "ZalithLauncher-2.7-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7/ZalithLauncher-2.7-armeabi-v7a.apk",
       "size": "164.7 MB",
-      "download_count": 244
+      "download_count": 433
     },
     {
       "name": "ZalithLauncher-2.7-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7/ZalithLauncher-2.7-x86.apk",
       "size": "153.8 MB",
-      "download_count": 97
+      "download_count": 169
     },
     {
       "name": "ZalithLauncher-2.7-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7/ZalithLauncher-2.7-x86_64.apk",
       "size": "178 MB",
-      "download_count": 102
+      "download_count": 192
     },
     {
       "name": "ZalithLauncher-2.7.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7/ZalithLauncher-2.7.apk",
       "size": "337.5 MB",
-      "download_count": 2200
+      "download_count": 3728
     }
   ],
   "body": "## Updates:\r\n- #1991: Improved log display for mod loader installation (by @MovTery)\r\n- #1990: Removed update loader/install loader and overwrite installation features & added modify version feature (by @MovTery)\r\n- #1994: Added in-game frame rate chart display mode (by @MovTery)\r\n- #2027: Main interface now supports adding server cards & removed offline account restrictions (by @MovTery)\r\n- #2045: Game requests the highest refresh rate tier at the same resolution, removing the 60fps lock on some devices (by @MovTery)\r\n\r\n## Refactors:\r\n- #1984: Rewrote background glass blur using Modifier nodes and removed Haze dependency (by @MovTery)\r\n- #1990: Refactored OptiFine installation method, added support for combined installation with Forge (by @MovTery)\r\n- #2036: Corrected semantics of renderer configuration titles, properly display plugin configuration titles (by @youfeng11, @MovTery)\r\n\r\n## Changes:\r\n- #1985: Adjusted version card content layout (by @MovTery)\r\n- #2035: Adjusted styling of disabled mods in the mod management list (by @MovTery)\r\n\r\n## Fixes:\r\n- #1984: GIF background stops playing when switching pages (by @MovTery)\r\n- #1998: Fixed game input issues with control layout keys and input method character events (by @MovTery)\r\n- #2005: Card toolbar promoted to an independent floating layer, fixing buttons not being clickable (by @MovTery)\r\n- #1997: Fixed touchpad treating absolute surface coordinates as displacement, causing erratic camera movement in-game (by @MovTery)\r\n- #2001: Modpack download failures no longer falsely reported as successful, restored batch retry for failed files (by @MovTery)\r\n- #2010: Added missing LWJGL glfwGetWindowPos function (by @MovTery)\r\n- #2024: Complete component libraries when installing OptiFine, fixing launch failure due to missing launchwrapper (by @MovTery)\r\n- #2025: Possible crash when disabling SDL input method (by @MovTery)\r\n- #2026: Downloader failure retry rolled back duplicate byte statistics, fixing progress exceeding task completion (by @MovTery)\r\n- #2028: Crash caused by initial window size refresh on background thread during game launch (by @MovTery)\r\n- #2029: Control layout quick text input not working on SDL side (by @MovTery)\r\n- #2038: Version management ViewModels now follow the version object lifecycle (by @MovTery)\r\n- #2041: Fixed TouchController proxy pointer not being released (by @MovTery)"
