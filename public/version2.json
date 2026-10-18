@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.7",
-  "release_date": "2026-10-11T04:35:02Z",
+  "latest_version": "2.7.1",
+  "release_date": "2026-10-18T07:00:42Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.7-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7/ZalithLauncher-2.7-arm64-v8a.apk",
-      "size": "172.4 MB",
-      "download_count": 60666
+      "name": "ZalithLauncher-2.7.1-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.1/ZalithLauncher-2.7.1-arm64-v8a.apk",
+      "size": "172.5 MB",
+      "download_count": 9854
     },
     {
-      "name": "ZalithLauncher-2.7-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7/ZalithLauncher-2.7-armeabi-v7a.apk",
-      "size": "164.7 MB",
-      "download_count": 1441
+      "name": "ZalithLauncher-2.7.1-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.1/ZalithLauncher-2.7.1-armeabi-v7a.apk",
+      "size": "164.8 MB",
+      "download_count": 195
     },
     {
-      "name": "ZalithLauncher-2.7-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7/ZalithLauncher-2.7-x86.apk",
+      "name": "ZalithLauncher-2.7.1-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.1/ZalithLauncher-2.7.1-x86.apk",
       "size": "153.8 MB",
-      "download_count": 566
+      "download_count": 86
     },
     {
-      "name": "ZalithLauncher-2.7-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7/ZalithLauncher-2.7-x86_64.apk",
+      "name": "ZalithLauncher-2.7.1-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.1/ZalithLauncher-2.7.1-x86_64.apk",
       "size": "178 MB",
-      "download_count": 566
+      "download_count": 98
     },
     {
-      "name": "ZalithLauncher-2.7.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7/ZalithLauncher-2.7.apk",
+      "name": "ZalithLauncher-2.7.1.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.1/ZalithLauncher-2.7.1.apk",
       "size": "337.5 MB",
-      "download_count": 9443
+      "download_count": 1507
     }
   ],
-  "body": "## Updates:\r\n- #1991: Improved log display for mod loader installation (by @MovTery)\r\n- #1990: Removed update loader/install loader and overwrite installation features & added modify version feature (by @MovTery)\r\n- #1994: Added in-game frame rate chart display mode (by @MovTery)\r\n- #2027: Main interface now supports adding server cards & removed offline account restrictions (by @MovTery)\r\n- #2045: Game requests the highest refresh rate tier at the same resolution, removing the 60fps lock on some devices (by @MovTery)\r\n\r\n## Refactors:\r\n- #1984: Rewrote background glass blur using Modifier nodes and removed Haze dependency (by @MovTery)\r\n- #1990: Refactored OptiFine installation method, added support for combined installation with Forge (by @MovTery)\r\n- #2036: Corrected semantics of renderer configuration titles, properly display plugin configuration titles (by @youfeng11, @MovTery)\r\n\r\n## Changes:\r\n- #1985: Adjusted version card content layout (by @MovTery)\r\n- #2035: Adjusted styling of disabled mods in the mod management list (by @MovTery)\r\n\r\n## Fixes:\r\n- #1984: GIF background stops playing when switching pages (by @MovTery)\r\n- #1998: Fixed game input issues with control layout keys and input method character events (by @MovTery)\r\n- #2005: Card toolbar promoted to an independent floating layer, fixing buttons not being clickable (by @MovTery)\r\n- #1997: Fixed touchpad treating absolute surface coordinates as displacement, causing erratic camera movement in-game (by @MovTery)\r\n- #2001: Modpack download failures no longer falsely reported as successful, restored batch retry for failed files (by @MovTery)\r\n- #2010: Added missing LWJGL glfwGetWindowPos function (by @MovTery)\r\n- #2024: Complete component libraries when installing OptiFine, fixing launch failure due to missing launchwrapper (by @MovTery)\r\n- #2025: Possible crash when disabling SDL input method (by @MovTery)\r\n- #2026: Downloader failure retry rolled back duplicate byte statistics, fixing progress exceeding task completion (by @MovTery)\r\n- #2028: Crash caused by initial window size refresh on background thread during game launch (by @MovTery)\r\n- #2029: Control layout quick text input not working on SDL side (by @MovTery)\r\n- #2038: Version management ViewModels now follow the version object lifecycle (by @MovTery)\r\n- #2041: Fixed TouchController proxy pointer not being released (by @MovTery)"
+  "body": "## Updates:\r\n- #2065: Added Compress and Share Save feature to the saves management screen (by @MovTery)\r\n- #2062: Added support for independently configuring renderer plugin environment variables in version settings (by @youfeng11, @MovTery)\r\n- #2083: Added \"Browse in Other File Managers\" option to the file manager more menu (by @MovTery)\r\n\r\n## Refactors:\r\n- #2066: Pinned the main interface card toolbar to the bottom of the screen (by @MovTery)\r\n\r\n## Changes:\r\n- #2077: Dialogs displaying SDL-side messages now use the launcher theme (by @MovTery)\r\n\r\n## Fixes:\r\n- #2053: Percent-encode the file name in CurseForge download links (by @MovTery)\r\n- #2049: Validate the displacement direction input when dragging cards, rejecting invalid direction vectors (by @dryfish09)\r\n- #2064: Fixed skin preview in the wardrobe not displaying until capes finish loading (by @youfeng11)\r\n- #2068: Mod update check repeatedly prompting for the same version due to an expired baseline date (by @MovTery)\r\n- #2078: SDL side unable to properly open links or browse directories (by @MovTery)\r\n- #2079: Render state not restored after the in-game surface is rebuilt, causing misaligned rendering (by @MovTery)\r\n- #2080: Removed the NeoForge early loading screen, fixing the interface freeze issue (by @MovTery)\r\n- #2082: SDL_EGL_LIBRARY is now constructed following the plugin path convention and validated for existence (by @MovTery)\r\n- #2089: Fixed the internal dialog popped up by the input method being mistakenly closed by the launcher (by @MovTery)"
 }
