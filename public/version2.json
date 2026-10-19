@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.7.1-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.1/ZalithLauncher-2.7.1-arm64-v8a.apk",
       "size": "172.5 MB",
-      "download_count": 9854
+      "download_count": 20798
     },
     {
       "name": "ZalithLauncher-2.7.1-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.1/ZalithLauncher-2.7.1-armeabi-v7a.apk",
       "size": "164.8 MB",
-      "download_count": 195
+      "download_count": 428
     },
     {
       "name": "ZalithLauncher-2.7.1-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.1/ZalithLauncher-2.7.1-x86.apk",
       "size": "153.8 MB",
-      "download_count": 86
+      "download_count": 179
     },
     {
       "name": "ZalithLauncher-2.7.1-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.1/ZalithLauncher-2.7.1-x86_64.apk",
       "size": "178 MB",
-      "download_count": 98
+      "download_count": 187
     },
     {
       "name": "ZalithLauncher-2.7.1.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.1/ZalithLauncher-2.7.1.apk",
       "size": "337.5 MB",
-      "download_count": 1507
+      "download_count": 3105
     }
   ],
   "body": "## Updates:\r\n- #2065: Added Compress and Share Save feature to the saves management screen (by @MovTery)\r\n- #2062: Added support for independently configuring renderer plugin environment variables in version settings (by @youfeng11, @MovTery)\r\n- #2083: Added \"Browse in Other File Managers\" option to the file manager more menu (by @MovTery)\r\n\r\n## Refactors:\r\n- #2066: Pinned the main interface card toolbar to the bottom of the screen (by @MovTery)\r\n\r\n## Changes:\r\n- #2077: Dialogs displaying SDL-side messages now use the launcher theme (by @MovTery)\r\n\r\n## Fixes:\r\n- #2053: Percent-encode the file name in CurseForge download links (by @MovTery)\r\n- #2049: Validate the displacement direction input when dragging cards, rejecting invalid direction vectors (by @dryfish09)\r\n- #2064: Fixed skin preview in the wardrobe not displaying until capes finish loading (by @youfeng11)\r\n- #2068: Mod update check repeatedly prompting for the same version due to an expired baseline date (by @MovTery)\r\n- #2078: SDL side unable to properly open links or browse directories (by @MovTery)\r\n- #2079: Render state not restored after the in-game surface is rebuilt, causing misaligned rendering (by @MovTery)\r\n- #2080: Removed the NeoForge early loading screen, fixing the interface freeze issue (by @MovTery)\r\n- #2082: SDL_EGL_LIBRARY is now constructed following the plugin path convention and validated for existence (by @MovTery)\r\n- #2089: Fixed the internal dialog popped up by the input method being mistakenly closed by the launcher (by @MovTery)"
