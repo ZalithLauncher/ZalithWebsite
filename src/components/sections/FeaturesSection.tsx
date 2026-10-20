@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { cn } from '../../lib/utils';
 
 const FeaturesSection = () => {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language.startsWith('zh') ? 'zh' : 'en';
+  const { t } = useTranslation();
 
   const features = [
     {
@@ -107,16 +106,10 @@ const FeaturesSection = () => {
                   <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-[var(--divider)]/10 group transition-all duration-500 group-hover:-translate-y-1 group-hover:border-[var(--brand)]/40 group-hover:shadow-[var(--brand)]/20">
                     <div className="absolute inset-0 bg-gradient-to-tr from-[var(--brand)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
                     <img 
-                      src={`/image/${lang}/${feature.image}`} 
+                      src={`/image/en/${feature.image}`} 
                       alt={feature.title}
                       className="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-out"
                       loading="lazy"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        if (lang !== 'zh' && !target.src.includes('/image/zh/')) {
-                          target.src = `/image/zh/${feature.image}`;
-                        }
-                      }}
                     />
                   </div>
                 </motion.div>
