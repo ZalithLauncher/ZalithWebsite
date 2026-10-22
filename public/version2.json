@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.7.2-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.2/ZalithLauncher-2.7.2-arm64-v8a.apk",
       "size": "172.5 MB",
-      "download_count": 17506
+      "download_count": 26445
     },
     {
       "name": "ZalithLauncher-2.7.2-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.2/ZalithLauncher-2.7.2-armeabi-v7a.apk",
       "size": "164.8 MB",
-      "download_count": 460
+      "download_count": 707
     },
     {
       "name": "ZalithLauncher-2.7.2-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.2/ZalithLauncher-2.7.2-x86.apk",
       "size": "153.8 MB",
-      "download_count": 156
+      "download_count": 289
     },
     {
       "name": "ZalithLauncher-2.7.2-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.2/ZalithLauncher-2.7.2-x86_64.apk",
       "size": "178 MB",
-      "download_count": 157
+      "download_count": 246
     },
     {
       "name": "ZalithLauncher-2.7.2.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.2/ZalithLauncher-2.7.2.apk",
       "size": "337.5 MB",
-      "download_count": 2353
+      "download_count": 3707
     }
   ],
   "body": "## Updates:\r\n- Due to relevant laws and regulations, downloading games, downloading and installing modpacks, and using Terracotta multiplayer are temporarily unavailable in the launcher in mainland China (by @MovTery)"
