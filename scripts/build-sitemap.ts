@@ -30,7 +30,7 @@ function getBlogEntries(): SitemapEntry[] {
     return [];
   }
   const index = JSON.parse(fs.readFileSync(indexPath, 'utf-8')) as BlogIndex;
-  // 站点只构建英文，同一 slug 只保留一条记录
+  // zh/en 两个语言版本共用同一 slug，按 slug 去重
   const bySlug = new Map<string, string>();
   for (const post of index.posts) {
     if (!bySlug.has(post.slug)) bySlug.set(post.slug, post.date);

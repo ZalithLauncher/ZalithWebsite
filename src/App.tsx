@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import InAppBrowserNotice from './components/InAppBrowserNotice';
 import Home from './pages/Home';
 import { usePageMeta } from './hooks/usePageMeta';
+import { useTranslation } from 'react-i18next';
 
 // Code-split less-frequently visited pages
 const DownloadPage = lazy(() => import('./pages/DownloadPage'));
@@ -14,35 +15,62 @@ const BlogListPage = lazy(() => import('./pages/BlogListPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
-// 中文文案仍保留在 src/i18n/locales/zh.ts，但不再注册到 i18n —— 站点只构建英文。
-// The Chinese copy still lives in src/i18n/locales/zh.ts but is no longer registered
-// in i18n, so the site builds English only.
-const ROUTE_META: Record<string, { title: string; description: string }> = {
+const ROUTE_META: Record<string, { zh: { title: string; description: string }; en: { title: string; description: string } }> = {
   '/': {
-    title: '',
-    description: 'Play Minecraft: Java Edition on Android — stable, efficient, clean.',
+    zh: {
+      title: '',
+      description: '在 Android 设备上游玩 Minecraft: Java Edition，稳定、高效、纯净。',
+    },
+    en: {
+      title: '',
+      description: 'Play Minecraft: Java Edition on Android — stable, efficient, clean.',
+    },
   },
   '/download': {
-    title: 'Download Center',
-    description: 'Get the right Zalith Launcher build for your device. Multi-source mirror acceleration.',
+    zh: {
+      title: '下载中心',
+      description: '获取适合您设备的 Zalith Launcher 版本，多源镜像加速下载。',
+    },
+    en: {
+      title: 'Download Center',
+      description: 'Get the right Zalith Launcher build for your device. Multi-source mirror acceleration.',
+    },
   },
   '/blog': {
-    title: 'Blog',
-    description: 'Latest updates, dev logs, and tutorials for Zalith Launcher.',
+    zh: {
+      title: '博客',
+      description: '了解 Zalith Launcher 的最新动态、开发日志和教程文章。',
+    },
+    en: {
+      title: 'Blog',
+      description: 'Latest updates, dev logs, and tutorials for Zalith Launcher.',
+    },
   },
   '/privacy': {
-    title: 'Privacy Policy',
-    description: 'Learn how Zalith Launcher handles your data.',
+    zh: {
+      title: '隐私政策',
+      description: '了解 Zalith Launcher 官方网站如何处理您的数据。',
+    },
+    en: {
+      title: 'Privacy Policy',
+      description: 'Learn how Zalith Launcher handles your data.',
+    },
   },
   '/terms': {
-    title: 'Terms of Service',
-    description: 'Terms of service for the Zalith Launcher website.',
+    zh: {
+      title: '服务条款',
+      description: '使用 Zalith Launcher 官方网站的服务条款。',
+    },
+    en: {
+      title: 'Terms of Service',
+      description: 'Terms of service for the Zalith Launcher website.',
+    },
   },
 };
 
 const DEFAULT_META = {
-  title: '',
-  description: 'Play Minecraft: Java Edition on Android — stable, efficient, clean.',
+  zh: { title: '', description: '在 Android 设备上游玩 Minecraft: Java Edition，稳定、高效、纯净。' },
+  en: { title: '', description: 'Play Minecraft: Java Edition on Android — stable, efficient, clean.' },
 };
 
 const PageFallback = () => (
@@ -53,13 +81,16 @@ const PageFallback = () => (
 
 const AppContent = () => {
   const location = useLocation();
+  const { i18n } = useTranslation();
   const isHomePage = location.pathname === '/';
+  const lang = i18n.language.startsWith('zh') ? 'zh' : 'en';
 
-  const routeMeta = ROUTE_META[location.pathname] ?? DEFAULT_META;
+  const routeMeta = ROUTE_META[location.pathname];
+  const meta = (routeMeta?.[lang] ?? DEFAULT_META[lang]) ?? DEFAULT_META.zh;
 
   usePageMeta({
-    title: routeMeta.title,
-    description: routeMeta.description,
+    title: meta.title,
+    description: meta.description,
   });
 
   return (

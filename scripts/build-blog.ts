@@ -122,9 +122,7 @@ async function buildBlogIndex(): Promise<BlogIndex> {
   const categories = new Set<string>();
   const tags = new Set<string>();
   
-  // 站点只构建英文：content/blog/zh 仍保留在仓库中，但不再参与构建。
-  // English only — content/blog/zh is kept in the repository but is no longer built.
-  const languages = ['en'];
+  const languages = ['zh', 'en'];
   
   for (const lang of languages) {
     const langDir = path.join(CONTENT_DIR, lang);

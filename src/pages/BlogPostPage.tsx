@@ -5,12 +5,12 @@ import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react';
 import AuthorCard from '../components/blog/AuthorCard';
 import TOC from '../components/blog/TOC';
 import RelatedPosts from '../components/blog/RelatedPosts';
-import { findPost, getPostsByLang } from '../lib/blog';
+import { findPost, getPostsByLang, resolveBlogLang } from '../lib/blog';
 import type { TOCItem } from '../types/blog';
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [buildInfo, setBuildInfo] = useState<{ buildTime: string } | null>(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const BlogPostPage = () => {
       .catch(() => {});
   }, []);
 
-  const post = useMemo(() => findPost(slug), [slug]);
+  const post = useMemo(() => findPost(slug, i18n.language), [slug, i18n.language]);
 
   const tocItems = useMemo((): TOCItem[] => {
     if (!post) return [];
@@ -65,7 +65,7 @@ const BlogPostPage = () => {
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(resolveBlogLang(i18n.language) === 'zh' ? 'zh-CN' : 'en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -159,7 +159,7 @@ const BlogPostPage = () => {
           )}
         </div>
 
-        <RelatedPosts posts={getPostsByLang()} currentSlug={post.slug} />
+        <RelatedPosts posts={getPostsByLang(i18n.language)} currentSlug={post.slug} />
       </div>
     </div>
   );

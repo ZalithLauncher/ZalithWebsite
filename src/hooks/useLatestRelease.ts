@@ -109,10 +109,10 @@ export interface MirrorData {
 }
 
 const DOWNLOAD_SOURCES: DownloadSource[] = [
-  { id: 'github', name: 'GitHub Official', description: 'Official release channel', speed: 'Faster overseas' },
-  { id: 'haha', name: 'Fengyuan Mirror', description: 'Provided by FrostLynx', speed: 'Faster in China', contributor: { name: 'FrostLynx', url: 'https://fyhub.cn' } },
-  { id: 'lemwood', name: 'Ningze Resource Station', description: 'Provided by Lemwood', speed: 'Faster in China', contributor: { name: 'Lemwood', url: 'https://lemwood.cn' } },
-  { id: 'cxsj', name: 'Chuangxiang Mirror', description: 'Provided by 239LAN', speed: 'Faster in China', contributor: { name: '239LAN', url: 'https://mirror.cxsjmc.cn' } },
+  { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
+  { id: 'haha', name: '枫源镜像', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://fyhub.cn' } },
+  { id: 'lemwood', name: '柠泽资源站', description: 'Lemwood 提供', speed: '国内较快', contributor: { name: 'Lemwood', url: 'https://lemwood.cn' } },
+  { id: 'cxsj', name: '创想镜像', description: '239LAN 提供', speed: '国内较快', contributor: { name: '创想镜像', url: 'https://mirror.cxsjmc.cn' } },
 ];
 
 function filterMappingAssets(release: Release): Release {
@@ -363,7 +363,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
           applyRelease(fallbackRelease);
         } catch {
           if (isMounted && !hasCache) {
-            setError('Failed to fetch release info');
+            setError('无法获取版本信息');
             setIsReleaseLoading(false);
           }
         }
@@ -412,7 +412,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
             // 超时中止属预期内降级路径（上层有缓存兜底），仅记警告，避免误导性报错
             const err = e as { name?: string } | null;
             if (err && err.name === 'AbortError') {
-              console.warn('Mirror API timed out, falling back to cached data');
+              console.warn('镜像数据源响应超时，使用缓存数据兜底');
             } else {
               console.error('Fetch mirror data failed', e);
             }
