@@ -7,7 +7,7 @@ import { getPostsByLang } from '../lib/blog';
 import type { BlogPost } from '../types/blog';
 
 const BlogListPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
@@ -18,7 +18,7 @@ const BlogListPage = () => {
     return () => clearTimeout(timer);
   }, [searchInput]);
 
-  const langPosts = useMemo(() => getPostsByLang(), []);
+  const langPosts = useMemo(() => getPostsByLang(i18n.language), [i18n.language]);
 
   const filteredPosts = useMemo(() => {
     let posts = langPosts;

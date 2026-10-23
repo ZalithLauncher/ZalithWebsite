@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { resolveBlogLang } from '../../lib/blog';
 import type { BlogPost } from '../../types/blog';
 import BlogCard from './BlogCard';
 
@@ -10,9 +11,12 @@ interface RelatedPostsProps {
 }
 
 const RelatedPosts = ({ posts, currentSlug }: RelatedPostsProps) => {
-  const { t } = useTranslation();
-
-  const filteredPosts = posts
+  const { t, i18n } = useTranslation();
+  
+  const lang = resolveBlogLang(i18n.language);
+  const langPosts = posts.filter((post) => post.lang === lang);
+  const source = langPosts.length > 0 ? langPosts : posts;
+  const filteredPosts = source
     .filter((post) => post.slug !== currentSlug)
     .slice(0, 3);
 

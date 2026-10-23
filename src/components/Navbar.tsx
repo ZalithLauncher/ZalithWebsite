@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, ExternalLink } from 'lucide-react';
+import { Sun, Moon, Menu, X, Globe, ExternalLink } from 'lucide-react';
 import GithubIcon from './icons/GithubIcon';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme');
@@ -71,6 +71,11 @@ const Navbar = () => {
     { name: t('nav.docs'), path: 'https://docs.zalithlauncher.cn/docs/projects/zl2', external: true },
   ];
 
+  const toggleLanguage = () => {
+    const nextLang = i18n.language.startsWith('zh') ? 'en' : 'zh';
+    i18n.changeLanguage(nextLang);
+  };
+
   return (
     <>
     <nav
@@ -129,6 +134,16 @@ const Navbar = () => {
               );
             })}
             <div className="h-4 w-px bg-[var(--divider)]/50 mx-2" />
+
+            <button
+              onClick={toggleLanguage}
+              className="p-2 rounded-full hover:bg-[var(--bg-alt)] transition-colors text-[var(--text-1)] flex items-center gap-1.5"
+              title={t('common.switchLanguage')}
+              aria-label={t('common.switchLanguage')}
+            >
+              <Globe size={18} />
+              <span className="text-xs font-bold uppercase">{i18n.language.startsWith('zh') ? 'EN' : '中文'}</span>
+            </button>
 
             <button
               onClick={() => setIsDark(!isDark)}
@@ -221,6 +236,15 @@ const Navbar = () => {
               className="p-2.5 rounded-full border border-[var(--divider)]/40 text-[var(--text-2)] hover:text-[var(--brand)] hover:border-[var(--brand)]/40 transition-colors"
             >
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
+            <button
+              onClick={toggleLanguage}
+              aria-label={t('common.switchLanguage')}
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-full border border-[var(--divider)]/40 text-sm font-bold text-[var(--text-2)] hover:text-[var(--brand)] hover:border-[var(--brand)]/40 transition-colors"
+            >
+              <Globe size={16} />
+              <span className="uppercase">{i18n.language.startsWith('zh') ? 'EN' : '中文'}</span>
             </button>
 
             <a

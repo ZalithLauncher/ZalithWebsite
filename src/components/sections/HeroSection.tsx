@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const HeroSection = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language.startsWith('zh') ? 'zh' : 'en';
 
   return (
     <section className="relative overflow-hidden flex flex-col items-center">
@@ -69,7 +70,7 @@ const HeroSection = () => {
           className="relative rounded-2xl overflow-hidden border border-[var(--divider)]/10 md:hidden"
         >
           <img
-            src="/image/en/home.jpg"
+            src={`/image/${lang}/home.jpg`}
             alt="Zalith Launcher Home"
             className="w-full h-[300px] object-cover object-[right_top] transform hover:scale-[1.01] transition-transform duration-700"
           />
