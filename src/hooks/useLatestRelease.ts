@@ -409,7 +409,13 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
             }
             return parsed;
           } catch (e) {
-            console.error('Fetch mirror data failed', e);
+            // 超时中止属预期内降级路径（上层有缓存兜底），仅记警告，避免误导性报错
+            const err = e as { name?: string } | null;
+            if (err && err.name === 'AbortError') {
+              console.warn('镜像数据源响应超时，使用缓存数据兜底');
+            } else {
+              console.error('Fetch mirror data failed', e);
+            }
             return null;
           }
         };
@@ -427,37 +433,25 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
         }
       };
 
-      // 探测用户是否来自国内：localStorage 缓存 → ipapi.co → 失败时回退时区推断。
-      // 返回 null 表示无法判断（fetchReleaseTask 会按国内策略处理）。
+      // 探测用户是否来自国内：localStorage 缓存（历史结果）→ 本地时区推断。
+      // 注：原 ipapi.co 免费接口已不再提供浏览器端 CORS，故改为纯本地推断，
+      // 避免每次访问产生失败请求与控制台报错；该结果仅影响数据源偏好，远端失败链路仍有回退。
       const detectIPTask = async (): Promise<boolean | null> => {
-        try {
-          const cached = localStorage.getItem('isChineseIP');
-          const expire = localStorage.getItem('isChineseIPExpire');
-          if (cached && expire && Date.now() < parseInt(expire)) {
-            const isCN = cached === 'true';
-            if (isMounted) setIsChinaIP(isCN);
-            return isCN;
-          }
-
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 3000);
-          const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
-          clearTimeout(timeoutId);
-          if (res.ok) {
-            const data = await res.json();
-            const isCN = data.country === 'CN' || data.region === 'China';
-            localStorage.setItem('isChineseIP', isCN.toString());
-            localStorage.setItem('isChineseIPExpire', (Date.now() + 86400000).toString());
-            if (isMounted) setIsChinaIP(isCN);
-            return isCN;
-          }
-          return null;
-        } catch {
-          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          const isCN = tz.includes('Asia/Shanghai') || tz.includes('Asia/Chongqing');
+        const cached = localStorage.getItem('isChineseIP');
+        const expire = localStorage.getItem('isChineseIPExpire');
+        if (cached && expire && Date.now() < parseInt(expire)) {
+          const isCN = cached === 'true';
           if (isMounted) setIsChinaIP(isCN);
           return isCN;
         }
+
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        const cnTimezones = [
+          'Asia/Shanghai', 'Asia/Urumqi', 'Asia/Chongqing', 'Asia/Harbin', 'Asia/Kashgar'
+        ];
+        const isCN = cnTimezones.includes(tz);
+        if (isMounted) setIsChinaIP(isCN);
+        return isCN;
       };
 
       await Promise.allSettled([

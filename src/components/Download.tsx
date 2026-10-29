@@ -105,6 +105,10 @@ const DownloadSection = () => {
     if ((ua.includes('armv7') || ua.includes('armeabi')) && dynamicDeviceTypes.some(d => d.id === 'armeabi')) {
       return 'armeabi';
     }
+    // 手机浏览器 UA 通常不包含 CPU 架构信息：现代 Android 设备绝大多数为 arm64，默认选 arm64
+    if (dynamicDeviceTypes.some(d => d.id === 'arm64')) {
+      return 'arm64';
+    }
     if (dynamicDeviceTypes.some(d => d.id === 'android')) {
       return 'android';
     }
@@ -112,11 +116,11 @@ const DownloadSection = () => {
   }, [isReleaseLoading, dynamicDeviceTypes]);
 
   const selectedDevice = userSelectedDevice ?? detectedDevice;
-  // 默认下载源：英文页面（海外）默认枫源镜像；中文页面 80% 概率默认柠泽资源站，其余枫源镜像（ZL1 无柠泽会自动回退到首个可用源）
+  // 默认下载源：英文页面（海外）默认枫源镜像；中文页面 20% 概率默认柠泽资源站，其余枫源镜像（ZL1 无柠泽会自动回退到首个可用源）
   const isZhLang = i18n.language.toLowerCase().startsWith('zh');
   const langKey = isZhLang ? 'zh' : 'en';
   const rollDefaultSource = (key: 'zh' | 'en'): string =>
-    key === 'zh' ? (Math.random() < 0.8 ? 'lemwood' : 'haha') : 'haha';
+    key === 'zh' ? (Math.random() < 0.2 ? 'lemwood' : 'haha') : 'haha';
   const [rolledSource, setRolledSource] = useState<string>(() => rollDefaultSource(langKey));
   const [prevLangKey, setPrevLangKey] = useState(langKey);
   if (prevLangKey !== langKey) {
