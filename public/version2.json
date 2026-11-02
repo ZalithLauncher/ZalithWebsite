@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.8-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8/ZalithLauncher-2.8-arm64-v8a.apk",
       "size": "176.2 MB",
-      "download_count": 515
+      "download_count": 14367
     },
     {
       "name": "ZalithLauncher-2.8-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8/ZalithLauncher-2.8-armeabi-v7a.apk",
       "size": "168.1 MB",
-      "download_count": 22
+      "download_count": 297
     },
     {
       "name": "ZalithLauncher-2.8-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8/ZalithLauncher-2.8-x86.apk",
       "size": "158 MB",
-      "download_count": 15
+      "download_count": 122
     },
     {
       "name": "ZalithLauncher-2.8-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8/ZalithLauncher-2.8-x86_64.apk",
       "size": "182 MB",
-      "download_count": 9
+      "download_count": 92
     },
     {
       "name": "ZalithLauncher-2.8.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8/ZalithLauncher-2.8.apk",
       "size": "355.5 MB",
-      "download_count": 91
+      "download_count": 2056
     }
   ],
   "body": "## Updates:\r\n- [Main#76588efb](https://github.com/ZalithLauncher/ZalithLauncher2/commit/76588efb): Restored the ability to download and install games/modpacks and use Terracotta multiplayer in mainland China & removed the related code (by @MovTery)\r\n- #2099: Refactored player model rendering and introduced some interactions (by @MovTery)\r\n- #2102: Removed Cleanroom loader support (by @MovTery)\r\n- #2103: Removed SurfaceView game screen rendering (by @MovTery)\r\n- #2106: Page state is now preserved when switching between nested pages (by @MovTery)\r\n- #2107: Modpacks can preset renderers, drivers, and graphics APIs via overrides (by @AfrobamaYT)\r\n- #2113: Added support for blocking half-screen virtual mouse touch input to prevent accidental touches (by @MovTery)\r\n- #2120: Added a Style Cabinet to the control layout editor (by @MovTery)\r\n- #2123: Removed MultiMC modpack export support (by @MovTery)\r\n- #2133: Added current/last month sponsor lists viewable in the launcher (by @MovTery)\r\n- #2134: Added pull-to-refresh support for most pages (by @MovTery)\r\n- #2135: Microsoft login now supports choosing the system browser or the built-in browser to complete device code verification (by @MovTery)\r\n- #2147: Added built-in MobileGlues renderer and SimpleFPEWrapper (by @MovTery)\r\n- #2148: Added a welcome screen shown on first launch (by @MovTery)\r\n- #2149: Added a game screen magnifier shown when the input method is open (by @MovTery)\r\n- #2153: Added support for accessing NeoForge-related files via the CurseForge CDN (by @MovTery)\r\n\r\n## Refactors:\r\n- #2104: Migrated mod/modpack translation data to HMCL's AddonProjectInfo system (by @MovTery)\r\n- #2128: Optimized Compose UI, addressing I/O operations performed on the main thread (by @MovTery)\r\n- #2136: Refactored the page transition animation system, unified enter/exit animation APIs and reset animation settings (by @MovTery)\r\n- #2143: Replaced JSound with native libjsound.so (by @MovTery)\r\n- #2146: Refactored the JNA extraction task & now only includes 5.13.0 - 5.19.1 (by @MovTery)\r\n- #2163: Refactored state management of the version config screen (by @MovTery)\r\n\r\n## Changes:\r\n- #2114: Adjusted the style of file manager dialogs (by @MovTery)\r\n- #2121: The onboarding guide replays after its content is updated (by @MovTery)\r\n- #2124: The language settings title and Follow System option are now always displayed in the system language (by @MovTery)\r\n- #2139: Added a loading screen while the launcher validates data on startup (by @MovTery)\r\n- #2154: Adjusted the timeout of a single network request to 10s (by @MovTery)\r\n- #2156: Adjusted the author of the Simplified Chinese default control layout (by @TNTyep520)\r\n- #2157: Display the corresponding icon based on version type (by @TNTyep520, @MovTery)\r\n- #2158: File manager dropdown menus now use a uniform rounded-corner style on all four corners (by @TNTyep520)\r\n- #2164: Adjusted the height configuration of background cards (by @MovTery)\r\n\r\n## Fixes:\r\n- #2110: Mod list filename sorting is now case-insensitive (by @MovTery)\r\n- #2115: Blocked the leaked eMudhra CA public key, hardening process-level TLS verification (by @MovTery)\r\n- #2109: Prevented selecting a skin model for legacy single-layer skins (by @MovTery)\r\n- #2116: Some floating action bars could not be expanded with the mouse wheel after collapsing (by @MovTery)\r\n- #2120: Unnamed components in the control layout editor now display as \"Unspecified\" (by @MovTery)\r\n- #2120: Joystick style names could not be modified in the control layout editor (by @MovTery)\r\n- #2137: Fixed an NPE crash caused by library download entries missing download URLs (by @MovTery)\r\n- #2141: Raised the Surface.clearFrameRate guard to API 34, fixing a crash when entering the game on Android 13 (by @MovTery)\r\n- #2142: LWJGL did not intercept illegal window size settings (by @MovTery)\r\n- #2144: Fixed missing version inheritance manifest & launch exception handling (by @MovTery)\r\n- #2145: VirGL color buffers now use actually allocated writable memory (by @MovTery)\r\n- #2151: Fixed a crash caused by rapidly stopping the task keep-alive service (by @MovTery)\r\n- #2152: Physical keyboard number keys typing duplicate characters in non-SDL game environments (by @MovTery)\r\n- #2152: Most physical keyboard keys not being delivered to the game in SDL environments (by @MovTery)"
