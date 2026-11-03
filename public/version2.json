@@ -6,31 +6,31 @@
       "name": "ZalithLauncher-2.8.1-arm64-v8a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8.1/ZalithLauncher-2.8.1-arm64-v8a.apk",
       "size": "176.2 MB",
-      "download_count": 45
+      "download_count": 10022
     },
     {
       "name": "ZalithLauncher-2.8.1-armeabi-v7a.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8.1/ZalithLauncher-2.8.1-armeabi-v7a.apk",
       "size": "168.1 MB",
-      "download_count": 10
+      "download_count": 246
     },
     {
       "name": "ZalithLauncher-2.8.1-x86.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8.1/ZalithLauncher-2.8.1-x86.apk",
       "size": "158 MB",
-      "download_count": 10
+      "download_count": 106
     },
     {
       "name": "ZalithLauncher-2.8.1-x86_64.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8.1/ZalithLauncher-2.8.1-x86_64.apk",
       "size": "182 MB",
-      "download_count": 10
+      "download_count": 94
     },
     {
       "name": "ZalithLauncher-2.8.1.apk",
       "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8.1/ZalithLauncher-2.8.1.apk",
       "size": "355.5 MB",
-      "download_count": 25
+      "download_count": 1522
     }
   ],
   "body": "## Updates:\r\n- #2177: Built-in component resources are now verified against a SHA-1 manifest (by @MovTery)\r\n\r\n## Fixes:\r\n- #2178: Fixed Microsoft login being unable to continuously poll for device code tokens (by @MovTery)\r\n- #2181: Fixed missing environment variables for Kopper Zink and VirGL (by @MovTery)"
