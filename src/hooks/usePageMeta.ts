@@ -44,6 +44,8 @@ export const usePageMeta = ({ title, description }: PageMetaOptions) => {
     // Canonical & og:url
     ensureLink('canonical').setAttribute('href', canonicalUrl);
     ensureMeta('og:url', 'property').setAttribute('content', canonicalUrl);
+    ensureMeta('og:type', 'property').setAttribute('content', 'website');
+    ensureMeta('og:site_name', 'property').setAttribute('content', BRAND);
 
     if (description) {
       const meta = ensureMeta('description');
@@ -53,10 +55,13 @@ export const usePageMeta = ({ title, description }: PageMetaOptions) => {
       ensureMeta('og:title', 'property').setAttribute('content', fullTitle);
       ensureMeta('og:description', 'property').setAttribute('content', description);
       ensureMeta('og:image', 'property').setAttribute('content', SITE_IMAGE);
+      ensureMeta('og:image:alt', 'property').setAttribute('content', 'Zalith Launcher 图标');
 
       // Twitter Card
       ensureMeta('twitter:title').setAttribute('content', fullTitle);
       ensureMeta('twitter:description').setAttribute('content', description);
+      ensureMeta('twitter:image').setAttribute('content', SITE_IMAGE);
+      ensureMeta('twitter:image:alt').setAttribute('content', 'Zalith Launcher 图标');
 
       // QQ share card (itemprop)
       ensureMeta('name', 'itemprop').setAttribute('content', fullTitle);
