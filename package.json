@@ -6,13 +6,14 @@
   "packageManager": "pnpm@11.14.0",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:info && npm run build:blog && npm run build:sitemap && tsc -b && vite build",
+    "build": "npm run build:info && npm run build:blog && npm run build:sitemap && tsc -b && vite build && npm run build:route-html",
     "build:info": "npx tsx scripts/build-info.ts",
     "build:blog": "npx tsx scripts/build-blog.ts",
     "lint": "eslint .",
     "preview": "vite preview",
     "build:sitemap": "npx tsx scripts/build-sitemap.ts",
-    "update-versions": "node scripts/update-versions.js"
+    "update-versions": "node scripts/update-versions.js",
+    "build:route-html": "npx tsx scripts/build-route-html.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",

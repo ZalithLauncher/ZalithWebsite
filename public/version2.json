@@ -1,37 +1,37 @@
 {
-  "latest_version": "2.7.2",
-  "release_date": "2026-10-20T10:26:04Z",
+  "latest_version": "2.8.2",
+  "release_date": "2026-11-06T09:24:12Z",
   "assets": [
     {
-      "name": "ZalithLauncher-2.7.2-arm64-v8a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.2/ZalithLauncher-2.7.2-arm64-v8a.apk",
-      "size": "172.5 MB",
-      "download_count": 74587
+      "name": "ZalithLauncher-2.8.2-arm64-v8a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8.2/ZalithLauncher-2.8.2-arm64-v8a.apk",
+      "size": "176.2 MB",
+      "download_count": 42321
     },
     {
-      "name": "ZalithLauncher-2.7.2-armeabi-v7a.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.2/ZalithLauncher-2.7.2-armeabi-v7a.apk",
-      "size": "164.8 MB",
-      "download_count": 2313
+      "name": "ZalithLauncher-2.8.2-armeabi-v7a.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8.2/ZalithLauncher-2.8.2-armeabi-v7a.apk",
+      "size": "168.2 MB",
+      "download_count": 6976
     },
     {
-      "name": "ZalithLauncher-2.7.2-x86.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.2/ZalithLauncher-2.7.2-x86.apk",
-      "size": "153.8 MB",
-      "download_count": 1012
+      "name": "ZalithLauncher-2.8.2-x86.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8.2/ZalithLauncher-2.8.2-x86.apk",
+      "size": "158 MB",
+      "download_count": 494
     },
     {
-      "name": "ZalithLauncher-2.7.2-x86_64.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.2/ZalithLauncher-2.7.2-x86_64.apk",
-      "size": "178 MB",
-      "download_count": 814
+      "name": "ZalithLauncher-2.8.2-x86_64.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8.2/ZalithLauncher-2.8.2-x86_64.apk",
+      "size": "182.1 MB",
+      "download_count": 457
     },
     {
-      "name": "ZalithLauncher-2.7.2.apk",
-      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.7.2/ZalithLauncher-2.7.2.apk",
-      "size": "337.5 MB",
-      "download_count": 10391
+      "name": "ZalithLauncher-2.8.2.apk",
+      "browser_download_url": "https://github.com/ZalithLauncher/ZalithLauncher2/releases/download/2.8.2/ZalithLauncher-2.8.2.apk",
+      "size": "355.5 MB",
+      "download_count": 6426
     }
   ],
-  "body": "## Updates:\r\n- Due to relevant laws and regulations, downloading games, downloading and installing modpacks, and using Terracotta multiplayer are temporarily unavailable in the launcher in mainland China (by @MovTery)"
+  "body": "## Updates:\r\n- #2188: Added an SFPEW compatibility layer switch for MobileGlues (by @MovTery)\r\n\r\n## Changes:\r\n- #2188: Adjusted the position of the reset button in the renderer config dialog (by @MovTery)\r\n\r\n## Fixes:\r\n- #2188: Fixed MobileGlues config display not matching what actually takes effect (by @MovTery)\r\n- #2187: Physical mouse button clicks not working on some devices (by @mvanhorn)\r\n- #2194: Flaw in the modpack export filtering mechanism, resulting in possibly incomplete exported files (by @MovTery)\r\n- #2195: Incorrect list height on the Java management screen, causing abnormal background rendering (by @MovTery)\r\n- #2199: Crash on Android 8.x due to text being created and copied off the main thread (by @MovTery)\r\n- #2204: Actively sync SDL gamepad device enumeration, fixing Controlify requiring a gamepad reconnect before passthrough works (by @MovTery)\r\n- #2205: Local cache of server icons never updates (by @MovTery)\r\n- #2206: The disabled state of the original file is now preserved when updating mods (by @MovTery)"
 }
