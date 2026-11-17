@@ -1,9 +1,9 @@
 name: 部署官网至 VPS
 
-#on:
-#  push:
-#   branches: [ main ]
-#  workflow_dispatch:
+on:
+  push:
+   branches: [ false ]
+  workflow_dispatch:
 
 permissions:
   contents: read
