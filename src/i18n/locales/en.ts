@@ -33,7 +33,7 @@ export default {
   },
   hero: {
     title: "On Android <span class='text-[var(--brand)]'>Redefining</span> Java Experience",
-    description: "Zalith Launcher is a Minecraft: Java Edition launcher built for Android. Good performance, clean interface, customizable.",
+    description: "Zalith Launcher is a Minecraft: Java Edition launcher built for Android — great performance, a clean interface, and deep customization.",
     speed: "Fast Launch",
     speedDesc: "Starts quickly, gets you into the game",
     safe: "Pure & Safe",
