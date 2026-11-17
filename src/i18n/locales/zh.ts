@@ -33,40 +33,40 @@ export default {
   },
   hero: {
     title: "在 Android 上 <span class='text-[var(--brand)]'>重新定义</span> Java 版体验",
-    description: "Zalith Launcher 是专为 Android 开发的 Minecraft: Java Edition 启动器。性能好，界面简洁，支持自定义。",
+    description: "Zalith Launcher 是一款专为 Android 打造的 Minecraft: Java Edition 启动器，兼具出色性能、清爽界面与深度自定义能力。",
     speed: "极速启动",
-    speedDesc: "启动快，进游戏不墨迹",
+    speedDesc: "启动迅捷，快速进入游戏",
     safe: "纯净安全",
-    safeDesc: "开源，没广告，不乱要权限",
+    safeDesc: "开源透明，无广告，不索取多余权限",
     custom: "高度定制",
-    customDesc: "界面、参数都能自己调",
+    customDesc: "界面布局与游戏参数皆可随心调整",
   },
   features: {
     title: "为什么选择 Zalith Launcher?",
-    subtitle: "专门为手机玩 Java 版设计的。",
+    subtitle: "专为在移动设备上畅玩 Java 版而设计。",
     ui: {
       title: "现代化 UI 体验",
-      desc: "界面干净，操作不绕。该有的功能都有，不需要到处点来点去。"
+      desc: "界面简洁清晰，操作路径直观，常用功能一应俱全。"
     },
     download: {
       title: "一站式资源下载",
-      desc: "可以直接下载游戏核心、模组、整合包和资源包。国内多源加速，不用自己去别的地方找资源。"
+      desc: "游戏本体、模组、整合包与资源包一站获取，并提供国内多线路加速下载，无需四处寻找资源。"
     },
     version: {
       title: "版本管理",
-      desc: "支持版本隔离和自定义路径。原版、Fabric、Forge 都能管，多个版本互不影响。"
+      desc: "支持版本隔离与自定义路径，原版、Fabric、Forge 多版本并存，互不干扰。"
     },
     render: {
       title: "多种渲染器",
-      desc: "提供多种渲染器方案，可以调参数。根据设备性能选择适合的配置，平衡画质和帧数。"
+      desc: "内置多种渲染器方案并支持参数调节，可依据设备性能灵活权衡画质与帧率。"
     },
     multiplayer: {
       title: "多人联机",
-      desc: "可以直接连服务器，和朋友一起玩。"
+      desc: "一键连接服务器，随时与好友联机畅玩。"
     },
     settings: {
       title: "自定义设置",
-      desc: "游戏参数、按键布局、语言、主题都能改。"
+      desc: "游戏参数、按键布局、语言与主题均可自由配置。"
     }
   },
   download: {
@@ -95,7 +95,7 @@ export default {
       all: "全部文件",
       allDesc: "显示所有下载文件",
       android: "通用版本",
-      androidDesc: "不知道下载哪个？选这个就对了",
+      androidDesc: "不确定如何选择？推荐使用此版本",
       arm64: "ARM64",
       arm64Desc: "高通骁龙/天玑等 64 位处理器",
       armeabi: "ARMv7",
@@ -109,7 +109,7 @@ export default {
     },
   },
   footer: {
-    desc: "给 Android 用户做个干净的 Minecraft Java 版启动器。开源，社区维护。",
+    desc: "为 Android 用户打造简洁纯粹的 Minecraft Java 版启动器，开源项目，由社区共同维护。",
     projects: "项目",
     community: "社区",
     support: "支持",
@@ -222,7 +222,7 @@ Zalith Launcher 是一款面向 Android 设备的 Minecraft: Java Edition 第三
 
 ## 3. 知识产权
 
-本网站及相关开源项目的知识产权归其 respective 所有者所有。Minecraft 是 Mojang AB 的商标，与本项目无关。
+本网站及相关开源项目的知识产权归其各自所有者所有。Minecraft 是 Mojang AB 的商标，与本项目无关。
 
 ## 4. 免责声明
 
