@@ -7,7 +7,7 @@ export default {
     features: "特性",
     downloadCenter: "下载中心",
     docs: "文档",
-    beta: "Stable",
+    beta: " 稳定版",
     contactUs: "联系我们 (GitHub)",
     privacyPolicy: "隐私政策",
     termsOfService: "服务条款",
