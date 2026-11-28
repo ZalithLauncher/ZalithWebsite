@@ -1,8 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-export const LEMWOOD_API_BASE = 'https://miawa.cn/api/v2';
-
 export interface Asset {
   id: string | number;
   name: string;
@@ -46,11 +44,6 @@ export interface MirrorAsset {
   architecture?: string;
   available?: boolean;
   download_path?: string;
-}
-
-export interface MirrorRelease {
-  tag_name: string;
-  assets: MirrorAsset[];
 }
 
 export interface VersionJsonAsset {
@@ -105,13 +98,11 @@ export interface VersionJsonData {
 
 export interface MirrorData {
   haha: MirrorAsset[] | null;
-  lemwood: MirrorRelease[] | null;
 }
 
 const DOWNLOAD_SOURCES: DownloadSource[] = [
   { id: 'github', name: 'GitHub 官方', description: '官方发布渠道', speed: '海外较快' },
   { id: 'haha', name: '枫源镜像', description: 'FrostLynx 提供', speed: '国内较快', contributor: { name: 'FrostLynx', url: 'https://fyhub.cn' } },
-  { id: 'lemwood', name: '柠泽资源站', description: 'Lemwood 提供', speed: '国内较快', contributor: { name: 'Lemwood', url: 'https://lemwood.cn' } },
   { id: 'cxsj', name: '创想镜像', description: '239LAN 提供', speed: '国内较快', contributor: { name: '创想镜像', url: 'https://mirror.cxsjmc.cn' } },
 ];
 
@@ -213,7 +204,7 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
   const [apiFailed, setApiFailed] = useState(false);
   const [versionJsonData, setVersionJsonData] = useState<VersionJsonData | null>(null);
 
-  const [mirrorData, setMirrorData] = useState<MirrorData>({ haha: null, lemwood: null });
+  const [mirrorData, setMirrorData] = useState<MirrorData>({ haha: null });
 
   const repo = project === 'zl1' ? 'ZalithLauncher/ZalithLauncher' : 'ZalithLauncher/ZalithLauncher2';
   const localVersionFile = project === 'zl1' ? '/version.json' : '/version2.json';
@@ -372,7 +363,6 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
       const fetchMirrorsTask = async () => {
         // 枫源镜像新站 fyhub.cn：项目 ID 使用仓库名，且仅收录 ZalithLauncher2（ZL1 已下架）
         const hahaUrl = project === 'zl2' ? 'https://fyhub.cn/api/public/v1/projects/ZalithLauncher2/assets' : null;
-        const lemwoodUrl = `${LEMWOOD_API_BASE}/launchers/${project === 'zl1' ? 'zl' : 'zl2'}`;
 
         const fetchJson = async (url: string) => {
           try {
@@ -383,10 +373,6 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
 
             const parseBody = async (response: Response) => {
               const data = await response.json();
-              // 柠泽资源站（柠枺）v2 接口使用统一信封：{ data, error, meta }
-              if (data && typeof data === 'object' && 'data' in data && data.error === null) {
-                return data.data;
-              }
               // 枫源镜像接口：{ status: "success", data: { assets: [...] } }
               if (data && typeof data === 'object' && data.status === 'success' && data.data && Array.isArray(data.data.assets)) {
                 return data.data.assets;
@@ -401,9 +387,6 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
             const proxyData = await proxyRes.json();
             if (!proxyData || !proxyData.contents) return null;
             const parsed = JSON.parse(proxyData.contents);
-            if (parsed && typeof parsed === 'object' && 'data' in parsed && parsed.error === null) {
-              return parsed.data;
-            }
             if (parsed && typeof parsed === 'object' && parsed.status === 'success' && parsed.data && Array.isArray(parsed.data.assets)) {
               return parsed.data.assets;
             }
@@ -420,13 +403,10 @@ export const useLatestRelease = (project: 'zl1' | 'zl2', currentLang: string) =>
           }
         };
 
-        const [ha, lem] = await Promise.all([
-          hahaUrl ? fetchJson(hahaUrl) : Promise.resolve(null),
-          fetchJson(lemwoodUrl)
-        ]);
+        const ha = hahaUrl ? await fetchJson(hahaUrl) : null;
 
         if (isMounted) {
-          const newMirrorData = { haha: ha, lemwood: lem };
+          const newMirrorData = { haha: ha };
           setMirrorData(newMirrorData);
           localStorage.setItem(`${cacheKeyPrefix}mirrors`, JSON.stringify(newMirrorData));
           setIsMirrorsLoading(false);
