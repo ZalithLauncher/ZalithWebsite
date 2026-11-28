@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Smartphone, Terminal, Zap, Globe, ChevronDown, Check, AlertTriangle, ExternalLink, Info, Cloud } from 'lucide-react';
-import { useLatestRelease, type Asset, type MirrorAsset, type MirrorRelease, LEMWOOD_API_BASE } from '../hooks/useLatestRelease';
+import { useLatestRelease, type Asset, type MirrorAsset } from '../hooks/useLatestRelease';
 import { marked } from 'marked';
 import { cn } from '../lib/utils';
 import { useTranslation } from 'react-i18next';
@@ -116,18 +116,11 @@ const DownloadSection = () => {
   }, [isReleaseLoading, dynamicDeviceTypes]);
 
   const selectedDevice = userSelectedDevice ?? detectedDevice;
-  // 默认下载源：英文页面（海外）默认枫源镜像；中文页面 20% 概率默认柠泽资源站，其余枫源镜像（ZL1 无柠泽会自动回退到首个可用源）
-  const isZhLang = i18n.language.toLowerCase().startsWith('zh');
-  const langKey = isZhLang ? 'zh' : 'en';
-  const rollDefaultSource = (key: 'zh' | 'en'): string =>
-    key === 'zh' ? (Math.random() < 0.2 ? 'lemwood' : 'haha') : 'haha';
-  const [rolledSource, setRolledSource] = useState<string>(() => rollDefaultSource(langKey));
-  const [prevLangKey, setPrevLangKey] = useState(langKey);
-  if (prevLangKey !== langKey) {
-    setPrevLangKey(langKey);
-    setRolledSource(rollDefaultSource(langKey));
-  }
-  const selectedSource = userSelectedSource ?? rolledSource;
+  // 默认下载源：统一为枫源镜像（ZL1 未上架枫源，会自动回退到首个可用源）
+  const defaultSource = downloadSources.some(s => s.id === 'haha')
+    ? 'haha'
+    : (downloadSources[0]?.id ?? 'github');
+  const selectedSource = userSelectedSource ?? defaultSource;
 
   useEffect(() => {
     const parseContent = async () => {
@@ -148,8 +141,6 @@ const DownloadSection = () => {
 
   const currentDevice = dynamicDeviceTypes.find(d => d.id === selectedDevice) || dynamicDeviceTypes[0];
   const currentSource = downloadSources.find(s => s.id === selectedSource) || downloadSources[0];
-
-  const lemwoodSiteBase = LEMWOOD_API_BASE.replace('/api/v2', '');
 
   const getDownloadUrl = (asset: Asset) => {
     if (selectedSource === 'cxsj') {
@@ -202,51 +193,10 @@ const DownloadSection = () => {
       }
     }
 
-    if (selectedSource === 'lemwood' && Array.isArray(mirrorData.lemwood)) {
-      const currentTagName = release?.tag_name || '';
-      const normalizedTagName = currentTagName.replace(/^v/, '');
-      
-      const matchedRelease = mirrorData.lemwood.find((r: MirrorRelease) => r.tag_name === currentTagName || r.tag_name === normalizedTagName);
-      if (matchedRelease?.assets && Array.isArray(matchedRelease.assets)) {
-        const matchedAsset = matchedRelease.assets.find((a: MirrorAsset) => a.name === asset.name);
-        if (matchedAsset) return matchedAsset.url;
-      }
-      
-      // Fallback: search by name in all releases
-      for (let i = mirrorData.lemwood.length - 1; i >= 0; i--) {
-        if (Array.isArray(mirrorData.lemwood[i].assets)) {
-          const asset_match = mirrorData.lemwood[i].assets.find((a: MirrorAsset) => a.name === asset.name);
-          if (asset_match) return asset_match.url;
-        }
-      }
-    }
-
     return asset.browser_download_url;
   };
 
   const handleDownload = (asset: Asset) => {
-    if (selectedSource === 'lemwood') {
-      // 柠泽资源站走 PoW 下载验证：直连下载地址（不带 token），
-      // 服务端对浏览器请求 302 重定向到验证页 /verify?file=...，由用户在验证页求解 PoW 后下载。
-      // 镜像同步滞后时直连地址会 404，故先确认镜像已收录当前版本的该资产再跳验证页，
-      // 未收录则回退普通下载逻辑（镜像清单未命中时最终走 GitHub 原链）。
-      const currentTag = release?.tag_name || '';
-      const normalizedTag = currentTag.replace(/^v/, '');
-      const mirrored = (mirrorData.lemwood || []).some(
-        (r: MirrorRelease) =>
-          (r.tag_name === currentTag || r.tag_name === normalizedTag) &&
-          Array.isArray(r.assets) &&
-          r.assets.some((a: MirrorAsset) => a.name === asset.name)
-      );
-      if (mirrored) {
-        const launcher = activeProject === 'zl1' ? 'zl' : 'zl2';
-        const version = normalizedTag;
-        const filePath = `${launcher}/${version}/${asset.name}`;
-        window.open(`${lemwoodSiteBase}/download/${filePath}`, '_blank', 'noopener,noreferrer');
-        return;
-      }
-    }
-
     window.open(getDownloadUrl(asset), '_blank', 'noopener,noreferrer');
   };
 
